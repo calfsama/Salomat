@@ -1,0 +1,65 @@
+//
+//  MedicinalProductsCollectionView.swift
+//  Salomat
+//
+//  Created by Tomiris Negmatova on 16/09/22.
+//
+
+import UIKit
+
+class MedicinalProductsCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
+    var navigationController: UINavigationController
+    var categories: CategoriesForMainPage?
+    
+    init(nav: UIViewController) {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        self.navigationController = nav as! UINavigationController
+        super.init(frame: .zero, collectionViewLayout: layout)
+        register(MedicinesCollectionViewCell.self, forCellWithReuseIdentifier: MedicinesCollectionViewCell.identifier)
+        delegate = self
+        dataSource = self
+        translatesAutoresizingMaskIntoConstraints = false
+        layout.minimumLineSpacing = 16
+        contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        showsHorizontalScrollIndicator = false
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+extension MedicinalProductsCollectionView: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return categories?.categories_for_main_page?[0].categ_prods?.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = dequeueReusableCell(withReuseIdentifier: MedicinesCollectionViewCell.identifier, for: indexPath) as! MedicinesCollectionViewCell
+        
+        cell.title.text = categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].product_name ?? ""
+        cell.price.text = (categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].product_price)! + " сом."
+        let url = "http://salomat.colibri.tj/upload_product/"
+        let completeURL = url + (categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].product_pic ?? "")
+        cell.image.downloaded(from: completeURL)
+        
+        if categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].is_favorite == false {
+            cell.button.setImage(UIImage(named: "favorite"), for: .normal)
+        }
+        else if categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].is_favorite == true{
+            cell.button.setImage(UIImage(named: "heart"), for: .normal)
+        }
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.size.width / 2.1 * 0.92, height: 270)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = MedicineViewController()
+        vc.id = categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].id ?? ""
+        self.navigationController.pushViewController(vc, animated: true)
+    }
+}
+
