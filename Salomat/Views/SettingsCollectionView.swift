@@ -40,6 +40,7 @@ class SettingsCollectionView: UICollectionView, UICollectionViewDelegateFlowLayo
         layout.minimumLineSpacing = 0
 //        contentInset = UIEdgeInsets(top: 0, left: 22, bottom: 0, right: 22)
         showsHorizontalScrollIndicator = false
+        backgroundColor = .white
     }
     
     required init?(coder: NSCoder) {

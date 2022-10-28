@@ -249,12 +249,13 @@ class InfoAboutDeliveryTwoViewController: UIViewController {
             cancel.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20),
             cancel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             cancel.heightAnchor.constraint(equalToConstant: 45),
-            cancel.widthAnchor.constraint(equalToConstant: 170),
+            cancel.widthAnchor.constraint(equalToConstant: 160),
             
             book.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20),
             book.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            book.leadingAnchor.constraint(equalTo: cancel.trailingAnchor, constant: 20),
             book.heightAnchor.constraint(equalToConstant: 45),
-            book.widthAnchor.constraint(equalToConstant: 170)
+            book.widthAnchor.constraint(equalToConstant: 160)
         ])
     }
     

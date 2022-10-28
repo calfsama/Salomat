@@ -8,12 +8,15 @@
 import UIKit
 
 class MedicinesCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
+    var navigationController: UINavigationController
     var condition: Bool = false
     var cell = MedicinesCollectionViewCell()
+    var sales: Sales?
 
-    init() {
+    init(nav: UIViewController) {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
+        self.navigationController = nav as! UINavigationController
         super.init(frame: .zero, collectionViewLayout: layout)
         register(MedicinesCollectionViewCell.self, forCellWithReuseIdentifier: MedicinesCollectionViewCell.identifier)
         delegate = self
@@ -22,6 +25,7 @@ class MedicinesCollectionView: UICollectionView, UICollectionViewDelegateFlowLay
         layout.minimumLineSpacing = 16
         contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         showsHorizontalScrollIndicator = false
+        backgroundColor = .white
     }
     
     required init?(coder: NSCoder) {
@@ -30,20 +34,34 @@ class MedicinesCollectionView: UICollectionView, UICollectionViewDelegateFlowLay
 }
 extension MedicinesCollectionView: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return sales?.total_products?.total_prods?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = dequeueReusableCell(withReuseIdentifier: MedicinesCollectionViewCell.identifier, for: indexPath) as! MedicinesCollectionViewCell
-        cell.image.image = UIImage(named: "Image")
-        cell.price.text = "50,00 c."
-        cell.title.text = "Линкас сироп 90 мл от кашля"
+        cell.id = sales?.total_products?.total_prods?[indexPath.row].id ?? ""
+        cell.is_favorite = ((sales?.total_products?.total_prods?[indexPath.row].is_favorite) != nil)
+        cell.titleMedicine = sales?.total_products?.total_prods?[indexPath.row].product_name ?? ""
+        cell.prices = sales?.total_products?.total_prods?[indexPath.row].product_price ?? ""
+        cell.images = sales?.total_products?.total_prods?[indexPath.row].product_pic ?? ""
+        cell.title.text = sales?.total_products?.total_prods?[indexPath.row].product_name ?? ""
+        cell.price.text = sales?.total_products?.total_prods?[indexPath.row].product_price ?? ""
+        let url = "http://salomat.colibri.tj/upload_product/"
+        let completeURL = url + (sales?.total_products?.total_prods?[indexPath.row].product_pic ?? "")
+        cell.image.downloaded(from: completeURL)
         //cell.button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.size.width / 2.3, height: 270)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = MedicineViewController()
+        vc.id = sales?.total_products?.total_prods?[indexPath.row].id ?? ""
+        self.navigationController.pushViewController(vc, animated: true)
+        
     }
     
 //    @objc func buttonAction() {

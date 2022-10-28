@@ -23,6 +23,7 @@ class FavoriteCollectionView: UICollectionView, UICollectionViewDelegateFlowLayo
         layout.minimumLineSpacing = 16
         contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         translatesAutoresizingMaskIntoConstraints = false
+        backgroundColor = .white
     }
     
     required init?(coder: NSCoder) {
@@ -48,6 +49,7 @@ extension FavoriteCollectionView: UICollectionViewDelegate, UICollectionViewData
         let cell = dequeueReusableCell(withReuseIdentifier: MedicinesCollectionViewCell.identifier, for: indexPath) as! MedicinesCollectionViewCell
         let url = "http://salomat.colibri.tj/upload_product/"
         let completeURL = url + (data[indexPath.row].image ?? "")
+        cell.id = data[indexPath.row].id ?? ""
         cell.image.downloaded(from: completeURL)
         cell.price.text = data[indexPath.row].price
         cell.title.text = data[indexPath.row].title

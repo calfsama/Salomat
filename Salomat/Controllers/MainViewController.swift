@@ -6,9 +6,12 @@
 //
 
 import UIKit
+import SkeletonView
 
 class MainViewController: UIViewController {
     var url: String = ""
+    let searchController = UISearchController(searchResultsController: SearchViewController())
+    
     
     lazy var uiscrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -23,7 +26,7 @@ class MainViewController: UIViewController {
         let button = UIButton()
         button.backgroundColor = UIColor(red: 0.118, green: 0.745, blue: 0.745, alpha: 1)
         button.layer.cornerRadius = 5
-        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        button.addTarget(self, action: #selector(btnAction), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -117,6 +120,8 @@ class MainViewController: UIViewController {
         title.translatesAutoresizingMaskIntoConstraints = false
         return title
     }()
+    
+    lazy   var searchBar:UISearchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 20))
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -139,9 +144,28 @@ class MainViewController: UIViewController {
         let logo = UIImage(named: "logo")
         let imageView = UIImageView(image:logo)
         self.navigationItem.titleView = imageView
+        searchController.searchBar.delegate = self
         self.navigationController?.navigationBar.tintColor = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
 //        tabBarController?.tabBarItem.selectedImage = UIImage(named: "inactive.profile")
+
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "menu"), style: .plain, target: self, action: #selector(buttonAction))
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Search"), style: .plain, target: self, action: #selector(search))
     }
+    
+    @objc func search() {
+        searchController.searchBar.placeholder = ""
+//        searchController.navigationItem.backAction
+        searchController.hidesNavigationBarDuringPresentation = false
+        present(searchController, animated: true, completion: nil)
+    }
+    
+    @objc func btnAction() {
+        let vc = BlogListViewController()
+        vc.title = "Блог"
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     
     func configureConstraints() {
         view.addSubview(uiscrollView)
@@ -241,9 +265,21 @@ class MainViewController: UIViewController {
     }
     
     @objc func buttonAction() {
-        let vc =  BlogListViewController()
-        vc.title = "Блог"
-        self.navigationController?.pushViewController(vc, animated: true)
+        let vc =  BlackViewController()
+        vc.modalPresentationStyle = .pageSheet
+        if #available(iOS 15.0, *) {
+
+            if let presentationController = vc.presentationController as? UISheetPresentationController {
+
+                presentationController.detents =  [.medium(), .large()]
+            }
+        } else {
+            // Fallback on earlier versions
+        }
+           print("pressed")
+        self.present(vc, animated: true)
+        //self.navigationController?.present(vc, animated: true, completion: nil)
+        //self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func fetchFromApi(){
@@ -339,3 +375,13 @@ class MainViewController: UIViewController {
     }
 
 }
+extension MainViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        let vc = SearchViewController()
+        vc.searchText = searchBar.text!
+        vc.title = "\(searchBar.text!)"
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+}
+

@@ -21,6 +21,7 @@ class VitaminCollectionView: UICollectionView, UICollectionViewDelegateFlowLayou
         dataSource = self
         translatesAutoresizingMaskIntoConstraints = false
         showsHorizontalScrollIndicator = false
+        backgroundColor = .white
     }
     
     required init?(coder: NSCoder) {

@@ -23,6 +23,7 @@ class BADCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
         contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         showsHorizontalScrollIndicator = false
         translatesAutoresizingMaskIntoConstraints = false
+        backgroundColor = .white
     }
     
     required init?(coder: NSCoder) {
@@ -49,6 +50,11 @@ extension BADCollectionView: UICollectionViewDelegate, UICollectionViewDataSourc
         else if vitamin?.categories_for_main_page?[1].categ_prods?[indexPath.row].is_favorite == true{
             cell.button.setImage(UIImage(named: "heart"), for: .normal)
             }
+        cell.titleMedicine = vitamin?.categories_for_main_page?[1].categ_prods?[indexPath.row].product_name ?? ""
+        cell.prices = vitamin?.categories_for_main_page?[1].categ_prods?[indexPath.row].product_price ?? ""
+        cell.images = vitamin?.categories_for_main_page?[1].categ_prods?[indexPath.row].product_pic ?? ""
+        cell.is_favorite = ((vitamin?.categories_for_main_page?[1].categ_prods?[indexPath.row].is_favorite) != nil)
+        cell.id = vitamin?.categories_for_main_page?[1].categ_prods?[indexPath.row].id ?? ""
         return cell
     }
     

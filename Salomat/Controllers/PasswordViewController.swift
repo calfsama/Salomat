@@ -71,7 +71,7 @@ class PasswordViewController: UIViewController {
         view.addSubview(continueButton)
         
         NSLayoutConstraint.activate([
-            password.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            password.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 16),
             password.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             
             textField.topAnchor.constraint(equalTo: password.bottomAnchor, constant: 5),
@@ -80,13 +80,13 @@ class PasswordViewController: UIViewController {
             textField.widthAnchor.constraint(equalToConstant: 330),
             textField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 
-            signUp.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 465),
+            signUp.bottomAnchor.constraint(equalTo: continueButton.layoutMarginsGuide.topAnchor, constant: -16),
             signUp.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             signUp.heightAnchor.constraint(equalToConstant: 45),
             signUp.widthAnchor.constraint(equalToConstant: 330),
             signUp.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 
-            continueButton.topAnchor.constraint(equalTo: signUp.bottomAnchor, constant: 18),
+            continueButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20),
             continueButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             continueButton.heightAnchor.constraint(equalToConstant: 45),
             continueButton.widthAnchor.constraint(equalToConstant: 330),

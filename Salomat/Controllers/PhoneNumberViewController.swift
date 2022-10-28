@@ -33,6 +33,17 @@ class PhoneNumberViewController: UIViewController {
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
+    
+    lazy var button: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = UIColor(red: 0.118, green: 0.745, blue: 0.745, alpha: 1)
+        button.setTitle("Сохранить", for: .normal)
+        button.setTitleColor( UIColor(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+        button.layer.cornerRadius = 4
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +55,7 @@ class PhoneNumberViewController: UIViewController {
     func configureConstraints() {
         view.addSubview(phone)
         view.addSubview(textField)
+        view.addSubview(button)
         
         NSLayoutConstraint.activate([
             phone.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 30),
@@ -52,7 +64,12 @@ class PhoneNumberViewController: UIViewController {
             textField.topAnchor.constraint(equalTo: phone.bottomAnchor, constant: 10),
             textField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             textField.heightAnchor.constraint(equalToConstant: 45),
-            textField.widthAnchor.constraint(equalToConstant: 330)
+            textField.widthAnchor.constraint(equalToConstant: 330),
+            
+            button.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20),
+            button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            button.heightAnchor.constraint(equalToConstant: 45)
         ])
     }
 }

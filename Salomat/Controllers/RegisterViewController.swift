@@ -119,7 +119,7 @@ class RegisterViewController: UIViewController {
         view.addSubview(usl)
         
         NSLayoutConstraint.activate([
-            code.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            code.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 20),
             code.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             
             textField.topAnchor.constraint(equalTo: code.bottomAnchor, constant: 5),
@@ -135,21 +135,21 @@ class RegisterViewController: UIViewController {
             timer.topAnchor.constraint(equalTo: repeatMessage.bottomAnchor,constant: 16),
             timer.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            agree.topAnchor.constraint(equalTo: timer.bottomAnchor, constant: 330),
+            agree.bottomAnchor.constraint(equalTo: usl.topAnchor),
             agree.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             agree.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            usl.topAnchor.constraint(equalTo: agree.bottomAnchor),
+            usl.bottomAnchor.constraint(equalTo: cancel.topAnchor, constant: -20),
             usl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            cancel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
+            cancel.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20),
             cancel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             cancel.heightAnchor.constraint(equalToConstant: 45),
             cancel.widthAnchor.constraint(equalToConstant: 160),
             
-            continueButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
+            continueButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20),
             continueButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            continueButton.leadingAnchor.constraint(equalTo: cancel.trailingAnchor, constant: 16),
+            continueButton.leadingAnchor.constraint(equalTo: cancel.trailingAnchor, constant: 20),
             continueButton.heightAnchor.constraint(equalToConstant: 45),
             continueButton.widthAnchor.constraint(equalToConstant: 160)
         ])

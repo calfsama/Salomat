@@ -21,6 +21,7 @@ class BannerCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout
         showsHorizontalScrollIndicator = false
         translatesAutoresizingMaskIntoConstraints = false
         layout.minimumLineSpacing = 0
+        backgroundColor = .white
        // contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
     }
 //    func set(cells: [Banners]) {

@@ -28,13 +28,15 @@ class MedicineViewController: UIViewController, UIScrollViewDelegate {
         self.navigationController?.navigationBar.tintColor = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
     }
     
-    
     func configureConstraints() {
         view.addSubview(medicineCollectionView)
         
         NSLayoutConstraint.activate([
-            medicineCollectionView.widthAnchor.constraint(equalToConstant: view.frame.size.width),
-            medicineCollectionView.heightAnchor.constraint(equalToConstant: view.frame.size.height)
+            medicineCollectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+            medicineCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            medicineCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            medicineCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+
         ])
     }
     func fetchBanner(){

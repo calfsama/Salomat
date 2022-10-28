@@ -6,9 +6,18 @@
 //
 
 import UIKit
+import CoreData
 
-class BasketCollectionViewCell: UICollectionViewCell {
+class CartCollectionViewCell: UICollectionViewCell {
     static let identifier = "BasketCollectionViewCell"
+    var dataModel = [Basket]()
+    var id: String = ""
+    var is_favorite: Bool = false
+    var titleMedicine: String = ""
+    var images: String = ""
+    var prices: String = ""
+    var commitPredicate: NSPredicate?
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     lazy var image: UIImageView = {
         let image = UIImageView()
@@ -116,10 +125,91 @@ class BasketCollectionViewCell: UICollectionViewCell {
     
     @objc func update() {
         stepperValue.text = "\(Int(stepper.value))"
+        price.text = "\((Int() ?? 2 * Int(stepper.value)))"
         print(stepper.value)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+//    func saveMedicine() {
+//        let data = Basket(context: self.context)
+//        data.id = id
+//        data.title = titleMedicine
+//        data.price = prices
+//        data.image = images
+//        print(images)
+//        print(titleMedicine)
+//        self.dataModel.append(data)
+//        print("ischecked")
+//       do {
+//           try context.save()
+//       }catch {
+//           print("Error saving context \(error)")
+//       }
+//    }
+//
+////    func buttonState() {
+////        let fetchRequest: NSFetchRequest <Basket> = Basket.fetchRequest()
+////        fetchRequest.predicate = commitPredicate
+////        commitPredicate = NSPredicate(format: "id == %@", id)
+////        do {
+////            let data = try context.fetch(fetchRequest)
+////            for i in data {
+////                if i.id == id {
+////                    //print("\(i.title) and \(title)")
+////                    button.setImage(UIImage(named: "heart"), for: .normal)
+////                }
+////                else if i.id == nil{
+////                    button.setImage(UIImage(named: "iconHeart"), for: .normal)
+////                }
+////            }
+////        }
+////        catch {
+////            print("Error\(error)")
+////        }
+////    }
+//
+//    func deleteMedicine() {
+//        let object: NSFetchRequest <Basket> = Basket.fetchRequest()
+//        object.predicate = commitPredicate
+//        commitPredicate = NSPredicate(format: "id == %@", id)
+//        do {
+//            let object = try context.fetch(object)
+//            for i in object {
+//                if i.id == id {
+//                    context.delete(i)
+//                }
+//                do {
+//                    try context.save()
+//                }catch {
+//                    print("Error1 \(error)")
+//                }
+//            }
+//        }
+//        catch {
+//            print("Error2 \(error)")
+//        }
+//    }
+//
+//    @objc func buttonAction() {
+//        let fetchRequest: NSFetchRequest <Basket> = Basket.fetchRequest()
+//        fetchRequest.predicate = commitPredicate
+//        commitPredicate = NSPredicate(format: "id == %@", id)
+//        do{
+//            let data = try context.fetch(fetchRequest).first
+//            if data == nil && data?.id != id {
+//                print("\(data?.id) and \(id)")
+//                print("save")
+//                saveMedicine()
+//            }
+//            else if data?.id == id{
+//                print("delete")
+//                deleteMedicine()
+//            }
+//        }
+//        catch {
+//            print("Error1\(error)")
+//        }
+//    }
 }

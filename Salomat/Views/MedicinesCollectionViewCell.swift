@@ -7,10 +7,13 @@
 
 import UIKit
 import CoreData
+import SkeletonView
 
 class MedicinesCollectionViewCell: UICollectionViewCell {
     var condition: Bool = false
     var dataModel = [DataModel]()
+    var id: String = ""
+    var is_favorite: Bool = false
     var titleMedicine: String = ""
     var images: String = ""
     var prices: String = ""
@@ -65,6 +68,13 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
         contentView.layer.borderColor = UIColor(red: 0.929, green: 0.93, blue: 1, alpha: 1).cgColor
         contentView.layer.borderWidth = 1
         contentView.layer.cornerRadius = 10
+//        image.isSkeletonable = true
+//        title.isSkeletonable = true
+//        contentView.skeletonCornerRadius = 10
+//        contentView.isSkeletonable = true
+//        contentView.showAnimatedGradientSkeleton()
+
+    
     }
     
     func configureConstraints() {
@@ -95,97 +105,100 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc func buttonAction() {
-        if condition == false {
-            condition = true
-            print("Clicked")
-            button.setImage(UIImage(named: "heart"), for: .normal)
-        }
-        else if condition == true {
-            condition = false
-            button.setImage(UIImage(named: "iconHeart"), for: .normal)
-        }
-
-    }
-    
-//    func saveMedicine() {
-//        let data = DataModel(context: self.context)
-//        data.title = titleMedicine
-//        data.price = prices
-//        data.image = images
-//        print(images)
-//        self.dataModel.append(data)
-//        print("ischecked")
-//       do {
-//           try context.save()
-//       }catch {
-//           print("Error saving context \(error)")
-//       }
-//    }
-//
-//    func buttonState() {
-//        let fetchRequest: NSFetchRequest <DataModel> = DataModel.fetchRequest()
-//        fetchRequest.predicate = commitPredicate
-//        commitPredicate = NSPredicate(format: "title == %@", titleMedicine)
-//        do {
-//            let data = try context.fetch(fetchRequest)
-//            for i in data {
-//                if i.title == titleMedicine {
-//                    //print("\(i.title) and \(title)")
-//                    button.setImage(UIImage(named: "heart"), for: .normal)
-//                }
-//                else if i.title == nil{
-//                    button.setImage(UIImage(named: "iconHeart"), for: .normal)
-//                }
-//            }
-//        }
-//        catch {
-//            print("Error\(error)")
-//        }
-//    }
-//
-//    func deleteMedicine() {
-//        let object: NSFetchRequest <DataModel> = DataModel.fetchRequest()
-//        object.predicate = commitPredicate
-//        commitPredicate = NSPredicate(format: "title == %@", titleMedicine)
-//        do {
-//            let object = try context.fetch(object)
-//            for i in object {
-//                if i.title == titleMedicine {
-//                    context.delete(i)
-//                }
-//                do {
-//                    try context.save()
-//                }catch {
-//                    print("Error1 \(error)")
-//                }
-//            }
-//        }
-//        catch {
-//            print("Error2 \(error)")
-//        }
-//    }
-//
 //    @objc func buttonAction() {
-//        let fetchRequest: NSFetchRequest <DataModel> = DataModel.fetchRequest()
-//        fetchRequest.predicate = commitPredicate
-//        commitPredicate = NSPredicate(format: "title == %@", titleMedicine)
-//        do{
-//            let data = try context.fetch(fetchRequest).first
-//            if data == nil && data?.title != medicineCollectionViewCell.title {
-//                print("\(data?.title) and \(medicineCollectionViewCell.title)")
-//                button.setImage(UIImage(named: "heart"), for: .normal)
-//                print("save")
-//                saveMedicine()
-//            }
-//            else if data?.title == titleMedicine{
-//                button.setImage(UIImage(named: "iconHeart"), for: .normal)
-//                print("delete")
-//                deleteMedicine()
-//            }
+//        if condition == false {
+//            condition = true
+//            print("Clicked")
+//            button.setImage(UIImage(named: "heart"), for: .normal)
 //        }
-//        catch {
-//            print("Error1\(error)")
+//        else if condition == true {
+//            condition = false
+//            button.setImage(UIImage(named: "iconHeart"), for: .normal)
 //        }
+//
 //    }
+    
+    func saveMedicine() {
+        let data = DataModel(context: self.context)
+        data.id = id
+        data.is_favorite = is_favorite
+        data.title = titleMedicine
+        data.price = prices
+        data.image = images
+        print(images)
+        print(titleMedicine)
+        self.dataModel.append(data)
+        print("ischecked")
+       do {
+           try context.save()
+       }catch {
+           print("Error saving context \(error)")
+       }
+    }
+
+    func buttonState() {
+        let fetchRequest: NSFetchRequest <DataModel> = DataModel.fetchRequest()
+        fetchRequest.predicate = commitPredicate
+        commitPredicate = NSPredicate(format: "id == %@", id)
+        do {
+            let data = try context.fetch(fetchRequest)
+            for i in data {
+                if i.id == id {
+                    //print("\(i.title) and \(title)")
+                    button.setImage(UIImage(named: "heart"), for: .normal)
+                }
+                else if i.id == nil{
+                    button.setImage(UIImage(named: "iconHeart"), for: .normal)
+                }
+            }
+        }
+        catch {
+            print("Error\(error)")
+        }
+    }
+
+    func deleteMedicine() {
+        let object: NSFetchRequest <DataModel> = DataModel.fetchRequest()
+        object.predicate = commitPredicate
+        commitPredicate = NSPredicate(format: "id == %@", id)
+        do {
+            let object = try context.fetch(object)
+            for i in object {
+                if i.id == id {
+                    context.delete(i)
+                }
+                do {
+                    try context.save()
+                }catch {
+                    print("Error1 \(error)")
+                }
+            }
+        }
+        catch {
+            print("Error2 \(error)")
+        }
+    }
+
+    @objc func buttonAction() {
+        let fetchRequest: NSFetchRequest <DataModel> = DataModel.fetchRequest()
+        fetchRequest.predicate = commitPredicate
+        commitPredicate = NSPredicate(format: "id == %@", id)
+        do{
+            let data = try context.fetch(fetchRequest).first
+            if data == nil && data?.id != id {
+                print("\(data?.id) and \(id)")
+                button.setImage(UIImage(named: "heart"), for: .normal)
+                print("save")
+                saveMedicine()
+            }
+            else if data?.id == id{
+                button.setImage(UIImage(named: "iconHeart"), for: .normal)
+                print("delete")
+                deleteMedicine()
+            }
+        }
+        catch {
+            print("Error1\(error)")
+        }
+    }
 }

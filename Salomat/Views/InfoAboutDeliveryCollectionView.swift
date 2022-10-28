@@ -18,6 +18,7 @@ class InfoAboutDeliveryCollectionView: UICollectionView, UICollectionViewDelegat
         dataSource = self
         showsVerticalScrollIndicator = false
         translatesAutoresizingMaskIntoConstraints = false
+        backgroundColor = .white
     }
     
     required init?(coder: NSCoder) {

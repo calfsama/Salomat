@@ -21,6 +21,7 @@ class BannerMedicineCollectionView: UICollectionView, UICollectionViewDelegateFl
         dataSource = self
         showsHorizontalScrollIndicator = false
         translatesAutoresizingMaskIntoConstraints = false
+        backgroundColor = .white
     }
     
     required init?(coder: NSCoder) {

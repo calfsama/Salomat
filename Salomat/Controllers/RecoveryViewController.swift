@@ -58,7 +58,7 @@ class RecoveryViewController: UIViewController {
         view.addSubview(continueButton)
         
         NSLayoutConstraint.activate([
-            phone.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            phone.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 16),
             phone.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             
             textField.topAnchor.constraint(equalTo: phone.bottomAnchor, constant: 5),
@@ -67,7 +67,7 @@ class RecoveryViewController: UIViewController {
             textField.widthAnchor.constraint(equalToConstant: 330),
             textField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 
-            continueButton.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 518),
+            continueButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20),
             continueButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             continueButton.heightAnchor.constraint(equalToConstant: 45),
             continueButton.widthAnchor.constraint(equalToConstant: 330),

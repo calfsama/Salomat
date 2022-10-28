@@ -18,6 +18,7 @@ class TotalCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout 
         dataSource = self
         showsVerticalScrollIndicator = false
         translatesAutoresizingMaskIntoConstraints = false
+        backgroundColor = .white
     }
     
     required init?(coder: NSCoder) {

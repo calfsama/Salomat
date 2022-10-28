@@ -23,6 +23,7 @@ class CategoryCollectionView: UICollectionView, UICollectionViewDelegateFlowLayo
         layout.minimumLineSpacing = 20
         contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         showsHorizontalScrollIndicator = false
+        backgroundColor = .white
         
     }
     
@@ -53,9 +54,23 @@ extension CategoryCollectionView: UICollectionViewDelegate, UICollectionViewData
         return CGSize(width: 60, height: 60)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "MedicinesViewController") as! MedicinesViewController
-        vc.title = categories[indexPath.row].title
-        self.navigationController.pushViewController(vc, animated: true)
+        if indexPath.row == 0 {
+            let vc = MedicinesViewController()
+            vc.title = categories[indexPath.row].title
+            vc.id = "11"
+            self.navigationController.pushViewController(vc, animated: true)
+        }
+        else if indexPath.row == 1 {
+            let vc = MedicinesViewController()
+            vc.title = categories[indexPath.row].title
+            vc.id = "10"
+            self.navigationController.pushViewController(vc, animated: true)
+        }
+        else if indexPath.row == 2 {
+            let vc = MedicinesViewController()
+            vc.title = categories[indexPath.row].title
+            vc.id = "9"
+            self.navigationController.pushViewController(vc, animated: true)
+        }
     } 
 }

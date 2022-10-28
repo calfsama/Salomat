@@ -19,7 +19,7 @@ class CategoriesCollectionView: UICollectionView, UICollectionViewDelegateFlowLa
         dataSource = self
         translatesAutoresizingMaskIntoConstraints = false
         showsHorizontalScrollIndicator = false
-        
+        backgroundColor = .white
     }
     
     required init?(coder: NSCoder) {

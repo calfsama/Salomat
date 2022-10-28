@@ -12,6 +12,7 @@ class MedicineCollectionViewCell: UICollectionViewCell {
     static let identifier = "MedicineCollectionViewCell"
     var medicinesCollectionViewCell = MedicinesCollectionViewCell()
     var dataModel = [DataModel]()
+    var dataBasket = [Basket]()
     var id: String = ""
     var is_favorite: Bool = false
     var title: String = ""
@@ -30,7 +31,7 @@ class MedicineCollectionViewCell: UICollectionViewCell {
     
     lazy var favorite: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "iconHeart"), for: .normal)
+        button.setImage(UIImage(named: "favorite"), for: .normal)
         button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -71,6 +72,7 @@ class MedicineCollectionViewCell: UICollectionViewCell {
         button.setTitle("В корзину", for: .normal)
         button.setTitleColor(UIColor(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+        button.addTarget(self, action: #selector(saveInBasket), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -160,7 +162,7 @@ class MedicineCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = UIColor(red: 0.478, green: 0.463, blue: 0.617, alpha: 1)
         label.text = ""
-        label.numberOfLines = 0
+        label.numberOfLines = 5
         label.font = UIFont.systemFont(ofSize: 20, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -246,7 +248,8 @@ class MedicineCollectionViewCell: UICollectionViewCell {
             
             productDescription.topAnchor.constraint(equalTo: label7.bottomAnchor, constant: 20),
             productDescription.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            productDescription.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            productDescription.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
+            
         ])
     }
     
@@ -336,5 +339,66 @@ class MedicineCollectionViewCell: UICollectionViewCell {
         catch {
             print("Error1\(error)")
         }
+    }
+    func saveMedicineInBasket() {
+        let data = Basket(context: self.context)
+        data.id = id
+        data.title = title
+        data.price = prices
+        data.image = images
+        print(images)
+        print(title)
+        self.dataBasket.append(data)
+        print("ischecked")
+       do {
+           try context.save()
+       }catch {
+           print("Error saving context \(error)")
+       }
+    }
+
+    func deleteMedicineInBasket() {
+        let object: NSFetchRequest <Basket> = Basket.fetchRequest()
+        object.predicate = commitPredicate
+        commitPredicate = NSPredicate(format: "id == %@", id)
+        do {
+            let object = try context.fetch(object)
+            for i in object {
+                if i.id == id {
+                    context.delete(i)
+                }
+                do {
+                    try context.save()
+                }catch {
+                    print("Error1 \(error)")
+                }
+            }
+        }
+        catch {
+            print("Error2 \(error)")
+        }
+    }
+    
+    @objc func saveInBasket() {
+        let fetchRequest: NSFetchRequest <Basket> = Basket.fetchRequest()
+        fetchRequest.predicate = commitPredicate
+        commitPredicate = NSPredicate(format: "title == %@", title)
+        do{
+            let data = try context.fetch(fetchRequest).first
+            if data == nil && data?.title != title {
+                print("\(data?.title) and \(title)")
+                print("save")
+                saveMedicineInBasket()
+            }
+            else if data?.title == title {
+                print("\(data?.title) and \(title)")
+                print("delete")
+                deleteMedicineInBasket()
+            }
+        }
+        catch {
+            print("Error1\(error)")
+        }
+
     }
 }

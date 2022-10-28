@@ -21,6 +21,7 @@ class BlogsShowCollectionView: UICollectionView, UICollectionViewDelegateFlowLay
         dataSource = self
         showsVerticalScrollIndicator = false
         translatesAutoresizingMaskIntoConstraints = false
+        backgroundColor = .white
     }
     
     required init?(coder: NSCoder) {
@@ -49,6 +50,4 @@ extension BlogsShowCollectionView: UICollectionViewDelegate, UICollectionViewDat
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.size.width, height: collectionView.frame.size.height)
     }
-    
-    
 }

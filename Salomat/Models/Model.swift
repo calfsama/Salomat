@@ -74,3 +74,15 @@ struct Medical {
     }
 }
 
+struct Messenger {
+    let image: UIImage
+    
+    static func items() -> [Messenger] {
+        let zero = Messenger(image: UIImage(named: "viber")!)
+        let second = Messenger(image: UIImage(named: "telegram")!)
+        let third = Messenger(image: UIImage(named: "imo")!)
+        
+        return [zero, second, third]
+    }
+}
+

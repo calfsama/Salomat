@@ -20,6 +20,7 @@ class GoodsCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout 
         dataSource = self
         showsVerticalScrollIndicator = false
         translatesAutoresizingMaskIntoConstraints = false
+        backgroundColor = .white
     }
     
     func set(cells: [Medical]) {

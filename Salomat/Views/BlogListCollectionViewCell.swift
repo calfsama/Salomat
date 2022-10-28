@@ -43,6 +43,11 @@ class BlogListCollectionViewCell: UICollectionViewCell {
         contentView.layer.borderColor = UIColor(red: 0.929, green: 0.93, blue: 1, alpha: 1).cgColor
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.image.image = nil
+    }
+    
     func configureConstraints() {
         contentView.addSubview(title)
         contentView.addSubview(date)

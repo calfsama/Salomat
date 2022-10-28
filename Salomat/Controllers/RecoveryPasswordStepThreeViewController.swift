@@ -104,7 +104,7 @@ class RecoveryPasswordStepThreeViewController: UIViewController {
         view.addSubview(register)
         
         NSLayoutConstraint.activate([
-            password.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            password.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 16),
             password.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             
             textField.topAnchor.constraint(equalTo: password.bottomAnchor, constant: 5),
@@ -122,12 +122,12 @@ class RecoveryPasswordStepThreeViewController: UIViewController {
             repeatTextField.heightAnchor.constraint(equalToConstant: 45),
             repeatTextField.widthAnchor.constraint(equalToConstant: 330),
             
-            cancel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
+            cancel.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20),
             cancel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             cancel.heightAnchor.constraint(equalToConstant: 45),
             cancel.widthAnchor.constraint(equalToConstant: 160),
             
-            register.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
+            register.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20),
             register.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             register.leadingAnchor.constraint(equalTo: cancel.trailingAnchor, constant: 16),
             register.heightAnchor.constraint(equalToConstant: 45),

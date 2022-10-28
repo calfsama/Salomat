@@ -20,6 +20,7 @@ class MedicineCollectionView: UICollectionView, UICollectionViewDelegateFlowLayo
         layout.scrollDirection = .vertical
         super.init(frame: .zero, collectionViewLayout: layout)
         register(MedicineCollectionViewCell.self, forCellWithReuseIdentifier: MedicineCollectionViewCell.identifier)
+        register(MedicineFooterCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: MedicineFooterCollectionReusableView.identifier)
         self.addSubview(indicator)
         self.bringSubviewToFront(indicator)
         indicator.frame = CGRect(x: 170, y: 280, width: 40, height: 40)
@@ -28,6 +29,7 @@ class MedicineCollectionView: UICollectionView, UICollectionViewDelegateFlowLayo
         dataSource = self
         translatesAutoresizingMaskIntoConstraints = false
         showsVerticalScrollIndicator = false
+        backgroundColor = .white
     }
     
     required init?(coder: NSCoder) {
@@ -56,29 +58,31 @@ extension MedicineCollectionView: UICollectionViewDelegate, UICollectionViewData
         let url = "http://salomat.colibri.tj/upload_product/"
         let completeURL = url + (productShow?.product?.product_pic ?? "")
         cell.image.downloaded(from: completeURL)
-        let fetchRequest: NSFetchRequest <DataModel> = DataModel.fetchRequest()
-        fetchRequest.predicate = commitPredicate
-        commitPredicate = NSPredicate(format: "title == %@", cell.title)
-        do {
-            let data = try context.fetch(fetchRequest)
-            for i in data {
-                if i.title == cell.title {
+        //cell.buttonState()
+            for i in dataModel {
+                if i.title == productShow?.product?.product_name {
                     //print("\(i.title) and \(title)")
                     cell.favorite.setImage(UIImage(named: "heart"), for: .normal)
                 }
-                else if i.title == nil{
-                    cell.favorite.setImage(UIImage(named: "iconHeart"), for: .normal)
+                else if i.title != productShow?.product?.product_name {
+                    cell.favorite.setImage(UIImage(named: "favorite"), for: .normal)
                 }
             }
-        }
-        catch {
-            print("Error\(error)")
-        }
-
+        cell.buttonState()
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.size.width, height: collectionView.frame.size.height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: MedicineFooterCollectionReusableView.identifier, for: indexPath) as! MedicineFooterCollectionReusableView
+        footer.configure()
+        return footer
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        return CGSize(width: collectionView.frame.size.width, height: 250)
     }
 }

@@ -22,6 +22,7 @@ class BlogListCollectionView: UICollectionView, UICollectionViewDelegateFlowLayo
         layout.minimumLineSpacing = 0
         showsVerticalScrollIndicator = false
         translatesAutoresizingMaskIntoConstraints = false
+        backgroundColor = .white
     }
     
     required init?(coder: NSCoder) {

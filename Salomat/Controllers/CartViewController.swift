@@ -6,11 +6,14 @@
 //
 
 import UIKit
+import CoreData
 
-class BasketViewController: UIViewController {
-    var basketCollectionView = BasketCollectionView()
+class CartViewController: UIViewController {
+    var basketCollectionView = CartCollectionView()
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var totalCollectionView = TotalCollectionView()
     var network = NetworkService()
+    var data = [Basket]()
     
     lazy var uiView: UIView = {
         let uiView = UIView()
@@ -83,54 +86,53 @@ class BasketViewController: UIViewController {
         title = "Корзина"
         basketCollectionView.layer.borderColor = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1).cgColor
         //basketCollectionView.layer.borderWidth = 1
-        basketCollectionView.set(cells: Medical.items())
-        configureConstraints()
+            configureConstraints()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loadArticles()
     }
     
     func configureConstraints() {
         view.addSubview(basketCollectionView)
-        view.addSubview(totalCollectionView)
-        view.addSubview(promocode)
-        view.addSubview(promocodeButton)
+//        view.addSubview(promocode)
+//        view.addSubview(promocodeButton)
         view.addSubview(uiView)
         view.addSubview(uiView2)
         view.addSubview(uiView3)
         view.addSubview(button)
         
         NSLayoutConstraint.activate([
-            uiView.topAnchor.constraint(equalTo: view.topAnchor, constant: 110),
+            uiView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 20),
             uiView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             uiView.heightAnchor.constraint(equalToConstant: 3),
             uiView.widthAnchor.constraint(equalToConstant: view.frame.size.width / 3.5),
             
-            uiView2.topAnchor.constraint(equalTo: view.topAnchor, constant: 110),
+            uiView2.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 20),
             uiView2.leadingAnchor.constraint(equalTo: uiView.trailingAnchor, constant: 11),
             uiView2.heightAnchor.constraint(equalToConstant: 3),
             uiView2.widthAnchor.constraint(equalToConstant: view.frame.size.width / 3.5),
             
-            uiView3.topAnchor.constraint(equalTo: view.topAnchor, constant: 110),
+            uiView3.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 20),
             uiView3.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             uiView3.heightAnchor.constraint(equalToConstant: 3),
             uiView3.widthAnchor.constraint(equalToConstant: view.frame.size.width / 3.5),
             
             basketCollectionView.topAnchor.constraint(equalTo: uiView.topAnchor, constant: 30),
-            basketCollectionView.heightAnchor.constraint(equalToConstant: view.frame.size.height / 3.6 * 0.8),
-            basketCollectionView.widthAnchor.constraint(equalToConstant: view.frame.size.width),
+            basketCollectionView.heightAnchor.constraint(equalToConstant: view.frame.size.height),
+            basketCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            basketCollectionView.widthAnchor.constraint(equalToConstant: view.frame.size.width - 32),
             
-            totalCollectionView.topAnchor.constraint(equalTo: basketCollectionView.bottomAnchor, constant: 15),
-            totalCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            totalCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            totalCollectionView.heightAnchor.constraint(equalToConstant: 120),
-            
-            promocode.topAnchor.constraint(equalTo: totalCollectionView.bottomAnchor, constant: 15),
-            promocode.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            promocode.trailingAnchor.constraint(equalTo: promocodeButton.leadingAnchor, constant: -10),
-            promocode.heightAnchor.constraint(equalToConstant: 45),
-            
-            promocodeButton.topAnchor.constraint(equalTo: totalCollectionView.bottomAnchor, constant: 15),
-            promocodeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            promocodeButton.heightAnchor.constraint(equalToConstant: 45),
-            promocodeButton.widthAnchor.constraint(equalToConstant: 45),
+//            promocode.topAnchor.constraint(equalTo: basketCollectionView.bottomAnchor, constant: 15),
+//            promocode.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+//            promocode.trailingAnchor.constraint(equalTo: promocodeButton.leadingAnchor, constant: -10),
+//            promocode.heightAnchor.constraint(equalToConstant: 45),
+//
+//            promocodeButton.topAnchor.constraint(equalTo: basketCollectionView.bottomAnchor, constant: 15),
+//            promocodeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+//            promocodeButton.heightAnchor.constraint(equalToConstant: 45),
+//            promocodeButton.widthAnchor.constraint(equalToConstant: 45),
             
             button.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20),
             button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
@@ -147,6 +149,18 @@ class BasketViewController: UIViewController {
         vc.title = "Информация о доставке"
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    func loadArticles() {
+        let request: NSFetchRequest <Basket> = Basket.fetchRequest()
+        do {
+            data = try context.fetch(request)
+            basketCollectionView.data = data
+            basketCollectionView.reloadData()
+        }catch {
+            print("Error fetching data from context \(error)")
+        }
+    }
+
     
 //    func fetchBlogData(){
 //        let urlString = "http://salomat.colibri.tj/blogs/blog_popular?page=1"

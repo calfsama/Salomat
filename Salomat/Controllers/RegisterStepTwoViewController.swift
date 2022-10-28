@@ -127,7 +127,7 @@ class RegisterStepTwoViewController: UIViewController {
         view.addSubview(usl)
         
         NSLayoutConstraint.activate([
-            password.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            password.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 20),
             password.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             
             textField.topAnchor.constraint(equalTo: password.bottomAnchor, constant: 5),
@@ -145,19 +145,19 @@ class RegisterStepTwoViewController: UIViewController {
             repeatTextField.heightAnchor.constraint(equalToConstant: 45),
             repeatTextField.widthAnchor.constraint(equalToConstant: 330),
             
-            agree.topAnchor.constraint(equalTo: repeatTextField.bottomAnchor, constant: 350),
+            agree.bottomAnchor.constraint(equalTo: usl.topAnchor),
             agree.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             agree.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            usl.topAnchor.constraint(equalTo: agree.bottomAnchor),
+            usl.bottomAnchor.constraint(equalTo: cancel.topAnchor, constant: -20),
             usl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            cancel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
+            cancel.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20),
             cancel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             cancel.heightAnchor.constraint(equalToConstant: 45),
             cancel.widthAnchor.constraint(equalToConstant: 160),
             
-            register.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
+            register.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20),
             register.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             register.leadingAnchor.constraint(equalTo: cancel.trailingAnchor, constant: 16),
             register.heightAnchor.constraint(equalToConstant: 45),

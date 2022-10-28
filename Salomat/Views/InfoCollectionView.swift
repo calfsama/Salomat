@@ -23,6 +23,7 @@ class InfoCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
         translatesAutoresizingMaskIntoConstraints = false
         layout.minimumLineSpacing = 20
         contentInset = UIEdgeInsets(top: 0, left: 22, bottom: 0, right: 22)
+        backgroundColor = .white
     }
     func set(cells: [Info]) {
         self.info = cells

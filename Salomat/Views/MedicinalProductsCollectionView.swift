@@ -23,6 +23,7 @@ class MedicinalProductsCollectionView: UICollectionView, UICollectionViewDelegat
         layout.minimumLineSpacing = 16
         contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         showsHorizontalScrollIndicator = false
+        backgroundColor = .white
     }
     
     required init?(coder: NSCoder) {
@@ -36,7 +37,6 @@ extension MedicinalProductsCollectionView: UICollectionViewDelegate, UICollectio
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = dequeueReusableCell(withReuseIdentifier: MedicinesCollectionViewCell.identifier, for: indexPath) as! MedicinesCollectionViewCell
-        
         cell.title.text = categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].product_name ?? ""
         cell.price.text = (categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].product_price)! + " сом."
         let url = "http://salomat.colibri.tj/upload_product/"
@@ -49,6 +49,11 @@ extension MedicinalProductsCollectionView: UICollectionViewDelegate, UICollectio
         else if categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].is_favorite == true{
             cell.button.setImage(UIImage(named: "heart"), for: .normal)
         }
+        cell.titleMedicine = categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].product_name ?? ""
+        cell.prices = categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].product_price ?? ""
+        cell.images = categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].product_pic ?? ""
+        cell.is_favorite = ((categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].is_favorite) != nil)
+        cell.id = categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].id ?? ""
         return cell
     }
     

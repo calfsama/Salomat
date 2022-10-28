@@ -53,7 +53,17 @@ struct SubCateg: Codable {
     var category_in_main: String?
     var order_id: String?
     var icon: String?
+    var sub_cat: [Sub_Cat]?
    
+}
+
+struct Sub_Cat: Codable {
+    var id: String?
+    var category_name: String?
+    var parent_id: String?
+    var category_in_main: String?
+    var order_id: String?
+    var icon: String?
 }
 
 struct Product: Codable {
