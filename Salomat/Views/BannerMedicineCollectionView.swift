@@ -22,6 +22,8 @@ class BannerMedicineCollectionView: UICollectionView, UICollectionViewDelegateFl
         showsHorizontalScrollIndicator = false
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .white
+        layout.minimumLineSpacing = 16
+        contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
     }
     
     required init?(coder: NSCoder) {
@@ -44,7 +46,7 @@ extension BannerMedicineCollectionView: UICollectionViewDelegate, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: frame.size.width, height: 170)
+        return CGSize(width: collectionView.frame.size.width * 0.92, height: 170)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

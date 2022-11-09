@@ -162,7 +162,8 @@ class MedicineCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = UIColor(red: 0.478, green: 0.463, blue: 0.617, alpha: 1)
         label.text = ""
-        label.numberOfLines = 5
+        label.numberOfLines = 0
+        label.setNeedsDisplay()
         label.font = UIFont.systemFont(ofSize: 20, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

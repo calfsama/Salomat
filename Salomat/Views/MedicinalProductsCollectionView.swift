@@ -58,7 +58,7 @@ extension MedicinalProductsCollectionView: UICollectionViewDelegate, UICollectio
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.size.width / 2.1 * 0.92, height: 270)
+        return CGSize(width: collectionView.frame.size.width / 2.1 * 0.92, height: 280)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

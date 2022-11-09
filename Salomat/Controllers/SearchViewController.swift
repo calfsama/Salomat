@@ -10,13 +10,18 @@ import UIKit
 class SearchViewController: UIViewController {
     var collectionView = SearchCollectionView()
     var network = NetworkService()
-    var searchText: String = ""
+    var searchText: String = "Линкас"
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        search()
+        //search()
         configureConstraints()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        search()
     }
     
     func configureConstraints() {

@@ -9,8 +9,9 @@ import UIKit
 import SkeletonView
 
 class MainViewController: UIViewController {
+    var text: String = ""
     var url: String = ""
-    let searchController = UISearchController(searchResultsController: SearchViewController())
+    var searchController = UISearchController(searchResultsController: nil)
     
     
     lazy var uiscrollView: UIScrollView = {
@@ -140,6 +141,7 @@ class MainViewController: UIViewController {
         badsCollectionView = BADCollectionView(nav: self.navigationController!)
         configureConstraints()
         categoryCollectionView.set(cells: Categories.items())
+        searchController.searchBar.setImage(UIImage(named: "log out"), for: .bookmark, state: .normal)
         //bannersCollectionView.set(cells: Banners.items())
         let logo = UIImage(named: "logo")
         let imageView = UIImageView(image:logo)
@@ -150,13 +152,11 @@ class MainViewController: UIViewController {
 
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "menu"), style: .plain, target: self, action: #selector(buttonAction))
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Search"), style: .plain, target: self, action: #selector(search))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Search"), style: .plain, target: self, action: #selector(openSearch))
     }
     
-    @objc func search() {
+    @objc func openSearch() {
         searchController.searchBar.placeholder = ""
-//        searchController.navigationItem.backAction
-        searchController.hidesNavigationBarDuringPresentation = false
         present(searchController, animated: true, completion: nil)
     }
     
@@ -190,7 +190,7 @@ class MainViewController: UIViewController {
         uiscrollView.addSubview(badsCollectionView)
         
         NSLayoutConstraint.activate([
-            categoryCollectionView.topAnchor.constraint(equalTo: uiscrollView.topAnchor, constant: 10),
+            categoryCollectionView.topAnchor.constraint(equalTo: uiscrollView.topAnchor),
             categoryCollectionView.heightAnchor.constraint(equalToConstant: 120),
             categoryCollectionView.widthAnchor.constraint(equalToConstant: uiscrollView.frame.size.width),
             
@@ -378,10 +378,16 @@ class MainViewController: UIViewController {
 extension MainViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchController = UISearchController(searchResultsController: SearchViewController())
         let vc = SearchViewController()
         vc.searchText = searchBar.text!
+        //vc.search()
         vc.title = "\(searchBar.text!)"
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
+        print("clicked")
     }
 }
 

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rCA-Zr-OI8">
+    <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -35,7 +37,7 @@
                 <navigationController id="O2p-g4-Fjh" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Избранное" image="iconHeart" id="5gW-OG-6WN"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="EXB-0S-4pt">
-                        <rect key="frame" x="0.0" y="48" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="47" width="390" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -52,7 +54,7 @@
                 <navigationController id="aZI-xs-nGH" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Корзина" image="trash can" id="psE-LX-0ip"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="hzv-2k-U5C">
-                        <rect key="frame" x="0.0" y="48" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="47" width="390" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -71,7 +73,7 @@
                         <color key="badgeColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="xfN-cg-Que">
-                        <rect key="frame" x="0.0" y="48" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="47" width="390" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -88,7 +90,7 @@
                 <navigationController id="StZ-jM-xKc" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Профиль" image="profile" id="lhd-7C-KaL"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="mAg-NA-Xg5">
-                        <rect key="frame" x="0.0" y="48" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="47" width="390" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -105,7 +107,7 @@
                 <navigationController id="TWP-H3-Zz5" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="э-Рецепт" image="camera" id="MLw-mv-a6Y"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Poi-S4-wWc">
-                        <rect key="frame" x="0.0" y="48" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="47" width="390" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -121,7 +123,7 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="Salomat" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -132,14 +134,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1649" y="431"/>
+            <point key="canvasLocation" x="-1649.2307692307693" y="430.80568720379142"/>
         </scene>
         <!--Medicines View Controller-->
         <scene sceneID="Odn-rI-x1f">
             <objects>
                 <viewController storyboardIdentifier="MedicinesViewController" id="RQG-e3-8ig" customClass="MedicinesViewController" customModule="Salomat" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="A8C-SO-7Ry">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="C9m-53-MFK"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -154,7 +156,7 @@
             <objects>
                 <viewController id="hHy-M7-vkj" customClass="FavoritesViewController" customModule="Salomat" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tdN-8N-qSf">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="GKL-nZ-nc7"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -172,7 +174,7 @@
             <objects>
                 <viewController id="qwe-eg-bTJ" customClass="ReceiptViewController" customModule="Salomat" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="L2y-pm-7vV">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="xdy-D6-g3F"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -188,7 +190,7 @@
             <objects>
                 <viewController id="YDg-lz-cAX" customClass="CartViewController" customModule="Salomat" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="28b-0e-CiX">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="wvn-Rj-KdU"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -204,7 +206,7 @@
             <objects>
                 <viewController id="sD0-hV-e1u" customClass="ProfileViewController" customModule="Salomat" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kc5-4R-hSM">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="hXq-Ve-0vR"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>

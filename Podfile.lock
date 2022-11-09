@@ -1,0 +1,36 @@
+PODS:
+  - AvailableHapticFeedback (1.0.2)
+  - Kingfisher (6.3.1)
+  - MultiSlider (1.13.1):
+    - AvailableHapticFeedback
+    - SweeterSwift
+  - SkeletonView (1.29.2)
+  - SnapKit (5.6.0)
+  - SweeterSwift (1.2.1)
+
+DEPENDENCIES:
+  - Kingfisher (~> 6.3.1)
+  - MultiSlider
+  - SkeletonView
+  - SnapKit
+
+SPEC REPOS:
+  trunk:
+    - AvailableHapticFeedback
+    - Kingfisher
+    - MultiSlider
+    - SkeletonView
+    - SnapKit
+    - SweeterSwift
+
+SPEC CHECKSUMS:
+  AvailableHapticFeedback: 9b21b9f6d3e4566015988b5de35b40abefe6c09a
+  Kingfisher: 016c8b653a35add51dd34a3aba36b580041acc74
+  MultiSlider: 0be12939497499d0e7b9f94f4429e9084e406b0b
+  SkeletonView: 915a80ecc2b6421ab7ac0f0212321c0cc1406472
+  SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
+  SweeterSwift: 61baeda1c0c27d1dc57c8112c3d6a82e5aff3139
+
+PODFILE CHECKSUM: 77f7d41687e21a0e5d6224098cdc19e6dd7121d4
+
+COCOAPODS: 1.11.3

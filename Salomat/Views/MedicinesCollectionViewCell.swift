@@ -11,6 +11,7 @@ import SkeletonView
 
 class MedicinesCollectionViewCell: UICollectionViewCell {
     var condition: Bool = false
+    var dataBasket = [Basket]()
     var dataModel = [DataModel]()
     var id: String = ""
     var is_favorite: Bool = false
@@ -57,6 +58,19 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
         return price
     }()
     
+    lazy var cartButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = UIColor(red: 0.118, green: 0.745, blue: 0.745, alpha: 1)
+        button.setTitle("в корзину", for: .normal)
+        button.setTitleColor(UIColor(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 10, weight: .semibold)
+        button.layer.cornerRadius = 4
+        button.layer.masksToBounds = true
+        button.addTarget(self, action: #selector(saveInBasket), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         self.image.image = nil
@@ -82,6 +96,7 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(title)
         contentView.addSubview(button)
         contentView.addSubview(price)
+        contentView.addSubview(cartButton)
         
         NSLayoutConstraint.activate([
             
@@ -96,8 +111,13 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
             title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             title.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             
-            price.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
-            price.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16)
+            price.bottomAnchor.constraint(equalTo: cartButton.topAnchor, constant: -15),
+            price.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            
+            cartButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            cartButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            cartButton.heightAnchor.constraint(equalToConstant: 28),
+            cartButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
         ])
     }
     
@@ -195,6 +215,67 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
                 button.setImage(UIImage(named: "iconHeart"), for: .normal)
                 print("delete")
                 deleteMedicine()
+            }
+        }
+        catch {
+            print("Error1\(error)")
+        }
+    }
+    
+    func saveMedicineInBasket() {
+        let data = Basket(context: self.context)
+        data.id = id
+        data.title = titleMedicine
+        data.price = prices
+        data.image = images
+        print(images)
+        print(title)
+        self.dataBasket.append(data)
+        print("ischecked")
+       do {
+           try context.save()
+       }catch {
+           print("Error saving context \(error)")
+       }
+    }
+
+    func deleteMedicineInBasket() {
+        let object: NSFetchRequest <Basket> = Basket.fetchRequest()
+        object.predicate = commitPredicate
+        commitPredicate = NSPredicate(format: "id == %@", id)
+        do {
+            let object = try context.fetch(object)
+            for i in object {
+                if i.id == id {
+                    context.delete(i)
+                }
+                do {
+                    try context.save()
+                }catch {
+                    print("Error1 \(error)")
+                }
+            }
+        }
+        catch {
+            print("Error2 \(error)")
+        }
+    }
+    
+    @objc func saveInBasket() {
+        let fetchRequest: NSFetchRequest <Basket> = Basket.fetchRequest()
+        fetchRequest.predicate = commitPredicate
+        commitPredicate = NSPredicate(format: "title == %@", titleMedicine)
+        do{
+            let data = try context.fetch(fetchRequest).first
+            if data == nil && data?.title != titleMedicine {
+                print("\(data?.title) and \(titleMedicine)")
+                print("save")
+                saveMedicineInBasket()
+            }
+            else if data?.title == titleMedicine {
+                print("\(data?.title) and \(titleMedicine)")
+                print("delete")
+                deleteMedicineInBasket()
             }
         }
         catch {

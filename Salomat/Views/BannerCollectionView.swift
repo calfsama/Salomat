@@ -20,9 +20,9 @@ class BannerCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout
         dataSource = self
         showsHorizontalScrollIndicator = false
         translatesAutoresizingMaskIntoConstraints = false
-        layout.minimumLineSpacing = 0
+        layout.minimumLineSpacing = 16
         backgroundColor = .white
-       // contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
     }
 //    func set(cells: [Banners]) {
 //        self.banners = cells
@@ -47,6 +47,6 @@ extension BannerCollectionView: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: frame.size.width, height: 170)
+        return CGSize(width: collectionView.frame.size.width * 0.92, height: 170)
     }
 }

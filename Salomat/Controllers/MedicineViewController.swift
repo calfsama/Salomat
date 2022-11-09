@@ -26,6 +26,9 @@ class MedicineViewController: UIViewController, UIScrollViewDelegate {
         fetchBanner()
         configureConstraints()
         self.navigationController?.navigationBar.tintColor = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
+        if let flowLayout = medicineCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+             flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+           }
     }
     
     func configureConstraints() {

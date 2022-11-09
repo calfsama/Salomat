@@ -26,6 +26,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         title.numberOfLines = 0
         title.font = UIFont.systemFont(ofSize: 10, weight: .regular)
         title.textAlignment = .center
+        title.textColor = UIColor(red: 0.429, green: 0.429, blue: 0.429, alpha: 1)
         title.translatesAutoresizingMaskIntoConstraints = false
         return title
     }()
