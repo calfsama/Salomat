@@ -39,14 +39,14 @@ class RegViewController: UIViewController {
         let label = UILabel()
         label.textColor = UIColor(red: 0.478, green: 0.463, blue: 0.617, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        label.text = "Телефон"
+        label.text = "Пароль"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     lazy var passwordTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Введите свой номер"
+        textField.placeholder = "Введите пароль"
         textField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         textField.returnKeyType = .next
         textField.leftViewMode = .always
@@ -79,7 +79,7 @@ class RegViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        navigationItem.title = "Вход"
+        navigationItem.title = "Регистрация"
         configureConstraints()
     }
     
@@ -168,6 +168,14 @@ class RegViewController: UIViewController {
             else {                                                               // check for fundamental networking error
                 print("error", error ?? URLError(.badServerResponse))
                 return
+            }
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data)
+                print(json)
+            }
+            catch {
+                
             }
             
             guard (200 ... 299) ~= response.statusCode else {                    // check for http errors

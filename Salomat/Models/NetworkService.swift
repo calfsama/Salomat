@@ -232,5 +232,30 @@ class NetworkService {
             }
         }.resume()
     }
+    
+    func login(urlString: String, completion: @escaping(Result<LoginData, Error>) -> Void) {
+    
+        
+        guard let url = URL(string: urlString) else {return}
+        URLSession.shared.dataTask(with: url) {(data, response, error) in
+            print(url)
+            DispatchQueue.main.async {
+                if let error = error {
+                    print("Some error")
+                    completion(.failure(error))
+                    return
+                }
+                guard let data = data else {return}
+                do {
+                    let urlData = try JSONDecoder().decode(LoginData.self, from: data)
+                    //print(urlData)
+                    completion(.success(urlData))
+                }catch let jsonError {
+                    print("Failed to decode JSON", jsonError)
+                    completion(.failure(jsonError))
+                }
+            }
+        }.resume()
+    }
 
 }

@@ -8,6 +8,8 @@
 import UIKit
 
 class RecoveryViewController: UIViewController {
+    var phoneNumber: String = ""
+    
     lazy var phone: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(red: 0.478, green: 0.463, blue: 0.617, alpha: 1)
@@ -20,6 +22,7 @@ class RecoveryViewController: UIViewController {
     lazy var textField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Введите свой номер"
+        textField.text = phoneNumber
         textField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         textField.returnKeyType = .next
         textField.leftViewMode = .always
@@ -50,6 +53,7 @@ class RecoveryViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         configureConstraints()
+        self.hideKeyboardWhenTappedAround()
     }
     
     func configureConstraints() {
@@ -77,6 +81,64 @@ class RecoveryViewController: UIViewController {
     @objc func buttonAction() {
         let vc = RecoveryPasswordStepTwoViewController()
         vc.title = "Восстановление пароля"
+        vc.phoneNumber = textField.text!
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc func login() {
+        guard let url = URL(string: "http://salomat.colibri.tj/users/check_phone") else { return }
+        var request = URLRequest(url: url)
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        let parameters: [String: Any] = [
+            "phone": textField.text!
+        ]
+        request.httpBody = parameters.percentEncoded()
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let response = response {
+                print(response)
+            }
+            guard
+                let data = data,
+                let response = response as? HTTPURLResponse,
+                error == nil
+                    
+            else {                                                                //check for fundamental networking error
+                print("errorrr", error ?? URLError(.badServerResponse))
+                return
+            }
+            if response.statusCode >= 200 && response.statusCode <= 299 {
+                let vc = RecoveryPasswordStepTwoViewController()
+                DispatchQueue.main.async {
+                    vc.title = "Восстановление пароля"
+                    vc.phoneNumber = self.textField.text!
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            }
+            else if response.statusCode == 400 {
+                DispatchQueue.main.async {
+                    //self.wrongPasswod.text = "Введен неверный пароль"
+                }
+                
+                print("error")
+            }
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data)
+                print(json)
+            }
+            catch {
+                print(error)
+            }
+        
+            
+            guard (200 ... 299) ~= response.statusCode else {                     //check for http errors
+                print("statusCode should be 2xx, but is \(response.statusCode)")
+                print("response = \(response)")
+                return
+            }
+        }
+        task.resume()
     }
 }

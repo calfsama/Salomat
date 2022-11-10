@@ -41,6 +41,9 @@ class ProfileInfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(uiscrollView)
+        navigationItem.backBarButtonItem?.target = nil
+        navigationItem.backBarButtonItem?.action = #selector(exitFromProfile)
+        navigationItem.backBarButtonItem?.style = .plain
         infoCollectionView = InfoCollectionView(nav: self.navigationController!)
         settingsCollectionView = SettingsCollectionView(nav: self.navigationController!)
         configureConstraints()
@@ -78,6 +81,10 @@ class ProfileInfoViewController: UIViewController {
             settingsCollectionView.heightAnchor.constraint(equalToConstant: 350)
         
         ])
+    }
+    @objc func exitFromProfile() {
+        let vc = ProfileViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
 }

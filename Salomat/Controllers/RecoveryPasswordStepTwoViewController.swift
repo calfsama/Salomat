@@ -8,6 +8,8 @@
 import UIKit
 
 class RecoveryPasswordStepTwoViewController: UIViewController {
+    var phoneNumber: String = ""
+    
     lazy var code: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(red: 0.478, green: 0.463, blue: 0.617, alpha: 1)
@@ -75,7 +77,7 @@ class RecoveryPasswordStepTwoViewController: UIViewController {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         button.layer.cornerRadius = 4
         button.layer.masksToBounds = true
-        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        button.addTarget(self, action: #selector(checkCode), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -83,8 +85,9 @@ class RecoveryPasswordStepTwoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        apiService()
         configureConstraints()
-        
+        self.hideKeyboardWhenTappedAround()
     }
     
     func configureConstraints() {
@@ -129,5 +132,88 @@ class RecoveryPasswordStepTwoViewController: UIViewController {
         let vc = RecoveryPasswordStepThreeViewController()
         vc.title = "Восстановление пароля"
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc func checkCode() {
+        guard let url = URL(string: "http://salomat.colibri.tj/users/check_register_code") else { return }
+        var request = URLRequest(url: url)
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        let parameters: [String: Any] = [
+            "phone": phoneNumber,
+            "confirm_code": textField.text!
+        ]
+        request.httpBody = parameters.percentEncoded()
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let response = response {
+                print(response)
+            }
+            guard
+                let data = data,
+                let response = response as? HTTPURLResponse,
+                error == nil
+                    
+            else {                                                                //check for fundamental networking error
+                print("errorrr", error ?? URLError(.badServerResponse))
+                return
+            }
+            if response.statusCode >= 200 && response.statusCode <= 299 {
+                let vc = RecoveryPasswordStepThreeViewController()
+                DispatchQueue.main.async {
+                    vc.title = "Восстановление пароля"
+                    vc.phone = self.phoneNumber
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            }
+            else if response.statusCode == 400 {
+                DispatchQueue.main.async {
+                    //self.wrongPasswod.text = "Введен неверный пароль"
+                    print(self.phoneNumber)
+                }
+                
+                print("error")
+            }
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data)
+                print(json)
+            }
+            catch {
+                print(error)
+            }
+        
+            
+            guard (200 ... 299) ~= response.statusCode else {                     //check for http errors
+                print("statusCode should be 2xx, but is \(response.statusCode)")
+                print("response = \(response)")
+                return
+            }
+        }
+        task.resume()
+    }
+    
+    func apiService() {
+        guard let url = URL(string: "http://salomat.colibri.tj/users/resend_sms") else { return }
+        let parameters: [String: Any] = [
+            "phone": phoneNumber
+        ]
+        ApiService.callPost(url: url, params: parameters, finish: finishPost)
+    }
+    
+    func finishPost (message:String, data:Data?) -> Void
+    {
+        do
+        {
+            if let jsonData = data
+            {
+                let parsedData = try JSONDecoder().decode(Login.self, from: jsonData)
+                print(parsedData)
+            }
+        }
+        catch
+        {
+            print("Parse Error: \(error)")
+        }
     }
 }

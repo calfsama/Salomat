@@ -8,6 +8,10 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
+    var login: LoginData?
+    var network = NetworkService()
+    
+    var isLoggedIn: Bool = false
     
     lazy var phone: UILabel = {
         let label = UILabel()
@@ -35,30 +39,24 @@ class ProfileViewController: UIViewController {
         return textField
     }()
     
-    lazy var signUp: UIButton = {
-        let button = UIButton()
-        button.setTitleColor(UIColor(red: 0.118, green: 0.745, blue: 0.745, alpha: 1), for: .normal)
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor(red: 0.118, green: 0.745, blue: 0.745, alpha: 1).cgColor
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .regular)
-        button.setTitle("Регистрация", for: .normal)
-        button.layer.cornerRadius = 4
-        button.backgroundColor = .white
-        button.addTarget(self, action: #selector(buttonAction2), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
     lazy var continueButton: UIButton = {
         let button = UIButton()
         button.setTitleColor(UIColor(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
         button.backgroundColor = UIColor(red: 0.118, green: 0.745, blue: 0.745, alpha: 1)
         button.layer.cornerRadius = 4
         button.titleLabel?.font =  UIFont.systemFont(ofSize: 12, weight: .regular)
-        button.setTitle("Далее", for: .normal)
+        button.setTitle("Войти или зарегистрироваться", for: .normal)
         button.addTarget(self, action: #selector(checkPhone), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
+    }()
+    
+    lazy var match: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+        label.textColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
 
@@ -67,13 +65,14 @@ class ProfileViewController: UIViewController {
         view.backgroundColor = .white
         navigationItem.title = "Вход"
         configureConstraints()
+        self.hideKeyboardWhenTappedAround() 
     }
     
     func configureConstraints() {
         view.addSubview(phone)
         view.addSubview(textField)
-        view.addSubview(signUp)
         view.addSubview(continueButton)
+        view.addSubview(match)
         
         NSLayoutConstraint.activate([
             phone.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 16),
@@ -84,13 +83,9 @@ class ProfileViewController: UIViewController {
             textField.heightAnchor.constraint(equalToConstant: 45),
             textField.widthAnchor.constraint(equalToConstant: 330),
             textField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-
-            //signUp.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 465),
-            signUp.bottomAnchor.constraint(equalTo: continueButton.topAnchor, constant: -15),
-            signUp.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            signUp.heightAnchor.constraint(equalToConstant: 45),
-            signUp.widthAnchor.constraint(equalToConstant: 330),
-            signUp.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            match.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 5),
+            match.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
 
             continueButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20),
             continueButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
@@ -212,6 +207,8 @@ class ProfileViewController: UIViewController {
         }
     }
     
+    
+    
     @objc func checkPhone() {
         guard let url = URL(string: "http://salomat.colibri.tj/users/check_phone") else { return }
         var request = URLRequest(url: url)
@@ -220,7 +217,12 @@ class ProfileViewController: UIViewController {
         let parameters: [String: Any] = [
             "phone": textField.text!
         ]
-        request.httpBody = parameters.percentEncoded()
+        if textField.text != "" {
+            request.httpBody = parameters.percentEncoded()
+        }
+        else if textField.text == "" {
+            self.match.text = "Введите номер телефона"
+        }
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let response = response {
@@ -230,27 +232,65 @@ class ProfileViewController: UIViewController {
                 let data = data,
                 let response = response as? HTTPURLResponse,
                 error == nil
-
-            else {                                                               // check for fundamental networking error
+                    
+            else {                                                                //check for fundamental networking error
                 print("error", error ?? URLError(.badServerResponse))
                 return
             }
+//            if self.textField.text == "" {
+//                let vc = PasswordViewController()
+//                DispatchQueue.main.async {
+//                    self.navigationController?.pushViewController(vc, animated: true)
+//                }
+//            }
+//            else  {
+//                print("user doesn't exist")
+//            }
+            if response.statusCode == 200 {
+                DispatchQueue.main.async {
+                    let vc = PasswordViewController()
+                    vc.phone = self.textField.text!
+                    vc.title = "Вход"
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            }
+            else if response.statusCode == 400 && self.textField.text != ""{
+                DispatchQueue.main.async {
+                    let vc = RegisterViewController()
+                    vc.phone = self.textField.text!
+                    vc.title = "Регистрация"
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+                
+                print("user doesn't exist")
+            }
+            
             do {
                 let json = try JSONSerialization.jsonObject(with: data)
-               
                 print(json)
             }
             catch {
                 print(error)
             }
-            
-            guard (200 ... 299) ~= response.statusCode else {                    // check for http errors
+         
+        
+            guard (200 ... 299) ~= response.statusCode else {                     //check for http errors
                 print("statusCode should be 2xx, but is \(response.statusCode)")
                 print("response = \(response)")
                 return
             }
         }
         task.resume()
+    }
+}
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
     
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }

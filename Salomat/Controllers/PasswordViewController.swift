@@ -8,6 +8,7 @@
 import UIKit
 
 class PasswordViewController: UIViewController {
+    var phone: String = ""
     
     lazy var password: UILabel = {
         let label = UILabel()
@@ -53,8 +54,17 @@ class PasswordViewController: UIViewController {
         button.layer.cornerRadius = 4
         button.titleLabel?.font =  UIFont.systemFont(ofSize: 12, weight: .regular)
         button.setTitle("Войти", for: .normal)
+        button.addTarget(self, action: #selector(login), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
+    }()
+    
+    lazy var wrongPasswod: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        label.textColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
 
     override func viewDidLoad() {
@@ -62,6 +72,7 @@ class PasswordViewController: UIViewController {
         view.backgroundColor = .white
         configureConstraints()
         self.navigationController?.navigationBar.tintColor = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
+        self.hideKeyboardWhenTappedAround()
     }
     
     func configureConstraints() {
@@ -69,6 +80,7 @@ class PasswordViewController: UIViewController {
         view.addSubview(textField)
         view.addSubview(signUp)
         view.addSubview(continueButton)
+        view.addSubview(wrongPasswod)
         
         NSLayoutConstraint.activate([
             password.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 16),
@@ -79,6 +91,9 @@ class PasswordViewController: UIViewController {
             textField.heightAnchor.constraint(equalToConstant: 45),
             textField.widthAnchor.constraint(equalToConstant: 330),
             textField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            wrongPasswod.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 5),
+            wrongPasswod.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
 
             signUp.bottomAnchor.constraint(equalTo: continueButton.layoutMarginsGuide.topAnchor, constant: -16),
             signUp.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
@@ -97,8 +112,68 @@ class PasswordViewController: UIViewController {
         let vc = RecoveryViewController()
         vc.title = "Восстановление пароля"
         let backBarButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        vc.phoneNumber = phone
         vc.navigationItem.backBarButtonItem = backBarButton
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    @objc func login() {
+        guard let url = URL(string: "http://salomat.colibri.tj/users/login") else { return }
+        var request = URLRequest(url: url)
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        let parameters: [String: Any] = [
+            "phone": "\(phone)",
+            "password": textField.text!
+        ]
+        request.httpBody = parameters.percentEncoded()
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let response = response {
+                print(response)
+            }
+            guard
+                let data = data,
+                let response = response as? HTTPURLResponse,
+                error == nil
+                    
+            else {                                                                //check for fundamental networking error
+                print("errorrr", error ?? URLError(.badServerResponse))
+                return
+            }
+            if response.statusCode >= 200 && response.statusCode <= 299 {
+                let vc = ProfileInfoViewController()
+                DispatchQueue.main.async {
+                    vc.title = "Профиль"
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            }
+            else if response.statusCode == 400 {
+                DispatchQueue.main.async {
+                    self.wrongPasswod.text = "Введен неверный пароль"
+                }
+                
+                print("user doesn't exist")
+            }
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data)
+                print(json)
+            }
+            catch {
+                print(error)
+            }
+        
+            
+            guard (200 ... 299) ~= response.statusCode else {                     //check for http errors
+                print("statusCode should be 2xx, but is \(response.statusCode)")
+                print("response = \(response)")
+                return
+            }
+        }
+        task.resume()
+    }
+    
+
 }
 

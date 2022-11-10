@@ -8,6 +8,8 @@
 import UIKit
 
 class RecoveryPasswordStepThreeViewController: UIViewController {
+    
+    var phone: String = ""
 
     lazy var password: UILabel = {
         let label = UILabel()
@@ -18,7 +20,7 @@ class RecoveryPasswordStepThreeViewController: UIViewController {
         return label
     }()
     
-    lazy var textField: UITextField = {
+    lazy var passwordTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = ""
         textField.font = UIFont.systemFont(ofSize: 25, weight: .semibold)
@@ -44,7 +46,7 @@ class RecoveryPasswordStepThreeViewController: UIViewController {
         return label
     }()
     
-    lazy var repeatTextField: UITextField = {
+    lazy var repeatPasswordTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = ""
         textField.font = UIFont.systemFont(ofSize: 25, weight: .semibold)
@@ -84,43 +86,56 @@ class RecoveryPasswordStepThreeViewController: UIViewController {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         button.layer.cornerRadius = 4
         button.layer.masksToBounds = true
+        button.addTarget(self, action: #selector(changePassword), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
+    }()
+    
+    lazy var match: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+        label.textColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         configureConstraints()
-        
+        self.hideKeyboardWhenTappedAround()
     }
     
     func configureConstraints() {
         view.addSubview(password)
-        view.addSubview(textField)
+        view.addSubview(passwordTextField)
         view.addSubview(repeatPassword)
-        view.addSubview(repeatTextField)
+        view.addSubview(repeatPasswordTextField)
         view.addSubview(cancel)
         view.addSubview(register)
+        view.addSubview(match)
         
         NSLayoutConstraint.activate([
             password.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 16),
             password.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             
-            textField.topAnchor.constraint(equalTo: password.bottomAnchor, constant: 5),
-            textField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            textField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            textField.heightAnchor.constraint(equalToConstant: 45),
-            textField.widthAnchor.constraint(equalToConstant: 330),
+            passwordTextField.topAnchor.constraint(equalTo: password.bottomAnchor, constant: 5),
+            passwordTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            passwordTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            passwordTextField.heightAnchor.constraint(equalToConstant: 45),
+            passwordTextField.widthAnchor.constraint(equalToConstant: 330),
             
-            repeatPassword.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 20),
+            repeatPassword.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 20),
             repeatPassword.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             
-            repeatTextField.topAnchor.constraint(equalTo: repeatPassword.bottomAnchor,constant: 5),
-            repeatTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            repeatTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            repeatTextField.heightAnchor.constraint(equalToConstant: 45),
-            repeatTextField.widthAnchor.constraint(equalToConstant: 330),
+            repeatPasswordTextField.topAnchor.constraint(equalTo: repeatPassword.bottomAnchor,constant: 5),
+            repeatPasswordTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            repeatPasswordTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            repeatPasswordTextField.heightAnchor.constraint(equalToConstant: 45),
+            repeatPasswordTextField.widthAnchor.constraint(equalToConstant: 330),
+            
+            match.topAnchor.constraint(equalTo: repeatPasswordTextField.bottomAnchor, constant: 5),
+            match.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             
             cancel.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20),
             cancel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
@@ -133,5 +148,64 @@ class RecoveryPasswordStepThreeViewController: UIViewController {
             register.heightAnchor.constraint(equalToConstant: 45),
             register.widthAnchor.constraint(equalToConstant: 160)
         ])
+    }
+    
+    @objc func changePassword() {
+        guard let url = URL(string: "http://salomat.colibri.tj/users/forgot_password") else { return }
+        var request = URLRequest(url: url)
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        let parameters: [String: Any] = [
+            "phone": phone,
+            "password": passwordTextField.text!
+        ]
+        if passwordTextField.text == repeatPasswordTextField.text {
+            request.httpBody = parameters.percentEncoded()
+        }
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let response = response {
+                print(response)
+            }
+            guard
+                let data = data,
+                let response = response as? HTTPURLResponse,
+                error == nil
+                    
+            else {                                                                //check for fundamental networking error
+                print("errorrr", error ?? URLError(.badServerResponse))
+                return
+            }
+            if response.statusCode == 200 && self.passwordTextField.text == self.repeatPasswordTextField.text{
+                DispatchQueue.main.async {
+                    let vc = ProfileInfoViewController()
+                    vc.title = "Профиль"
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+                print("Пароль изменён")
+            }
+            else if response.statusCode == 400 && self.passwordTextField.text != self.repeatPasswordTextField.text{
+                DispatchQueue.main.async {
+                    self.match.text = "Пароли не совпадают"
+                }
+                print("error")
+            }
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data)
+                print(json)
+            }
+            catch {
+                print(error)
+            }
+        
+            
+            guard (200 ... 299) ~= response.statusCode else {                     //check for http errors
+                print("statusCode should be 2xx, but is \(response.statusCode)")
+                print("response = \(response)")
+                return
+            }
+        }
+        task.resume()
     }
 }
