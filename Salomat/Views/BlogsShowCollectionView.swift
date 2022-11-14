@@ -11,12 +11,17 @@ import CoreMIDI
 class BlogsShowCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
     var blogs: Blog?
     var show: Show?
+    var share: String = ""
+    var indicator: UIActivityIndicatorView = UIActivityIndicatorView()
     
     init() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         super.init(frame: .zero, collectionViewLayout: layout)
         register(BlogsShowCollectionViewCell.self, forCellWithReuseIdentifier: BlogsShowCollectionViewCell.identifier)
+        indicator.frame = CGRect(x: 180, y: 280, width: 40, height: 40)
+        indicator.color = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
+        indicator.startAnimating()
         delegate = self
         dataSource = self
         showsVerticalScrollIndicator = false
@@ -37,6 +42,7 @@ extension BlogsShowCollectionView: UICollectionViewDelegate, UICollectionViewDat
         let cell = dequeueReusableCell(withReuseIdentifier: BlogsShowCollectionViewCell.identifier, for: indexPath) as! BlogsShowCollectionViewCell
 //        let data = blogs?.content?.blogs?[indexPath.row]
 //        cell.title.text = data?.blog_title ?? ""
+        cell.share.text = share
         cell.title.text = show?.blog?.blog_title ?? ""
         let url = "http://salomat.colibri.tj/upload_blog/"
         let completeURL = url + (show?.blog?.blog_pics?[indexPath.row].blog_pic ?? "")

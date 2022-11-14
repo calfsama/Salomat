@@ -9,6 +9,7 @@ import UIKit
 import CoreData
 
 class FavoritesViewController: UIViewController {
+    var network = NetworkService()
     var favoriteCollectionView: FavoriteCollectionView!
     var cell = MedicineCollectionViewCell()
     var data = [DataModel]()
@@ -24,7 +25,8 @@ class FavoritesViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        loadArticles()
+        favorites()
+        //loadArticles()
     }
     
     func configureConstraints() {
@@ -44,6 +46,22 @@ class FavoritesViewController: UIViewController {
             favoriteCollectionView.reloadData()
         }catch {
             print("Error fetching data from context \(error)")
+        }
+    }
+    
+    func favorites(){
+        let urlString = "http://salomat.colibri.tj/favorites?user_id=15"
+        self.network.favorites(urlString: urlString) { [weak self] (result) in
+            guard let self = self else {return}
+            switch result {
+            case .success(let response):
+                self.favoriteCollectionView.favorites = response
+//                print(result)
+                self.favoriteCollectionView.reloadData()
+                self.favoriteCollectionView.indicator.stopAnimating()
+            case .failure(let error):
+                print("error", error)
+            }
         }
     }
     

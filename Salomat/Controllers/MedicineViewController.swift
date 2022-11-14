@@ -51,6 +51,14 @@ class MedicineViewController: UIViewController, UIScrollViewDelegate {
                 self.medicineCollectionView.productShow = response
 //                print(result)
                 self.medicineCollectionView.reloadData()
+                self.medicineCollectionView.text = "Внешний вид товара может отличаться от изображённого на фотографии"
+                self.medicineCollectionView.inCart = "В корзину"
+                self.medicineCollectionView.color = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
+                self.medicineCollectionView.inStock = "В наличии"
+                self.medicineCollectionView.withoutReceipt = "Безрецептурный ПРЕПАРАТ"
+                self.medicineCollectionView.substance = "Действующее вещество (МНН):"
+                self.medicineCollectionView.production = "Производитель:"
+                self.medicineCollectionView.category = "Категория:"
                 self.medicineCollectionView.indicator.stopAnimating()
             case .failure(let error):
                 print("error", error)

@@ -10,6 +10,9 @@ import CoreData
 import SkeletonView
 
 class MedicinesCollectionViewCell: UICollectionViewCell {
+    var index: IndexPath!
+    var indexPath: Int = 0
+    var favoritesModel: FavoritesData?
     var condition: Bool = false
     var dataBasket = [Basket]()
     var dataModel = [DataModel]()
@@ -71,6 +74,7 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
         return button
     }()
     
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         self.image.image = nil
@@ -82,12 +86,14 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
         contentView.layer.borderColor = UIColor(red: 0.929, green: 0.93, blue: 1, alpha: 1).cgColor
         contentView.layer.borderWidth = 1
         contentView.layer.cornerRadius = 10
-//        image.isSkeletonable = true
-//        title.isSkeletonable = true
-//        contentView.skeletonCornerRadius = 10
-//        contentView.isSkeletonable = true
-//        contentView.showAnimatedGradientSkeleton()
-
+        image.isSkeletonable = true
+        title.isSkeletonable = true
+        button.isSkeletonable = true
+        price.isSkeletonable = true
+        cartButton.isSkeletonable = true
+        contentView.skeletonCornerRadius = 10
+        contentView.isSkeletonable = true
+        //contentView.startSkeletonAnimation()
     
     }
     
@@ -125,28 +131,13 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-//    @objc func buttonAction() {
-//        if condition == false {
-//            condition = true
-//            print("Clicked")
-//            button.setImage(UIImage(named: "heart"), for: .normal)
-//        }
-//        else if condition == true {
-//            condition = false
-//            button.setImage(UIImage(named: "iconHeart"), for: .normal)
-//        }
-//
-//    }
-    
     func saveMedicine() {
         let data = DataModel(context: self.context)
         data.id = id
-        data.is_favorite = is_favorite
+        data.is_favorite = true
         data.title = titleMedicine
         data.price = prices
         data.image = images
-        print(images)
-        print(titleMedicine)
         self.dataModel.append(data)
         print("ischecked")
        do {
@@ -201,19 +192,21 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
 
     @objc func buttonAction() {
         let fetchRequest: NSFetchRequest <DataModel> = DataModel.fetchRequest()
-        fetchRequest.predicate = commitPredicate
         commitPredicate = NSPredicate(format: "id == %@", id)
+        fetchRequest.predicate = commitPredicate
         do{
             let data = try context.fetch(fetchRequest).first
-            if data == nil && data?.id != id {
+            if  data?.id != id {
                 print("\(data?.id) and \(id)")
                 button.setImage(UIImage(named: "heart"), for: .normal)
                 print("save")
+                addFavorites()
                 saveMedicine()
             }
             else if data?.id == id{
                 button.setImage(UIImage(named: "iconHeart"), for: .normal)
                 print("delete")
+                deleteFavorites()
                 deleteMedicine()
             }
         }
@@ -282,4 +275,92 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
             print("Error1\(error)")
         }
     }
+    
+    
+    func addFavorites() {
+        guard let url = URL(string: "http://salomat.colibri.tj/favorites") else { return }
+        var request = URLRequest(url: url)
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        let parameters: [String: Any] = [
+            "user_id": "15",
+            "product_id": id
+        ]
+            request.httpBody = parameters.percentEncoded()
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let response = response {
+                print(response)
+            }
+            guard
+                let data = data,
+                let response = response as? HTTPURLResponse,
+                error == nil
+                    
+            else {                                                                //check for fundamental networking error
+                print("error", error ?? URLError(.badServerResponse))
+                return
+            }
+
+            do {
+                let json = try JSONSerialization.jsonObject(with: data)
+                print(json)
+            }
+            catch {
+                print(error)
+            }
+         
+        
+            guard (200 ... 299) ~= response.statusCode else {                     //check for http errors
+                print("statusCode should be 2xx, but is \(response.statusCode)")
+                print("response = \(response)")
+                return
+            }
+        }
+        task.resume()
+    }
+    
+    func deleteFavorites() {
+        guard let url = URL(string: "http://salomat.colibri.tj/favorites/delete") else { return }
+        var request = URLRequest(url: url)
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        let parameters: [String: Any] = [
+            "user_id": "15",
+            "product_id": id
+        ]
+            request.httpBody = parameters.percentEncoded()
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let response = response {
+                print(response)
+            }
+            guard
+                let data = data,
+                let response = response as? HTTPURLResponse,
+                error == nil
+                    
+            else {                                                                //check for fundamental networking error
+                print("error", error ?? URLError(.badServerResponse))
+                return
+            }
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data)
+                print(json)
+            }
+            catch {
+                print(error)
+            }
+         
+        
+            guard (200 ... 299) ~= response.statusCode else {                     //check for http errors
+                print("statusCode should be 2xx, but is \(response.statusCode)")
+                print("response = \(response)")
+                return
+            }
+        }
+        task.resume()
+    }
+
 }

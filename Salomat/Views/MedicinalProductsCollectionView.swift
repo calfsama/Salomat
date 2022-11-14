@@ -9,6 +9,7 @@ import UIKit
 
 class MedicinalProductsCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
     var navigationController: UINavigationController
+    var favorites: FavoritesData?
     var categories: CategoriesForMainPage?
     
     init(nav: UIViewController) {
@@ -37,23 +38,26 @@ extension MedicinalProductsCollectionView: UICollectionViewDelegate, UICollectio
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = dequeueReusableCell(withReuseIdentifier: MedicinesCollectionViewCell.identifier, for: indexPath) as! MedicinesCollectionViewCell
+     
         cell.title.text = categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].product_name ?? ""
         cell.price.text = (categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].product_price)! + " сом."
         let url = "http://salomat.colibri.tj/upload_product/"
         let completeURL = url + (categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].product_pic ?? "")
         cell.image.downloaded(from: completeURL)
         
-        if categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].is_favorite == false {
-            cell.button.setImage(UIImage(named: "favorite"), for: .normal)
-        }
-        else if categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].is_favorite == true{
+        if favorites?[indexPath.row].id == categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].id {
             cell.button.setImage(UIImage(named: "heart"), for: .normal)
+        }
+        else {
+            cell.button.setImage(UIImage(named: "favorite"), for: .normal)
         }
         cell.titleMedicine = categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].product_name ?? ""
         cell.prices = categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].product_price ?? ""
         cell.images = categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].product_pic ?? ""
         cell.is_favorite = ((categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].is_favorite) != nil)
         cell.id = categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].id ?? ""
+        cell.hideSkeleton()
+        cell.stopSkeletonAnimation()
         return cell
     }
     

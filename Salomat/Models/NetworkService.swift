@@ -8,6 +8,7 @@
 import Foundation
 
 class NetworkService {
+    var search: Search?
     
     func fetchData(urlString: String, completion: @escaping(Result<ProdsOfTheDay, Error>) -> Void) {
     
@@ -199,7 +200,7 @@ class NetworkService {
                 guard let data = data else {return}
                 do {
                     let urlData = try JSONDecoder().decode(Search.self, from: data)
-                    //print(urlData)
+                    print(urlData)
                     completion(.success(urlData))
                 }catch let jsonError {
                     print("Failed to decode JSON", jsonError)
@@ -257,5 +258,80 @@ class NetworkService {
             }
         }.resume()
     }
+    
+    func favorites(urlString: String, completion: @escaping(Result<FavoritesData, Error>) -> Void) {
+    
+        
+        guard let url = URL(string: urlString) else {return}
+        URLSession.shared.dataTask(with: url) {(data, response, error) in
+            print(url)
+            DispatchQueue.main.async {
+                if let error = error {
+                    print("Some error")
+                    completion(.failure(error))
+                    return
+                }
+                guard let data = data else {return}
+                do {
+                    let urlData = try JSONDecoder().decode(FavoritesData.self, from: data)
+                    //print(urlData)
+                    completion(.success(urlData))
+                }catch let jsonError {
+                    print("Failed to decode JSON", jsonError)
+                    completion(.failure(jsonError))
+                }
+            }
+        }.resume()
+    }
+    
+    func searchText(searchText: String , completion: @escaping(Result<Search, Error>) -> Void) {
 
+        let urlString = "http://salomat.colibri.tj/search/with_price?srch_pr_inp=\(searchText)"
+        guard let url = URL(string: urlString) else {return}
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            print(url)
+            DispatchQueue.main.async {
+                if let error = error {
+                    print("Some error")
+                    completion(.failure(error))
+                    return
+                }
+                guard let data = data else { return }
+                do {
+                    let news = try JSONDecoder().decode(Search.self, from: data)
+                    print(news)
+                    completion(.success(news))
+                }catch let jsonError {
+                    print("Failed to decode JSON", jsonError)
+                    completion(.failure(jsonError))
+                }
+            }
+        }.resume()
+    }
+    
+    func getUserData(urlString: String, completion: @escaping(Result<Token, Error>) -> Void) {
+    
+        
+        guard let url = URL(string: urlString) else {return}
+        var request = URLRequest(url: url)
+        URLSession.shared.dataTask(with: request) {(data, response, error) in
+            print(url)
+            DispatchQueue.main.async {
+                if let error = error {
+                    print("Some error")
+                    completion(.failure(error))
+                    return
+                }
+                guard let data = data else {return}
+                do {
+                    let urlData = try JSONDecoder().decode(Token.self, from: data)
+                    //print(urlData)
+                    completion(.success(urlData))
+                }catch let jsonError {
+                    print("Failed to decode JSON", jsonError)
+                    completion(.failure(jsonError))
+                }
+            }
+        }.resume()
+    }
 }

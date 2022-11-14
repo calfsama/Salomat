@@ -46,6 +46,8 @@ class BlogViewController: UIViewController {
                 self.blogsShowCollectionView.show = response
                 print(result)
                 self.blogsShowCollectionView.reloadData()
+                self.blogsShowCollectionView.share = "Поделиться"
+                self.blogsShowCollectionView.indicator.stopAnimating()
             case .failure(let error):
                 print("error", error)
             }

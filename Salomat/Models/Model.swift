@@ -8,6 +8,9 @@
 import Foundation
 import UIKit
 
+var message = MessangerCollectionView()
+var receipt = ReceiptCollectionView()
+
 struct Categories {
     let image: UIImage
     let title: String
@@ -78,11 +81,24 @@ struct Messenger {
     let image: UIImage
     
     static func items() -> [Messenger] {
-        let zero = Messenger(image: UIImage(named: "viber")!)
+        let first = Messenger(image: UIImage(named: "viber")!)
         let second = Messenger(image: UIImage(named: "telegram")!)
         let third = Messenger(image: UIImage(named: "imo")!)
         
-        return [zero, second, third]
+        return [first, second, third]
+    }
+}
+
+struct Instruction {
+    let title: String
+    let collectionView: UICollectionView!
+    
+    static func items() -> [Instruction] {
+        let first = Instruction(title: "Инструкция", collectionView: message)
+        let second = Instruction(title: "Аналоги", collectionView: receipt)
+//        let third = Instruction(title: "Отзывы (0)", collectionView: <#T##UICollectionView?#>)
+        
+        return [first, second]
     }
 }
 

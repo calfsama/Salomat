@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		974E41F02910CC3C00E287DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974E41EF2910CC3C00E287DB /* AppDelegate.swift */; };
-		974E41F22910CC3C00E287DB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974E41F12910CC3C00E287DB /* SceneDelegate.swift */; };
 		974E41F42910CC3C00E287DB /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974E41F32910CC3C00E287DB /* MainViewController.swift */; };
 		974E41F72910CC3C00E287DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 974E41F52910CC3C00E287DB /* Main.storyboard */; };
 		974E41F92910CC3D00E287DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 974E41F82910CC3D00E287DB /* Assets.xcassets */; };
@@ -22,7 +21,6 @@
 /* Begin PBXFileReference section */
 		974E41EC2910CC3C00E287DB /* album.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = album.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		974E41EF2910CC3C00E287DB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		974E41F12910CC3C00E287DB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		974E41F32910CC3C00E287DB /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		974E41F62910CC3C00E287DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		974E41F82910CC3D00E287DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -87,7 +85,6 @@
 				974E42042910CD7800E287DB /* Profile */,
 				974E42032910CD6E00E287DB /* Main */,
 				974E41EF2910CC3C00E287DB /* AppDelegate.swift */,
-				974E41F12910CC3C00E287DB /* SceneDelegate.swift */,
 				974E41F52910CC3C00E287DB /* Main.storyboard */,
 				974E41F82910CC3D00E287DB /* Assets.xcassets */,
 				974E41FA2910CC3D00E287DB /* LaunchScreen.storyboard */,
@@ -204,7 +201,6 @@
 				974E41F42910CC3C00E287DB /* MainViewController.swift in Sources */,
 				974E420E2910F56F00E287DB /* PostCollectionView.swift in Sources */,
 				974E41F02910CC3C00E287DB /* AppDelegate.swift in Sources */,
-				974E41F22910CC3C00E287DB /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

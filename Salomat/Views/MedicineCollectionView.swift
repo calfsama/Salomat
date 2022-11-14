@@ -9,6 +9,15 @@ import UIKit
 import CoreData
 
 class MedicineCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
+    var inStock = ""
+    //var Image
+    var color = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
+    var category: String = ""
+    var text: String = ""
+    var inCart: String = ""
+    var withoutReceipt: String = ""
+    var substance: String = ""
+    var production: String = ""
     var productShow: ProductsShow?
     var dataModel = [DataModel]()
     var indicator: UIActivityIndicatorView = UIActivityIndicatorView()
@@ -23,7 +32,8 @@ class MedicineCollectionView: UICollectionView, UICollectionViewDelegateFlowLayo
         register(MedicineFooterCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: MedicineFooterCollectionReusableView.identifier)
         self.addSubview(indicator)
         self.bringSubviewToFront(indicator)
-        indicator.frame = CGRect(x: 170, y: 280, width: 40, height: 40)
+        indicator.frame = CGRect(x: 180, y: 280, width: 40, height: 40)
+        indicator.color = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
         indicator.startAnimating()
         delegate = self
         dataSource = self
@@ -43,10 +53,17 @@ extension MedicineCollectionView: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = dequeueReusableCell(withReuseIdentifier: MedicineCollectionViewCell.identifier, for: indexPath) as! MedicineCollectionViewCell
+        cell.note.text = text
+        cell.buttonSave.setTitle(inCart, for: .normal)
+        cell.buttonSave.backgroundColor = color
+        cell.inStock.text = inStock
+        cell.label.text = withoutReceipt
+        cell.label2.text = substance
+        cell.label3.text = production
+        cell.label4.text = category
         cell.medicineName.text = productShow?.product?.product_name ?? ""
-        cell.price.text = productShow?.product?.product_price ?? "50.00"
+        cell.price.text = productShow?.product?.product_price ?? ""
         cell.productDescription.attributedText = productShow?.product?.product_about?.html2Attributed
-        cell.note.text = "Внешний вид товара может отличаться от изображённого на фотографии"
         cell.label5.text = productShow?.product?.product_form?.form_name ?? ""
         cell.label6.text = productShow?.product?.product_brand?.brand_name ?? ""
         cell.label7.text = productShow?.product?.categories?[indexPath.row].category_name ?? ""
@@ -58,17 +75,12 @@ extension MedicineCollectionView: UICollectionViewDelegate, UICollectionViewData
         let url = "http://salomat.colibri.tj/upload_product/"
         let completeURL = url + (productShow?.product?.product_pic ?? "")
         cell.image.downloaded(from: completeURL)
-        //cell.buttonState()
-            for i in dataModel {
-                if i.title == productShow?.product?.product_name {
-                    //print("\(i.title) and \(title)")
-                    cell.favorite.setImage(UIImage(named: "heart"), for: .normal)
-                }
-                else if i.title != productShow?.product?.product_name {
-                    cell.favorite.setImage(UIImage(named: "favorite"), for: .normal)
-                }
-            }
-        cell.buttonState()
+        if productShow?.product?.is_favorite == true {
+            cell.favorite.setImage(UIImage(named: "heart"), for: .normal)
+        }
+        else {
+            cell.favorite.setImage(UIImage(named: "favorite"), for: .normal)
+        }
         return cell
     }
     

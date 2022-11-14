@@ -11,13 +11,14 @@ import SkeletonView
 class MainViewController: UIViewController {
     var text: String = ""
     var url: String = ""
-    var searchController = UISearchController(searchResultsController: nil)
+    var searchController = UISearchController(searchResultsController: SearchViewController())
+    var medicinesCell = MedicinesCollectionViewCell()
     
     
     lazy var uiscrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.frame = view.bounds
-        scrollView.contentSize = CGSize(width: view.frame.size.width, height: 2450)
+        scrollView.contentSize = CGSize(width: view.frame.size.width, height: 2350)
         scrollView.backgroundColor = .white
         scrollView.showsVerticalScrollIndicator = false
         return scrollView
@@ -123,10 +124,17 @@ class MainViewController: UIViewController {
     }()
     
     lazy   var searchBar:UISearchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 20))
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        view.isSkeletonable = true
+        view.startSkeletonAnimation()
+        itemsCollectionView.isSkeletonable = true
+        itemsCollectionView.startSkeletonAnimation()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         fetchFromApi()
         fetchData()
         fetchBlogData()
@@ -288,6 +296,8 @@ class MainViewController: UIViewController {
             guard let self = self else {return}
             switch result {
             case .success(let response):
+                self.itemsCollectionView.isSkeletonable = true
+                self.itemsCollectionView.startSkeletonAnimation()
                 self.itemsCollectionView.product = response
 //                print(result)
                 self.itemsCollectionView.reloadData()
@@ -381,7 +391,7 @@ extension MainViewController: UISearchBarDelegate {
         searchController = UISearchController(searchResultsController: SearchViewController())
         let vc = SearchViewController()
         vc.searchText = searchBar.text!
-        //vc.search()
+        print(searchBar.text!)
         vc.title = "\(searchBar.text!)"
         self.navigationController?.pushViewController(vc, animated: true)
     }

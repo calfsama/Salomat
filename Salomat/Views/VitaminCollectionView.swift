@@ -46,10 +46,4 @@ extension VitaminCollectionView: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.size.width * 0.92, height: 170)
     }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = MedicineViewController()
-        self.navigationController.pushViewController(vc, animated: true)
-    }
-    
 }

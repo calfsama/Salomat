@@ -25,7 +25,6 @@ class BlogsShowCollectionViewCell: UICollectionViewCell {
         let date = UILabel()
         date.textColor = UIColor(red: 0.478, green: 0.463, blue: 0.617, alpha: 1)
         date.font = UIFont.systemFont(ofSize: 12, weight: .regular)
-        date.text = "19.09.2022"
         date.translatesAutoresizingMaskIntoConstraints = false
         return date
     }()
@@ -34,7 +33,6 @@ class BlogsShowCollectionViewCell: UICollectionViewCell {
         let share = UILabel()
         share.textColor = UIColor(red: 0.478, green: 0.463, blue: 0.617, alpha: 1)
         share.font = UIFont.systemFont(ofSize: 12, weight: .regular)
-        share.text = "Поделиться"
         share.translatesAutoresizingMaskIntoConstraints = false
         return share
     }()

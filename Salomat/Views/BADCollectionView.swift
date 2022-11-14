@@ -10,6 +10,7 @@ import UIKit
 class BADCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
     var navigationController: UINavigationController
     var vitamin: CategoriesForMainPage?
+    var favorites: FavoritesData?
     
     init(nav: UIViewController) {
         let layout = UICollectionViewFlowLayout()
@@ -55,6 +56,14 @@ extension BADCollectionView: UICollectionViewDelegate, UICollectionViewDataSourc
         cell.images = vitamin?.categories_for_main_page?[1].categ_prods?[indexPath.row].product_pic ?? ""
         cell.is_favorite = ((vitamin?.categories_for_main_page?[1].categ_prods?[indexPath.row].is_favorite) != nil)
         cell.id = vitamin?.categories_for_main_page?[1].categ_prods?[indexPath.row].id ?? ""
+        if favorites?[indexPath.row].id == vitamin?.categories_for_main_page?[1].categ_prods?[indexPath.row].id {
+            cell.button.setImage(UIImage(named: "heart"), for: .normal)
+        }
+        else {
+            cell.button.setImage(UIImage(named: "favorite"), for: .normal)
+        }
+        cell.hideSkeleton()
+        cell.startSkeletonAnimation()
         return cell
     }
     

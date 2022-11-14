@@ -10,11 +10,16 @@ import CoreData
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         let BarButtonItemAppearance = UIBarButtonItem.appearance()
         BarButtonItemAppearance.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.clear], for: .normal)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let tabBar = storyboard.instantiateViewController(withIdentifier: "TabBarController")
+        self.window?.rootViewController = tabBar
+        self.window?.makeKeyAndVisible()
         
         return true
     }

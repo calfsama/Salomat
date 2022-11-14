@@ -8,6 +8,10 @@
 import UIKit
 
 class ProfileInfoViewController: UIViewController {
+    var token: String = ""
+    var userID: String = ""
+    var login: LoginData?
+    
     lazy var uiscrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.frame = view.bounds
@@ -20,7 +24,7 @@ class ProfileInfoViewController: UIViewController {
     lazy var name: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(red: 0.22, green: 0.208, blue: 0.325, alpha: 1)
-        label.text = "Pano Dianova"
+        label.text = "Имя не указано"
         label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -30,7 +34,7 @@ class ProfileInfoViewController: UIViewController {
         let label = UILabel()
         label.textColor = UIColor(red: 0.118, green: 0.745, blue: 0.745, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
-        label.text = "panidianova@gmail.com"
+        label.text = "Почта не указана"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -56,7 +60,14 @@ class ProfileInfoViewController: UIViewController {
         settingsCollectionView.layer.shadowOffset = CGSize(width: 0, height: -3)
         infoCollectionView.set(cells: Info.items())
         settingsCollectionView.set(cells: Settings.items())
-        
+        print(userID, "1", token)
+        settingsCollectionView.userID = userID
+        settingsCollectionView.token = token
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        userShow()
     }
     
     func configureConstraints() {
@@ -82,6 +93,46 @@ class ProfileInfoViewController: UIViewController {
         
         ])
     }
+    func userShow() {
+        guard let url = URL(string: "http://salomat.colibri.tj/users/show/\(userID)") else { return }
+        var request = URLRequest(url: url)
+        request.setValue(token, forHTTPHeaderField: "Authorization")
+        request.httpMethod = "GET"
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let response = response {
+                print(response)
+            }
+            guard
+                let data = data,
+                let response = response as? HTTPURLResponse,
+                error == nil
+                    
+            else {                                                                //check for fundamental networking error
+                print("error", error ?? URLError(.badServerResponse))
+                return
+            }
+            
+            do {
+                let responseObject = try JSONDecoder().decode(LoginData.self, from: data)
+                DispatchQueue.main.async {
+                    self.login = responseObject
+                    self.name.text = self.login?[0].name ?? "Имя не указано"
+                    self.email.text = self.login?[0].email ?? "Почта не указана"
+                }
+                print(responseObject)
+            } catch {
+                print(error) // parsing error
+                
+                if let responseString = String(data: data, encoding: .utf8) {
+                    print("responseString = \(responseString)")
+                } else {
+                    print("unable to parse response as string")
+                }
+            }
+        }.resume()
+    }
+    
     @objc func exitFromProfile() {
         let vc = ProfileViewController()
         self.navigationController?.pushViewController(vc, animated: true)

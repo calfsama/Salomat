@@ -64,6 +64,7 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         navigationItem.title = "Вход"
+        //fetchBlogData()
         configureConstraints()
         self.hideKeyboardWhenTappedAround() 
     }
@@ -94,19 +95,6 @@ class ProfileViewController: UIViewController {
             continueButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
         ])
     }
-    
-    @objc func buttonAction() {
-        let vc = PasswordViewController()
-        vc.title = "Вход"
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    @objc func buttonAction2() {
-        let vc = RegViewController()
-        vc.title = "Вход"
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
-    
     @objc func postRequestButton() {
         let url = URL(string: "http://salomat.colibri.tj/users/check_phone")!
         var request = URLRequest(url: url)
@@ -153,62 +141,6 @@ class ProfileViewController: UIViewController {
         task.resume()
     }
     
-    @objc func post() {
-        guard let url = URL(string: "https://jsonplaceholder.typicode.com/posts") else {return}
-        var parameters = ["phone" : textField.text, "password" : textField.text]
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters) else {return}
-        request.httpBody = httpBody
-        let session = URLSession.shared
-        session.dataTask(with: request) { data, response, error in
-            if let response = response {
-                print(response)
-            }
-            guard let data = data else { return }
-            do {
-                let json = try JSONSerialization.jsonObject(with: data)
-                print(json)
-            }
-            catch {
-                print(error)
-            }
-        }.resume()
-    }
-    
-    @objc func ppost() {
-        guard let url = URL(string: "http://salomat.colibri.tj/users/register") else { return }
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let jsonDictionary = NSMutableDictionary()
-        jsonDictionary.setValue("1", forKey: "user_id")
-        jsonDictionary.setValue(textField.text, forKey: "phone")
-        
-        let jsonData : Data
-        
-        do {
-            jsonData = try JSONSerialization.data(withJSONObject: jsonDictionary, options: JSONSerialization.WritingOptions ())
-            request.httpBody = jsonData
-        }
-        catch {
-            print("Error creating JSON")
-            return
-        }
-        
-        let config = URLSessionConfiguration.default
-        let session = URLSession(configuration: config)
-        
-        let task = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-            print("Error: \(error)")
-            print("Response: \(response)")
-            print("Data: \(data)")
-        }
-    }
-    
-    
-    
     @objc func checkPhone() {
         guard let url = URL(string: "http://salomat.colibri.tj/users/check_phone") else { return }
         var request = URLRequest(url: url)
@@ -217,12 +149,15 @@ class ProfileViewController: UIViewController {
         let parameters: [String: Any] = [
             "phone": textField.text!
         ]
+        
         if textField.text != "" {
             request.httpBody = parameters.percentEncoded()
         }
         else if textField.text == "" {
             self.match.text = "Введите номер телефона"
+            self.textField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
         }
+     
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let response = response {
@@ -237,15 +172,6 @@ class ProfileViewController: UIViewController {
                 print("error", error ?? URLError(.badServerResponse))
                 return
             }
-//            if self.textField.text == "" {
-//                let vc = PasswordViewController()
-//                DispatchQueue.main.async {
-//                    self.navigationController?.pushViewController(vc, animated: true)
-//                }
-//            }
-//            else  {
-//                print("user doesn't exist")
-//            }
             if response.statusCode == 200 {
                 DispatchQueue.main.async {
                     let vc = PasswordViewController()
@@ -254,30 +180,25 @@ class ProfileViewController: UIViewController {
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
             }
-            else if response.statusCode == 400 && self.textField.text != ""{
+            else if response.statusCode == 400 {
                 DispatchQueue.main.async {
-                    let vc = RegisterViewController()
-                    vc.phone = self.textField.text!
-                    vc.title = "Регистрация"
-                    self.navigationController?.pushViewController(vc, animated: true)
+                    if self.textField.text != "" {
+                        let vc = RegisterViewController()
+                        vc.phone = self.textField.text!
+                        vc.title = "Регистрация"
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    }
                 }
-                
+
                 print("user doesn't exist")
             }
             
             do {
                 let json = try JSONSerialization.jsonObject(with: data)
-                print(json)
+                print(json, "first")
             }
             catch {
                 print(error)
-            }
-         
-        
-            guard (200 ... 299) ~= response.statusCode else {                     //check for http errors
-                print("statusCode should be 2xx, but is \(response.statusCode)")
-                print("response = \(response)")
-                return
             }
         }
         task.resume()

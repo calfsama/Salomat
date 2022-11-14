@@ -31,7 +31,6 @@ class MedicineCollectionViewCell: UICollectionViewCell {
     
     lazy var favorite: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "favorite"), for: .normal)
         button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -49,7 +48,6 @@ class MedicineCollectionViewCell: UICollectionViewCell {
     lazy var note: UILabel = {
         let note = UILabel()
         note.textColor = UIColor(red: 0.478, green: 0.463, blue: 0.617, alpha: 1)
-        note.text = "Внешний вид товара может отличаться от изображённого на фотографии"
         note.numberOfLines = 0
         note.font = UIFont.systemFont(ofSize: 12, weight: .regular)
         note.translatesAutoresizingMaskIntoConstraints = false
@@ -58,7 +56,6 @@ class MedicineCollectionViewCell: UICollectionViewCell {
     
     lazy var price: UILabel = {
         let price = UILabel()
-        price.text = "50.00"
         price.textColor = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
         price.font = UIFont.systemFont(ofSize: 24, weight: .bold)
         price.translatesAutoresizingMaskIntoConstraints = false
@@ -67,9 +64,7 @@ class MedicineCollectionViewCell: UICollectionViewCell {
     
     lazy var buttonSave: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
         button.layer.cornerRadius = 4
-        button.setTitle("В корзину", for: .normal)
         button.setTitleColor(UIColor(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
         button.addTarget(self, action: #selector(saveInBasket), for: .touchUpInside)
@@ -80,7 +75,6 @@ class MedicineCollectionViewCell: UICollectionViewCell {
     lazy var inStock: UILabel = {
         let inStock = UILabel()
         inStock.textColor = UIColor(red: 0.235, green: 0.902, blue: 0.51, alpha: 1)
-        inStock.text = "В наличии"
         inStock.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         inStock.translatesAutoresizingMaskIntoConstraints = false
         return inStock
@@ -88,7 +82,6 @@ class MedicineCollectionViewCell: UICollectionViewCell {
     
     lazy var label: UILabel = {
         let label = UILabel()
-        label.text = "Безрецептурный ПРЕПАРАТ"
         label.textColor = UIColor(red: 0.22, green: 0.208, blue: 0.325, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -98,7 +91,6 @@ class MedicineCollectionViewCell: UICollectionViewCell {
     lazy var label2: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(red: 0.22, green: 0.208, blue: 0.325, alpha: 1)
-        label.text = "Действующее вещество (МНН):"
         label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -107,7 +99,6 @@ class MedicineCollectionViewCell: UICollectionViewCell {
     lazy var label3: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(red: 0.22, green: 0.208, blue: 0.325, alpha: 1)
-        label.text = "Производитель:"
         label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -116,7 +107,6 @@ class MedicineCollectionViewCell: UICollectionViewCell {
     lazy var label4: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(red: 0.22, green: 0.208, blue: 0.325, alpha: 1)
-        label.text = "Категория:"
         label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -125,7 +115,6 @@ class MedicineCollectionViewCell: UICollectionViewCell {
     lazy var label5: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
-        label.text = "ГастроГЕЛ"
         label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -134,7 +123,6 @@ class MedicineCollectionViewCell: UICollectionViewCell {
     lazy var label6: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
-        label.text = "Актавис"
         label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -143,7 +131,6 @@ class MedicineCollectionViewCell: UICollectionViewCell {
     lazy var label7: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
-        label.text = "При язве и гастрите"
         label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

@@ -12,7 +12,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="ooD-7o-TpP">
             <objects>
-                <tabBarController id="rCA-Zr-OI8" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarController" id="rCA-Zr-OI8" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ZJf-db-ssY">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -183,7 +183,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uTK-bR-Bvi" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="9" y="431"/>
+            <point key="canvasLocation" x="7.6923076923076916" y="430.80568720379142"/>
         </scene>
         <!--Cart View Controller-->
         <scene sceneID="HI5-DA-G41">

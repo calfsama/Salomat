@@ -9,15 +9,16 @@ PODS:
   - SweeterSwift (1.2.1)
 
 DEPENDENCIES:
-  - Kingfisher (~> 6.3.1)
+  - Kingfisher (~> 6.x)
   - MultiSlider
   - SkeletonView
   - SnapKit
 
 SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - Kingfisher
   trunk:
     - AvailableHapticFeedback
-    - Kingfisher
     - MultiSlider
     - SkeletonView
     - SnapKit
@@ -31,6 +32,6 @@ SPEC CHECKSUMS:
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
   SweeterSwift: 61baeda1c0c27d1dc57c8112c3d6a82e5aff3139
 
-PODFILE CHECKSUM: 77f7d41687e21a0e5d6224098cdc19e6dd7121d4
+PODFILE CHECKSUM: fca3b69419164453fc6f2ffd68962b0092e59e24
 
 COCOAPODS: 1.11.3

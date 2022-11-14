@@ -9,6 +9,7 @@ import UIKit
 
 class SearchCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
     var search: Search?
+    
 
     init() {
         let layout = UICollectionViewFlowLayout()

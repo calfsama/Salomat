@@ -9,7 +9,9 @@ import UIKit
 
 class FavoriteCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
     var data = [DataModel]()
+    var favorites: FavoritesData?
     var navigationController: UINavigationController
+    var indicator: UIActivityIndicatorView = UIActivityIndicatorView()
 
     init(nav: UIViewController) {
         let layout = UICollectionViewFlowLayout()
@@ -17,6 +19,9 @@ class FavoriteCollectionView: UICollectionView, UICollectionViewDelegateFlowLayo
         self.navigationController = nav as! UINavigationController
         super.init(frame: .zero, collectionViewLayout: layout)
         register(MedicinesCollectionViewCell.self, forCellWithReuseIdentifier: MedicinesCollectionViewCell.identifier)
+        indicator.frame = CGRect(x: 180, y: 280, width: 40, height: 40)
+        indicator.color = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
+        indicator.startAnimating()
         delegate = self
         dataSource = self
         showsVerticalScrollIndicator = false
@@ -33,7 +38,7 @@ class FavoriteCollectionView: UICollectionView, UICollectionViewDelegateFlowLayo
 extension FavoriteCollectionView: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let image = UIImageView(frame: CGRect(x: 0, y: 0, width: collectionView.bounds.size.width, height: collectionView.bounds.size.height))
-        if data.count == 0 {
+        if favorites?.count == 0 {
             image.image = UIImage(named: "Дизайн без названия-4")
             collectionView.backgroundView = image
             return 0
@@ -41,18 +46,24 @@ extension FavoriteCollectionView: UICollectionViewDelegate, UICollectionViewData
         else {
             image.image = UIImage(named: "")
             collectionView.backgroundView = image
-            return data.count
+            return favorites?.count ?? 0
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = dequeueReusableCell(withReuseIdentifier: MedicinesCollectionViewCell.identifier, for: indexPath) as! MedicinesCollectionViewCell
         let url = "http://salomat.colibri.tj/upload_product/"
-        let completeURL = url + (data[indexPath.row].image ?? "")
-        cell.id = data[indexPath.row].id ?? ""
+        let completeURL = url + (favorites?[indexPath.row].product_pic ?? "")
+        cell.id = favorites?[indexPath.row].id ?? ""
         cell.image.downloaded(from: completeURL)
-        cell.price.text = data[indexPath.row].price
-        cell.title.text = data[indexPath.row].title
+        cell.price.text = favorites?[indexPath.row].product_price ?? ""
+        cell.title.text = favorites?[indexPath.row].product_name ?? ""
+        if favorites?[indexPath.row].is_favorite == false {
+            cell.button.setImage(UIImage(named: "favorite"), for: .normal)
+        }
+        else {
+            cell.button.setImage(UIImage(named: "heart"), for: .normal)
+        }
         return cell
     }
     
@@ -62,7 +73,7 @@ extension FavoriteCollectionView: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = MedicineViewController()
-        vc.id = data[indexPath.row].id ?? ""
+        vc.id = favorites?[indexPath.row].id ?? ""
         navigationController.pushViewController(vc, animated: true)
     }
 }

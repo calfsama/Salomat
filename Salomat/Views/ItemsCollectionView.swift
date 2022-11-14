@@ -31,7 +31,9 @@ extension UIImageView {
 
 class ItemsCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
     var navigationController: UINavigationController
+    var data = [DataModel]()
     var product: ProdsOfTheDay?
+    var favorites: FavoritesData?
     
     init(nav: UIViewController) {
         let layout = UICollectionViewFlowLayout()
@@ -52,18 +54,24 @@ class ItemsCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout 
         fatalError("init(coder:) has not been implemented")
     }
 }
-extension ItemsCollectionView: UICollectionViewDelegate, UICollectionViewDataSource, SkeletonCollectionViewDataSource {
+extension ItemsCollectionView: UICollectionViewDelegate, SkeletonCollectionViewDataSource {
+    
+    func collectionSkeletonView(_ skeletonView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 3
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return product?.prods_of_the_day?.count ?? 0
     }
+   
     
     func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> SkeletonView.ReusableCellIdentifier {
-        MedicinesCollectionViewCell.identifier
+        return MedicinesCollectionViewCell.identifier
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = dequeueReusableCell(withReuseIdentifier: MedicinesCollectionViewCell.identifier, for: indexPath) as! MedicinesCollectionViewCell
-        let data = product?.prods_of_the_day?[indexPath.row]
+        var data = product?.prods_of_the_day?[indexPath.row]
         cell.id = data?.id ?? ""
         cell.is_favorite = ((data?.is_favorite) != nil)
         cell.titleMedicine = data?.product_name ?? ""
@@ -73,6 +81,13 @@ extension ItemsCollectionView: UICollectionViewDelegate, UICollectionViewDataSou
         let url = "http://salomat.colibri.tj/upload_product/"
         let completeURL = url + (data?.product_pic ?? "")
         cell.image.downloaded(from: completeURL)
+        if data?.is_favorite == true {
+            cell.button.setImage(UIImage(named: "heart"), for: .normal)
+        }
+        else  {
+            cell.button.setImage(UIImage(named: "favorite"), for: .normal)
+        }
+            
 //        if data?.is_favorite == false {
 //            cell.button.setImage(UIImage(named: "favorite"), for: .normal)
 //        }

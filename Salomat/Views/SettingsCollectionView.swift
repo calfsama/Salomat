@@ -27,6 +27,8 @@ import UIKit
 class SettingsCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
     var navigationController: UINavigationController
     var settings = [Settings]()
+    var userID: String = ""
+    var token: String = ""
 
     init(nav: UIViewController) {
         let layout = UICollectionViewFlowLayout()
@@ -72,6 +74,8 @@ extension SettingsCollectionView: UICollectionViewDelegate, UICollectionViewData
         if indexPath.row == 1 {
             let vc = PersonalInfoViewController()
             vc.title = "Личная информация"
+            vc.userID = userID
+            vc.token = token
             self.navigationController.pushViewController(vc, animated: true)
         }
         else if indexPath.row == 2 {
@@ -82,6 +86,8 @@ extension SettingsCollectionView: UICollectionViewDelegate, UICollectionViewData
         else if indexPath.row == 3 {
             let vc = PhoneNumberViewController()
             vc.title = "Номер телефона"
+            vc.userID = userID
+            vc.token = token
             self.navigationController.pushViewController(vc, animated: true)
         }
         else if indexPath.row == 4 {

@@ -12,6 +12,16 @@ class ReceiptViewController: UIViewController, UIImagePickerControllerDelegate, 
     var messengerCollectionView = MessangerCollectionView()
     var receiptCollectionView = ReceiptCollectionView()
     var imagePickerController = UIImagePickerController()
+    var instruction = InstructionCollectionView()
+    
+    lazy var uiScrollView: UIScrollView = {
+        let scroll = UIScrollView()
+        scroll.frame = view.bounds
+        scroll.showsVerticalScrollIndicator = false
+        scroll.backgroundColor = .white
+        scroll.contentSize = CGSize(width: view.frame.size.width, height: 1000)
+        return scroll
+    }()
     
     
     lazy var choosePhoto: UIButton = {
@@ -95,28 +105,83 @@ class ReceiptViewController: UIViewController, UIImagePickerControllerDelegate, 
         uiView.translatesAutoresizingMaskIntoConstraints = false
         return uiView
     }()
+    
+    lazy var phoneTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Телефон"
+        textField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        textField.returnKeyType = .next
+        textField.leftViewMode = .always
+        textField.autocapitalizationType = .none
+        textField.autocorrectionType = .no
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
+        textField.layer.cornerRadius = 4
+        textField.layer.borderWidth = 1
+        textField.layer.masksToBounds = true
+        textField.layer.borderColor = UIColor(red: 0.929, green: 0.93, blue: 1, alpha: 1).cgColor
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+    
+    lazy var nameTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Имя и фамилия"
+        textField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        textField.returnKeyType = .next
+        textField.leftViewMode = .always
+        textField.autocapitalizationType = .none
+        textField.autocorrectionType = .no
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
+        textField.layer.cornerRadius = 4
+        textField.layer.borderWidth = 1
+        textField.layer.masksToBounds = true
+        textField.layer.borderColor = UIColor(red: 0.929, green: 0.93, blue: 1, alpha: 1).cgColor
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+
+    lazy var commentTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Комментарий"
+        textField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        textField.returnKeyType = .next
+        textField.leftViewMode = .always
+        textField.autocapitalizationType = .none
+        textField.autocorrectionType = .no
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
+        textField.layer.cornerRadius = 4
+        textField.layer.borderWidth = 1
+        textField.layer.masksToBounds = true
+        textField.layer.borderColor = UIColor(red: 0.929, green: 0.93, blue: 1, alpha: 1).cgColor
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        checkPermissions()
+        //checkPermissions()
         view.backgroundColor = .white
+        view.addSubview(uiScrollView)
         navigationItem.title = "Электронный рецепт"
         messengerCollectionView.set(cell: Messenger.items())
+        instruction.set(cells: Instruction.items())
         configureConstraints()
     }
 
     func configureConstraints() {
-        view.addSubview(chooseThePhoto)
+        uiScrollView.addSubview(chooseThePhoto)
         //view.addSubview(receiptCollectionView)
-        view.addSubview(button)
-        view.addSubview(messengerCollectionView)
-        view.addSubview(sendPhoto)
-        view.addSubview(or)
-        view.addSubview(uiView)
-        view.addSubview(uiView2)
-        view.addSubview(photo)
-        view.addSubview(choosePhoto)
-        view.addSubview(photoCamera)
+        uiScrollView.addSubview(button)
+        uiScrollView.addSubview(messengerCollectionView)
+        uiScrollView.addSubview(sendPhoto)
+        uiScrollView.addSubview(or)
+        uiScrollView.addSubview(uiView)
+        uiScrollView.addSubview(uiView2)
+        uiScrollView.addSubview(photo)
+        uiScrollView.addSubview(choosePhoto)
+//        uiScrollView.addSubview(instruction)
 
         NSLayoutConstraint.activate([
             chooseThePhoto.topAnchor
@@ -128,21 +193,12 @@ class ReceiptViewController: UIViewController, UIImagePickerControllerDelegate, 
             photo.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             photo.heightAnchor.constraint(equalToConstant: 80),
             photo.widthAnchor.constraint(equalToConstant: 80),
-
-            photoCamera.topAnchor.constraint(equalTo: chooseThePhoto.bottomAnchor, constant: 25),
-            photoCamera.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            photoCamera.heightAnchor.constraint(equalToConstant: 80),
-            photoCamera.widthAnchor.constraint(equalToConstant: 80),
+            
 
             choosePhoto.topAnchor.constraint(equalTo: chooseThePhoto.bottomAnchor, constant: 25),
-            choosePhoto.leadingAnchor.constraint(equalTo: photo.trailingAnchor, constant: 20),
+            choosePhoto.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             choosePhoto.heightAnchor.constraint(equalToConstant: 80),
             choosePhoto.widthAnchor.constraint(equalToConstant: 80),
-
-//            receiptCollectionView.topAnchor.constraint(equalTo: chooseThePhoto.bottomAnchor, constant: 25),
-//            receiptCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-//            receiptCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-//            receiptCollectionView.heightAnchor.constraint(equalToConstant: 100),
 
             button.topAnchor.constraint(equalTo: choosePhoto.bottomAnchor, constant: 25),
             button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
@@ -174,8 +230,32 @@ class ReceiptViewController: UIViewController, UIImagePickerControllerDelegate, 
             sendPhoto.topAnchor.constraint(equalTo: messengerCollectionView.bottomAnchor, constant: 20),
             sendPhoto.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             sendPhoto.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            
+//            instruction.topAnchor.constraint(equalTo: sendPhoto.bottomAnchor, constant: 20),
+//            instruction.widthAnchor.constraint(equalToConstant: view.frame.size.width),
+//            instruction.heightAnchor.constraint(equalToConstant: 50)
 
         ])
+    }
+    
+    @objc func openInstagram() {
+//        guard let url = URL(string: "instagram://>") else { return }
+//
+//        if UIApplication.shared.canOpenURL(url) {
+//            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+//        }
+//        else {
+//            print("error")
+//        }
+        let instagramHooks = "https://t.me/hoosniya"
+        let instagramUrl = URL(string: instagramHooks)!
+        if UIApplication.shared.canOpenURL(instagramUrl)
+        {
+            UIApplication.shared.open(instagramUrl)
+        } else {
+            //redirect to safari because the user doesn't have Instagram
+            UIApplication.shared.open(URL(string: "http://instagram.com/")!)
+        }
     }
 
     @objc func camera() {
@@ -191,27 +271,27 @@ class ReceiptViewController: UIViewController, UIImagePickerControllerDelegate, 
         self.present(self.imagePickerController, animated: true, completion: nil)
     }
 
-    func checkPermissions() {
-        if PHPhotoLibrary.authorizationStatus() != PHAuthorizationStatus.authorized {
-            PHPhotoLibrary.requestAuthorization({ (status: PHAuthorizationStatus) -> Void in()
-            })
-        }
-        if PHPhotoLibrary.authorizationStatus() == PHAuthorizationStatus.authorized {
-        }
-        else {
-            PHPhotoLibrary.requestAuthorization(requestAuthorizationHandler)
-        }
-    }
-
-    func requestAuthorizationHandler(status: PHAuthorizationStatus) {
-        if PHPhotoLibrary.authorizationStatus() == PHAuthorizationStatus.authorized {
-            print("Access granted to use Photo Library")
-        }
-        else {
-            print("We don't use access to your Photos")
-        }
-    }
-
+//    func checkPermissions() {
+//        if PHPhotoLibrary.authorizationStatus() != PHAuthorizationStatus.authorized {
+//            PHPhotoLibrary.requestAuthorization({ (status: PHAuthorizationStatus) -> Void in()
+//            })
+//        }
+//        if PHPhotoLibrary.authorizationStatus() == PHAuthorizationStatus.authorized {
+//        }
+//        else {
+//            PHPhotoLibrary.requestAuthorization(requestAuthorizationHandler)
+//        }
+//    }
+//
+//    func requestAuthorizationHandler(status: PHAuthorizationStatus) {
+//        if PHPhotoLibrary.authorizationStatus() == PHAuthorizationStatus.authorized {
+//            print("Access granted to use Photo Library")
+//        }
+//        else {
+//            print("We don't use access to your Photos")
+//        }
+//    }
+//
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if picker.sourceType == .photoLibrary {
             photoCamera.image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage

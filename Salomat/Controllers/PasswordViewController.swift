@@ -9,6 +9,10 @@ import UIKit
 
 class PasswordViewController: UIViewController {
     var phone: String = ""
+    var network = NetworkService()
+    var userData: Token?
+    var token: String = ""
+    var userID: String = ""
     
     lazy var password: UILabel = {
         let label = UILabel()
@@ -73,6 +77,9 @@ class PasswordViewController: UIViewController {
         configureConstraints()
         self.navigationController?.navigationBar.tintColor = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
         self.hideKeyboardWhenTappedAround()
+        token = userData?.data?[0].token ?? ""
+        userID = userData?.data?[0].user_id ?? ""
+        print(token, " ", userID)
     }
     
     func configureConstraints() {
@@ -138,13 +145,28 @@ class PasswordViewController: UIViewController {
                 error == nil
                     
             else {                                                                //check for fundamental networking error
-                print("errorrr", error ?? URLError(.badServerResponse))
+                print(error ?? URLError(.badServerResponse))
                 return
             }
+            
+            do {
+                let urlData = try JSONDecoder().decode(Token.self, from: data)
+                print(urlData, "yyeeeeh")
+                self.userData = urlData
+                print(self.userData, "ooommmgg")
+            }catch let jsonError {
+                print("Failed to decode JSON", jsonError)
+                if let responseString = String(data: data, encoding: .utf8) {
+                    print("responseString = \(responseString)")
+                }
+            }
+            
             if response.statusCode >= 200 && response.statusCode <= 299 {
-                let vc = ProfileInfoViewController()
                 DispatchQueue.main.async {
+                    let vc = ProfileInfoViewController()
                     vc.title = "Профиль"
+                    vc.userID = self.userData?.data?[0].user_id ?? ""
+                    vc.token = self.userData?.data?[0].token ?? ""
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
             }
@@ -156,6 +178,7 @@ class PasswordViewController: UIViewController {
                 print("user doesn't exist")
             }
             
+            
             do {
                 let json = try JSONSerialization.jsonObject(with: data)
                 print(json)
@@ -163,17 +186,40 @@ class PasswordViewController: UIViewController {
             catch {
                 print(error)
             }
-        
+            
             
             guard (200 ... 299) ~= response.statusCode else {                     //check for http errors
                 print("statusCode should be 2xx, but is \(response.statusCode)")
                 print("response = \(response)")
                 return
             }
+            
+  
+            
+//            URLSession.shared.dataTask(with: request) {(data, response, error) in
+//                print(url)
+//                DispatchQueue.main.async {
+//                    if let error = error {
+//                        print("Some error")
+//                        return
+//                    }
+//                    guard let data = data else {return}
+//                    do {
+//                        let urlData = try JSONDecoder().decode(Token.self, from: data)
+//                        print(urlData, "yyeeeeh")
+//                    }catch let jsonError {
+//                        print("Failed to decode JSON", jsonError)
+//                        if let responseString = String(data: data, encoding: .utf8) {
+//                            print("responseString = \(responseString)")
+//                        }
+//                    }
+//                }
+//
+//            }
+            
         }
         task.resume()
     }
-    
-
 }
+        
 

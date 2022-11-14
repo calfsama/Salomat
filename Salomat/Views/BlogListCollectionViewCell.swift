@@ -13,7 +13,6 @@ class BlogListCollectionViewCell: UICollectionViewCell {
     lazy var image: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleToFill
-        image.backgroundColor = .blue
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -41,11 +40,6 @@ class BlogListCollectionViewCell: UICollectionViewCell {
         configureConstraints()
         contentView.layer.borderWidth = 1
         contentView.layer.borderColor = UIColor(red: 0.929, green: 0.93, blue: 1, alpha: 1).cgColor
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        self.image.image = nil
     }
     
     func configureConstraints() {
