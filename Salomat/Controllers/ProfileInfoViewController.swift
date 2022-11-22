@@ -10,6 +10,7 @@ import UIKit
 class ProfileInfoViewController: UIViewController {
     var token: String = ""
     var userID: String = ""
+    var phone: String = ""
     var login: LoginData?
     
     lazy var uiscrollView: UIScrollView = {
@@ -63,6 +64,7 @@ class ProfileInfoViewController: UIViewController {
         print(userID, "1", token)
         settingsCollectionView.userID = userID
         settingsCollectionView.token = token
+        settingsCollectionView.phone = phone
     }
     
     override func viewWillAppear(_ animated: Bool) {

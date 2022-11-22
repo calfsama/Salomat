@@ -28,6 +28,7 @@ class PhoneNumberViewController: UIViewController {
         textField.placeholder = "+992 932 55 44 55"
         textField.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
         textField.returnKeyType = .next
+        textField.keyboardType = .phonePad
         textField.leftViewMode = .always
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no

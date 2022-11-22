@@ -9,7 +9,7 @@ import UIKit
 
 class BlackViewController: UIViewController {
     var network = NetworkService()
-    var collectionView = CategoriesForMainPageCollectionView()
+    var categoriesForMainPage: CategoriesForMainPageCollectionView!
     
     lazy var viewTitle: UILabel = {
         let label = UILabel()
@@ -23,33 +23,34 @@ class BlackViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         view.layer.cornerRadius = 20
-        fetchData()
+        fetchCategories()
+        categoriesForMainPage = CategoriesForMainPageCollectionView(nav: self.navigationController!)
         configureConstraints()
     }
     
     func configureConstraints() {
         view.addSubview(viewTitle)
-        view.addSubview(collectionView)
+        view.addSubview(categoriesForMainPage)
         
         NSLayoutConstraint.activate([
             viewTitle.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 20),
             viewTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             
-            collectionView.topAnchor.constraint(equalTo: viewTitle.bottomAnchor, constant: 20),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            categoriesForMainPage.topAnchor.constraint(equalTo: viewTitle.bottomAnchor, constant: 20),
+            categoriesForMainPage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            categoriesForMainPage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            categoriesForMainPage.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     
-    func fetchData(){
+    func fetchCategories(){
         let urlString = "http://salomat.colibri.tj/products/categories"
         self.network.category(urlString: urlString) { [weak self] (result) in
             guard let self = self else {return}
             switch result {
             case .success(let response):
-                self.collectionView.category = response
-                self.collectionView.reloadData()
+                self.categoriesForMainPage.category = response
+                self.categoriesForMainPage.reloadData()
             case .failure(let error):
                 print("error", error)
             }

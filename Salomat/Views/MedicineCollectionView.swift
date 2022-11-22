@@ -97,4 +97,9 @@ extension MedicineCollectionView: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         return CGSize(width: collectionView.frame.size.width, height: 250)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        let vc = BlackViewController()
+//        self.inputViewController?.navigationController?.pushViewController(vc, animated: true)
+    }
 }

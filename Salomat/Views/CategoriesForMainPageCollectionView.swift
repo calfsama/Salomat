@@ -9,11 +9,13 @@ import UIKit
 
 class CategoriesForMainPageCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
     var selectedIndex: IndexPath?
+    var navigationController: UINavigationController
     var category: Category?
     
-    init() {
+    init(nav: UIViewController) {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
+        self.navigationController = nav as! UINavigationController
         super.init(frame: .zero, collectionViewLayout: layout)
         register(CategoriesForMainPageCollectionViewCell.self, forCellWithReuseIdentifier: CategoriesForMainPageCollectionViewCell.identifier)
         delegate = self
@@ -59,11 +61,13 @@ extension CategoriesForMainPageCollectionView: UICollectionViewDelegate, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selectedIndex = indexPath
-        let cell = collectionView.cellForItem(at: indexPath) as? CategoriesForMainPageCollectionViewCell
-        cell?.category.text = category?.categories?[indexPath.row].sub_cat?[indexPath.row].category_name ?? ""
-        collectionView.reloadData()
+//        selectedIndex = indexPath
+//        let cell = collectionView.cellForItem(at: indexPath) as? CategoriesForMainPageCollectionViewCell
+//        cell?.category.text = category?.categories?[indexPath.row].sub_cat?[indexPath.row].category_name ?? ""
+//        collectionView.reloadData()
         
+        let vc = CategoriesViewController()
+        self.navigationController.pushViewController(vc, animated: true)
         
     }
 }

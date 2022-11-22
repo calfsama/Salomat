@@ -209,6 +209,8 @@ class NetworkService {
             }
         }.resume()
     }
+    
+    
     func sales(urlString: String, completion: @escaping(Result<Sales, Error>) -> Void) {
     
         

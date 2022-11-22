@@ -123,15 +123,7 @@ class MainViewController: UIViewController {
         return title
     }()
     
-    lazy   var searchBar:UISearchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 20))
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        view.isSkeletonable = true
-        view.startSkeletonAnimation()
-        itemsCollectionView.isSkeletonable = true
-        itemsCollectionView.startSkeletonAnimation()
-    }
+    lazy var searchBar:UISearchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 20))
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -154,17 +146,22 @@ class MainViewController: UIViewController {
         let logo = UIImage(named: "logo")
         let imageView = UIImageView(image:logo)
         self.navigationItem.titleView = imageView
-        searchController.searchBar.delegate = self
+        //searchController.searchBar.delegate = self
         self.navigationController?.navigationBar.tintColor = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
-//        tabBarController?.tabBarItem.selectedImage = UIImage(named: "inactive.profile")
 
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "menu"), style: .plain, target: self, action: #selector(buttonAction))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "menu"), style: .plain, target: self, action: #selector(showCategories))
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Search"), style: .plain, target: self, action: #selector(openSearch))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Search"), style: .plain, target: self, action: #selector(openSearchController))
+    }
+    
+    @objc func openSearchController() {
+        let vc = NotificationsViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc func openSearch() {
         searchController.searchBar.placeholder = ""
+        searchBar.setImage(UIImage(named: "camera"), for: .bookmark, state: .normal)
         present(searchController, animated: true, completion: nil)
     }
     
@@ -272,22 +269,21 @@ class MainViewController: UIViewController {
         ])
     }
     
-    @objc func buttonAction() {
+    @objc func showCategories() {
         let vc =  BlackViewController()
-        vc.modalPresentationStyle = .pageSheet
+        let navigationController = UINavigationController(rootViewController: vc)
+        navigationController.modalPresentationStyle = .pageSheet
         if #available(iOS 15.0, *) {
 
-            if let presentationController = vc.presentationController as? UISheetPresentationController {
+            if let presentationController = navigationController.presentationController as? UISheetPresentationController {
 
                 presentationController.detents =  [.medium(), .large()]
+                self.present(navigationController, animated: true)
             }
         } else {
             // Fallback on earlier versions
         }
-           print("pressed")
-        self.present(vc, animated: true)
-        //self.navigationController?.present(vc, animated: true, completion: nil)
-        //self.navigationController?.pushViewController(vc, animated: true)
+        
     }
     
     func fetchFromApi(){
@@ -386,18 +382,14 @@ class MainViewController: UIViewController {
 
 }
 extension MainViewController: UISearchBarDelegate {
-    
+
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchController = UISearchController(searchResultsController: SearchViewController())
         let vc = SearchViewController()
         vc.searchText = searchBar.text!
+       // vc.searchData?.data?.srch_inp = searchBar.text!
         print(searchBar.text!)
         vc.title = "\(searchBar.text!)"
         self.navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
-        print("clicked")
     }
 }
 

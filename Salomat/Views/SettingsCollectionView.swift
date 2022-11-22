@@ -29,6 +29,7 @@ class SettingsCollectionView: UICollectionView, UICollectionViewDelegateFlowLayo
     var settings = [Settings]()
     var userID: String = ""
     var token: String = ""
+    var phone: String = ""
 
     init(nav: UIViewController) {
         let layout = UICollectionViewFlowLayout()
@@ -93,6 +94,7 @@ extension SettingsCollectionView: UICollectionViewDelegate, UICollectionViewData
         else if indexPath.row == 4 {
             let vc = SafetyViewController()
             vc.title = "Безопасность"
+            vc.phone = phone
             self.navigationController.pushViewController(vc, animated: true)
         }
         else if indexPath.row == 5 {

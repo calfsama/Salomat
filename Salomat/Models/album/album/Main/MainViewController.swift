@@ -22,6 +22,7 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tabBarController?.tabBar.backgroundColor = .systemBackground
         view.backgroundColor =  UIColor(red: 0.93, green: 0.963, blue: 0.975, alpha: 1)
         
         navigationItem.title = "Coupling"

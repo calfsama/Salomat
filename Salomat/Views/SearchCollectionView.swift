@@ -32,15 +32,16 @@ class SearchCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout
 }
 extension SearchCollectionView: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return search?.products?.count ?? 0
+        return search?.products?.count ?? 2
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = dequeueReusableCell(withReuseIdentifier: MedicinesCollectionViewCell.identifier, for: indexPath) as! MedicinesCollectionViewCell
-        let url = ""
+        let url = "http://salomat.colibri.tj/upload_product/"
         let completeURL = url + (search?.products?[indexPath.row].product_pic ?? "")
         cell.image.downloaded(from: completeURL)
-        cell.title.text = search?.products?[indexPath.row].product_name ?? ""
+        //cell.title.text = search?.products?[indexPath.row].product_name ?? ""
+        cell.title.text = "kekghg"
         cell.price.text = search?.products?[indexPath.row].product_price ?? ""
         cell.button.setImage(UIImage(named: "favorite"), for: .normal)
         return cell

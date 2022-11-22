@@ -8,6 +8,7 @@
 import UIKit
 
 class SafetyViewController: UIViewController {
+    var phone: String = ""
     
     lazy var password: UILabel = {
         let label = UILabel()
@@ -18,7 +19,7 @@ class SafetyViewController: UIViewController {
         return label
     }()
     
-    lazy var textField: UITextField = {
+    lazy var passwordTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Введите новый пароль"
         textField.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
@@ -44,7 +45,7 @@ class SafetyViewController: UIViewController {
         return label
     }()
     
-    lazy var repeatTextField: UITextField = {
+    lazy var repeatPasswordTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Введите повторно пароль"
         textField.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
@@ -68,8 +69,17 @@ class SafetyViewController: UIViewController {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         button.backgroundColor = UIColor(red: 0.118, green: 0.745, blue: 0.745, alpha: 1)
         button.layer.cornerRadius = 4
+        button.addTarget(self, action: #selector(updatePassword), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
+    }()
+    
+    lazy var match: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 10, weight: .regular)
+        label.textColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
 
     override func viewDidLoad() {
@@ -80,29 +90,33 @@ class SafetyViewController: UIViewController {
     
     func configureConstraints() {
         view.addSubview(password)
-        view.addSubview(textField)
+        view.addSubview(passwordTextField)
         view.addSubview(repeatPassword)
-        view.addSubview(repeatTextField)
+        view.addSubview(repeatPasswordTextField)
         view.addSubview(button)
+        view.addSubview(match)
         
         NSLayoutConstraint.activate([
             password.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
             password.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             
-            textField.topAnchor.constraint(equalTo: password.bottomAnchor, constant: 10),
-            textField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            textField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            textField.heightAnchor.constraint(equalToConstant: 45),
-            textField.widthAnchor.constraint(equalToConstant: 330),
+            passwordTextField.topAnchor.constraint(equalTo: password.bottomAnchor, constant: 10),
+            passwordTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            passwordTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            passwordTextField.heightAnchor.constraint(equalToConstant: 45),
+            passwordTextField.widthAnchor.constraint(equalToConstant: 330),
 
-            repeatPassword.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 16),
+            repeatPassword.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 16),
             repeatPassword.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
 
-            repeatTextField.topAnchor.constraint(equalTo: repeatPassword.bottomAnchor, constant: 10),
-            repeatTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            repeatTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            repeatTextField.heightAnchor.constraint(equalToConstant: 45),
-            repeatTextField.widthAnchor.constraint(equalToConstant: 330),
+            repeatPasswordTextField.topAnchor.constraint(equalTo: repeatPassword.bottomAnchor, constant: 10),
+            repeatPasswordTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            repeatPasswordTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            repeatPasswordTextField.heightAnchor.constraint(equalToConstant: 45),
+            repeatPasswordTextField.widthAnchor.constraint(equalToConstant: 330),
+            
+            match.topAnchor.constraint(equalTo: repeatPasswordTextField.bottomAnchor, constant: 5),
+            match.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
 
             button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
             button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
@@ -110,5 +124,61 @@ class SafetyViewController: UIViewController {
             button.heightAnchor.constraint(equalToConstant: 45),
             button.widthAnchor.constraint(equalToConstant: 330)
         ])
+    }
+    
+    @objc func updatePassword() {
+        guard let url = URL(string: "http://salomat.colibri.tj/users/forgot_password") else { return }
+        var request = URLRequest(url: url)
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        let parameters: [String: Any] = [
+            "phone": phone,
+            "password": passwordTextField.text!
+        ]
+        if repeatPasswordTextField.text != "" && passwordTextField.text == repeatPasswordTextField.text {
+            request.httpBody = parameters.percentEncoded()
+        }
+        else if repeatPasswordTextField.text == "" {
+            match.text = "Заполните поле"
+        }
+        else if repeatPasswordTextField.text != passwordTextField.text {
+            match.text = "Пароли не совпадают"
+        }
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let response = response {
+                print(response)
+            }
+            guard
+                let data = data,
+                let response = response as? HTTPURLResponse,
+                error == nil
+                    
+            else {                                                                //check for fundamental networking error
+                print("error", error ?? URLError(.badServerResponse))
+                return
+            }
+            if response.statusCode == 200 {
+                DispatchQueue.main.async {
+                    print("update")
+                }
+            }
+            else if response.statusCode == 400 {
+                DispatchQueue.main.async {
+                  print("error")
+                }
+
+                print("user doesn't exist")
+            }
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data)
+                print(json, "first")
+            }
+            catch {
+                print(error, "second")
+            }
+        }
+        task.resume()
     }
 }

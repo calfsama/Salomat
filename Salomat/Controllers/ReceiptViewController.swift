@@ -14,16 +14,6 @@ class ReceiptViewController: UIViewController, UIImagePickerControllerDelegate, 
     var imagePickerController = UIImagePickerController()
     var instruction = InstructionCollectionView()
     
-    lazy var uiScrollView: UIScrollView = {
-        let scroll = UIScrollView()
-        scroll.frame = view.bounds
-        scroll.showsVerticalScrollIndicator = false
-        scroll.backgroundColor = .white
-        scroll.contentSize = CGSize(width: view.frame.size.width, height: 1000)
-        return scroll
-    }()
-    
-    
     lazy var choosePhoto: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "image 2"), for: .normal)
@@ -49,7 +39,7 @@ class ReceiptViewController: UIViewController, UIImagePickerControllerDelegate, 
     lazy var chooseThePhoto: UILabel = {
         let label = UILabel()
         label.text = "Выберите фото рецепта для отправки на расшифровку:"
-        label.numberOfLines = 0
+        label.numberOfLines = 2
         label.textColor = UIColor(red: 0.22, green: 0.208, blue: 0.325, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -162,8 +152,8 @@ class ReceiptViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         //checkPermissions()
-        view.backgroundColor = .white
-        view.addSubview(uiScrollView)
+        //view.backgroundColor = .white
+        
         navigationItem.title = "Электронный рецепт"
         messengerCollectionView.set(cell: Messenger.items())
         instruction.set(cells: Instruction.items())
@@ -171,28 +161,28 @@ class ReceiptViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
 
     func configureConstraints() {
-        uiScrollView.addSubview(chooseThePhoto)
+        view.addSubview(chooseThePhoto)
         //view.addSubview(receiptCollectionView)
-        uiScrollView.addSubview(button)
-        uiScrollView.addSubview(messengerCollectionView)
-        uiScrollView.addSubview(sendPhoto)
-        uiScrollView.addSubview(or)
-        uiScrollView.addSubview(uiView)
-        uiScrollView.addSubview(uiView2)
-        uiScrollView.addSubview(photo)
-        uiScrollView.addSubview(choosePhoto)
-//        uiScrollView.addSubview(instruction)
+        view.addSubview(button)
+        view.addSubview(messengerCollectionView)
+        view.addSubview(sendPhoto)
+        view.addSubview(or)
+        view.addSubview(uiView)
+        view.addSubview(uiView2)
+//        uiScrollView.addSubview(photo)
+        view.addSubview(choosePhoto)
+//        view.addSubview(instruction)
 
         NSLayoutConstraint.activate([
             chooseThePhoto.topAnchor
-                .constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 20),
+                .constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 16),
             chooseThePhoto.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             chooseThePhoto.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
 
-            photo.topAnchor.constraint(equalTo: chooseThePhoto.bottomAnchor, constant: 25),
-            photo.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            photo.heightAnchor.constraint(equalToConstant: 80),
-            photo.widthAnchor.constraint(equalToConstant: 80),
+//            photo.topAnchor.constraint(equalTo: chooseThePhoto.bottomAnchor, constant: 25),
+//            photo.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+//            photo.heightAnchor.constraint(equalToConstant: 80),
+//            photo.widthAnchor.constraint(equalToConstant: 80),
             
 
             choosePhoto.topAnchor.constraint(equalTo: chooseThePhoto.bottomAnchor, constant: 25),
@@ -203,7 +193,7 @@ class ReceiptViewController: UIViewController, UIImagePickerControllerDelegate, 
             button.topAnchor.constraint(equalTo: choosePhoto.bottomAnchor, constant: 25),
             button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             button.heightAnchor.constraint(equalToConstant: 45),
 
             or.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 25),

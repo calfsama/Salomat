@@ -28,6 +28,7 @@ class ProfileViewController: UIViewController {
         textField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         textField.returnKeyType = .next
         textField.leftViewMode = .always
+        textField.keyboardType = .phonePad
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))

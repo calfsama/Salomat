@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Main View Controller-->
+        <!--Messenger View Controller-->
         <scene sceneID="Trs-pZ-FyH">
             <objects>
-                <viewController id="vwf-wv-7wh" customClass="MainViewController" customModule="album" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="vwf-wv-7wh" customClass="MessengerViewController" customModule="album" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LJt-e8-OLL">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -22,22 +22,15 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fp7-wA-bVi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2769" y="1053"/>
+            <point key="canvasLocation" x="-1972" y="1053"/>
         </scene>
-        <!--View Controller-->
+        <!--Main View Controller-->
         <scene sceneID="UH3-gO-fkg">
             <objects>
-                <viewController id="CjD-mt-WZU" sceneMemberID="viewController">
+                <viewController id="CjD-mt-WZU" customClass="MainViewController" customModule="album" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="x0j-NH-cCl">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="message.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="uf2-nI-wZe">
-                                <rect key="frame" x="16" y="358" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </imageView>
-                        </subviews>
                         <viewLayoutGuide key="safeArea" id="Xc3-XY-ktZ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
@@ -45,7 +38,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6hm-d8-qPx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1840" y="1053"/>
+            <point key="canvasLocation" x="-2978" y="1053"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="RGg-ga-5Ma">
@@ -67,10 +60,10 @@
             </objects>
             <point key="canvasLocation" x="-1375" y="-472"/>
         </scene>
-        <!--Main View Controller-->
+        <!--Notifications View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="album" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="NotificationsViewController" customModule="album" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -83,10 +76,10 @@
             </objects>
             <point key="canvasLocation" x="-963" y="1053"/>
         </scene>
-        <!--View Controller-->
+        <!--Profile View Controller-->
         <scene sceneID="KCM-IH-7kF">
             <objects>
-                <viewController id="Sr2-3S-qN5" sceneMemberID="viewController">
+                <viewController id="Sr2-3S-qN5" customClass="ProfileViewController" customModule="album" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wQ3-WB-WgK">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -99,11 +92,11 @@
             </objects>
             <point key="canvasLocation" x="-92" y="1053"/>
         </scene>
-        <!--Item 2-->
+        <!--Messenger-->
         <scene sceneID="DsW-co-q46">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="yN7-xE-4qD" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item 2" id="wBG-Qy-KPy"/>
+                    <tabBarItem key="tabBarItem" title="Messenger" image="message.badge" catalog="system" id="wBG-Qy-KPy"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Zqc-jT-CCN">
                         <rect key="frame" x="0.0" y="47" width="390" height="44"/>
@@ -116,13 +109,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="owa-h9-6fb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2769" y="343"/>
+            <point key="canvasLocation" x="-1972" y="343"/>
         </scene>
-        <!--Item 1-->
+        <!--Home-->
         <scene sceneID="veA-VV-mRD">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="B3E-cz-NEK" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item 1" id="lzK-ds-QhL"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="house" catalog="system" id="lzK-ds-QhL"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fXW-EI-jzW">
                         <rect key="frame" x="0.0" y="47" width="390" height="44"/>
@@ -135,13 +128,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zbZ-2R-wzI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1840" y="343"/>
+            <point key="canvasLocation" x="-2977" y="343"/>
         </scene>
-        <!--Item-->
+        <!--Notifications-->
         <scene sceneID="sey-vD-6sw">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="NuN-xE-1is" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="Jeg-SS-rGw"/>
+                    <tabBarItem key="tabBarItem" title="Notifications" image="bell" catalog="system" id="Jeg-SS-rGw"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="gcP-GO-Jrt">
                         <rect key="frame" x="0.0" y="47" width="390" height="44"/>
@@ -156,11 +149,11 @@
             </objects>
             <point key="canvasLocation" x="-963" y="343"/>
         </scene>
-        <!--Item-->
+        <!--Profile-->
         <scene sceneID="DG4-eT-Wkf">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2Uo-YA-fyL" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="wV0-5V-IgP"/>
+                    <tabBarItem key="tabBarItem" title="Profile" id="wV0-5V-IgP"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="k6k-r3-ybh">
                         <rect key="frame" x="0.0" y="47" width="390" height="44"/>
@@ -177,7 +170,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="message.fill" catalog="system" width="128" height="114"/>
+        <image name="bell" catalog="system" width="125" height="128"/>
+        <image name="house" catalog="system" width="128" height="104"/>
+        <image name="message.badge" catalog="system" width="128" height="116"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

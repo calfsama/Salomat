@@ -13,6 +13,7 @@ class PasswordViewController: UIViewController {
     var userData: Token?
     var token: String = ""
     var userID: String = ""
+    var appDelegate = AppDelegate()
     
     lazy var password: UILabel = {
         let label = UILabel()
@@ -28,6 +29,7 @@ class PasswordViewController: UIViewController {
         textField.placeholder = ""
         textField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         textField.returnKeyType = .next
+        textField.isSecureTextEntry = true
         textField.leftViewMode = .always
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
@@ -167,6 +169,8 @@ class PasswordViewController: UIViewController {
                     vc.title = "Профиль"
                     vc.userID = self.userData?.data?[0].user_id ?? ""
                     vc.token = self.userData?.data?[0].token ?? ""
+                    vc.phone = self.phone
+                   // self.appDelegate.token = self.userData?.data?[0].token ?? ""
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
             }

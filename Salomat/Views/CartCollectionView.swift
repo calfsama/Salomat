@@ -9,6 +9,7 @@ import UIKit
 
 class CartCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
     var data = [Basket]()
+    var cart = CartCollectionViewCell()
     
     
     init() {
@@ -56,10 +57,12 @@ extension CartCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
         cell.image.downloaded(from: completeURL)
         cell.title.text = data[indexPath.row].title
         cell.price.text = data[indexPath.row].price
+        cell.price.text = String((cell.stepper.value) + Double(data[indexPath.row].price!)!)
         cell.prices = data[indexPath.row].price ?? ""
         //        cell.image.image = medical[indexPath.row].image
         //        cell.title.text = medical[indexPath.row].name
         //        cell.price.text = medical[indexPath.row].price
+        cell.price.text = "\(cell.stepper.value * Double(data[indexPath.row].price ?? "")!) "
         cell.ml.text = "50 мл"
         cell.art.text = "Арт. 10120"
         return cell
@@ -72,13 +75,40 @@ extension CartCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
         let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: BasketFooterCollectionReusableView.identifier, for: indexPath) as! BasketFooterCollectionReusableView
-        footer.cost.text = "104"
+        footer.cost.text = String(format: "%.2f", calculateCartTotal())
         footer.delivery.text = "10"
+        footer.totalCost.text = String(format: "%.2f", calculateCartTotalWithDelivery())
         footer.configure()
         return footer
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         return CGSize(width: collectionView.frame.size.width, height: 150)
+    }
+    
+    func calculateCartTotal() -> Double{
+        var total = 0.0
+        if self.data.count > 0 {
+            for index in 0...self.data.count - 1 {
+                total += Double(data[index].price!) ?? 0
+            }
+        }
+        return total
+    }
+    
+    func calculateCartTotalWithDelivery() -> Double{
+        var total = 0.0
+        if self.data.count > 0 {
+            for index in 0...self.data.count - 1 {
+                total += (Double(data[index].price!) ?? 0)
+                
+            }
+        }
+        return total + 10
+    }
+    
+    func displayTotal() {
+        let cell = BasketFooterCollectionReusableView()
+        cell.totalCost.text = "$" + String(format: "%.2f", calculateCartTotal())
     }
 }

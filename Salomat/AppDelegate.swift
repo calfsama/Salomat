@@ -16,11 +16,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         let BarButtonItemAppearance = UIBarButtonItem.appearance()
         BarButtonItemAppearance.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.clear], for: .normal)
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let tabBar = storyboard.instantiateViewController(withIdentifier: "TabBarController")
-        self.window?.rootViewController = tabBar
-        self.window?.makeKeyAndVisible()
-        
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let tabBar = storyboard.instantiateViewController(withIdentifier: "TabBarController")
+            self.window?.rootViewController = tabBar
+            self.window?.makeKeyAndVisible()
         return true
     }
     

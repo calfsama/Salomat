@@ -92,6 +92,7 @@ class CartViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         loadArticles()
+        basketCollectionView.displayTotal()
     }
     
     func configureConstraints() {

@@ -198,6 +198,12 @@ class RegisterStepTwoViewController: UIViewController {
         if passwordTextField.text == repeatPasswordTextField.text {
             request.httpBody = parameters.percentEncoded()
         }
+        else if repeatPasswordTextField.text == "" {
+            match.text = "Заполните поле"
+        }
+        else if repeatPasswordTextField.text != passwordTextField.text {
+            match.text = "Пароли не совпадают"
+        }
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let response = response {
@@ -212,17 +218,16 @@ class RegisterStepTwoViewController: UIViewController {
                 print("error", error ?? URLError(.badServerResponse))
                 return
             }
-            if response.statusCode == 200 && self.passwordTextField.text == self.repeatPasswordTextField.text{
+            if response.statusCode == 200 {
                 DispatchQueue.main.async {
-                    let vc = ProfileInfoViewController()
-                    vc.title = "Профиль"
+                    let vc = ProfileViewController()
+                    vc.title = "Вход"
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
                 print("Registration completed successfully!")
             }
-            else if response.statusCode == 400 && self.passwordTextField.text != self.repeatPasswordTextField.text{
+            else if response.statusCode == 400 {
                 DispatchQueue.main.async {
-                    self.match.text = "Пароли не совпадают"
                 }
                 print("user doesn't exist")
             }

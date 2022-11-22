@@ -8,13 +8,14 @@
 import UIKit
 
 class CategoriesViewController: UIViewController {
-    var categoriesCollectionView = CategoriesCollectionView()
+    var categoriesCollectionView: CategoriesCollectionView!
     var network = NetworkService()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         fetchFromAPI()
+        categoriesCollectionView = CategoriesCollectionView(nav: self.navigationController!)
         configureConstraints()
     }
     

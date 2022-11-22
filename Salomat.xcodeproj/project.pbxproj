@@ -86,7 +86,6 @@
 		9788484328E1CA9900926727 /* RecoveryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9788484228E1CA9900926727 /* RecoveryViewController.swift */; };
 		9788484528E2F7D600926727 /* RecoveryPasswordStepTwoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9788484428E2F7D600926727 /* RecoveryPasswordStepTwoViewController.swift */; };
 		978973B628C0905200C395C8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978973B528C0905200C395C8 /* AppDelegate.swift */; };
-		978973B828C0905200C395C8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978973B728C0905200C395C8 /* SceneDelegate.swift */; };
 		978973BA28C0905200C395C8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978973B928C0905200C395C8 /* ViewController.swift */; };
 		978973BD28C0905200C395C8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 978973BB28C0905200C395C8 /* Main.storyboard */; };
 		978973BF28C0905400C395C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 978973BE28C0905400C395C8 /* Assets.xcassets */; };
@@ -117,6 +116,12 @@
 		97947912291E595000C3BC77 /* InstructionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97947911291E595000C3BC77 /* InstructionCollectionViewCell.swift */; };
 		979479142920850900C3BC77 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979479132920850900C3BC77 /* File.swift */; };
 		97947916292087B200C3BC77 /* token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97947915292087B100C3BC77 /* token.swift */; };
+		9796F253292BE8FF006DCB55 /* SubCategoryCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796F252292BE8FF006DCB55 /* SubCategoryCollectionView.swift */; };
+		9796F255292BE982006DCB55 /* SubCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796F254292BE982006DCB55 /* SubCategoryViewController.swift */; };
+		9796F257292BF974006DCB55 /* NewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796F256292BF974006DCB55 /* NewViewController.swift */; };
+		9796F259292CB5A9006DCB55 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796F258292CB5A9006DCB55 /* NotificationsViewController.swift */; };
+		9796F25B292CD268006DCB55 /* NotificationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796F25A292CD268006DCB55 /* NotificationCollectionViewCell.swift */; };
+		9796F25D292CD4B9006DCB55 /* NotificationCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796F25C292CD4B9006DCB55 /* NotificationCollectionView.swift */; };
 		979A7DB82922240D00E189E6 /* UsersShow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979A7DB72922240D00E189E6 /* UsersShow.swift */; };
 		979C04A6290AA0B20020E203 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979C04A5290AA0B20020E203 /* PhotoCollectionViewCell.swift */; };
 		979C04A8290AA1D10020E203 /* ReceiptCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979C04A7290AA1D10020E203 /* ReceiptCollectionView.swift */; };
@@ -218,7 +223,6 @@
 		9788484428E2F7D600926727 /* RecoveryPasswordStepTwoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryPasswordStepTwoViewController.swift; sourceTree = "<group>"; };
 		978973B228C0905200C395C8 /* Salomat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Salomat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		978973B528C0905200C395C8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		978973B728C0905200C395C8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		978973B928C0905200C395C8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		978973BC28C0905200C395C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		978973BE28C0905400C395C8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -250,6 +254,12 @@
 		97947911291E595000C3BC77 /* InstructionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionCollectionViewCell.swift; sourceTree = "<group>"; };
 		979479132920850900C3BC77 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		97947915292087B100C3BC77 /* token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = token.swift; sourceTree = "<group>"; };
+		9796F252292BE8FF006DCB55 /* SubCategoryCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubCategoryCollectionView.swift; sourceTree = "<group>"; };
+		9796F254292BE982006DCB55 /* SubCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubCategoryViewController.swift; sourceTree = "<group>"; };
+		9796F256292BF974006DCB55 /* NewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewViewController.swift; sourceTree = "<group>"; };
+		9796F258292CB5A9006DCB55 /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
+		9796F25A292CD268006DCB55 /* NotificationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCollectionViewCell.swift; sourceTree = "<group>"; };
+		9796F25C292CD4B9006DCB55 /* NotificationCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCollectionView.swift; sourceTree = "<group>"; };
 		979A7DB72922240D00E189E6 /* UsersShow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersShow.swift; sourceTree = "<group>"; };
 		979C04A5290AA0B20020E203 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		979C04A7290AA1D10020E203 /* ReceiptCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptCollectionView.swift; sourceTree = "<group>"; };
@@ -306,7 +316,6 @@
 				978973C928C0966400C395C8 /* Controllers */,
 				978973B528C0905200C395C8 /* AppDelegate.swift */,
 				978973B928C0905200C395C8 /* ViewController.swift */,
-				978973B728C0905200C395C8 /* SceneDelegate.swift */,
 				978973BB28C0905200C395C8 /* Main.storyboard */,
 				978973BE28C0905400C395C8 /* Assets.xcassets */,
 				978973C028C0905400C395C8 /* LaunchScreen.storyboard */,
@@ -356,6 +365,9 @@
 				978B0C672915197700F88B0F /* SliderViewController.swift */,
 				978B0C6929151BFA00F88B0F /* DoubledSlider.swift */,
 				9791A4CB291BAC17002183DC /* EReceiptViewController.swift */,
+				9796F254292BE982006DCB55 /* SubCategoryViewController.swift */,
+				9796F256292BF974006DCB55 /* NewViewController.swift */,
+				9796F258292CB5A9006DCB55 /* NotificationsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -388,11 +400,11 @@
 				9749493F28ED771500793966 /* MedicalInfoCollectionViewCell.swift */,
 				9749494128ED78C800793966 /* BlogsShowCollectionViewCell.swift */,
 				9749494328ED7A8600793966 /* BlogsShowCollectionView.swift */,
-				9749494F28EEFA5900793966 /* CategoriesCollectionView.swift */,
 				970B065F28F02C9900C57763 /* MedicineCollectionViewCell.swift */,
 				970B065D28F02C7C00C57763 /* MedicineCollectionView.swift */,
 				970B066528F4394200C57763 /* CartCollectionViewCell.swift */,
 				970B066728F4396100C57763 /* CartCollectionView.swift */,
+				9749494F28EEFA5900793966 /* CategoriesCollectionView.swift */,
 				970B06F128F6D3FB00C57763 /* TotalCollectionView.swift */,
 				970B070028F91B6000C57763 /* InfoAboutDeliveryCollectionViewCell.swift */,
 				970B070228F91B8700C57763 /* InfoAboutDeliveryCollectionView.swift */,
@@ -420,6 +432,9 @@
 				974E42112911341100E287DB /* GroupCollectionView.swift */,
 				9794790F291E593500C3BC77 /* InstructionCollectionView.swift */,
 				97947911291E595000C3BC77 /* InstructionCollectionViewCell.swift */,
+				9796F252292BE8FF006DCB55 /* SubCategoryCollectionView.swift */,
+				9796F25A292CD268006DCB55 /* NotificationCollectionViewCell.swift */,
+				9796F25C292CD4B9006DCB55 /* NotificationCollectionView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -597,6 +612,7 @@
 				973A0AE428D35D3F0068CF56 /* BannerMedicineCollectionViewCell.swift in Sources */,
 				978973D928C09E0500C395C8 /* CategoryCollectionView.swift in Sources */,
 				978973BA28C0905200C395C8 /* ViewController.swift in Sources */,
+				9796F25D292CD4B9006DCB55 /* NotificationCollectionView.swift in Sources */,
 				978973E328C1CB4900C395C8 /* BannerCollectionView.swift in Sources */,
 				9749493D28EAECFE00793966 /* PersonalInfoViewController.swift in Sources */,
 				973A0AF028D8722E0068CF56 /* BlogListViewController.swift in Sources */,
@@ -604,6 +620,7 @@
 				9794790C291CB92D00C3BC77 /* ApiService.swift in Sources */,
 				979C04A8290AA1D10020E203 /* ReceiptCollectionView.swift in Sources */,
 				978B0C662915174900F88B0F /* ViewProgrammatically.swift in Sources */,
+				9796F25B292CD268006DCB55 /* NotificationCollectionViewCell.swift in Sources */,
 				9749493728E8037100793966 /* InfoCollectionView.swift in Sources */,
 				976E327128DAFBB600C3E3E7 /* MenuViewController.swift in Sources */,
 				970053262913DCF0001C40FE /* CheckPhone.swift in Sources */,
@@ -630,13 +647,13 @@
 				976E327928DDBCE900C3E3E7 /* HowToMakeAnOrderViewController.swift in Sources */,
 				970B06F028F6D3E900C57763 /* TotalCollectionViewCell.swift in Sources */,
 				974C1E4428E5C41200A6D4BE /* CategoriesForMainPage.swift in Sources */,
+				9796F253292BE8FF006DCB55 /* SubCategoryCollectionView.swift in Sources */,
 				978B30FC2902C70A00163532 /* SearchWithPriceFilter.swift in Sources */,
 				9749494428ED7A8600793966 /* BlogsShowCollectionView.swift in Sources */,
 				974C1E4628E5F73900A6D4BE /* Blog.swift in Sources */,
 				9749494028ED771500793966 /* MedicalInfoCollectionViewCell.swift in Sources */,
 				970B06F228F6D3FB00C57763 /* TotalCollectionView.swift in Sources */,
 				978973DF28C1291300C395C8 /* MedicinesCollectionViewCell.swift in Sources */,
-				978973B828C0905200C395C8 /* SceneDelegate.swift in Sources */,
 				97604F4B28F9904100B44A5C /* MyOrdersCollectionViewCell.swift in Sources */,
 				97DEFFD729029A4500E6FCD5 /* MyOrdersCollectionReusableView.swift in Sources */,
 				976E326B28D885D400C3E3E7 /* BADCollectionView.swift in Sources */,
@@ -646,6 +663,7 @@
 				9725796C28E7F24900712EEC /* RecoveryPasswordStepThreeViewController.swift in Sources */,
 				9791A4CA291B7796002183DC /* Login.swift in Sources */,
 				9725796E28E7F5CE00712EEC /* RegisterViewController.swift in Sources */,
+				9796F259292CB5A9006DCB55 /* NotificationsViewController.swift in Sources */,
 				9749494228ED78C800793966 /* BlogsShowCollectionViewCell.swift in Sources */,
 				97BE2707290791AF0071D143 /* SearchCollectionView.swift in Sources */,
 				974C1E4028E5A4F200A6D4BE /* Categories.swift in Sources */,
@@ -686,6 +704,7 @@
 				976E327528DB0DA600C3E3E7 /* AboutProjectViewController.swift in Sources */,
 				978973DB28C0A97F00C395C8 /* Model.swift in Sources */,
 				974EFCBC29070B64006FBE49 /* CategoriesForMainPageViewController.swift in Sources */,
+				9796F257292BF974006DCB55 /* NewViewController.swift in Sources */,
 				9794790E291CFE6E00C3BC77 /* Favorites.swift in Sources */,
 				9749494828ED877A00793966 /* Show.swift in Sources */,
 				976E326928D880E200C3E3E7 /* VitaminCollectionView.swift in Sources */,
@@ -712,6 +731,7 @@
 				978973D328C096FB00C395C8 /* ProfileViewController.swift in Sources */,
 				978973CB28C0968C00C395C8 /* MainViewController.swift in Sources */,
 				97DEFFD92902A38700E6FCD5 /* MyOrdersHeaderCollectionReusableView.swift in Sources */,
+				9796F255292BE982006DCB55 /* SubCategoryViewController.swift in Sources */,
 				976E327728DB29E900C3E3E7 /* ShippingAndPaymentViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

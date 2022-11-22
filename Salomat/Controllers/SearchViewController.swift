@@ -9,18 +9,22 @@ import UIKit
 
 class SearchViewController: UIViewController {
     var collectionView = SearchCollectionView()
+    let searchController = UISearchController(searchResultsController: nil)
     var network = NetworkService()
-    var searchData: Search?
-    var searchText: String = ""
+    var searchText: String = "линкас"
     
-    
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        collectionView.search?.data?.srch_inp = searchText
-        searchData?.data?.srch_inp = searchText
+//        title = "Search"
+//        self.searchController.searchBar.placeholder = ""
+//        self.searchController.hidesNavigationBarDuringPresentation = false
+//        self.searchController.searchBar.searchBarStyle = .minimal
+//        self.navigationItem.searchController = self.searchController
+//        //self.navigationItem.titleView = self.searchController.searchBar
+//        self.searchController.searchBar.delegate = self
+//        self.searchController.obscuresBackgroundDuringPresentation = false
+        print(searchText)
         search()
         configureConstraints()
     }
@@ -36,15 +40,15 @@ class SearchViewController: UIViewController {
         ])
     }
     
-    func search(){
-        let urlString = "http://salomat.colibri.tj/search/with_price?srch_pr_inp=\(collectionView.search?.data?.srch_inp ?? "линкас")"
-        self.network.search(urlString: urlString) { [weak self] (result) in
+    func search() {
+        //let urlString = "http://salomat.colibri.tj/search/?srch_pr_inp=\(searchText)"
+        self.network.searchText(searchText: self.searchText) { [weak self] (result) in
             guard let self = self else {return}
             switch result {
             case .success(let response):
+                self.collectionView.search?.data?.srch_inp = self.searchText
                 self.collectionView.search = response
-                print(urlString)
-                print(self.searchText)
+                //print(urlString)
                 print(result)
                 self.collectionView.reloadData()
             case .failure(let error):
@@ -53,3 +57,24 @@ class SearchViewController: UIViewController {
         }
     }
 }
+
+//extension SearchViewController: UISearchBarDelegate {
+//
+//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//        let urlString = "http://salomat.colibri.tj/search/?srch_pr_inp=\(searchText)"
+//        self.network.search(urlString: urlString) { [weak self] (result) in
+//            guard let self = self else {return}
+//            switch result {
+//            case .success(let response):
+//                self.collectionView.search?.data?.srch_inp = searchText
+//                self.collectionView.search = response
+//                print(urlString)
+//                print(searchText)
+//                print(result)
+//                self.collectionView.reloadData()
+//            case .failure(let error):
+//                print("error", error)
+//            }
+//        }
+//    }
+//}

@@ -125,9 +125,52 @@ class CartCollectionViewCell: UICollectionViewCell {
     
     @objc func update() {
         stepperValue.text = "\(Int(stepper.value))"
-        price.text = "\((Int() ?? 2 * Int(stepper.value)))"
-        print(stepper.value)
+//        for index in 0...dataModel.count - 1 {
+//            price.text = "\(stepper.value * Double(dataModel[index].price ?? "")!) "
+//        }
+//        price.text = "\(Int(price.text ?? "") ?? 0 + (Int(price.text ?? "") ?? 0))"
+//        print(stepper.value)
+        updatePrice()
     }
+    
+    func updatePrice() {
+        if self.stepper.value >= 1 {
+            let productPrice = Double(self.prices)
+            price.text = String(productPrice! * Double(stepperValue.text!)!)
+        }
+        else {
+            
+        }
+    }
+    
+//    func calculateCartTotal() -> Double{
+//        var total = 0.0
+//        if self.stepper.value >= 1 {
+//            let productPrice = Double(self.prices)
+//            price.text = String(poductPrice! * Double(stepperValue.text!)!)
+//            if self.dataModel.count > 0 {
+//                for var index in 0...self.dataModel.count - 1 {
+//
+//                    total += Double(price.text!) ?? 0
+//                    index += 1
+//                }
+//            }
+//        }
+//        return total
+//    }
+
+    
+    func calculateCartTotalWithDelivery() -> Double{
+        var total = 0.0
+        if self.dataModel.count > 0 {
+            for index in 0...self.dataModel.count - 1 {
+                total += (Double(dataModel[index].price!) ?? 0)
+                //total = total + 10
+            }
+        }
+        return total + 10
+    }
+
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

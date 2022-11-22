@@ -12,6 +12,8 @@ pod 'Kingfisher', '~> 6.x'
 pod 'SkeletonView'
 pod 'MultiSlider'
 pod 'SnapKit'
+pod 'Cosmos'
+pod 'TinyConstraints'
 end
 
 deployment_target = '11.0'
