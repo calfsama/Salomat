@@ -1,7 +1,6 @@
 PODS:
   - AvailableHapticFeedback (1.0.2)
   - Cosmos (23.0.0)
-  - Kingfisher (6.3.1)
   - MultiSlider (1.13.1):
     - AvailableHapticFeedback
     - SweeterSwift
@@ -12,7 +11,6 @@ PODS:
 
 DEPENDENCIES:
   - Cosmos
-  - Kingfisher (~> 6.x)
   - MultiSlider
   - SkeletonView
   - SnapKit
@@ -21,7 +19,6 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Cosmos
-    - Kingfisher
     - TinyConstraints
   trunk:
     - AvailableHapticFeedback
@@ -33,13 +30,12 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   AvailableHapticFeedback: 9b21b9f6d3e4566015988b5de35b40abefe6c09a
   Cosmos: b5c6a9a637e28a061b54c8f8b1d8529d7d4db73f
-  Kingfisher: 016c8b653a35add51dd34a3aba36b580041acc74
   MultiSlider: 0be12939497499d0e7b9f94f4429e9084e406b0b
   SkeletonView: 915a80ecc2b6421ab7ac0f0212321c0cc1406472
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
   SweeterSwift: 61baeda1c0c27d1dc57c8112c3d6a82e5aff3139
   TinyConstraints: 7b7ccc0c485bb3bb47082138ff28bc33cd49897f
 
-PODFILE CHECKSUM: 924da317cc070bfe82ae3000e9ae5ecce9e5c4ca
+PODFILE CHECKSUM: 6b4affe2fdcc476bfdf25e2d5518e79ff27a3702
 
 COCOAPODS: 1.11.3

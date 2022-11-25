@@ -8,6 +8,8 @@
 import UIKit
 import CoreData
 import SkeletonView
+import Cosmos
+import TinyConstraints
 
 class MedicinesCollectionViewCell: UICollectionViewCell {
     var index: IndexPath!
@@ -25,6 +27,15 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     static let identifier = "MedicinesCollectionViewCell"
+    
+    lazy var cosmosView: CosmosView = {
+        let cosmos = CosmosView()
+        cosmos.rating = 0.0
+        cosmos.settings.starSize = 10
+        cosmos.settings.fillMode = .precise
+        cosmos.translatesAutoresizingMaskIntoConstraints = false
+        return cosmos
+    }()
     
     lazy var image: UIImageView = {
         let image = UIImageView()
@@ -91,7 +102,7 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
         button.isSkeletonable = true
         price.isSkeletonable = true
         cartButton.isSkeletonable = true
-        contentView.skeletonCornerRadius = 10
+        contentView.skeletonCornerRadius = 15
         contentView.isSkeletonable = true
         //contentView.startSkeletonAnimation()
     
@@ -100,6 +111,7 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
     func configureConstraints() {
         contentView.addSubview(image)
         contentView.addSubview(title)
+        contentView.addSubview(cosmosView)
         contentView.addSubview(button)
         contentView.addSubview(price)
         contentView.addSubview(cartButton)
@@ -111,6 +123,8 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
             
             button.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
             button.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
+            cosmosView.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 10),
+            cosmosView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             
             title.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 30),
             title.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),

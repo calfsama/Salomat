@@ -108,7 +108,9 @@ extension ItemsCollectionView: UICollectionViewDelegate, SkeletonCollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = MedicineViewController()
+        let vc = TestTwoViewController()
+        let view = ReviewCollectionReusableView()
+        view.idi = product?.prods_of_the_day?[indexPath.row].id ?? ""
         vc.id = product?.prods_of_the_day?[indexPath.row].id ?? ""
         self.navigationController.pushViewController(vc, animated: true)
     }

@@ -163,6 +163,7 @@ class ReceiptViewController: UIViewController, UIImagePickerControllerDelegate, 
     func configureConstraints() {
         view.addSubview(chooseThePhoto)
         //view.addSubview(receiptCollectionView)
+        view.addSubview(photo)
         view.addSubview(button)
         view.addSubview(messengerCollectionView)
         view.addSubview(sendPhoto)
@@ -179,14 +180,14 @@ class ReceiptViewController: UIViewController, UIImagePickerControllerDelegate, 
             chooseThePhoto.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             chooseThePhoto.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
 
-//            photo.topAnchor.constraint(equalTo: chooseThePhoto.bottomAnchor, constant: 25),
-//            photo.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-//            photo.heightAnchor.constraint(equalToConstant: 80),
-//            photo.widthAnchor.constraint(equalToConstant: 80),
+            photo.topAnchor.constraint(equalTo: chooseThePhoto.bottomAnchor, constant: 25),
+            photo.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            photo.heightAnchor.constraint(equalToConstant: 80),
+            photo.widthAnchor.constraint(equalToConstant: 80),
             
 
             choosePhoto.topAnchor.constraint(equalTo: chooseThePhoto.bottomAnchor, constant: 25),
-            choosePhoto.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            choosePhoto.leadingAnchor.constraint(equalTo: photo.trailingAnchor, constant: 16),
             choosePhoto.heightAnchor.constraint(equalToConstant: 80),
             choosePhoto.widthAnchor.constraint(equalToConstant: 80),
 

@@ -151,7 +151,7 @@ class MainViewController: UIViewController {
 
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "menu"), style: .plain, target: self, action: #selector(showCategories))
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Search"), style: .plain, target: self, action: #selector(openSearchController))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Search"), style: .plain, target: self, action: #selector(btnCollection))
     }
     
     @objc func openSearchController() {
@@ -167,6 +167,12 @@ class MainViewController: UIViewController {
     
     @objc func btnAction() {
         let vc = BlogListViewController()
+        vc.title = "Блог"
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc func btnCollection() {
+        let vc = TestTwoViewController()
         vc.title = "Блог"
         self.navigationController?.pushViewController(vc, animated: true)
     }

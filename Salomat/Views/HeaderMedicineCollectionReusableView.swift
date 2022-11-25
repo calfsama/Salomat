@@ -1,8 +1,8 @@
 //
-//  MedicineCollectionViewCell.swift
+//  HeaderMedicineCollectionReusableView.swift
 //  Salomat
 //
-//  Created by Tomiris Negmatova on 07/10/22.
+//  Created by Tomiris Negmatova on 23/11/22.
 //
 
 import UIKit
@@ -10,8 +10,8 @@ import CoreData
 import Cosmos
 import TinyConstraints
 
-class MedicineCollectionViewCell: UICollectionViewCell {
-    static let identifier = "MedicineCollectionViewCell"
+class HeaderMedicineCollectionReusableView: UICollectionReusableView {
+    static let identifier = "HeaderMedicineCollectionReusableView"
     var medicinesCollectionViewCell = MedicinesCollectionViewCell()
     var dataModel = [DataModel]()
     var dataBasket = [Basket]()
@@ -157,16 +157,16 @@ class MedicineCollectionViewCell: UICollectionViewCell {
 //        return label
 //    }()
     
-    lazy var productDescription: UILabel = {
-        let label = UILabel()
-        label.textColor = UIColor(red: 0.478, green: 0.463, blue: 0.617, alpha: 1)
-        label.text = ""
-        label.numberOfLines = 5
-        label.setNeedsDisplay()
-        label.font = UIFont.systemFont(ofSize: 20, weight: .regular)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+//    lazy var productDescription: UILabel = {
+//        let label = UILabel()
+//        label.textColor = UIColor(red: 0.478, green: 0.463, blue: 0.617, alpha: 1)
+//        label.text = ""
+//        label.numberOfLines = 5
+//        label.setNeedsDisplay()
+//        label.font = UIFont.systemFont(ofSize: 20, weight: .regular)
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        return label
+//    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -178,27 +178,26 @@ class MedicineCollectionViewCell: UICollectionViewCell {
     }
     
     func configureConstraints() {
-        contentView.addSubview(image)
-        contentView.addSubview(medicineName)
-        contentView.addSubview(note)
-        contentView.addSubview(cosmosView)
-        contentView.addSubview(price)
-        contentView.addSubview(favorite)
-        contentView.addSubview(buttonSave)
-        contentView.addSubview(inStock)
-        contentView.addSubview(label)
-        contentView.addSubview(label2)
-        contentView.addSubview(label3)
-        contentView.addSubview(label4)
-        contentView.addSubview(label5)
-        contentView.addSubview(label6)
-        contentView.addSubview(label7)
-//        contentView.addSubview(info)
-        contentView.addSubview(productDescription)
+        addSubview(image)
+        addSubview(medicineName)
+        addSubview(note)
+        addSubview(cosmosView)
+        addSubview(price)
+        addSubview(favorite)
+        addSubview(buttonSave)
+        addSubview(inStock)
+        addSubview(label)
+        addSubview(label2)
+        addSubview(label3)
+        addSubview(label4)
+        addSubview(label5)
+        addSubview(label6)
+        addSubview(label7)
+//        addSubview(productDescription)
         
         NSLayoutConstraint.activate([
-            image.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            image.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            image.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            image.centerXAnchor.constraint(equalTo: centerXAnchor),
             image.widthAnchor.constraint(equalToConstant: 360),
             image.heightAnchor.constraint(equalToConstant: 360),
             
@@ -208,40 +207,40 @@ class MedicineCollectionViewCell: UICollectionViewCell {
             favorite.widthAnchor.constraint(equalToConstant: 30),
             
             medicineName.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 16),
-            medicineName.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            medicineName.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            medicineName.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            medicineName.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             
             note.topAnchor.constraint(equalTo: medicineName.bottomAnchor, constant: 16),
-            note.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            note.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            note.centerXAnchor.constraint(equalTo: centerXAnchor),
+            note.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             
             cosmosView.topAnchor.constraint(equalTo: note.bottomAnchor, constant: 20),
-            cosmosView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            cosmosView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             cosmosView.heightAnchor.constraint(equalToConstant: 40),
             cosmosView.widthAnchor.constraint(equalToConstant: 200),
             
             price.topAnchor.constraint(equalTo: cosmosView.bottomAnchor, constant: 20),
-            price.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            price.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             
             buttonSave.topAnchor.constraint(equalTo: cosmosView.bottomAnchor, constant: 11),
-            buttonSave.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            buttonSave.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             buttonSave.widthAnchor.constraint(equalToConstant: 120),
             buttonSave.heightAnchor.constraint(equalToConstant: 45),
             
             inStock.topAnchor.constraint(equalTo: price.bottomAnchor, constant: 16),
-            inStock.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            inStock.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             
             label.topAnchor.constraint(equalTo: inStock.bottomAnchor, constant: 12),
-            label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             
             label2.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 8),
-            label2.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            label2.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             
             label3.topAnchor.constraint(equalTo: label2.bottomAnchor, constant: 3),
-            label3.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            label3.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             
             label4.topAnchor.constraint(equalTo: label3.bottomAnchor, constant: 3),
-            label4.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            label4.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             
             label5.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 11),
             label5.leadingAnchor.constraint(equalTo: label2.trailingAnchor, constant: 3),
@@ -252,9 +251,9 @@ class MedicineCollectionViewCell: UICollectionViewCell {
             label7.topAnchor.constraint(equalTo: label6.bottomAnchor, constant: 7),
             label7.leadingAnchor.constraint(equalTo: label4.trailingAnchor, constant: 3),
             
-            productDescription.topAnchor.constraint(equalTo: label7.bottomAnchor, constant: 20),
-            productDescription.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            productDescription.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
+//            productDescription.topAnchor.constraint(equalTo: label7.bottomAnchor, constant: 20),
+//            productDescription.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+//            productDescription.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
             
         ])
     }
