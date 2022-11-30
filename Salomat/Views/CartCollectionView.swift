@@ -10,6 +10,7 @@ import UIKit
 class CartCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
     var data = [Basket]()
     var cart = CartCollectionViewCell()
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     
     init() {
@@ -18,6 +19,7 @@ class CartCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
         super.init(frame: .zero, collectionViewLayout: layout)
         register(CartCollectionViewCell.self, forCellWithReuseIdentifier: CartCollectionViewCell.identifier)
         register(BasketFooterCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: BasketFooterCollectionReusableView.identifier)
+        register(CartHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CartHeaderCollectionReusableView.identifier)
         delegate = self
         dataSource = self
         layout.minimumLineSpacing = 0
@@ -36,18 +38,17 @@ extension CartCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-//        let image = UIImageView(frame: CGRect(x: 0, y: 0, width: collectionView.bounds.size.width, height: collectionView.bounds.size.height))
-//        if data.count == 0 {
-//            image.image = UIImage(named: "Дизайн без названия-4")
-//            collectionView.backgroundView = image
-//            return 0
-//        }
-//        else {
-//            image.image = UIImage(named: "")
-//            collectionView.backgroundView = image
+        let image = UIImageView(frame: CGRect(x: 0, y: 0, width: collectionView.bounds.size.width, height: collectionView.bounds.size.height))
+        if data.count == 0 {
+            image.image = UIImage(named: "Empty cart")
+            collectionView.backgroundView = image
+            return 0
+        }
+        else {
+            image.image = UIImage(named: "")
+            collectionView.backgroundView = image
             return data.count
-       
-        //}
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -55,6 +56,7 @@ extension CartCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
         let url = "http://salomat.colibri.tj/upload_product/"
         let completeURL = url + (data[indexPath.row].image ?? "")
         cell.image.downloaded(from: completeURL)
+        cell.titleMedicine = data[indexPath.row].title ?? ""
         cell.title.text = data[indexPath.row].title
         cell.price.text = data[indexPath.row].price
         cell.price.text = String((cell.stepper.value) + Double(data[indexPath.row].price!)!)
@@ -74,16 +76,38 @@ extension CartCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
-        let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: BasketFooterCollectionReusableView.identifier, for: indexPath) as! BasketFooterCollectionReusableView
-        footer.cost.text = String(format: "%.2f", calculateCartTotal())
-        footer.delivery.text = "10"
-        footer.totalCost.text = String(format: "%.2f", calculateCartTotalWithDelivery())
-        footer.configure()
-        return footer
+        switch kind {
+             
+         case UICollectionView.elementKindSectionHeader:
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CartHeaderCollectionReusableView.identifier, for: indexPath) as! CartHeaderCollectionReusableView
+             return header
+             
+         case UICollectionView.elementKindSectionFooter:
+            let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: BasketFooterCollectionReusableView.identifier, for: indexPath) as! BasketFooterCollectionReusableView
+            footer.cost.text = String(format: "%.2f", calculateCartTotal())
+            footer.delivery.text = "5"
+            footer.totalCost.text = String(format: "%.2f", calculateCartTotalWithDelivery())
+            footer.configure()
+            return footer
+             
+         default:
+             
+             assert(false, "Unexpected element kind")
+         }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        return CGSize(width: collectionView.frame.size.width, height: 150)
+        if data.count != 0 {
+            return CGSize(width: collectionView.frame.size.width, height: 150)
+        }
+        return CGSize(width: 0, height: 0)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        if data.count != 0 {
+            return CGSize(width: collectionView.frame.size.width, height: 50)
+        }
+        return CGSize(width: 0, height: 0)
     }
     
     func calculateCartTotal() -> Double{
@@ -104,11 +128,32 @@ extension CartCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
                 
             }
         }
-        return total + 10
+        return total + 5
     }
     
     func displayTotal() {
         let cell = BasketFooterCollectionReusableView()
         cell.totalCost.text = "$" + String(format: "%.2f", calculateCartTotal())
     }
+    
+  
+    
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+////        if let data = data[indexPath.row]  {
+//        guard let data = data[indexPath.row] else { return }
+//            if editingStyle == .delete {
+//                tableView.beginUpdates()
+//                self.context.delete(data)
+//                self.data.remove(at: indexPath.row)
+//                tableView.deleteRows(at: [indexPath], with: .fade)
+//                do {
+//                    try context.save()
+//                }
+//                catch {
+//                    print("Error\(error)")
+//                }
+//                tableView.endUpdates()
+//           // }
+//        }
+//    }
 }

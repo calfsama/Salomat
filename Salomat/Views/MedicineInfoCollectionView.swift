@@ -34,7 +34,7 @@ class MedicineInfoCollectionView: UICollectionView, UICollectionViewDelegateFlow
         dataSource = self
         showsVerticalScrollIndicator = false
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .red
+        backgroundColor = .white
     }
     
     required init?(coder: NSCoder) {

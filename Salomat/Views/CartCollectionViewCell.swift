@@ -81,6 +81,14 @@ class CartCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    lazy var removeProductButton: UIButton = {
+        let button = UIButton()
+        button.addTarget(self, action: #selector(removeFromCart), for: .touchUpInside)
+        button.setImage(UIImage(named: "close"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.layer.borderWidth = 1
@@ -89,6 +97,7 @@ class CartCollectionViewCell: UICollectionViewCell {
     }
     
     func configureConstraints() {
+        print(titleMedicine)
         contentView.addSubview(image)
         contentView.addSubview(title)
         contentView.addSubview(ml)
@@ -96,6 +105,7 @@ class CartCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(stepper)
         contentView.addSubview(stepperValue)
         contentView.addSubview(price)
+        contentView.addSubview(removeProductButton)
         
         NSLayoutConstraint.activate([
             image.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
@@ -119,8 +129,32 @@ class CartCollectionViewCell: UICollectionViewCell {
             stepperValue.centerXAnchor.constraint(equalTo: stepper.centerXAnchor),
             
             price.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            price.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -26)
+            price.trailingAnchor.constraint(equalTo: removeProductButton.leadingAnchor, constant: -20),
+            
+            removeProductButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            removeProductButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
+    }
+    
+    @objc func removeFromCart() {
+        let object: NSFetchRequest <DataModel> = DataModel.fetchRequest()
+        object.predicate = commitPredicate
+        commitPredicate = NSPredicate(format: "title == %@", titleMedicine)
+        do {
+            let object = try context.fetch(object)
+            for i in object {
+                context.delete(i)
+            }
+            do {
+                try context.save()
+            }
+            catch {
+                print("Error \(error)")
+            }
+        }
+        catch {
+            print("Error \(error)")
+        }
     }
     
     @objc func update() {

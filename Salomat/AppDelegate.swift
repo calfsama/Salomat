@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import SwiftKeychainWrapper
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,10 +17,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         let BarButtonItemAppearance = UIBarButtonItem.appearance()
         BarButtonItemAppearance.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.clear], for: .normal)
+  
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let tabBar = storyboard.instantiateViewController(withIdentifier: "TabBarController")
-            self.window?.rootViewController = tabBar
+            let tab = MainTabBarViewController()
+            self.window?.rootViewController = tab
             self.window?.makeKeyAndVisible()
+          
         return true
     }
     

@@ -53,14 +53,15 @@ struct Settings {
     let title: String
     
     static func items() -> [Settings] {
-        let zero = Settings(image: "", title: "")
+        let empty = Settings(image: "", title: "")
         let first = Settings(image: "Profile mob-1", title: "Личная информация")
-        let second = Settings(image: "cart", title: "Мои заказы")
-        let third = Settings(image: "phone", title: "Номер телефона")
-        let fourth = Settings(image: "security", title: "Безопасность")
-        let fifth = Settings(image: "log out", title: "Выход")
+        let second = Settings(image: "notification", title: "Уведомления и новости")
+        let third = Settings(image: "cart", title: "Мои заказы")
+        let fourth = Settings(image: "phone", title: "Номер телефона")
+        let fifth = Settings(image: "security", title: "Безопасность")
+        let sixth = Settings(image: "log out", title: "Выход")
         
-        return [zero, first, second, third, fourth, fifth]
+        return [empty, first, second, third, fourth, fifth, sixth]
     }
 }
 

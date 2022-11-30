@@ -13,6 +13,8 @@ pod 'MultiSlider'
 pod 'SnapKit'
 pod 'Cosmos'
 pod 'TinyConstraints'
+pod 'Locksmith'
+pod 'SwiftKeychainWrapper'
 end
 
 deployment_target = '11.0'

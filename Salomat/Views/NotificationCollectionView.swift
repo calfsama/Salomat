@@ -35,7 +35,7 @@ extension NotificationCollectionView: UICollectionViewDelegate, UICollectionView
         let cell = dequeueReusableCell(withReuseIdentifier: NotificationCollectionViewCell.identifier, for: indexPath) as! NotificationCollectionViewCell
         cell.date.text = "12.10.2022"
         cell.image.image = UIImage(named: "image 5")
-        cell.title.text = "jdgjejgregjkergr"
+        cell.title.text = "Добро пожаловать на Salomat.tj"
         cell.subtitle.text = "Мы это молодая перспективная аптека, работающая на стыке сферы информационных технологий и фармацевтики. Наша интернет-аптека это большой выбор медикаментов (более 5000 видов), товаров для здоровья и красоты; это онлайн - сервис по предоставлению интересующей информации о препаратах; это возможность найти, сравнить цены и конечно же выгодно приобрести нужные вам лекарства не выходя из дома или офиса!"
         return cell
     }

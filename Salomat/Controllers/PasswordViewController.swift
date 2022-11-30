@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftKeychainWrapper
 
 class PasswordViewController: UIViewController {
     var phone: String = ""
@@ -170,6 +171,8 @@ class PasswordViewController: UIViewController {
                     vc.userID = self.userData?.data?[0].user_id ?? ""
                     vc.token = self.userData?.data?[0].token ?? ""
                     vc.phone = self.phone
+                    let saveSuccessful: Bool = KeychainWrapper.standard.set(self.userData?.data?[0].token ?? "", forKey: "Authorization")
+                    print("Access Token \(saveSuccessful)")
                    // self.appDelegate.token = self.userData?.data?[0].token ?? ""
                     self.navigationController?.pushViewController(vc, animated: true)
                 }

@@ -15,30 +15,6 @@ class CartViewController: UIViewController {
     var network = NetworkService()
     var data = [Basket]()
     
-    lazy var uiView: UIView = {
-        let uiView = UIView()
-        uiView.backgroundColor = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
-        uiView.layer.cornerRadius = 4
-        uiView.translatesAutoresizingMaskIntoConstraints = false
-        return uiView
-    }()
-    
-    lazy var uiView2: UIView = {
-        let uiView = UIView()
-        uiView.backgroundColor = UIColor(red: 0.738, green: 0.741, blue: 1, alpha: 1)
-        uiView.layer.cornerRadius = 4
-        uiView.translatesAutoresizingMaskIntoConstraints = false
-        return uiView
-    }()
-    
-    lazy var uiView3: UIView = {
-        let uiView = UIView()
-        uiView.backgroundColor = UIColor(red: 0.738, green: 0.741, blue: 1, alpha: 1)
-        uiView.layer.cornerRadius = 4
-        uiView.translatesAutoresizingMaskIntoConstraints = false
-        return uiView
-    }()
-    
     lazy var promocode: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Активировать промо код"
@@ -84,43 +60,46 @@ class CartViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Корзина"
+        view.backgroundColor = .white
         basketCollectionView.layer.borderColor = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1).cgColor
         //basketCollectionView.layer.borderWidth = 1
-            configureConstraints()
+        
+     
+            
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         loadArticles()
-        basketCollectionView.displayTotal()
+        if data.count == 0 {
+            configure()
+        }
+        else if data.count != 0{
+            configureConstraints()
+        }
+       // basketCollectionView.displayTotal()
+    }
+    
+    func configure() {
+        view.addSubview(basketCollectionView)
+        
+        NSLayoutConstraint.activate([
+            basketCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            basketCollectionView.heightAnchor.constraint(equalToConstant: view.frame.size.height),
+            basketCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            basketCollectionView.widthAnchor.constraint(equalToConstant: view.frame.size.width)
+        ])
     }
     
     func configureConstraints() {
         view.addSubview(basketCollectionView)
 //        view.addSubview(promocode)
 //        view.addSubview(promocodeButton)
-        view.addSubview(uiView)
-        view.addSubview(uiView2)
-        view.addSubview(uiView3)
         view.addSubview(button)
         
         NSLayoutConstraint.activate([
-            uiView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 20),
-            uiView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            uiView.heightAnchor.constraint(equalToConstant: 3),
-            uiView.widthAnchor.constraint(equalToConstant: view.frame.size.width / 3.5),
             
-            uiView2.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 20),
-            uiView2.leadingAnchor.constraint(equalTo: uiView.trailingAnchor, constant: 11),
-            uiView2.heightAnchor.constraint(equalToConstant: 3),
-            uiView2.widthAnchor.constraint(equalToConstant: view.frame.size.width / 3.5),
-            
-            uiView3.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 20),
-            uiView3.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            uiView3.heightAnchor.constraint(equalToConstant: 3),
-            uiView3.widthAnchor.constraint(equalToConstant: view.frame.size.width / 3.5),
-            
-            basketCollectionView.topAnchor.constraint(equalTo: uiView.topAnchor, constant: 30),
+            basketCollectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
             basketCollectionView.heightAnchor.constraint(equalToConstant: view.frame.size.height),
             basketCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             basketCollectionView.widthAnchor.constraint(equalToConstant: view.frame.size.width - 32),
@@ -140,8 +119,6 @@ class CartViewController: UIViewController {
             button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             button.heightAnchor.constraint(equalToConstant: 45)
             
-            
-    
         ])
     }
     

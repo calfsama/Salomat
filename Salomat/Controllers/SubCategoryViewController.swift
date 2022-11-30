@@ -40,5 +40,4 @@ class SubCategoryViewController: UIViewController {
             }
         }
     }
-
 }

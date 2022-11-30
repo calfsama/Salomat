@@ -111,6 +111,7 @@ extension ItemsCollectionView: UICollectionViewDelegate, SkeletonCollectionViewD
         let vc = TestTwoViewController()
         let view = ReviewCollectionReusableView()
         view.idi = product?.prods_of_the_day?[indexPath.row].id ?? ""
+        vc.title = product?.prods_of_the_day?[indexPath.row].product_name ?? ""
         vc.id = product?.prods_of_the_day?[indexPath.row].id ?? ""
         self.navigationController.pushViewController(vc, animated: true)
     }

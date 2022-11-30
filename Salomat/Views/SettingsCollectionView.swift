@@ -80,24 +80,29 @@ extension SettingsCollectionView: UICollectionViewDelegate, UICollectionViewData
             self.navigationController.pushViewController(vc, animated: true)
         }
         else if indexPath.row == 2 {
+            let vc = NotificationsViewController()
+            vc.title = "Уведомления и новости"
+            self.navigationController.pushViewController(vc, animated: true)
+        }
+        else if indexPath.row == 3 {
             let vc = MyOrdersViewController()
             vc.title = "Мои заказы"
             self.navigationController.pushViewController(vc, animated: true)
         }
-        else if indexPath.row == 3 {
+        else if indexPath.row == 4 {
             let vc = PhoneNumberViewController()
             vc.title = "Номер телефона"
             vc.userID = userID
             vc.token = token
             self.navigationController.pushViewController(vc, animated: true)
         }
-        else if indexPath.row == 4 {
+        else if indexPath.row == 5 {
             let vc = SafetyViewController()
             vc.title = "Безопасность"
             vc.phone = phone
             self.navigationController.pushViewController(vc, animated: true)
         }
-        else if indexPath.row == 5 {
+        else if indexPath.row == 6 {
             let vc = ProfileViewController()
             self.navigationController.pushViewController(vc, animated: true)
         }

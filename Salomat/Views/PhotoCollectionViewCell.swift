@@ -13,6 +13,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     lazy var photo: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleToFill
+       // image.image = UIImage(named: "Image")
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()

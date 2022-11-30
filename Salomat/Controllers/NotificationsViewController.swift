@@ -8,14 +8,11 @@
 import UIKit
 
 class NotificationsViewController: UIViewController {
-    var condition1: Bool = false
-    var condition2: Bool = false
     var notificationCollectionView = NotificationCollectionView()
-    var blog = BlogsShowCollectionView()
     
     lazy var notificationButton: UIButton = {
         var button = UIButton()
-        button.setTitle("Notification", for: .normal)
+        button.setTitle("Уведомления", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .white
         button.addTarget(self, action: #selector(changeScroll2), for: .touchUpInside)
@@ -36,14 +33,14 @@ class NotificationsViewController: UIViewController {
         let scroll = UIScrollView()
         scroll.frame = view.bounds
         scroll.contentSize = CGSize(width: view.frame.size.width, height: 1500)
-        scroll.backgroundColor = .blue
+        scroll.backgroundColor = .white
         scroll.showsVerticalScrollIndicator = true
         return scroll
     }()
     
     lazy var newsButton: UIButton = {
         var button = UIButton()
-        button.setTitle("News", for: .normal)
+        button.setTitle("Новости", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .white
         button.addTarget(self, action: #selector(changeScroll), for: .touchUpInside)
@@ -56,16 +53,9 @@ class NotificationsViewController: UIViewController {
         let scroll = UIScrollView()
         scroll.frame = view.bounds
         scroll.contentSize = CGSize(width: view.frame.size.width, height: 2350)
-        scroll.backgroundColor = .red
+        scroll.backgroundColor = .white
         scroll.showsVerticalScrollIndicator = true
         return scroll
-    }()
-    
-    lazy var label: UILabel = {
-        let label = UILabel()
-        label.text = "notification"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
     }()
     
     lazy var header: UIView = {
@@ -78,7 +68,7 @@ class NotificationsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        conf()
+        configure()
     }
     
     func conf() {
@@ -101,9 +91,8 @@ class NotificationsViewController: UIViewController {
             
             notificationCollectionView.topAnchor.constraint(equalTo: newsButton.bottomAnchor, constant: 20),
             notificationCollectionView.leadingAnchor.constraint(equalTo: notificationScroll.leadingAnchor),
-            notificationCollectionView.trailingAnchor.constraint(equalTo: notificationScroll.trailingAnchor),
-            notificationCollectionView.bottomAnchor.constraint(equalTo: notificationScroll.bottomAnchor)
-
+            notificationCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            notificationCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     
@@ -113,6 +102,8 @@ class NotificationsViewController: UIViewController {
         notificationScroll.addSubview(newsButton)
         notificationScroll.addSubview(uiView)
         notificationScroll.addSubview(notificationCollectionView)
+        newsButton.setTitleColor(UIColor(red: 0.478, green: 0.463, blue: 0.617, alpha: 1), for: .normal)
+        notificationButton.setTitleColor(UIColor(red: 0.22, green: 0.208, blue: 0.325, alpha: 1), for: .normal)
         
         NSLayoutConstraint.activate([
     
@@ -120,7 +111,6 @@ class NotificationsViewController: UIViewController {
             notificationButton.leadingAnchor.constraint(equalTo: notificationScroll.leadingAnchor, constant: 16),
             notificationButton.heightAnchor.constraint(equalToConstant: 20),
             notificationButton.widthAnchor.constraint(equalToConstant: 100),
-            
             
             newsButton.topAnchor.constraint(equalTo: notificationScroll.topAnchor,constant: 20),
             newsButton.leadingAnchor.constraint(equalTo: notificationButton.trailingAnchor, constant: 5),
@@ -134,18 +124,18 @@ class NotificationsViewController: UIViewController {
             
             notificationCollectionView.topAnchor.constraint(equalTo: newsButton.bottomAnchor, constant: 20),
             notificationCollectionView.leadingAnchor.constraint(equalTo: notificationScroll.leadingAnchor),
-            notificationCollectionView.trailingAnchor.constraint(equalTo: notificationScroll.trailingAnchor),
-            notificationCollectionView.bottomAnchor.constraint(equalTo: notificationScroll.bottomAnchor)
-
+            notificationCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            notificationCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        
     }
+    
     func congifureScroll() {
         view.addSubview(newsScroll)
-        //notificationScroll.addSubview(header)
         newsScroll.addSubview(notificationButton)
         newsScroll.addSubview(newsButton)
         newsScroll.addSubview(uiView)
+        newsButton.setTitleColor(UIColor(red: 0.22, green: 0.208, blue: 0.325, alpha: 1), for: .normal)
+        notificationButton.setTitleColor(UIColor(red: 0.478, green: 0.463, blue: 0.617, alpha: 1), for: .normal)
         
         NSLayoutConstraint.activate([
             
@@ -162,18 +152,15 @@ class NotificationsViewController: UIViewController {
             uiView.topAnchor.constraint(equalTo: newsButton.bottomAnchor, constant: 10),
             uiView.leadingAnchor.constraint(equalTo: newsButton.leadingAnchor),
             uiView.trailingAnchor.constraint(equalTo: newsButton.trailingAnchor),
-            uiView.heightAnchor.constraint(equalToConstant: 3),
-            
+            uiView.heightAnchor.constraint(equalToConstant: 3)
         ])
     }
     
     @objc func changeScroll() {
         congifureScroll()
-        
     }
     
     @objc func changeScroll2() {
         configure()
     }
-  
 }

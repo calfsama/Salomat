@@ -85,7 +85,6 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
         return button
     }()
     
-    
     override func prepareForReuse() {
         super.prepareForReuse()
         self.image.image = nil
@@ -104,8 +103,6 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
         cartButton.isSkeletonable = true
         contentView.skeletonCornerRadius = 15
         contentView.isSkeletonable = true
-        //contentView.startSkeletonAnimation()
-    
     }
     
     func configureConstraints() {
@@ -201,6 +198,27 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
         }
         catch {
             print("Error2 \(error)")
+        }
+    }
+    
+    func removeFromCart() {
+        let object: NSFetchRequest <DataModel> = DataModel.fetchRequest()
+        object.predicate = commitPredicate
+        commitPredicate = NSPredicate(format: "id == %@", id)
+        do {
+            let object = try context.fetch(object)
+            for i in object {
+                context.delete(i)
+            }
+            do {
+                try context.save()
+            }
+            catch {
+                print("Error \(error)")
+            }
+        }
+        catch {
+            print("Error \(error)")
         }
     }
 
@@ -311,7 +329,8 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
                 let response = response as? HTTPURLResponse,
                 error == nil
                     
-            else {                                                                //check for fundamental networking error
+            else {
+                //check for fundamental networking error
                 print("error", error ?? URLError(.badServerResponse))
                 return
             }
@@ -325,7 +344,8 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
             }
          
         
-            guard (200 ... 299) ~= response.statusCode else {                     //check for http errors
+            guard (200 ... 299) ~= response.statusCode else {
+                //check for http errors
                 print("statusCode should be 2xx, but is \(response.statusCode)")
                 print("response = \(response)")
                 return
@@ -354,7 +374,8 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
                 let response = response as? HTTPURLResponse,
                 error == nil
                     
-            else {                                                                //check for fundamental networking error
+            else {
+                //check for fundamental networking error
                 print("error", error ?? URLError(.badServerResponse))
                 return
             }
@@ -368,7 +389,8 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
             }
          
         
-            guard (200 ... 299) ~= response.statusCode else {                     //check for http errors
+            guard (200 ... 299) ~= response.statusCode else {
+                //check for http errors
                 print("statusCode should be 2xx, but is \(response.statusCode)")
                 print("response = \(response)")
                 return

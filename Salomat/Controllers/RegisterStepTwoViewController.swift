@@ -220,9 +220,12 @@ class RegisterStepTwoViewController: UIViewController {
             }
             if response.statusCode == 200 {
                 DispatchQueue.main.async {
-                    let vc = ProfileViewController()
+                    let vc = RegisterTabBarViewController()
                     vc.title = "Вход"
-                    self.navigationController?.pushViewController(vc, animated: true)
+                    //vc.selectedIndex = 4
+                    let appDelegate = UIApplication.shared.delegate
+                    appDelegate?.window??.rootViewController = vc
+                    //self.navigationController?.pushViewController(vc, animated: true)
                 }
                 print("Registration completed successfully!")
             }

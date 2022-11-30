@@ -13,7 +13,7 @@ class NotificationCollectionViewCell: UICollectionViewCell {
     lazy var title: UILabel = {
         let title = UILabel()
         title.textColor = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
-        title.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+        title.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         title.numberOfLines = 0
         title.text = "Добро пожаловать на Salomat.tj"
         title.alpha = 0.9
@@ -42,7 +42,7 @@ class NotificationCollectionViewCell: UICollectionViewCell {
     lazy var subtitle: UILabel = {
         let subtitle = UILabel()
         subtitle.textColor = UIColor(red: 0.22, green: 0.208, blue: 0.325, alpha: 1)
-        subtitle.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        subtitle.font = UIFont.systemFont(ofSize: 12, weight: .bold)
         subtitle.numberOfLines = 0
         subtitle.text = "Мы это молодая перспективная аптека, работающая на стыке сферы информационных технологий и фармацевтики. Наша интернет-аптека это большой выбор медикаментов (более 5000 видов), товаров для здоровья и красоты; это онлайн - сервис по предоставлению интересующей информации о препаратах; это возможность найти, сравнить цены и конечно же выгодно приобрести нужные вам лекарства не выходя из дома или офиса!"
         subtitle.alpha = 0.9

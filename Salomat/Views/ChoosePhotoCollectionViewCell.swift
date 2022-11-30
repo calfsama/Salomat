@@ -12,14 +12,13 @@ class ChoosePhotoCollectionViewCell: UICollectionViewCell {
     
     lazy var button: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: ""), for: .normal)
+        button.setImage(UIImage(named: "image 2"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.layer.cornerRadius = 4
         configureConstraints()
     }
     

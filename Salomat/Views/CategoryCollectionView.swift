@@ -24,7 +24,6 @@ class CategoryCollectionView: UICollectionView, UICollectionViewDelegateFlowLayo
         contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         showsHorizontalScrollIndicator = false
         backgroundColor = .white
-        
     }
     
     func set(cells: [Categories]) {
@@ -34,7 +33,6 @@ class CategoryCollectionView: UICollectionView, UICollectionViewDelegateFlowLayo
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }
 
 extension CategoryCollectionView: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -53,6 +51,7 @@ extension CategoryCollectionView: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 60, height: 60)
     }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.row == 0 {
             let vc = MedicinesViewController()
