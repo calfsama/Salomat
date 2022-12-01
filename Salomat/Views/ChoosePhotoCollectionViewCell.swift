@@ -33,6 +33,14 @@ class ChoosePhotoCollectionViewCell: UICollectionViewCell {
         ])
     }
     
+//    @objc func camera() {
+//        let picker = UIImagePickerController()
+//        picker.sourceType = .camera
+//        picker.allowsEditing = true
+//        picker.delegate = self
+//        present(picker, animated: true)
+//    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

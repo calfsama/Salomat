@@ -8,11 +8,13 @@
 import UIKit
 import Photos
 
-class ReceiptViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ReceiptViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     var messengerCollectionView = MessangerCollectionView()
     var receiptCollectionView = ReceiptCollectionView()
     var imagePickerController = UIImagePickerController()
     var instruction = InstructionCollectionView()
+    
+    var imagesArray = [UIImage]()
     
     lazy var choosePhoto: UIButton = {
         let button = UIButton()
@@ -153,7 +155,11 @@ class ReceiptViewController: UIViewController, UIImagePickerControllerDelegate, 
         super.viewDidLoad()
         //checkPermissions()
         view.backgroundColor = .white
-        
+        receiptCollectionView.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: PhotoCollectionViewCell.identifier)
+        receiptCollectionView.register(ReceiptCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: ReceiptCollectionReusableView.identifier)
+        receiptCollectionView.register(ChoosePhotoCollectionViewCell.self, forCellWithReuseIdentifier: ChoosePhotoCollectionViewCell.identifier)
+        receiptCollectionView.delegate = self
+        receiptCollectionView.dataSource = self
         navigationItem.title = "Электронный рецепт"
         messengerCollectionView.set(cell: Messenger.items())
         instruction.set(cells: Instruction.items())
@@ -164,7 +170,7 @@ class ReceiptViewController: UIViewController, UIImagePickerControllerDelegate, 
     func configureConstraints() {
         view.addSubview(chooseThePhoto)
         view.addSubview(receiptCollectionView)
-////        view.addSubview(photo)
+//        view.addSubview(photo)
 //        view.addSubview(button)
 //        view.addSubview(messengerCollectionView)
 //        view.addSubview(sendPhoto)
@@ -181,15 +187,21 @@ class ReceiptViewController: UIViewController, UIImagePickerControllerDelegate, 
             chooseThePhoto.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             chooseThePhoto.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
 
-            receiptCollectionView.topAnchor.constraint(equalTo: chooseThePhoto.bottomAnchor, constant: 25),
-            receiptCollectionView.heightAnchor.constraint(equalToConstant: view.frame.size.height),
-            receiptCollectionView.widthAnchor.constraint(equalToConstant: view.frame.size.width),
+            receiptCollectionView.topAnchor.constraint(equalTo: chooseThePhoto.bottomAnchor, constant: 15),
+            receiptCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            receiptCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            receiptCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
+
+//            choosePhoto.topAnchor.constraint(equalTo: chooseThePhoto.bottomAnchor, constant: 25),
+//            choosePhoto.leadingAnchor.constraint(equalTo: receiptCollectionView.leadingAnchor),
+//            choosePhoto.heightAnchor.constraint(equalToConstant: 80),
+//            choosePhoto.widthAnchor.constraint(equalToConstant: 80),
 //
-////            choosePhoto.topAnchor.constraint(equalTo: chooseThePhoto.bottomAnchor, constant: 25),
-////            choosePhoto.leadingAnchor.constraint(equalTo: receiptCollectionView.trailingAnchor, constant: 16),
-////            choosePhoto.heightAnchor.constraint(equalToConstant: 80),
-////            choosePhoto.widthAnchor.constraint(equalToConstant: 80),
+//            photo.topAnchor.constraint(equalTo: chooseThePhoto.bottomAnchor, constant: 16),
+//            photo.widthAnchor.constraint(equalToConstant: 100),
+//            photo.heightAnchor.constraint(equalToConstant: 100),
+//            photo.leadingAnchor.constraint(equalTo: choosePhoto.trailingAnchor, constant: 20)
 //
 //            button.topAnchor.constraint(equalTo: receiptCollectionView.bottomAnchor, constant: 25),
 //            button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
@@ -283,13 +295,66 @@ class ReceiptViewController: UIViewController, UIImagePickerControllerDelegate, 
 //        }
 //    }
 //
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let pickedimage = (info[UIImagePickerController.InfoKey.editedImage] as? UIImage){
-            receiptCollectionView.imagesArray = [pickedimage]//Will store three selected images in your array
+
+}
+extension ReceiptViewController: UICollectionViewDelegate, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return imagesArray.count + 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCollectionViewCell.identifier, for: indexPath) as! PhotoCollectionViewCell
+        if indexPath.row == 0   {
+            cell.photo.image = UIImage(named: "image 6")
+        }
+        else {
+            cell.photo.image = imagesArray[indexPath.row]
+            cell.photo.layer.borderColor = UIColor(red: 0.738, green: 0.741, blue: 1, alpha: 1).cgColor
+            cell.photo.layer.borderWidth = 1
+            cell.photo.layer.cornerRadius = 4
+            cell.photo.layer.masksToBounds = true
+            cell.cancelButton.setImage(UIImage(named: "cancel"), for: .normal)
+            //cell.cancelButton.addTarget(self, action: #selector(), for: .touchUpInside)
+        }
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: ReceiptCollectionReusableView.identifier, for: indexPath) as! ReceiptCollectionReusableView
+        return footer
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        return CGSize(width: collectionView.frame.size.width, height: collectionView.frame.size.height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.size.width / 3 * 0.8  , height: 90)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.row == 0 {
+            camera()
+            collectionView.reloadData()
+            print("camera")
+        }
+        print("library")
+    }
+    
+//    @objc func camera() {
+//        print("clicked")
+//    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let pickedimage = (info[UIImagePickerController.InfoKey.editedImage.rawValue] as? UIImage){
+            photo.image = pickedimage//Will store three selected images in your array
             print("hello", pickedimage.pngData())
             receiptCollectionView.reloadData()
+        }
+        else {
+            print("something went wrong...")
         }
         picker.dismiss(animated: true, completion: nil)
     }
 }
+
 

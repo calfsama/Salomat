@@ -6,10 +6,11 @@
 //
 
 import UIKit
+import CoreData
 
 class CartCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
     var data = [Basket]()
-    var cart = CartCollectionViewCell()
+    var commitPredicate: NSPredicate?
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     
@@ -40,7 +41,7 @@ extension CartCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
         
         let image = UIImageView(frame: CGRect(x: 0, y: 0, width: collectionView.bounds.size.width, height: collectionView.bounds.size.height))
         if data.count == 0 {
-            image.image = UIImage(named: "Empty cart")
+            image.image = UIImage(named: "cart 1")
             collectionView.backgroundView = image
             return 0
         }
@@ -67,6 +68,8 @@ extension CartCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
         cell.price.text = "\(cell.stepper.value * Double(data[indexPath.row].price ?? "")!) "
         cell.ml.text = "50 мл"
         cell.art.text = "Арт. 10120"
+        cell.removeProductButton.layer.setValue(indexPath.row, forKey: "index")
+        cell.removeProductButton.addTarget(self, action: #selector(deleteUser), for: .touchUpInside)
         return cell
     }
     
@@ -156,4 +159,39 @@ extension CartCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
 //           // }
 //        }
 //    }
+    
+    @objc func deleteUser(sender:UIButton) {
+        let i : Int = (sender.layer.value(forKey: "index")) as! Int
+        let objectToDelete = data.remove(at: i)
+        reloadData()
+        self.context.delete(objectToDelete)
+        do {
+            try self.context.save()
+        } catch {
+            print(error)
+        }
+        ///removeFromCart()
+    }
+    
+    func removeFromCart() {
+       let object: NSFetchRequest <DataModel> = DataModel.fetchRequest()
+       object.predicate = commitPredicate
+       // commitPredicate = NSPredicate(format: "title == %@", data)
+       do {
+           let object = try context.fetch(object)
+           for i in object {
+               context.delete(i)
+           }
+           do {
+               try context.save()
+           }
+           catch {
+               print("Error \(error)")
+           }
+       }
+       catch {
+           print("Error \(error)")
+       }
+   }
+
 }

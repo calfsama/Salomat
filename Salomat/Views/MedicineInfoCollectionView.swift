@@ -50,6 +50,8 @@ extension MedicineInfoCollectionView: UICollectionViewDelegate, UICollectionView
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = dequeueReusableCell(withReuseIdentifier: MedicineInfoCollectionViewCell.identifier, for: indexPath) as! MedicineInfoCollectionViewCell
         cell.productDescription.attributedText = productShow?.product?.product_about?.html2Attributed
+        cell.id = id
+        print("something\(id)")
         return cell
     }
     

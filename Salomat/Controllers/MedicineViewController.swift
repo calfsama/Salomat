@@ -11,6 +11,7 @@ import CoreData
 class MedicineViewController: UIViewController, UIScrollViewDelegate {
     var medicineCollectionView = MedicineCollectionView()
     var medicineCollectionViewCell = MedicineCollectionViewCell()
+    var review = ReviewCollectionReusableView()
     var commitPredicate: NSPredicate?
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var network = NetworkService()
@@ -50,6 +51,7 @@ class MedicineViewController: UIViewController, UIScrollViewDelegate {
             case .success(let response):
                 self.medicineCollectionView.productShow = response
 //                print(result)
+                self.review.productShow = response
                 self.medicineCollectionView.reloadData()
                 self.medicineCollectionView.text = "Внешний вид товара может отличаться от изображённого на фотографии"
                 self.medicineCollectionView.inCart = "В корзину"

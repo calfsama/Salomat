@@ -12,10 +12,16 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     
     lazy var photo: UIImageView = {
         let image = UIImageView()
-        image.contentMode = .scaleToFill
+       // image.contentMode = .scaleToFill
        // image.image = UIImage(named: "Image")
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
+    }()
+    
+    lazy var cancelButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
     
     override init(frame: CGRect) {
@@ -25,12 +31,16 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     
     func configureConstraints() {
         contentView.addSubview(photo)
+        contentView.addSubview(cancelButton)
         
         NSLayoutConstraint.activate([
-            photo.topAnchor.constraint(equalTo: contentView.topAnchor),
+            photo.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
             photo.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            photo.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            photo.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            photo.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
+            photo.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            
+            cancelButton.topAnchor.constraint(equalTo: photo.topAnchor, constant: -3),
+            cancelButton.trailingAnchor.constraint(equalTo: photo.trailingAnchor, constant: 5)
         ])
     }
     

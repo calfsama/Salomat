@@ -11,6 +11,7 @@ import CoreData
 class CartCollectionViewCell: UICollectionViewCell {
     static let identifier = "BasketCollectionViewCell"
     var dataModel = [Basket]()
+    var cart = CartCollectionView()
     var id: String = ""
     var is_favorite: Bool = false
     var titleMedicine: String = ""
@@ -83,7 +84,6 @@ class CartCollectionViewCell: UICollectionViewCell {
     
     lazy var removeProductButton: UIButton = {
         let button = UIButton()
-        button.addTarget(self, action: #selector(removeFromCart), for: .touchUpInside)
         button.setImage(UIImage(named: "close"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -136,7 +136,7 @@ class CartCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    @objc func removeFromCart() {
+     func removeFromCart() {
         let object: NSFetchRequest <DataModel> = DataModel.fetchRequest()
         object.predicate = commitPredicate
         commitPredicate = NSPredicate(format: "title == %@", titleMedicine)

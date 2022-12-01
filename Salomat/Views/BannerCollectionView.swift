@@ -41,7 +41,13 @@ extension BannerCollectionView: UICollectionViewDelegate, UICollectionViewDataSo
         let cell = dequeueReusableCell(withReuseIdentifier: BannerCollectionViewCell.identifier, for: indexPath) as! BannerCollectionViewCell
         let url = "http://salomat.colibri.tj/upload_banner/"
         let completeURL = url + (banners?.main_slider?[indexPath.row].slider_pic ?? "")
-        cell.image.downloaded(from: completeURL)
+        //cell.image.downloaded(from: completeURL)
+        let toImage = UIImage(named:"myname.png")
+        UIView.transition(with: cell.image,
+                          duration: 0.3,
+                          options: .transitionCrossDissolve,
+                          animations: { cell.image.downloaded(from: completeURL) },
+                          completion: nil)
         //cell.image.image = banners[indexPath.row].image
         return cell
     }
@@ -49,4 +55,28 @@ extension BannerCollectionView: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.size.width * 0.92, height: 170)
     }
+    
+    func repeatAnimateImagesChanges(images:NSArray, imageView:UIImageView) {
+
+       if(images.count == 0) {
+           return
+       }
+
+       var newImage = images.firstObject as! UIImage
+
+       if(imageView.image != nil) {
+           for i in 0..<images.count {
+               newImage = images.object(at: i) as! UIImage
+               if(imageView.image?.isEqual(newImage))! {
+                   newImage = i == images.count - 1 ? images.firstObject as! UIImage : images.object(at: i + 1) as! UIImage
+               }
+           }
+       }
+    
+       imageView.image = newImage
+
+       DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+           self.repeatAnimateImagesChanges(images: images, imageView: imageView)
+       }
+   }
 }

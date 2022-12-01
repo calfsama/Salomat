@@ -91,7 +91,6 @@ class ReviewCollectionReusableView: UICollectionReusableView {
     public func configure() {
         backgroundColor = .white
         print("tommy\(id)")
-        print("Nothing \(idi)")
         addSubview(leaveReview)
         addSubview(yourMark)
         addSubview(cosmosView)

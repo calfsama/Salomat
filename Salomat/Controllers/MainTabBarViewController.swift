@@ -6,8 +6,10 @@
 //
 
 import UIKit
+import SwiftKeychainWrapper
 
 class MainTabBarViewController: UITabBarController, UITabBarControllerDelegate {
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,12 +22,13 @@ class MainTabBarViewController: UITabBarController, UITabBarControllerDelegate {
         
         let home = MainViewController()
         let homeNavigation = UINavigationController(rootViewController: home)
-        let homeItem = UITabBarItem(title: "Главная", image: UIImage(named: ""), selectedImage: UIImage(named: ""))
+        let homeItem = UITabBarItem(title: "Главная", image: UIImage(named: "logo1"), selectedImage: UIImage(named: "inactive.profile"))
         homeNavigation.tabBarItem = homeItem
         
         let favorite = FavoritesViewController()
         let favoriteNavigation = UINavigationController(rootViewController: favorite)
         let favoriteItem = UITabBarItem(title: "Избранное", image: UIImage(named: ""), selectedImage: UIImage(named: ""))
+       
         favoriteNavigation.tabBarItem = favoriteItem
         
         let receipt = ReceiptViewController()

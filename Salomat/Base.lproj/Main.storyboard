@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -18,6 +19,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" name="violet"/>
                     </tabBar>
                     <connections>
                         <segue destination="Uff-5H-Hsd" kind="relationship" relationship="viewControllers" id="Zd4-XF-2nj"/>
@@ -35,7 +37,7 @@
         <scene sceneID="fZe-5i-QDA">
             <objects>
                 <navigationController id="O2p-g4-Fjh" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Избранное" image="iconHeart" id="5gW-OG-6WN"/>
+                    <tabBarItem key="tabBarItem" title="Избранное" image="iconHeart" selectedImage="inactive.heart" id="5gW-OG-6WN" customClass="TabBarItem" customModule="Salomat" customModuleProvider="target"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="EXB-0S-4pt">
                         <rect key="frame" x="0.0" y="47" width="390" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -52,7 +54,7 @@
         <scene sceneID="rhs-d1-FE0">
             <objects>
                 <navigationController id="aZI-xs-nGH" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Корзина" image="trash can" id="psE-LX-0ip"/>
+                    <tabBarItem key="tabBarItem" title="Корзина" image="trash can" selectedImage="inactive.icon 1" id="psE-LX-0ip" customClass="TabBarItem" customModule="Salomat" customModuleProvider="target"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="hzv-2k-U5C">
                         <rect key="frame" x="0.0" y="47" width="390" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -69,7 +71,7 @@
         <scene sceneID="kTe-JL-feO">
             <objects>
                 <navigationController id="Uff-5H-Hsd" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Главная" image="logo1" id="j5d-nD-2KL">
+                    <tabBarItem key="tabBarItem" title="Главная" image="logo1" selectedImage="logo 1" id="j5d-nD-2KL" customClass="TabBarItem" customModule="Salomat" customModuleProvider="target">
                         <color key="badgeColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="xfN-cg-Que">
@@ -88,7 +90,7 @@
         <scene sceneID="O3x-P3-1ej">
             <objects>
                 <navigationController id="StZ-jM-xKc" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Профиль" image="profile" id="lhd-7C-KaL"/>
+                    <tabBarItem key="tabBarItem" title="Профиль" image="profile" selectedImage="inactive.profile" id="lhd-7C-KaL" customClass="TabBarItem" customModule="Salomat" customModuleProvider="target"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="mAg-NA-Xg5">
                         <rect key="frame" x="0.0" y="47" width="390" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -105,7 +107,7 @@
         <scene sceneID="vqN-Sh-rfP">
             <objects>
                 <navigationController id="TWP-H3-Zz5" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="э-Рецепт" image="camera" id="MLw-mv-a6Y"/>
+                    <tabBarItem key="tabBarItem" title="э-Рецепт" image="camera" selectedImage="Group" id="MLw-mv-a6Y" customClass="TabBarItem" customModule="Salomat" customModuleProvider="target"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Poi-S4-wWc">
                         <rect key="frame" x="0.0" y="47" width="390" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -253,12 +255,20 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Group" width="24" height="18"/>
         <image name="Search" width="24" height="24"/>
         <image name="camera" width="24" height="24"/>
         <image name="iconHeart" width="24" height="24"/>
+        <image name="inactive.heart" width="24" height="24"/>
+        <image name="inactive.icon 1" width="24" height="24"/>
+        <image name="inactive.profile" width="24" height="24"/>
+        <image name="logo 1" width="23" height="23"/>
         <image name="logo1" width="24" height="24"/>
         <image name="profile" width="24" height="24"/>
         <image name="trash can" width="24" height="24"/>
+        <namedColor name="violet">
+            <color red="0.2199999988079071" green="0.20800000429153442" blue="0.32499998807907104" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

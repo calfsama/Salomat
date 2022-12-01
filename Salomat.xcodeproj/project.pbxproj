@@ -47,6 +47,7 @@
 		9747484D2934801B00903A7A /* RegisterTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9747484C2934801B00903A7A /* RegisterTabBarViewController.swift */; };
 		9747484F2935C8B100903A7A /* ReceiptCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9747484E2935C8B100903A7A /* ReceiptCollectionReusableView.swift */; };
 		974748512936143000903A7A /* CartHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974748502936143000903A7A /* CartHeaderCollectionReusableView.swift */; };
+		974748532938845C00903A7A /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974748522938845C00903A7A /* TabBarItem.swift */; };
 		9749493528E8018F00793966 /* InfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9749493428E8018F00793966 /* InfoCollectionViewCell.swift */; };
 		9749493728E8037100793966 /* InfoCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9749493628E8037100793966 /* InfoCollectionView.swift */; };
 		9749493928E80AF900793966 /* SettingsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9749493828E80AF900793966 /* SettingsCollectionView.swift */; };
@@ -196,6 +197,7 @@
 		9747484C2934801B00903A7A /* RegisterTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterTabBarViewController.swift; sourceTree = "<group>"; };
 		9747484E2935C8B100903A7A /* ReceiptCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptCollectionReusableView.swift; sourceTree = "<group>"; };
 		974748502936143000903A7A /* CartHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		974748522938845C00903A7A /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
 		9749493428E8018F00793966 /* InfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCollectionViewCell.swift; sourceTree = "<group>"; };
 		9749493628E8037100793966 /* InfoCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCollectionView.swift; sourceTree = "<group>"; };
 		9749493828E80AF900793966 /* SettingsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCollectionView.swift; sourceTree = "<group>"; };
@@ -398,6 +400,7 @@
 				9747484A29347A3A00903A7A /* MainTabBarViewController.swift */,
 				9747484C2934801B00903A7A /* RegisterTabBarViewController.swift */,
 				974748502936143000903A7A /* CartHeaderCollectionReusableView.swift */,
+				974748522938845C00903A7A /* TabBarItem.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -711,6 +714,7 @@
 				97BE2707290791AF0071D143 /* SearchCollectionView.swift in Sources */,
 				974C1E4028E5A4F200A6D4BE /* Categories.swift in Sources */,
 				9749494C28EEFA1300793966 /* CategoriesViewController.swift in Sources */,
+				974748532938845C00903A7A /* TabBarItem.swift in Sources */,
 				974748512936143000903A7A /* CartHeaderCollectionReusableView.swift in Sources */,
 				9780B38E2907DE3B00AA84EE /* Basket+CoreDataClass.swift in Sources */,
 				97947910291E593500C3BC77 /* InstructionCollectionView.swift in Sources */,

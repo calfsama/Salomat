@@ -133,24 +133,24 @@ class ReceiptCollectionReusableView: UICollectionReusableView {
         
         NSLayoutConstraint.activate([
             
-            phoneTextField.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            phoneTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            phoneTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            phoneTextField.topAnchor.constraint(equalTo: topAnchor, constant: 20),
+            phoneTextField.leadingAnchor.constraint(equalTo: leadingAnchor),
+            phoneTextField.trailingAnchor.constraint(equalTo: trailingAnchor),
             phoneTextField.heightAnchor.constraint(equalToConstant: 45),
             
             nameTextField.topAnchor.constraint(equalTo: phoneTextField.bottomAnchor, constant: 10),
-            nameTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            nameTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            nameTextField.leadingAnchor.constraint(equalTo: leadingAnchor),
+            nameTextField.trailingAnchor.constraint(equalTo: trailingAnchor),
             nameTextField.heightAnchor.constraint(equalToConstant: 45),
             
             commentTextField.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 10),
-            commentTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            commentTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            commentTextField.leadingAnchor.constraint(equalTo: leadingAnchor),
+            commentTextField.trailingAnchor.constraint(equalTo: trailingAnchor),
             commentTextField.heightAnchor.constraint(equalToConstant: 80),
         
             button.topAnchor.constraint(equalTo: commentTextField.bottomAnchor, constant: 10),
-            button.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            button.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            button.leadingAnchor.constraint(equalTo: leadingAnchor),
+            button.trailingAnchor.constraint(equalTo: trailingAnchor),
             button.heightAnchor.constraint(equalToConstant: 45),
 
             or.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 25),
@@ -158,20 +158,20 @@ class ReceiptCollectionReusableView: UICollectionReusableView {
             or.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
 
             uiView.centerYAnchor.constraint(equalTo: or.centerYAnchor),
-            uiView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            uiView.leadingAnchor.constraint(equalTo: leadingAnchor),
 //            uiView.trailingAnchor.constraint(equalTo: or.leadingAnchor, constant: -5),
             uiView.widthAnchor.constraint(equalToConstant: frame.size.width / 2 * 0.84),
             uiView.heightAnchor.constraint(equalToConstant: 0.7),
 
             uiView2.centerYAnchor.constraint(equalTo: or.centerYAnchor),
-            uiView2.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            uiView2.trailingAnchor.constraint(equalTo: trailingAnchor),
 //            uiView2.leadingAnchor.constraint(equalTo: or.trailingAnchor, constant: 5),
             uiView2.widthAnchor.constraint(equalToConstant: frame.size.width / 2 * 0.84),
             uiView2.heightAnchor.constraint(equalToConstant: 0.7),
 
             messangerButton.topAnchor.constraint(equalTo: or.bottomAnchor, constant: 25),
-            messangerButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            messangerButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            messangerButton.leadingAnchor.constraint(equalTo: leadingAnchor),
+            messangerButton.trailingAnchor.constraint(equalTo: trailingAnchor),
             messangerButton.heightAnchor.constraint(equalToConstant: 70),
 
             sendPhoto.topAnchor.constraint(equalTo: messangerButton.bottomAnchor, constant: 20),

@@ -39,7 +39,7 @@ extension FavoriteCollectionView: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let image = UIImageView(frame: CGRect(x: 0, y: 0, width: collectionView.bounds.size.width, height: collectionView.bounds.size.height))
         if favorites?.count == 0 {
-            image.image = UIImage(named: "Дизайн без названия-4")
+            image.image = UIImage(named: "fav")
             collectionView.backgroundView = image
             return 0
         }
