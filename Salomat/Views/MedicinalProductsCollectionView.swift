@@ -41,10 +41,10 @@ extension MedicinalProductsCollectionView: UICollectionViewDelegate, UICollectio
      
         cell.title.text = categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].product_name ?? ""
         cell.price.text = (categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].product_price)! + " сом."
-        let url = "http://salomat.colibri.tj/upload_product/"
+        let url = "http://slomat2.colibri.tj/upload_product/"
         let completeURL = url + (categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].product_pic ?? "")
         cell.image.downloaded(from: completeURL)
-        
+        cell.image.image = UIImage(named: "123")
         if favorites?[indexPath.row].id == categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].id {
             cell.button.setImage(UIImage(named: "heart"), for: .normal)
         }
@@ -66,7 +66,7 @@ extension MedicinalProductsCollectionView: UICollectionViewDelegate, UICollectio
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = MedicineViewController()
+        let vc = TestTwoViewController()
         vc.id = categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].id ?? ""
         self.navigationController.pushViewController(vc, animated: true)
     }

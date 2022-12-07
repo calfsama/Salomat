@@ -44,7 +44,7 @@ class MedicineViewController: UIViewController, UIScrollViewDelegate {
         ])
     }
     func fetchBanner(){
-        let urlString = "http://salomat.colibri.tj/products/show?product_id=\(id)"
+        let urlString = "http://slomat2.colibri.tj/products/show?product_id=\(id)"
         self.network.productShow(urlString: urlString) { [weak self] (result) in
             guard let self = self else {return}
             switch result {
@@ -53,6 +53,7 @@ class MedicineViewController: UIViewController, UIScrollViewDelegate {
 //                print(result)
                 self.review.productShow = response
                 self.medicineCollectionView.reloadData()
+                self.medicineCollectionView.imageName = "123"
                 self.medicineCollectionView.text = "Внешний вид товара может отличаться от изображённого на фотографии"
                 self.medicineCollectionView.inCart = "В корзину"
                 self.medicineCollectionView.color = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)

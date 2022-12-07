@@ -52,7 +52,7 @@ extension FavoriteCollectionView: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = dequeueReusableCell(withReuseIdentifier: MedicinesCollectionViewCell.identifier, for: indexPath) as! MedicinesCollectionViewCell
-        let url = "http://salomat.colibri.tj/upload_product/"
+        let url = "http://slomat2.colibri.tj/upload_product/"
         let completeURL = url + (favorites?[indexPath.row].product_pic ?? "")
         cell.id = favorites?[indexPath.row].id ?? ""
         cell.image.downloaded(from: completeURL)

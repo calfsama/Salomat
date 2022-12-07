@@ -41,10 +41,10 @@ extension BADCollectionView: UICollectionViewDelegate, UICollectionViewDataSourc
         
         cell.title.text = vitamin?.categories_for_main_page?[1].categ_prods?[indexPath.row].product_name ?? ""
         cell.price.text = (vitamin?.categories_for_main_page?[1].categ_prods?[indexPath.row].product_price)! + " сом."
-        let url = "http://salomat.colibri.tj/upload_product/"
+        let url = "http://slomat2.colibri.tj/upload_product/"
         let completeURL = url + (vitamin?.categories_for_main_page?[1].categ_prods?[indexPath.row].product_pic ?? "")
         cell.image.downloaded(from: completeURL)
-        
+        cell.image.image = UIImage(named: "123")
         if vitamin?.categories_for_main_page?[1].categ_prods?[indexPath.row].is_favorite == false {
             cell.button.setImage(UIImage(named: "favorite"), for: .normal)
             }
@@ -72,7 +72,7 @@ extension BADCollectionView: UICollectionViewDelegate, UICollectionViewDataSourc
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = MedicineViewController()
+        let vc = TestTwoViewController()
         vc.id = vitamin?.categories_for_main_page?[1].categ_prods?[indexPath.row].id ?? ""
         self.navigationController.pushViewController(vc, animated: true)
     }

@@ -17,6 +17,7 @@ class PersonalInfoViewController: UIViewController {
     var login: LoginData?
     var token: String = ""
     var profile = ProfileInfoViewController()
+    var alert: UIAlertController!
    
     
     lazy var name: UILabel = {
@@ -182,6 +183,7 @@ class PersonalInfoViewController: UIViewController {
         view.backgroundColor = .white
         picker.delegate = self
         picker.dataSource = self
+        self.hideKeyboardWhenTappedAround()
         genderTextField.inputView = picker
         //usersShow()
         userShow()
@@ -260,7 +262,7 @@ class PersonalInfoViewController: UIViewController {
     }
     
     func usersShow(){
-        let urlString = "http://salomat.colibri.tj/users/show/\(userID)"
+        let urlString = "http://slomat2.colibri.tj/users/show/\(userID)"
         self.network.login(urlString: urlString) { [weak self] (result) in
             guard let self = self else {return}
             switch result {
@@ -273,7 +275,7 @@ class PersonalInfoViewController: UIViewController {
     }
     
     func userShow() {
-        guard let url = URL(string: "http://salomat.colibri.tj/users/show/\(userID)") else { return }
+        guard let url = URL(string: "http://slomat2.colibri.tj/users/show/\(userID)") else { return }
         var request = URLRequest(url: url)
         request.setValue(token, forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"
@@ -344,7 +346,7 @@ class PersonalInfoViewController: UIViewController {
     }
     
     @objc func updateUserInfo() {
-        guard let url = URL(string: "http://salomat.colibri.tj/users/update_user/\(userID)") else { return }
+        guard let url = URL(string: "http://slomat2.colibri.tj/users/update_user/\(userID)") else { return }
         var request = URLRequest(url: url)
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
@@ -380,7 +382,8 @@ class PersonalInfoViewController: UIViewController {
             }
             if response.statusCode == 200 {
                 DispatchQueue.main.async {
-                   print("update")
+                    self.showAlert()
+                    print("update")
                 }
             }
             else if response.statusCode == 400 {
@@ -400,6 +403,16 @@ class PersonalInfoViewController: UIViewController {
             }
         }
         task.resume()
+    }
+    func showAlert() {
+        self.alert = UIAlertController(title: "", message: "Изменения сохранены", preferredStyle: UIAlertController.Style.alert)
+        self.present(self.alert, animated: true, completion: nil)
+        Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(dismissAlert), userInfo: nil, repeats: false)
+    }
+
+    @objc func dismissAlert(){
+        // Dismiss the alert from here
+        self.alert.dismiss(animated: true, completion: nil)
     }
     
     @objc func donePressed() {
@@ -429,3 +442,4 @@ extension PersonalInfoViewController: UIPickerViewDelegate, UIPickerViewDataSour
         genderTextField.resignFirstResponder()
     }
 }
+

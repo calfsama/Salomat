@@ -9,6 +9,7 @@ import UIKit
 
 class SafetyViewController: UIViewController {
     var phone: String = ""
+    var alert: UIAlertController!
     
     lazy var password: UILabel = {
         let label = UILabel()
@@ -51,6 +52,7 @@ class SafetyViewController: UIViewController {
         textField.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
         textField.returnKeyType = .next
         textField.leftViewMode = .always
+        textField.isSecureTextEntry = true
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
@@ -85,6 +87,7 @@ class SafetyViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        hideKeyboardWhenTappedAround()
         configureConstraints()
     }
     
@@ -126,8 +129,19 @@ class SafetyViewController: UIViewController {
         ])
     }
     
+    func showAlert() {
+        self.alert = UIAlertController(title: "", message: "Пароль изменен", preferredStyle: UIAlertController.Style.alert)
+        self.present(self.alert, animated: true, completion: nil)
+        Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(dismissAlert), userInfo: nil, repeats: false)
+    }
+
+    @objc func dismissAlert(){
+        // Dismiss the alert from here
+        self.alert.dismiss(animated: true, completion: nil)
+    }
+    
     @objc func updatePassword() {
-        guard let url = URL(string: "http://salomat.colibri.tj/users/forgot_password") else { return }
+        guard let url = URL(string: "http://slomat2.colibri.tj/users/forgot_password") else { return }
         var request = URLRequest(url: url)
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
@@ -160,6 +174,7 @@ class SafetyViewController: UIViewController {
             }
             if response.statusCode == 200 {
                 DispatchQueue.main.async {
+                    self.showAlert()
                     print("update")
                 }
             }

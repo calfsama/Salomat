@@ -10,6 +10,7 @@ import UIKit
 class RegisterStepTwoViewController: UIViewController {
     
     var phone: String = ""
+    var alert: UIAlertController!
     
     lazy var password: UILabel = {
         let label = UILabel()
@@ -26,6 +27,7 @@ class RegisterStepTwoViewController: UIViewController {
         textField.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
         textField.returnKeyType = .next
         textField.leftViewMode = .always
+        textField.isSecureTextEntry = true
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
@@ -52,6 +54,7 @@ class RegisterStepTwoViewController: UIViewController {
         textField.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
         textField.returnKeyType = .next
         textField.leftViewMode = .always
+        textField.isSecureTextEntry = true
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
@@ -180,6 +183,20 @@ class RegisterStepTwoViewController: UIViewController {
         ])
     }
     
+    func showAlert() {
+        self.alert = UIAlertController(title: "", message: "Пользователь успешно зарегистрирован", preferredStyle: UIAlertController.Style.alert)
+        self.present(self.alert, animated: true, completion: nil)
+        Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(dismissAlert), userInfo: nil, repeats: false)
+    }
+
+    @objc func dismissAlert(){
+        // Dismiss the alert from here
+        self.alert.dismiss(animated: true, completion: nil)
+        let v = ProfileViewController()
+        v.title = "Вход"
+        self.navigationController?.pushViewController(v, animated: true)
+    }
+    
     @objc func buttonAction() {
         let vc = ProfileViewController()
         vc.title = "Вход или регистрация"
@@ -187,7 +204,7 @@ class RegisterStepTwoViewController: UIViewController {
     }
     
     @objc func registration() {
-        guard let url = URL(string: "http://salomat.colibri.tj/users/register") else { return }
+        guard let url = URL(string: "http://slomat2.colibri.tj/users/register") else { return }
         var request = URLRequest(url: url)
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
@@ -220,11 +237,12 @@ class RegisterStepTwoViewController: UIViewController {
             }
             if response.statusCode == 200 {
                 DispatchQueue.main.async {
-                    let vc = RegisterTabBarViewController()
-                    vc.title = "Вход"
-                    //vc.selectedIndex = 4
-                    let appDelegate = UIApplication.shared.delegate
-                    appDelegate?.window??.rootViewController = vc
+//                    let vc = RegisterTabBarViewController()
+//                    vc.title = "Вход"
+//                    //vc.selectedIndex = 4
+//                    let appDelegate = UIApplication.shared.delegate
+//                    appDelegate?.window??.rootViewController = vc
+                    self.showAlert()
                     //self.navigationController?.pushViewController(vc, animated: true)
                 }
                 print("Registration completed successfully!")

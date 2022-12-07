@@ -86,7 +86,7 @@ class RecoveryViewController: UIViewController {
     }
     
     @objc func login() {
-        guard let url = URL(string: "http://salomat.colibri.tj/users/check_phone") else { return }
+        guard let url = URL(string: "http://slomat2.colibri.tj/users/check_phone") else { return }
         var request = URLRequest(url: url)
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"

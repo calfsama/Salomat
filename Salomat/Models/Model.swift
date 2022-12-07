@@ -65,6 +65,10 @@ struct Settings {
     }
 }
 
+struct Image {
+    var image: String
+}
+
 struct Medical {
     let image: UIImage
     let name: String

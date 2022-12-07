@@ -11,6 +11,15 @@ class SliderViewController: UIViewController {
    var popularCondition: Bool = false
    var notPopularCondition: Bool = false
    
+   
+   lazy var uiview: UIView = {
+      let uiview = UIView()
+      uiview.backgroundColor = UIColor(red: 0.769, green: 0.769, blue: 0.769, alpha: 1)
+      uiview.layer.cornerRadius = 4
+      uiview.translatesAutoresizingMaskIntoConstraints = false
+      return uiview
+   }()
+   
    lazy var price: UILabel = {
       let label = UILabel()
       label.text = "Цена"
@@ -83,6 +92,7 @@ class SliderViewController: UIViewController {
     }
    
    func configureConstraints() {
+      view.addSubview(uiview)
       view.addSubview(price)
       view.addSubview(slider)
       view.addSubview(raiting)
@@ -93,33 +103,38 @@ class SliderViewController: UIViewController {
       view.addSubview(showButton)
       
       NSLayoutConstraint.activate([
-         price.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 20),
+         uiview.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 5),
+         uiview.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+         uiview.heightAnchor.constraint(equalToConstant: 5),
+         uiview.widthAnchor.constraint(equalToConstant: 100),
+         
+         price.topAnchor.constraint(equalTo: uiview.bottomAnchor, constant: 20),
          price.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
          
-         slider.topAnchor.constraint(equalTo: price.bottomAnchor, constant: 10),
+         slider.topAnchor.constraint(equalTo: price.bottomAnchor, constant: 20),
          slider.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
          slider.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
       
-         raiting.topAnchor.constraint(equalTo: slider.bottomAnchor, constant: 20),
+         raiting.topAnchor.constraint(equalTo: slider.bottomAnchor, constant: 25),
          raiting.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
          
-         popularButton.topAnchor.constraint(equalTo: raiting.bottomAnchor, constant: 10),
+         popularButton.topAnchor.constraint(equalTo: raiting.bottomAnchor, constant: 20),
          popularButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
          popularButton.heightAnchor.constraint(equalToConstant: 20),
          popularButton.widthAnchor.constraint(equalToConstant: 20),
          
          popular.leadingAnchor.constraint(equalTo: popularButton.trailingAnchor, constant: 5),
-         popular.topAnchor.constraint(equalTo: raiting.bottomAnchor, constant: 10),
+         popular.topAnchor.constraint(equalTo: raiting.bottomAnchor, constant: 20),
          
-         notPopularButton.topAnchor.constraint(equalTo: raiting.bottomAnchor, constant: 10),
+         notPopularButton.topAnchor.constraint(equalTo: raiting.bottomAnchor, constant: 20),
          notPopularButton.leadingAnchor.constraint(equalTo: popular.trailingAnchor, constant: 25),
          notPopularButton.heightAnchor.constraint(equalToConstant: 20),
          notPopularButton.widthAnchor.constraint(equalToConstant: 20),
          
-         notPopular.topAnchor.constraint(equalTo: raiting.bottomAnchor, constant: 10),
+         notPopular.topAnchor.constraint(equalTo: raiting.bottomAnchor, constant: 20),
          notPopular.leadingAnchor.constraint(equalTo: notPopularButton.trailingAnchor, constant: 5),
          
-         showButton.topAnchor.constraint(equalTo: popular.bottomAnchor, constant: 20),
+         showButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20),
          showButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
          showButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
          showButton.heightAnchor.constraint(equalToConstant: 45)

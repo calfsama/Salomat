@@ -19,13 +19,13 @@ struct Login: Codable {
     var gender: String?
     var email: String?
     var type: String?
-    var image: String?
-    var onesignal_id: String?
+//    var image: String?
+//    var onesignal_id: String?
     
     enum CodingKeys: Codable, CodingKey {
         case user_id, login, password, name, enabled
         case access, birth_date, address, gender
-        case email, type, image, onesignal_id
+        case email, type
     }
 }
 typealias LoginData = [Login]

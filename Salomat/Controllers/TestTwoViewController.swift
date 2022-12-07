@@ -34,7 +34,7 @@ class TestTwoViewController: UIViewController {
     }
     
     func fetchBanner(){
-        let urlString = "http://salomat.colibri.tj/products/show?product_id=\(id)"
+        let urlString = "http://slomat2.colibri.tj/products/show?product_id=\(id)"
         self.network.productShow(urlString: urlString) { [weak self] (result) in
             guard let self = self else {return}
             switch result {

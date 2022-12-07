@@ -38,7 +38,7 @@ class BlogViewController: UIViewController {
     }
     
     func fetchBlogData(){
-        let urlString = "http://salomat.colibri.tj/blogs/blog?blog_id=\(id)"
+        let urlString = "http://slomat2.colibri.tj/blogs/blog?blog_id=\(id)"
         self.network.show(urlString: urlString) { [weak self] (result) in
             guard let self = self else {return}
             switch result {

@@ -32,7 +32,7 @@ class MessangerCollectionView: UICollectionView, UICollectionViewDelegateFlowLay
     }
     
     @objc func openWhatsApp() {
-        let whatsApp = "https://wa.me/992987690404"
+        let whatsApp = "https://wa.me/992903909990"
         let whatsAppUrl = URL(string: whatsApp)!
         if UIApplication.shared.canOpenURL(whatsAppUrl)
         {
@@ -44,7 +44,7 @@ class MessangerCollectionView: UICollectionView, UICollectionViewDelegateFlowLay
     }
     
     @objc func openViber() {
-        let viber = "viber://chat?number=992987690404"
+        let viber = "viber://chat?number=992903909990"
         let viberURL = URL(string: viber)!
         if UIApplication.shared.canOpenURL(viberURL) {
             UIApplication.shared.open(viberURL)
@@ -55,7 +55,7 @@ class MessangerCollectionView: UICollectionView, UICollectionViewDelegateFlowLay
     }
     
     @objc func openTelegram() {
-        let telegram = "https://t.me/hoosniya"
+        let telegram = "https://t.me/Salomat9990"
         let telegramURL = URL(string: telegram)!
         if UIApplication.shared.canOpenURL(telegramURL) {
             UIApplication.shared.open(telegramURL)

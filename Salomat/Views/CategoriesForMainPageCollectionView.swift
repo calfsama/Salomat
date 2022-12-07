@@ -38,7 +38,7 @@ extension CategoriesForMainPageCollectionView: UICollectionViewDelegate, UIColle
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath == selectedIndex {
             let cell = dequeueReusableCell(withReuseIdentifier: CategoriesForMainPageCollectionViewCell.identifier, for: indexPath) as! CategoriesForMainPageCollectionViewCell
-            let url = "http://salomat.colibri.tj/img/icons/"
+            let url = "http://slomat2.colibri.tj/img/icons/"
             let completeURL = url + (category?.categories?[indexPath.row].icon ?? "bandage2.png")
             cell.icon.downloaded(from: completeURL)
             cell.category.text = category?.categories?[indexPath.row].category_name ?? ""
@@ -47,7 +47,7 @@ extension CategoriesForMainPageCollectionView: UICollectionViewDelegate, UIColle
         }
         else {
             let cell = dequeueReusableCell(withReuseIdentifier: CategoriesForMainPageCollectionViewCell.identifier, for: indexPath) as! CategoriesForMainPageCollectionViewCell
-            let url = "http://salomat.colibri.tj/img/icons/"
+            let url = "http://slomat2.colibri.tj/img/icons/"
             let completeURL = url + (category?.categories?[indexPath.row].icon ?? "bandage2.png")
             cell.icon.downloaded(from: completeURL)
             cell.category.text = category?.categories?[indexPath.row].category_name ?? ""
@@ -66,7 +66,7 @@ extension CategoriesForMainPageCollectionView: UICollectionViewDelegate, UIColle
 //        cell?.category.text = category?.categories?[indexPath.row].sub_cat?[indexPath.row].category_name ?? ""
 //        collectionView.reloadData()
         
-        let vc = CategoriesViewController()
+        let vc = CategoriesForMainPageViewController()
         self.navigationController.pushViewController(vc, animated: true)
         
     }

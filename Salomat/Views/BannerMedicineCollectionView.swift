@@ -32,15 +32,17 @@ class BannerMedicineCollectionView: UICollectionView, UICollectionViewDelegateFl
 }
 extension BannerMedicineCollectionView: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return banner?.categories_for_main_page?[0].categ_slider?.count ?? 0
+        return 1
+        //return banner?.categories_for_main_page?[0].categ_slider?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = dequeueReusableCell(withReuseIdentifier: BannerCollectionViewCell.identifier, for: indexPath) as! BannerCollectionViewCell
         if ((banner?.categories_for_main_page?[1]) != nil) {
-            let url = "http://salomat.colibri.tj/upload_banner/"
+            let url = "http://slomat2.colibri.tj/upload_banner/"
             let completeURL = url + (banner?.categories_for_main_page?[0].categ_slider?[indexPath.row].slider_pic ?? "")
             cell.image.downloaded(from: completeURL)
+            cell.image.image = UIImage(named: "1")
         }
         return cell
     }

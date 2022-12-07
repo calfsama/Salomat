@@ -127,6 +127,7 @@ class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         fetchFromApi()
         fetchData()
         fetchBlogData()
@@ -151,7 +152,7 @@ class MainViewController: UIViewController {
 
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "menu"), style: .plain, target: self, action: #selector(showCategories))
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Search"), style: .plain, target: self, action: #selector(btnCollection))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Search"), style: .plain, target: self, action: #selector(searchContr))
     }
     
     @objc func openSearchController() {
@@ -277,6 +278,7 @@ class MainViewController: UIViewController {
     
     @objc func showCategories() {
         let vc =  BlackViewController()
+        vc.title = "Каталог товаров"
         let navigationController = UINavigationController(rootViewController: vc)
         navigationController.modalPresentationStyle = .pageSheet
         if #available(iOS 15.0, *) {
@@ -292,8 +294,13 @@ class MainViewController: UIViewController {
         
     }
     
+    @objc func searchContr() {
+        let vc = SearchProductViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     func fetchFromApi(){
-        let urlString = "http://salomat.colibri.tj/products/prods_of_the_day?"
+        let urlString = "http://slomat2.colibri.tj/products/prods_of_the_day?"
         self.network.fetchData(urlString: urlString) { [weak self] (result) in
             guard let self = self else {return}
             switch result {
@@ -310,7 +317,7 @@ class MainViewController: UIViewController {
     }
     
     func fetchData(){
-        let urlString = "http://salomat.colibri.tj/products/categories_for_main_page?"
+        let urlString = "http://slomat2.colibri.tj/products/categories_for_main_page?"
         self.network.fetchFromApi(urlString: urlString) { [weak self] (result) in
             guard let self = self else {return}
             switch result {
@@ -329,7 +336,7 @@ class MainViewController: UIViewController {
     }
     
     func fetchBlogData(){
-        let urlString = "http://salomat.colibri.tj/blogs/blog_popular?page=1"
+        let urlString = "http://slomat2.colibri.tj/blogs/blog_popular?page=1"
         self.network.fetchBlogsData(urlString: urlString) { [weak self] (result) in
             guard let self = self else {return}
             switch result {
@@ -345,7 +352,7 @@ class MainViewController: UIViewController {
     
     
     func fetchVitemin(){
-        let urlString = "http://salomat.colibri.tj/products/categories_for_main_page?id=8"
+        let urlString = "http://slomat2.colibri.tj/products/categories_for_main_page?id=8"
         self.network.fetchFromApi(urlString: urlString) { [weak self] (result) in
             guard let self = self else {return}
             switch result {
@@ -360,7 +367,7 @@ class MainViewController: UIViewController {
     }
     
     func fetchBanner(){
-        let urlString = "http://salomat.colibri.tj/products/main_sliders"
+        let urlString = "http://slomat2.colibri.tj/products/main_sliders"
         self.network.fetchBanners(urlString: urlString) { [weak self] (result) in
             guard let self = self else {return}
             switch result {

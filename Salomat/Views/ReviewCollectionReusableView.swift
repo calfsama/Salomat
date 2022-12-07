@@ -127,7 +127,7 @@ class ReviewCollectionReusableView: UICollectionReusableView {
     }
     
     @objc func shareReview() {
-        guard let url = URL(string: "http://salomat.colibri.tj/products/send_review") else { return }
+        guard let url = URL(string: "http://slomat2.colibri.tj/products/send_review") else { return }
         var request = URLRequest(url: url)
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"

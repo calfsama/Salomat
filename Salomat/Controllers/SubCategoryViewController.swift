@@ -27,7 +27,7 @@ class SubCategoryViewController: UIViewController {
     }
     
     func fetchFromAPI() {
-        let urlString = "http://salomat.colibri.tj/products/categories_for_main_page?"
+        let urlString = "http://slomat2.colibri.tj/products/categories_for_main_page?"
         self.network.fetchFromApi(urlString: urlString) { [weak self] (result) in
             guard let self = self else {return}
             switch result {

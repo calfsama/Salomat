@@ -35,7 +35,15 @@ class MyOrdersCollectionView: UICollectionView, UICollectionViewDelegateFlowLayo
 }
 extension MyOrdersCollectionView: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        var emptyLabel = UILabel(frame: CGRect(x: 0, y: 0, width: collectionView.bounds.size.width, height: collectionView.bounds.size.height))
+        emptyLabel.text = "Нет заказов"
+        emptyLabel.textColor = .gray
+        emptyLabel.font = UIFont.systemFont(ofSize: 25, weight: .semibold)
+        emptyLabel.textAlignment = NSTextAlignment.center
+        collectionView.backgroundView = emptyLabel
+        //collectionView.separatorStyle = .none
+        return 0
+        //return 2
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -68,10 +76,12 @@ extension MyOrdersCollectionView: UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: collectionView.frame.size.width, height: 50)
+        //return CGSize(width: collectionView.frame.size.width, height: 50)
+        return CGSize(width: 0, height: 0)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        return CGSize(width: collectionView.frame.size.width, height: 150)
+        //return CGSize(width: collectionView.frame.size.width, height: 150)
+        return CGSize(width: 0, height: 0)
     }
 }

@@ -34,15 +34,16 @@ class BannerCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout
 }
 extension BannerCollectionView: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return banners?.main_slider?.count ?? 0
+        return 1
+        //return banners?.main_slider?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = dequeueReusableCell(withReuseIdentifier: BannerCollectionViewCell.identifier, for: indexPath) as! BannerCollectionViewCell
-        let url = "http://salomat.colibri.tj/upload_banner/"
+        let url = "http://slomat2.colibri.tj/upload_banner/"
         let completeURL = url + (banners?.main_slider?[indexPath.row].slider_pic ?? "")
         //cell.image.downloaded(from: completeURL)
-        let toImage = UIImage(named:"myname.png")
+        cell.image.image = UIImage(named: "1")
         UIView.transition(with: cell.image,
                           duration: 0.3,
                           options: .transitionCrossDissolve,

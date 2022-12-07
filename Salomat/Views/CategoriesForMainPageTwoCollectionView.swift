@@ -9,6 +9,7 @@ import UIKit
 
 class CategoriesForMainPageTwoCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
     var category: Category?
+    var index: IndexPath?
 
     init() {
         let layout = UICollectionViewFlowLayout()
@@ -28,7 +29,7 @@ class CategoriesForMainPageTwoCollectionView: UICollectionView, UICollectionView
 }
 extension CategoriesForMainPageTwoCollectionView: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return 3
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

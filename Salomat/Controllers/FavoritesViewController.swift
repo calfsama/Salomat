@@ -50,7 +50,7 @@ class FavoritesViewController: UIViewController {
     }
     
     func favorites(){
-        let urlString = "http://salomat.colibri.tj/favorites?user_id=15"
+        let urlString = "http://slomat2.colibri.tj/favorites?user_id=15"
         self.network.favorites(urlString: urlString) { [weak self] (result) in
             guard let self = self else {return}
             switch result {

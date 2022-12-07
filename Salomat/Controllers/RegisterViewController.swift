@@ -23,10 +23,12 @@ class RegisterViewController: UIViewController {
     
     lazy var textField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "_ _ _ _ _ _"
+        textField.placeholder = "_ _ _ _ "
         textField.font = UIFont.systemFont(ofSize: 25, weight: .semibold)
         textField.returnKeyType = .next
         textField.leftViewMode = .always
+        textField.keyboardType = .phonePad
+        textField.textAlignment = .center
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
@@ -169,7 +171,7 @@ class RegisterViewController: UIViewController {
     }
     
     func sendCode() {
-        guard let url = URL(string: "http://salomat.colibri.tj/users/resend_sms") else { return }
+        guard let url = URL(string: "http://slomat2.colibri.tj/users/resend_sms") else { return }
         var request = URLRequest(url: url)
         request.setValue("application/form-data", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
@@ -211,7 +213,7 @@ class RegisterViewController: UIViewController {
     }
     
     @objc func checkCode() {
-        guard let url = URL(string: "http://salomat.colibri.tj/users/check_register_code") else { return }
+        guard let url = URL(string: "http://slomat2.colibri.tj/users/check_register_code") else { return }
         var request = URLRequest(url: url)
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
@@ -268,7 +270,7 @@ class RegisterViewController: UIViewController {
     }
     
     func apiService() {
-        guard let url = URL(string: "http://salomat.colibri.tj/users/resend_sms") else { return }
+        guard let url = URL(string: "http://slomat2.colibri.tj/users/resend_sms") else { return }
         let parameters: [String: Any] = [
             "phone": phone
         ]

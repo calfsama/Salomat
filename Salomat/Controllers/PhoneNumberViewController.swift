@@ -13,6 +13,7 @@ class PhoneNumberViewController: UIViewController {
     var personalInfo = PersonalInfoViewController()
     var login: LoginData?
     var token: String = ""
+    var alert: UIAlertController!
     
     lazy var phone: UILabel = {
         let label = UILabel()
@@ -57,6 +58,7 @@ class PhoneNumberViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         title = "Номер телефона"
+        hideKeyboardWhenTappedAround()
         userShow()
         configureConstraints()
     }
@@ -82,7 +84,7 @@ class PhoneNumberViewController: UIViewController {
         ])
     }
     func userShow() {
-        guard let url = URL(string: "http://salomat.colibri.tj/users/show/\(userID)") else { return }
+        guard let url = URL(string: "http://slomat2.colibri.tj/users/show/\(userID)") else { return }
         var request = URLRequest(url: url)
         request.setValue(token, forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"
@@ -120,8 +122,19 @@ class PhoneNumberViewController: UIViewController {
         }.resume()
     }
     
+    func showAlert() {
+        self.alert = UIAlertController(title: "", message: "Номер изменен", preferredStyle: UIAlertController.Style.alert)
+        self.present(self.alert, animated: true, completion: nil)
+        Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(dismissAlert), userInfo: nil, repeats: false)
+    }
+
+    @objc func dismissAlert(){
+        // Dismiss the alert from here
+        self.alert.dismiss(animated: true, completion: nil)
+    }
+    
     @objc func updatePhone() {
-        guard let url = URL(string: "http://salomat.colibri.tj/users/update_user/\(userID)") else { return }
+        guard let url = URL(string: "http://slomat2.colibri.tj/users/update_user/\(userID)") else { return }
         var request = URLRequest(url: url)
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
@@ -146,9 +159,7 @@ class PhoneNumberViewController: UIViewController {
             }
             if response.statusCode == 200 {
                 DispatchQueue.main.async {
-                    let vc = ProfileInfoViewController()
-                    vc.title = "Профиль"
-                    self.navigationController?.pushViewController(vc, animated: true)
+                    self.showAlert()
                 }
             }
             else if response.statusCode == 400 {

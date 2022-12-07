@@ -96,7 +96,7 @@ class ProfileInfoViewController: UIViewController {
         ])
     }
     func userShow() {
-        guard let url = URL(string: "http://salomat.colibri.tj/users/show/\(userID)") else { return }
+        guard let url = URL(string: "http://slomat2.colibri.tj/users/show/\(userID)") else { return }
         var request = URLRequest(url: url)
         request.setValue(token, forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"

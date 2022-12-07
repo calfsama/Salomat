@@ -128,7 +128,7 @@ class PasswordViewController: UIViewController {
     }
     
     @objc func login() {
-        guard let url = URL(string: "http://salomat.colibri.tj/users/login") else { return }
+        guard let url = URL(string: "http://slomat2.colibri.tj/users/login") else { return }
         var request = URLRequest(url: url)
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
@@ -175,6 +175,13 @@ class PasswordViewController: UIViewController {
                     print("Access Token \(saveSuccessful)")
                    // self.appDelegate.token = self.userData?.data?[0].token ?? ""
                     self.navigationController?.pushViewController(vc, animated: true)
+//                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//                    let tabBar = storyboard.instantiateViewController(withIdentifier: "TabBarController")
+//                    let reg = RegisterTabBarViewController()
+//                    reg.profile.userID = self.userData?.data?[0].user_id ?? ""
+//                    let appDelegate = UIApplication.shared.delegate
+//                    appDelegate?.window??.rootViewController = reg
+                    
                 }
             }
             else if response.statusCode == 400 {

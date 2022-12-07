@@ -9,7 +9,7 @@ import UIKit
 
 class MedicineInfoCollectionViewCell: UICollectionViewCell {
     static let identifier = "MedicineInfoCollectionViewCell"
-    var cell = SearchCollectionView()
+   // var cell = SearchCollectionView()
     var reviewCell = ReviewCollectionView()
     var id: String = ""
     
@@ -207,7 +207,7 @@ class MedicineInfoCollectionViewCell: UICollectionViewCell {
         analogScroll.addSubview(analog)
         analogScroll.addSubview(feedback)
         analogScroll.addSubview(uiView)
-        analogScroll.addSubview(cell)
+       // analogScroll.addSubview(cell)
         analog.setTitleColor(UIColor(red: 0.22, green: 0.208, blue: 0.325, alpha: 1), for: .normal)
         instruction.setTitleColor(UIColor(red: 0.478, green: 0.463, blue: 0.617, alpha: 1), for: .normal)
         feedback.setTitleColor(UIColor(red: 0.478, green: 0.463, blue: 0.617, alpha: 1), for: .normal)
@@ -233,10 +233,10 @@ class MedicineInfoCollectionViewCell: UICollectionViewCell {
             uiView.trailingAnchor.constraint(equalTo: analog.trailingAnchor),
             uiView.heightAnchor.constraint(equalToConstant: 3),
             
-            cell.topAnchor.constraint(equalTo: instruction.bottomAnchor, constant: 30),
-            cell.leadingAnchor.constraint(equalTo: analogScroll.leadingAnchor),
-            cell.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            cell.heightAnchor.constraint(equalToConstant: 300)
+//            cell.topAnchor.constraint(equalTo: instruction.bottomAnchor, constant: 30),
+//            cell.leadingAnchor.constraint(equalTo: analogScroll.leadingAnchor),
+//            cell.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+//            cell.heightAnchor.constraint(equalToConstant: 300)
         ])
     }
     

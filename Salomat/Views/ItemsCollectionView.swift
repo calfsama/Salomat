@@ -48,6 +48,8 @@ class ItemsCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout 
         contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         showsHorizontalScrollIndicator = false
         backgroundColor = .white
+        self.isSkeletonable = true
+        self.startSkeletonAnimation()
     }
     
     required init?(coder: NSCoder) {
@@ -78,9 +80,10 @@ extension ItemsCollectionView: UICollectionViewDelegate, SkeletonCollectionViewD
         cell.images = data?.product_pic ?? ""
         cell.prices = data?.product_price ?? ""
         cell.title.text = data?.product_name ?? ""
-        let url = "http://salomat.colibri.tj/upload_product/"
+        let url = "http://slomat2.colibri.tj/upload_product/"
         let completeURL = url + (data?.product_pic ?? "")
         cell.image.downloaded(from: completeURL)
+        cell.image.image = UIImage(named: "123")
         if data?.is_favorite == true {
             cell.button.setImage(UIImage(named: "heart"), for: .normal)
         }

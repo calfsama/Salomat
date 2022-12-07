@@ -46,7 +46,7 @@ extension MedicinesCollectionView: UICollectionViewDelegate, UICollectionViewDat
         cell.images = sales?.total_products?.total_prods?[indexPath.row].product_pic ?? ""
         cell.title.text = sales?.total_products?.total_prods?[indexPath.row].product_name ?? ""
         cell.price.text = sales?.total_products?.total_prods?[indexPath.row].product_price ?? ""
-        let url = "http://salomat.colibri.tj/upload_product/"
+        let url = "http://slomat2.colibri.tj/upload_product/"
         let completeURL = url + (sales?.total_products?.total_prods?[indexPath.row].product_pic ?? "")
         cell.image.downloaded(from: completeURL)
         //cell.button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)

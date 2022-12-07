@@ -8,6 +8,7 @@
 import UIKit
 
 class RegisterTabBarViewController: UITabBarController, UITabBarControllerDelegate {
+    let profile = ProfileInfoViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +38,7 @@ class RegisterTabBarViewController: UITabBarController, UITabBarControllerDelega
         let cartItem = UITabBarItem(title: "Корзина", image: UIImage(named: ""), selectedImage: UIImage(named: ""))
         cartNavigation.tabBarItem = cartItem
         
-        let profile = ProfileViewController()
+        
         let profileNavigation = UINavigationController(rootViewController: profile)
         let profileItem = UITabBarItem(title: "Профиль", image: UIImage(named: ""), selectedImage: UIImage(named: ""))
         profileNavigation.tabBarItem = profileItem

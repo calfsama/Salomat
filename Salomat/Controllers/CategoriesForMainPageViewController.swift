@@ -14,6 +14,7 @@ class CategoriesForMainPageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        fetchData()
         configureConstraints()
     }
     
@@ -29,7 +30,7 @@ class CategoriesForMainPageViewController: UIViewController {
     }
     
     func fetchData(){
-        let urlString = "http://salomat.colibri.tj/products/categories"
+        let urlString = "http://slomat2.colibri.tj/products/categories"
         self.network.category(urlString: urlString) { [weak self] (result) in
             guard let self = self else {return}
             switch result {

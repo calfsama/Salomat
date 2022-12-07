@@ -8,12 +8,8 @@
 import UIKit
 import Photos
 
-
 class TestReceiptViewConttroller: UIViewController  , UICollectionViewDelegate , UICollectionViewDataSource , UICollectionViewDelegateFlowLayout , UIImagePickerControllerDelegate  , UINavigationControllerDelegate
-
 {
-    
-    
     @IBOutlet weak var myCollectionView: UICollectionView!//Define separate collectionview outlet with a different name than any parameter in any of the function
     
     var imagesArray = [UIImage]()

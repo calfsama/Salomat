@@ -82,7 +82,7 @@ extension MedicineInfoCollectionView: UICollectionViewDelegate, UICollectionView
         header.images = productShow?.product?.product_pic ?? ""
         header.is_favorite = ((productShow?.product?.is_favorite) != nil)
         header.id = productShow?.product?.id ?? ""
-        let url = "http://salomat.colibri.tj/upload_product/"
+        let url = "http://slomat2.colibri.tj/upload_product/"
         let completeURL = url + (productShow?.product?.product_pic ?? "")
         header.image.downloaded(from: completeURL)
         if productShow?.product?.is_favorite == true {

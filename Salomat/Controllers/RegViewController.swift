@@ -121,7 +121,7 @@ class RegViewController: UIViewController {
     }
     
     @objc func post() {
-        guard let url = URL(string: "http://salomat.colibri.tj/users/register") else {return}
+        guard let url = URL(string: "http://slomat2.colibri.tj/users/register") else {return}
         var parameters = ["phone=000505547&password=jm1995"]
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -150,7 +150,7 @@ class RegViewController: UIViewController {
     }
     
     @objc func postNo2() {
-        guard let url = URL(string: "http://salomat.colibri.tj/users/register") else { return }
+        guard let url = URL(string: "http://slomat2.colibri.tj/users/register") else { return }
         var request = URLRequest(url: url)
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"

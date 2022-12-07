@@ -32,7 +32,7 @@ class MedicinesViewController: UIViewController {
     }
     
     func fetchVitemin(){
-        let urlString = "http://salomat.colibri.tj//sales?sales_id=\(id)&page=1&min_price=&max_price="
+        let urlString = "http://slomat2.colibri.tj//sales?sales_id=\(id)&page=1&min_price=&max_price="
         self.network.sales(urlString: urlString) { [weak self] (result) in
             guard let self = self else {return}
             switch result {

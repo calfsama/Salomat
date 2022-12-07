@@ -190,9 +190,8 @@ class ReceiptViewController: UIViewController, UICollectionViewDelegateFlowLayou
             receiptCollectionView.topAnchor.constraint(equalTo: chooseThePhoto.bottomAnchor, constant: 15),
             receiptCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             receiptCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            receiptCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            receiptCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
             
-
 //            choosePhoto.topAnchor.constraint(equalTo: chooseThePhoto.bottomAnchor, constant: 25),
 //            choosePhoto.leadingAnchor.constraint(equalTo: receiptCollectionView.leadingAnchor),
 //            choosePhoto.heightAnchor.constraint(equalToConstant: 80),
@@ -333,8 +332,7 @@ extension ReceiptViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.row == 0 {
-            camera()
-            collectionView.reloadData()
+            gallery()
             print("camera")
         }
         print("library")
@@ -346,7 +344,7 @@ extension ReceiptViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let pickedimage = (info[UIImagePickerController.InfoKey.editedImage.rawValue] as? UIImage){
-            photo.image = pickedimage//Will store three selected images in your array
+            imagesArray = [pickedimage]//Will store three selected images in your array
             print("hello", pickedimage.pngData())
             receiptCollectionView.reloadData()
         }

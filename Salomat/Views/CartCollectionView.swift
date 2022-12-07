@@ -54,13 +54,13 @@ extension CartCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = dequeueReusableCell(withReuseIdentifier: CartCollectionViewCell.identifier, for: indexPath) as! CartCollectionViewCell
-        let url = "http://salomat.colibri.tj/upload_product/"
+        let url = "http://slomat2.colibri.tj/upload_product/"
         let completeURL = url + (data[indexPath.row].image ?? "")
         cell.image.downloaded(from: completeURL)
         cell.titleMedicine = data[indexPath.row].title ?? ""
         cell.title.text = data[indexPath.row].title
         cell.price.text = data[indexPath.row].price
-        cell.price.text = String((cell.stepper.value) + Double(data[indexPath.row].price!)!)
+       // cell.price.text = String((cell.stepper.value) + Double(data[indexPath.row].price!)!)
         cell.prices = data[indexPath.row].price ?? ""
         //        cell.image.image = medical[indexPath.row].image
         //        cell.title.text = medical[indexPath.row].name

@@ -22,7 +22,7 @@ class MyOrdersViewController: UIViewController {
         view.addSubview(collectionView)
         
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 20),
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.widthAnchor.constraint(equalToConstant: view.frame.size.width - 32),
             collectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)

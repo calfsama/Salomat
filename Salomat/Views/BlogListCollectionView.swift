@@ -39,7 +39,7 @@ extension BlogListCollectionView: UICollectionViewDelegate, UICollectionViewData
         cell.title.text = blogs?.content?.blogs?[indexPath.row].blog_title ?? ""
         cell.date.text = blogs?.content?.blogs?[indexPath.row].blog_created_at ?? ""
         //cell.image.image = UIImage(named: "Image")
-        let url = "http://salomat.colibri.tj/upload_blog/"
+        let url = "http://slomat2.colibri.tj/upload_blog/"
         let completeURL = url + (blogs?.content?.blogs?[indexPath.row].blog_pic ?? "")
         cell.image.downloaded(from: completeURL)
         cell.image.image = UIImage(named: "3")

@@ -10,6 +10,7 @@ import UIKit
 class ProfileViewController: UIViewController {
     var login: LoginData?
     var network = NetworkService()
+    var alert: UIAlertController!
     
     var isLoggedIn: Bool = false
     
@@ -97,7 +98,7 @@ class ProfileViewController: UIViewController {
         ])
     }
     @objc func postRequestButton() {
-        let url = URL(string: "http://salomat.colibri.tj/users/check_phone")!
+        let url = URL(string: "http://slomat2.colibri.tj/users/check_phone")!
         var request = URLRequest(url: url)
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json", forHTTPHeaderField: "Accept")
@@ -142,8 +143,19 @@ class ProfileViewController: UIViewController {
         task.resume()
     }
     
+    func showAlert() {
+        self.alert = UIAlertController(title: "", message: "Пароль изменен", preferredStyle: UIAlertController.Style.alert)
+        self.present(self.alert, animated: true, completion: nil)
+        Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(dismissAlert), userInfo: nil, repeats: false)
+    }
+
+    @objc func dismissAlert(){
+        // Dismiss the alert from here
+        self.alert.dismiss(animated: true, completion: nil)
+    }
+    
     @objc func checkPhone() {
-        guard let url = URL(string: "http://salomat.colibri.tj/users/check_phone") else { return }
+        guard let url = URL(string: "http://slomat2.colibri.tj/users/check_phone") else { return }
         var request = URLRequest(url: url)
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"

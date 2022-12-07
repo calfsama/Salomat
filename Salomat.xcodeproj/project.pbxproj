@@ -32,6 +32,7 @@
 		9725796E28E7F5CE00712EEC /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9725796D28E7F5CE00712EEC /* RegisterViewController.swift */; };
 		9725797028E7F62900712EEC /* RegisterStepTwoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9725796F28E7F62900712EEC /* RegisterStepTwoViewController.swift */; };
 		9725797228E7F96500712EEC /* ProfileInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9725797128E7F96500712EEC /* ProfileInfoViewController.swift */; };
+		972E34B1293FA4750010B2AE /* SubCategoryForMainPageCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972E34B0293FA4750010B2AE /* SubCategoryForMainPageCollectionView.swift */; };
 		973A0AC028C21F780068CF56 /* ItemsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973A0ABF28C21F780068CF56 /* ItemsCollectionView.swift */; };
 		973A0AE228D35D270068CF56 /* BannerMedicineCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973A0AE128D35D270068CF56 /* BannerMedicineCollectionView.swift */; };
 		973A0AE428D35D3F0068CF56 /* BannerMedicineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973A0AE328D35D3F0068CF56 /* BannerMedicineCollectionViewCell.swift */; };
@@ -41,6 +42,7 @@
 		973A0AEC28D84A280068CF56 /* BlogListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973A0AEB28D84A280068CF56 /* BlogListCollectionViewCell.swift */; };
 		973A0AEE28D84A410068CF56 /* BlogListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973A0AED28D84A410068CF56 /* BlogListCollectionView.swift */; };
 		973A0AF028D8722E0068CF56 /* BlogListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973A0AEF28D8722E0068CF56 /* BlogListViewController.swift */; };
+		973A3617293DE4F000C12D8D /* ReceiptTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973A3616293DE4F000C12D8D /* ReceiptTestViewController.swift */; };
 		974748472933925400903A7A /* TestReceiptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974748462933925400903A7A /* TestReceiptViewController.swift */; };
 		9747484929339B8900903A7A /* ChoosePhotoCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9747484829339B8900903A7A /* ChoosePhotoCollectionReusableView.swift */; };
 		9747484B29347A3A00903A7A /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9747484A29347A3A00903A7A /* MainTabBarViewController.swift */; };
@@ -150,6 +152,7 @@
 		97CC55CA290A98B1001A2F70 /* ChoosePhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CC55C9290A98B1001A2F70 /* ChoosePhotoCollectionViewCell.swift */; };
 		97DEFFD729029A4500E6FCD5 /* MyOrdersCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97DEFFD629029A4500E6FCD5 /* MyOrdersCollectionReusableView.swift */; };
 		97DEFFD92902A38700E6FCD5 /* MyOrdersHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97DEFFD82902A38700E6FCD5 /* MyOrdersHeaderCollectionReusableView.swift */; };
+		97EC5DA92938AC4200392C51 /* SearchProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EC5DA82938AC4200392C51 /* SearchProductViewController.swift */; };
 		97FC0F4F2907B15D00C9418E /* Sales.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FC0F4E2907B15D00C9418E /* Sales.swift */; };
 		FCA6BE654F5C4BF385F9D315 /* Pods_Salomat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48418B0A105D2730593C0D6D /* Pods_Salomat.framework */; };
 /* End PBXBuildFile section */
@@ -182,6 +185,7 @@
 		9725796D28E7F5CE00712EEC /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		9725796F28E7F62900712EEC /* RegisterStepTwoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterStepTwoViewController.swift; sourceTree = "<group>"; };
 		9725797128E7F96500712EEC /* ProfileInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoViewController.swift; sourceTree = "<group>"; };
+		972E34B0293FA4750010B2AE /* SubCategoryForMainPageCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubCategoryForMainPageCollectionView.swift; sourceTree = "<group>"; };
 		973A0ABF28C21F780068CF56 /* ItemsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsCollectionView.swift; sourceTree = "<group>"; };
 		973A0AE128D35D270068CF56 /* BannerMedicineCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerMedicineCollectionView.swift; sourceTree = "<group>"; };
 		973A0AE328D35D3F0068CF56 /* BannerMedicineCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerMedicineCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -191,6 +195,7 @@
 		973A0AEB28D84A280068CF56 /* BlogListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogListCollectionViewCell.swift; sourceTree = "<group>"; };
 		973A0AED28D84A410068CF56 /* BlogListCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogListCollectionView.swift; sourceTree = "<group>"; };
 		973A0AEF28D8722E0068CF56 /* BlogListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogListViewController.swift; sourceTree = "<group>"; };
+		973A3616293DE4F000C12D8D /* ReceiptTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptTestViewController.swift; sourceTree = "<group>"; };
 		974748462933925400903A7A /* TestReceiptViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestReceiptViewController.swift; sourceTree = "<group>"; };
 		9747484829339B8900903A7A /* ChoosePhotoCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosePhotoCollectionReusableView.swift; sourceTree = "<group>"; };
 		9747484A29347A3A00903A7A /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
@@ -302,6 +307,7 @@
 		97CC55C9290A98B1001A2F70 /* ChoosePhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosePhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		97DEFFD629029A4500E6FCD5 /* MyOrdersCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrdersCollectionReusableView.swift; sourceTree = "<group>"; };
 		97DEFFD82902A38700E6FCD5 /* MyOrdersHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrdersHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		97EC5DA82938AC4200392C51 /* SearchProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchProductViewController.swift; sourceTree = "<group>"; };
 		97FC0F4E2907B15D00C9418E /* Sales.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sales.swift; sourceTree = "<group>"; };
 		EB21A7B50542FD6E6A5FDC10 /* Pods-Salomat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Salomat.debug.xcconfig"; path = "Target Support Files/Pods-Salomat/Pods-Salomat.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -401,6 +407,8 @@
 				9747484C2934801B00903A7A /* RegisterTabBarViewController.swift */,
 				974748502936143000903A7A /* CartHeaderCollectionReusableView.swift */,
 				974748522938845C00903A7A /* TabBarItem.swift */,
+				97EC5DA82938AC4200392C51 /* SearchProductViewController.swift */,
+				973A3616293DE4F000C12D8D /* ReceiptTestViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -454,6 +462,7 @@
 				9723BCAE2906ED0100B65237 /* CategoriesForMainPageCollectionViewCell.swift */,
 				9723BCB02906ED1C00B65237 /* CategoriesForMainPageCollectionView.swift */,
 				974EFCB9290709A8006FBE49 /* CategoriesForMainPageTwoCollectionView.swift */,
+				972E34B0293FA4750010B2AE /* SubCategoryForMainPageCollectionView.swift */,
 				97BE2706290791AF0071D143 /* SearchCollectionView.swift */,
 				9780B3902907EA9400AA84EE /* BasketFooterCollectionReusableView.swift */,
 				97CC55C5290A7FAF001A2F70 /* MessangerCollectionViewCell.swift */,
@@ -696,6 +705,7 @@
 				9796F253292BE8FF006DCB55 /* SubCategoryCollectionView.swift in Sources */,
 				978B30FC2902C70A00163532 /* SearchWithPriceFilter.swift in Sources */,
 				9749494428ED7A8600793966 /* BlogsShowCollectionView.swift in Sources */,
+				97EC5DA92938AC4200392C51 /* SearchProductViewController.swift in Sources */,
 				974C1E4628E5F73900A6D4BE /* Blog.swift in Sources */,
 				9749494028ED771500793966 /* MedicalInfoCollectionViewCell.swift in Sources */,
 				970B06F228F6D3FB00C57763 /* TotalCollectionView.swift in Sources */,
@@ -772,9 +782,11 @@
 				97BE2709290793600071D143 /* SearchViewController.swift in Sources */,
 				973A0AEC28D84A280068CF56 /* BlogListCollectionViewCell.swift in Sources */,
 				97604F5928FD546000B44A5C /* DataModel+CoreDataClass.swift in Sources */,
+				972E34B1293FA4750010B2AE /* SubCategoryForMainPageCollectionView.swift in Sources */,
 				973A0AE228D35D270068CF56 /* BannerMedicineCollectionView.swift in Sources */,
 				9796F26B292F69E6006DCB55 /* ReviewCollectionReusableView.swift in Sources */,
 				9723BCB12906ED1C00B65237 /* CategoriesForMainPageCollectionView.swift in Sources */,
+				973A3617293DE4F000C12D8D /* ReceiptTestViewController.swift in Sources */,
 				970B070328F91B8700C57763 /* InfoAboutDeliveryCollectionView.swift in Sources */,
 				9788484128E1C40000926727 /* PasswordViewController.swift in Sources */,
 				9723BCAF2906ED0100B65237 /* CategoriesForMainPageCollectionViewCell.swift in Sources */,

@@ -21,12 +21,14 @@ class RecoveryPasswordStepTwoViewController: UIViewController {
     
     lazy var textField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "_ _ _ _ _ _"
+        textField.placeholder = "_ _ _ _ "
         textField.font = UIFont.systemFont(ofSize: 25, weight: .semibold)
         textField.returnKeyType = .next
         textField.leftViewMode = .always
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
+        textField.keyboardType = .phonePad
+        textField.textAlignment = .center
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
         textField.layer.cornerRadius = 4
         textField.layer.borderWidth = 1
@@ -135,7 +137,7 @@ class RecoveryPasswordStepTwoViewController: UIViewController {
     }
     
     @objc func checkCode() {
-        guard let url = URL(string: "http://salomat.colibri.tj/users/check_register_code") else { return }
+        guard let url = URL(string: "http://slomat2.colibri.tj/users/check_register_code") else { return }
         var request = URLRequest(url: url)
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
@@ -159,8 +161,8 @@ class RecoveryPasswordStepTwoViewController: UIViewController {
                 return
             }
             if response.statusCode >= 200 && response.statusCode <= 299 {
-                let vc = RecoveryPasswordStepThreeViewController()
                 DispatchQueue.main.async {
+                    let vc = RecoveryPasswordStepThreeViewController()
                     vc.title = "Восстановление пароля"
                     vc.phone = self.phoneNumber
                     self.navigationController?.pushViewController(vc, animated: true)
@@ -194,7 +196,7 @@ class RecoveryPasswordStepTwoViewController: UIViewController {
     }
     
     func apiService() {
-        guard let url = URL(string: "http://salomat.colibri.tj/users/resend_sms") else { return }
+        guard let url = URL(string: "http://slomat2.colibri.tj/users/resend_sms") else { return }
         let parameters: [String: Any] = [
             "phone": phoneNumber
         ]

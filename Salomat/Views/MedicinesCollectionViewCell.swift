@@ -25,6 +25,7 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
     var prices: String = ""
     var commitPredicate: NSPredicate?
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var alert: UIAlertController!
     
     static let identifier = "MedicinesCollectionViewCell"
     
@@ -96,13 +97,8 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
         contentView.layer.borderColor = UIColor(red: 0.929, green: 0.93, blue: 1, alpha: 1).cgColor
         contentView.layer.borderWidth = 1
         contentView.layer.cornerRadius = 10
-        image.isSkeletonable = true
-        title.isSkeletonable = true
-        button.isSkeletonable = true
-        price.isSkeletonable = true
-        cartButton.isSkeletonable = true
-        contentView.skeletonCornerRadius = 15
         contentView.isSkeletonable = true
+        contentView.startSkeletonAnimation()
     }
     
     func configureConstraints() {
@@ -293,11 +289,15 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
         do{
             let data = try context.fetch(fetchRequest).first
             if data == nil && data?.title != titleMedicine {
+                cartButton.backgroundColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1)
+                cartButton.setTitle("Убрать из корзины", for: .normal)
                 print("\(data?.title) and \(titleMedicine)")
                 print("save")
                 saveMedicineInBasket()
             }
             else if data?.title == titleMedicine {
+                cartButton.backgroundColor = UIColor(red: 0.118, green: 0.745, blue: 0.745, alpha: 1)
+                cartButton.setTitle("в корзину", for: .normal)
                 print("\(data?.title) and \(titleMedicine)")
                 print("delete")
                 deleteMedicineInBasket()
@@ -308,9 +308,21 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    func showAlert() {
+        self.alert = UIAlertController(title: "Alert", message: "Wait Please!", preferredStyle: UIAlertController.Style.alert)
+        let vc = MainViewController()
+        vc.present(self.alert, animated: true, completion: nil)
+        Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: Selector(("dismissAlert")), userInfo: nil, repeats: false)
+    }
+
+    func dismissAlert(){
+        // Dismiss the alert from here
+        self.alert.dismiss(animated: true, completion: nil)
+    }
+    
     
     func addFavorites() {
-        guard let url = URL(string: "http://salomat.colibri.tj/favorites") else { return }
+        guard let url = URL(string: "http://slomat2.colibri.tj/favorites") else { return }
         var request = URLRequest(url: url)
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
@@ -355,7 +367,7 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
     }
     
     func deleteFavorites() {
-        guard let url = URL(string: "http://salomat.colibri.tj/favorites/delete") else { return }
+        guard let url = URL(string: "http://slomat2.colibri.tj/favorites/delete") else { return }
         var request = URLRequest(url: url)
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"

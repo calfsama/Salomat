@@ -11,6 +11,7 @@ import CoreData
 class MedicineCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
     var inStock = ""
     //var Image
+    var imageName = "123"
     var color = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
     var category: String = ""
     var text: String = ""
@@ -53,6 +54,7 @@ extension MedicineCollectionView: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = dequeueReusableCell(withReuseIdentifier: MedicineCollectionViewCell.identifier, for: indexPath) as! MedicineCollectionViewCell
+        cell.image.image = UIImage(named: "123")
         cell.note.text = text
         cell.buttonSave.setTitle(inCart, for: .normal)
         cell.buttonSave.backgroundColor = color
@@ -72,9 +74,10 @@ extension MedicineCollectionView: UICollectionViewDelegate, UICollectionViewData
         cell.images = productShow?.product?.product_pic ?? ""
         cell.is_favorite = ((productShow?.product?.is_favorite) != nil)
         cell.id = productShow?.product?.id ?? ""
-        let url = "http://salomat.colibri.tj/upload_product/"
+        let url = "http://slomat2.colibri.tj/upload_product/"
         let completeURL = url + (productShow?.product?.product_pic ?? "")
-        cell.image.downloaded(from: completeURL)
+        //cell.image.downloaded(from: completeURL)
+        
         if productShow?.product?.is_favorite == true {
             cell.favorite.setImage(UIImage(named: "heart"), for: .normal)
         }

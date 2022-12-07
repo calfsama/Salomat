@@ -15,6 +15,7 @@ class BlogListViewController: UIViewController {
         super.viewDidLoad()
         fetchBlogData()
         view.backgroundColor = .white
+        navigationItem.title = "Блог"
         blogListCollectionView = BlogListCollectionView(nav: self.navigationController!)
         configureConstraints()
         self.navigationController?.navigationBar.tintColor = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
@@ -32,7 +33,7 @@ class BlogListViewController: UIViewController {
     }
     
     func fetchBlogData(){
-        let urlString = "http://salomat.colibri.tj/blogs/blog_popular?page=1"
+        let urlString = "http://slomat2.colibri.tj/blogs/blog_popular?page=1"
         self.network.fetchBlogsData(urlString: urlString) { [weak self] (result) in
             guard let self = self else {return}
             switch result {
