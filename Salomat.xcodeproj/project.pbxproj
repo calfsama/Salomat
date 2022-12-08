@@ -33,6 +33,7 @@
 		9725797028E7F62900712EEC /* RegisterStepTwoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9725796F28E7F62900712EEC /* RegisterStepTwoViewController.swift */; };
 		9725797228E7F96500712EEC /* ProfileInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9725797128E7F96500712EEC /* ProfileInfoViewController.swift */; };
 		972E34B1293FA4750010B2AE /* SubCategoryForMainPageCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972E34B0293FA4750010B2AE /* SubCategoryForMainPageCollectionView.swift */; };
+		972E34B32942010A0010B2AE /* TermsOfUseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972E34B22942010A0010B2AE /* TermsOfUseViewController.swift */; };
 		973A0AC028C21F780068CF56 /* ItemsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973A0ABF28C21F780068CF56 /* ItemsCollectionView.swift */; };
 		973A0AE228D35D270068CF56 /* BannerMedicineCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973A0AE128D35D270068CF56 /* BannerMedicineCollectionView.swift */; };
 		973A0AE428D35D3F0068CF56 /* BannerMedicineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973A0AE328D35D3F0068CF56 /* BannerMedicineCollectionViewCell.swift */; };
@@ -186,6 +187,7 @@
 		9725796F28E7F62900712EEC /* RegisterStepTwoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterStepTwoViewController.swift; sourceTree = "<group>"; };
 		9725797128E7F96500712EEC /* ProfileInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoViewController.swift; sourceTree = "<group>"; };
 		972E34B0293FA4750010B2AE /* SubCategoryForMainPageCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubCategoryForMainPageCollectionView.swift; sourceTree = "<group>"; };
+		972E34B22942010A0010B2AE /* TermsOfUseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfUseViewController.swift; sourceTree = "<group>"; };
 		973A0ABF28C21F780068CF56 /* ItemsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsCollectionView.swift; sourceTree = "<group>"; };
 		973A0AE128D35D270068CF56 /* BannerMedicineCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerMedicineCollectionView.swift; sourceTree = "<group>"; };
 		973A0AE328D35D3F0068CF56 /* BannerMedicineCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerMedicineCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -409,6 +411,7 @@
 				974748522938845C00903A7A /* TabBarItem.swift */,
 				97EC5DA82938AC4200392C51 /* SearchProductViewController.swift */,
 				973A3616293DE4F000C12D8D /* ReceiptTestViewController.swift */,
+				972E34B22942010A0010B2AE /* TermsOfUseViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -752,6 +755,7 @@
 				978B0C682915197700F88B0F /* SliderViewController.swift in Sources */,
 				9796F261292CF28A006DCB55 /* MedicineInfoCollectionView.swift in Sources */,
 				97FC0F4F2907B15D00C9418E /* Sales.swift in Sources */,
+				972E34B32942010A0010B2AE /* TermsOfUseViewController.swift in Sources */,
 				97CC55CA290A98B1001A2F70 /* ChoosePhotoCollectionViewCell.swift in Sources */,
 				97604F4928F9902400B44A5C /* MyOrdersCollectionView.swift in Sources */,
 				970B070B28F96FB600C57763 /* SummaCollectionView.swift in Sources */,

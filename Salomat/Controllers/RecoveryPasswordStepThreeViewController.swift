@@ -8,7 +8,7 @@
 import UIKit
 
 class RecoveryPasswordStepThreeViewController: UIViewController {
-    
+    var condition: Bool = false
     var phone: String = ""
     var alert: UIAlertController!
 
@@ -94,6 +94,22 @@ class RecoveryPasswordStepThreeViewController: UIViewController {
         return button
     }()
     
+    lazy var eyeButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "eye closed"), for: .normal)
+        button.addTarget(self, action: #selector(eyeButtonAction), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    lazy var secondEyeButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "eye closed"), for: .normal)
+        button.addTarget(self, action: #selector(secondEyeButtonAction), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     lazy var match: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
@@ -126,8 +142,10 @@ class RecoveryPasswordStepThreeViewController: UIViewController {
     func configureConstraints() {
         view.addSubview(password)
         view.addSubview(passwordTextField)
+        view.addSubview(eyeButton)
         view.addSubview(repeatPassword)
         view.addSubview(repeatPasswordTextField)
+        view.addSubview(secondEyeButton)
         view.addSubview(cancel)
         view.addSubview(register)
         view.addSubview(match)
@@ -142,6 +160,9 @@ class RecoveryPasswordStepThreeViewController: UIViewController {
             passwordTextField.heightAnchor.constraint(equalToConstant: 45),
             passwordTextField.widthAnchor.constraint(equalToConstant: 330),
             
+            eyeButton.centerYAnchor.constraint(equalTo: passwordTextField.centerYAnchor),
+            eyeButton.trailingAnchor.constraint(equalTo: passwordTextField.trailingAnchor, constant: -20),
+            
             repeatPassword.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 20),
             repeatPassword.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             
@@ -150,6 +171,9 @@ class RecoveryPasswordStepThreeViewController: UIViewController {
             repeatPasswordTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             repeatPasswordTextField.heightAnchor.constraint(equalToConstant: 45),
             repeatPasswordTextField.widthAnchor.constraint(equalToConstant: 330),
+            
+            secondEyeButton.centerYAnchor.constraint(equalTo: repeatPasswordTextField.centerYAnchor),
+            secondEyeButton.trailingAnchor.constraint(equalTo: repeatPasswordTextField.trailingAnchor, constant: -20),
             
             match.topAnchor.constraint(equalTo: repeatPasswordTextField.bottomAnchor, constant: 5),
             match.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
@@ -165,6 +189,32 @@ class RecoveryPasswordStepThreeViewController: UIViewController {
             register.heightAnchor.constraint(equalToConstant: 45),
             register.widthAnchor.constraint(equalToConstant: 160)
         ])
+    }
+    
+    @objc func eyeButtonAction() {
+        if condition == false {
+            condition = true
+            eyeButton.setImage(UIImage(named: "Group"), for: .normal)
+            passwordTextField.isSecureTextEntry = false
+        }
+        else if condition == true {
+            condition = false
+            eyeButton.setImage(UIImage(named: "eye closed"), for: .normal)
+            passwordTextField.isSecureTextEntry = true
+        }
+    }
+    
+    @objc func secondEyeButtonAction() {
+        if condition == false {
+            condition = true
+            secondEyeButton.setImage(UIImage(named: "Group"), for: .normal)
+            repeatPasswordTextField.isSecureTextEntry = false
+        }
+        else if condition == true {
+            condition = false
+            secondEyeButton.setImage(UIImage(named: "eye closed"), for: .normal)
+            repeatPasswordTextField.isSecureTextEntry = true
+        }
     }
     
     @objc func changePassword() {

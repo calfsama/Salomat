@@ -8,7 +8,7 @@
 import UIKit
 
 class RegisterStepTwoViewController: UIViewController {
-    
+    var condition: Bool = false
     var phone: String = ""
     var alert: UIAlertController!
     
@@ -82,6 +82,22 @@ class RegisterStepTwoViewController: UIViewController {
         return button
     }()
     
+    lazy var eyeButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "eye closed"), for: .normal)
+        button.addTarget(self, action: #selector(eyeButtonAction), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    lazy var secondEyeButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "eye closed"), for: .normal)
+        button.addTarget(self, action: #selector(secondEyeButtonAction), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     lazy var register: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor(red: 0.118, green: 0.745, blue: 0.745, alpha: 1)
@@ -110,6 +126,7 @@ class RegisterStepTwoViewController: UIViewController {
         button.backgroundColor = .white
         button.setTitleColor(UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1), for: .normal)
         button.setTitle("условия пользования", for: .normal)
+        button.addTarget(self, action: #selector(termsOfUse), for: .touchUpInside)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -122,6 +139,38 @@ class RegisterStepTwoViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    @objc func termsOfUse() {
+        let vc = TermsOfUseViewController()
+        self.present(vc, animated: true)
+    }
+    
+    @objc func eyeButtonAction() {
+        if condition == false {
+            condition = true
+            eyeButton.setImage(UIImage(named: "Group"), for: .normal)
+            passwordTextField.isSecureTextEntry = false
+        }
+        else if condition == true {
+            condition = false
+            eyeButton.setImage(UIImage(named: "eye closed"), for: .normal)
+            passwordTextField.isSecureTextEntry = true
+        }
+    }
+    
+    @objc func secondEyeButtonAction() {
+        if condition == false {
+            condition = true
+            secondEyeButton.setImage(UIImage(named: "Group"), for: .normal)
+            repeatPasswordTextField.isSecureTextEntry = false
+        }
+        else if condition == true {
+            condition = false
+            secondEyeButton.setImage(UIImage(named: "eye closed"), for: .normal)
+            repeatPasswordTextField.isSecureTextEntry = true
+        }
+    }
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -133,8 +182,10 @@ class RegisterStepTwoViewController: UIViewController {
     func configureConstraints() {
         view.addSubview(password)
         view.addSubview(passwordTextField)
+        view.addSubview(eyeButton)
         view.addSubview(repeatPassword)
         view.addSubview(repeatPasswordTextField)
+        view.addSubview(secondEyeButton)
         view.addSubview(cancel)
         view.addSubview(register)
         view.addSubview(agree)
@@ -151,6 +202,9 @@ class RegisterStepTwoViewController: UIViewController {
             passwordTextField.heightAnchor.constraint(equalToConstant: 45),
             passwordTextField.widthAnchor.constraint(equalToConstant: 330),
             
+            eyeButton.centerYAnchor.constraint(equalTo: passwordTextField.centerYAnchor),
+            eyeButton.trailingAnchor.constraint(equalTo: passwordTextField.trailingAnchor, constant: -20),
+            
             repeatPassword.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 20),
             repeatPassword.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             
@@ -159,6 +213,9 @@ class RegisterStepTwoViewController: UIViewController {
             repeatPasswordTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             repeatPasswordTextField.heightAnchor.constraint(equalToConstant: 45),
             repeatPasswordTextField.widthAnchor.constraint(equalToConstant: 330),
+            
+            secondEyeButton.centerYAnchor.constraint(equalTo: repeatPasswordTextField.centerYAnchor),
+            secondEyeButton.trailingAnchor.constraint(equalTo: repeatPasswordTextField.trailingAnchor, constant: -20),
             
             match.topAnchor.constraint(equalTo: repeatPasswordTextField.bottomAnchor, constant: 5),
             match.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),

@@ -10,6 +10,7 @@ import UIKit
 class SafetyViewController: UIViewController {
     var phone: String = ""
     var alert: UIAlertController!
+    var condition: Bool = false
     
     lazy var password: UILabel = {
         let label = UILabel()
@@ -26,6 +27,7 @@ class SafetyViewController: UIViewController {
         textField.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
         textField.returnKeyType = .next
         textField.leftViewMode = .always
+        textField.isSecureTextEntry = true
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
@@ -83,6 +85,22 @@ class SafetyViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    lazy var eyeButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "eye closed"), for: .normal)
+        button.addTarget(self, action: #selector(eyeButtonAction), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    lazy var secondEyeButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "eye closed"), for: .normal)
+        button.addTarget(self, action: #selector(secondEyeButtonAction), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,11 +109,14 @@ class SafetyViewController: UIViewController {
         configureConstraints()
     }
     
+    
     func configureConstraints() {
         view.addSubview(password)
         view.addSubview(passwordTextField)
+        view.addSubview(eyeButton)
         view.addSubview(repeatPassword)
         view.addSubview(repeatPasswordTextField)
+        view.addSubview(secondEyeButton)
         view.addSubview(button)
         view.addSubview(match)
         
@@ -108,6 +129,9 @@ class SafetyViewController: UIViewController {
             passwordTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             passwordTextField.heightAnchor.constraint(equalToConstant: 45),
             passwordTextField.widthAnchor.constraint(equalToConstant: 330),
+            
+            eyeButton.centerYAnchor.constraint(equalTo: passwordTextField.centerYAnchor),
+            eyeButton.trailingAnchor.constraint(equalTo: passwordTextField.trailingAnchor, constant: -20),
 
             repeatPassword.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 16),
             repeatPassword.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
@@ -118,6 +142,9 @@ class SafetyViewController: UIViewController {
             repeatPasswordTextField.heightAnchor.constraint(equalToConstant: 45),
             repeatPasswordTextField.widthAnchor.constraint(equalToConstant: 330),
             
+            secondEyeButton.centerYAnchor.constraint(equalTo: repeatPasswordTextField.centerYAnchor),
+            secondEyeButton.trailingAnchor.constraint(equalTo: repeatPasswordTextField.trailingAnchor, constant: -20),
+            
             match.topAnchor.constraint(equalTo: repeatPasswordTextField.bottomAnchor, constant: 5),
             match.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
 
@@ -127,6 +154,32 @@ class SafetyViewController: UIViewController {
             button.heightAnchor.constraint(equalToConstant: 45),
             button.widthAnchor.constraint(equalToConstant: 330)
         ])
+    }
+    
+    @objc func eyeButtonAction() {
+        if condition == false {
+            condition = true
+            eyeButton.setImage(UIImage(named: "Group"), for: .normal)
+            passwordTextField.isSecureTextEntry = false
+        }
+        else if condition == true {
+            condition = false
+            eyeButton.setImage(UIImage(named: "eye closed"), for: .normal)
+            passwordTextField.isSecureTextEntry = true
+        }
+    }
+    
+    @objc func secondEyeButtonAction() {
+        if condition == false {
+            condition = true
+            secondEyeButton.setImage(UIImage(named: "Group"), for: .normal)
+            repeatPasswordTextField.isSecureTextEntry = false
+        }
+        else if condition == true {
+            condition = false
+            secondEyeButton.setImage(UIImage(named: "eye closed"), for: .normal)
+            repeatPasswordTextField.isSecureTextEntry = true
+        }
     }
     
     func showAlert() {
@@ -149,13 +202,22 @@ class SafetyViewController: UIViewController {
             "phone": phone,
             "password": passwordTextField.text!
         ]
-        if repeatPasswordTextField.text != "" && passwordTextField.text == repeatPasswordTextField.text {
+        if repeatPasswordTextField.text != "" && passwordTextField.text == repeatPasswordTextField.text && passwordTextField.text?.count ?? 0 >= 8{
             request.httpBody = parameters.percentEncoded()
         }
-        else if repeatPasswordTextField.text == "" {
+        else if passwordTextField.text?.count ?? 0 <= 7 {
+            passwordTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
+            repeatPasswordTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
+            match.text = "Пароль должен содержать не менее 8 символов"
+        }
+        else if repeatPasswordTextField.text == "" || passwordTextField.text == ""{
+            passwordTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
+            repeatPasswordTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
             match.text = "Заполните поле"
         }
         else if repeatPasswordTextField.text != passwordTextField.text {
+            passwordTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
+            repeatPasswordTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
             match.text = "Пароли не совпадают"
         }
         

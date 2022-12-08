@@ -292,13 +292,15 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
                 cartButton.backgroundColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1)
                 cartButton.setTitle("Убрать из корзины", for: .normal)
                 //contentView.layer.borderColor =
+                contentView.layer.borderColor = UIColor(red: 0.118, green: 0.745, blue: 0.745, alpha: 1).cgColor
                 print("\(data?.title) and \(titleMedicine)")
                 print("save")
                 saveMedicineInBasket()
             }
             else if data?.title == titleMedicine {
                 cartButton.backgroundColor = UIColor(red: 0.118, green: 0.745, blue: 0.745, alpha: 1)
-                cartButton.setTitle("в корзину", for: .normal)
+                contentView.layer.borderColor = UIColor(red: 0.929, green: 0.93, blue: 1, alpha: 1).cgColor
+                cartButton.setTitle("В корзину", for: .normal)
                 print("\(data?.title) and \(titleMedicine)")
                 print("delete")
                 deleteMedicineInBasket()

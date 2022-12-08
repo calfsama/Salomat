@@ -15,6 +15,7 @@ class PasswordViewController: UIViewController {
     var token: String = ""
     var userID: String = ""
     var appDelegate = AppDelegate()
+    var condition: Bool = false
     
     lazy var password: UILabel = {
         let label = UILabel()
@@ -66,6 +67,14 @@ class PasswordViewController: UIViewController {
         return button
     }()
     
+    lazy var eyeButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "eye closed"), for: .normal)
+        button.addTarget(self, action: #selector(eyeButtonAction), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     lazy var wrongPasswod: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
@@ -88,6 +97,7 @@ class PasswordViewController: UIViewController {
     func configureConstraints() {
         view.addSubview(password)
         view.addSubview(textField)
+        view.addSubview(eyeButton)
         view.addSubview(signUp)
         view.addSubview(continueButton)
         view.addSubview(wrongPasswod)
@@ -101,6 +111,9 @@ class PasswordViewController: UIViewController {
             textField.heightAnchor.constraint(equalToConstant: 45),
             textField.widthAnchor.constraint(equalToConstant: 330),
             textField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            eyeButton.centerYAnchor.constraint(equalTo: textField.centerYAnchor),
+            eyeButton.trailingAnchor.constraint(equalTo: textField.trailingAnchor, constant: -20),
             
             wrongPasswod.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 5),
             wrongPasswod.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
@@ -118,6 +131,20 @@ class PasswordViewController: UIViewController {
             continueButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
+    
+    @objc func eyeButtonAction() {
+        if condition == false {
+            condition = true
+            eyeButton.setImage(UIImage(named: "Group"), for: .normal)
+            textField.isSecureTextEntry = false
+        }
+        else if condition == true {
+            condition = false
+            eyeButton.setImage(UIImage(named: "eye closed"), for: .normal)
+            textField.isSecureTextEntry = true
+        }
+    }
+    
     @objc func recoveryButton() {
         let vc = RecoveryViewController()
         vc.title = "Восстановление пароля"

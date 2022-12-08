@@ -102,6 +102,7 @@ class RegisterViewController: UIViewController {
         button.backgroundColor = .white
         button.setTitleColor(UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1), for: .normal)
         button.setTitle("условия пользования", for: .normal)
+        button.addTarget(self, action: #selector(termsOfUse), for: .touchUpInside)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -115,6 +116,12 @@ class RegisterViewController: UIViewController {
         configureConstraints()
         self.navigationController?.navigationBar.tintColor = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
         self.hideKeyboardWhenTappedAround()
+    }
+    
+    @objc func termsOfUse() {
+        let vc = TermsOfUseViewController()
+        let navigationController = UINavigationController(rootViewController: vc)
+        self.present(navigationController, animated: true)
     }
     
     func configureConstraints() {
