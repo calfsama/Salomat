@@ -45,6 +45,7 @@ extension SearchCollectionView: UICollectionViewDelegate, UICollectionViewDataSo
         cell.price.text = search?.products?[indexPath.row].product_price ?? ""
         cell.prices = search?.products?[indexPath.row].product_price ?? ""
         cell.titleMedicine = search?.products?[indexPath.row].product_name ?? ""
+        cell.images = search?.products?[indexPath.row].product_pic ?? ""
         cell.button.setImage(UIImage(named: "favorite"), for: .normal)
         return cell
     }

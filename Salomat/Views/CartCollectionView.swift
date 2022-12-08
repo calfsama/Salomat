@@ -139,27 +139,6 @@ extension CartCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
         cell.totalCost.text = "$" + String(format: "%.2f", calculateCartTotal())
     }
     
-  
-    
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-////        if let data = data[indexPath.row]  {
-//        guard let data = data[indexPath.row] else { return }
-//            if editingStyle == .delete {
-//                tableView.beginUpdates()
-//                self.context.delete(data)
-//                self.data.remove(at: indexPath.row)
-//                tableView.deleteRows(at: [indexPath], with: .fade)
-//                do {
-//                    try context.save()
-//                }
-//                catch {
-//                    print("Error\(error)")
-//                }
-//                tableView.endUpdates()
-//           // }
-//        }
-//    }
-    
     @objc func deleteUser(sender:UIButton) {
         let i : Int = (sender.layer.value(forKey: "index")) as! Int
         let objectToDelete = data.remove(at: i)

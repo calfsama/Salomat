@@ -78,7 +78,7 @@ class SearchProductViewController: UIViewController, UISearchResultsUpdating {
             guard let self = self else {return}
             switch result {
             case .success(let response):
-                self.collectionView.search?.data?.srch_inp = searchText
+                //self.collectionView.search?.data?.srch_inp = searchText
                 self.collectionView.search = response
                 print(urlString)
                 print(searchText)

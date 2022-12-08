@@ -291,6 +291,7 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
             if data == nil && data?.title != titleMedicine {
                 cartButton.backgroundColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1)
                 cartButton.setTitle("Убрать из корзины", for: .normal)
+                //contentView.layer.borderColor =
                 print("\(data?.title) and \(titleMedicine)")
                 print("save")
                 saveMedicineInBasket()

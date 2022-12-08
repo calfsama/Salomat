@@ -75,6 +75,7 @@ class SliderViewController: UIViewController {
       button.setTitleColor(.white, for: .normal)
       button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .medium)
       button.layer.cornerRadius = 4
+      button.addTarget(self, action: #selector(hideView), for: .touchUpInside)
       button.translatesAutoresizingMaskIntoConstraints = false
       return button
    }()
@@ -134,12 +135,17 @@ class SliderViewController: UIViewController {
          notPopular.topAnchor.constraint(equalTo: raiting.bottomAnchor, constant: 20),
          notPopular.leadingAnchor.constraint(equalTo: notPopularButton.trailingAnchor, constant: 5),
          
-         showButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20),
+         showButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -35),
          showButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
          showButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
          showButton.heightAnchor.constraint(equalToConstant: 45)
          
       ])
+   }
+   
+   @objc func hideView() {
+      print("Hide")
+      self.dismiss(animated: true, completion: nil)
    }
     
     @objc private func didChangeSliderValue() {
@@ -150,6 +156,8 @@ class SliderViewController: UIViewController {
    @objc func actionForPopularButton() {
       if popularCondition == false {
          popularCondition = true
+         notPopularCondition = false
+         notPopularButton.setImage(UIImage(named: "Radiobutton 1"), for: .normal)
          popularButton.setImage(UIImage(named: "Radiobutton 2"), for: .normal)
          print("Find popular")
       }
@@ -162,6 +170,8 @@ class SliderViewController: UIViewController {
    @objc func actionForNotPopularButton() {
       if notPopularCondition == false {
          notPopularCondition = true
+         popularCondition = false
+         popularButton.setImage(UIImage(named: "Radiobutton 1"), for: .normal)
          notPopularButton.setImage(UIImage(named: "Radiobutton 2"), for: .normal)
          print("Find not popular")
       }

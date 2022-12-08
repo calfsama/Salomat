@@ -28,6 +28,8 @@ class ProfileViewController: UIViewController {
         textField.placeholder = "Введите свой номер"
         textField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         textField.returnKeyType = .next
+        textField.textColor = .black
+        textField.backgroundColor = .white
         textField.leftViewMode = .always
         textField.keyboardType = .phonePad
         textField.autocapitalizationType = .none

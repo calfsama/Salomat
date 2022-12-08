@@ -23,7 +23,7 @@ class RegisterStepTwoViewController: UIViewController {
     
     lazy var passwordTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = ""
+        textField.placeholder = "Введите пароль"
         textField.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
         textField.returnKeyType = .next
         textField.leftViewMode = .always
@@ -50,7 +50,7 @@ class RegisterStepTwoViewController: UIViewController {
     
     lazy var repeatPasswordTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = ""
+        textField.placeholder = "Введите повторно пароль"
         textField.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
         textField.returnKeyType = .next
         textField.leftViewMode = .always
@@ -212,14 +212,23 @@ class RegisterStepTwoViewController: UIViewController {
             "phone": phone,
             "password": passwordTextField.text!
         ]
-        if passwordTextField.text == repeatPasswordTextField.text {
+        if passwordTextField.text == repeatPasswordTextField.text && passwordTextField.text?.count ?? 0 >= 8 {
             request.httpBody = parameters.percentEncoded()
         }
+        else if passwordTextField.text?.count ?? 0 <= 7 {
+            passwordTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
+            repeatPasswordTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
+            match.text = "Пароль должен содержать не менее 8 символов"
+        }
         else if repeatPasswordTextField.text == "" {
+            passwordTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
+            repeatPasswordTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
             match.text = "Заполните поле"
         }
         else if repeatPasswordTextField.text != passwordTextField.text {
             match.text = "Пароли не совпадают"
+            passwordTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
+            repeatPasswordTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
         }
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
