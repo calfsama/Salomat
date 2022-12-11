@@ -148,7 +148,7 @@
         <scene sceneID="vqN-Sh-rfP">
             <objects>
                 <navigationController id="TWP-H3-Zz5" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="э-Рецепт" image="camera" selectedImage="Group" id="MLw-mv-a6Y" customClass="TabBarItem" customModule="Salomat" customModuleProvider="target"/>
+                    <tabBarItem key="tabBarItem" title="э-Рецепт" image="camera" selectedImage="camera selected" id="MLw-mv-a6Y" customClass="TabBarItem" customModule="Salomat" customModuleProvider="target"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Poi-S4-wWc">
                         <rect key="frame" x="0.0" y="47" width="390" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -306,9 +306,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Group" width="24" height="18"/>
         <image name="Search" width="24" height="24"/>
         <image name="camera" width="24" height="24"/>
+        <image name="camera selected" width="24" height="18"/>
         <image name="iconHeart" width="24" height="24"/>
         <image name="inactive.heart" width="24" height="24"/>
         <image name="inactive.icon 1" width="24" height="24"/>

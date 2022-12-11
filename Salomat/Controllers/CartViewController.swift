@@ -63,8 +63,10 @@ class CartViewController: UIViewController {
         view.backgroundColor = .white
         basketCollectionView.layer.borderColor = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1).cgColor
         //basketCollectionView.layer.borderWidth = 1
-        
-     
+        tabBarItem.badgeColor = .blue
+        tabBarItem.badgeValue = "2"
+        //tabBarItem.setBadgeTextAttributes([NSAttributedString.Key.foregroundColor.rawValue: UIColor.red], for: .normal)
+        //self.tabBar.items?[2].badgeValue = "12"
             
     }
     
@@ -82,12 +84,15 @@ class CartViewController: UIViewController {
     
     func configure() {
         view.addSubview(basketCollectionView)
+        button.backgroundColor = .white
         
         NSLayoutConstraint.activate([
             basketCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
             basketCollectionView.heightAnchor.constraint(equalToConstant: view.frame.size.height),
             basketCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             basketCollectionView.widthAnchor.constraint(equalToConstant: view.frame.size.width)
+            
+           
         ])
     }
     
@@ -96,6 +101,7 @@ class CartViewController: UIViewController {
 //        view.addSubview(promocode)
 //        view.addSubview(promocodeButton)
         view.addSubview(button)
+        button.backgroundColor = UIColor(red: 0.118, green: 0.745, blue: 0.745, alpha: 1)
         
         NSLayoutConstraint.activate([
             
@@ -118,7 +124,6 @@ class CartViewController: UIViewController {
             button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             button.heightAnchor.constraint(equalToConstant: 45)
-            
         ])
     }
     

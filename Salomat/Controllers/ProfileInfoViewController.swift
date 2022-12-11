@@ -6,12 +6,14 @@
 //
 
 import UIKit
+import KeychainAccess
 
 class ProfileInfoViewController: UIViewController {
     var token: String = ""
     var userID: String = ""
     var phone: String = ""
     var login: LoginData?
+    let keychain = Keychain(service: "com.tomirisnegmatova.Salomat")
     
     lazy var uiscrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -45,6 +47,8 @@ class ProfileInfoViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+//        let keychain = Keychain(service: "com.tomirisnegmatova.Salomat")
+//        print("hahaahh", keychain["UserID"] ?? "")
         view.addSubview(uiscrollView)
         navigationItem.backBarButtonItem?.target = nil
         navigationItem.backBarButtonItem?.action = #selector(exitFromProfile)
@@ -69,6 +73,8 @@ class ProfileInfoViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        let keychain = Keychain(service: "com.tomirisnegmatova.Salomat")
+        print("hahaahh", keychain["UserID"] ?? "")
         userShow()
     }
     
@@ -96,7 +102,7 @@ class ProfileInfoViewController: UIViewController {
         ])
     }
     func userShow() {
-        guard let url = URL(string: "http://slomat2.colibri.tj/users/show/\(userID)") else { return }
+        guard let url = URL(string: "http://slomat2.colibri.tj/users/show/\(keychain["UserID"] ?? "")") else { return }
         var request = URLRequest(url: url)
         request.setValue(token, forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"

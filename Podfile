@@ -15,6 +15,7 @@ pod 'Cosmos'
 pod 'TinyConstraints'
 pod 'Locksmith'
 pod 'SwiftKeychainWrapper'
+pod 'KeychainAccess'
 end
 
 deployment_target = '11.0'

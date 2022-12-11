@@ -7,6 +7,8 @@
 
 import UIKit
 import SwiftKeychainWrapper
+import Locksmith
+import KeychainAccess
 
 class PasswordViewController: UIViewController {
     var phone: String = ""
@@ -183,6 +185,10 @@ class PasswordViewController: UIViewController {
                 let urlData = try JSONDecoder().decode(Token.self, from: data)
                 print(urlData, "yyeeeeh")
                 self.userData = urlData
+                let user_id = self.userData?.data?[0].user_id ?? ""
+               // save data in Keychain
+                let keychain = Keychain(service: "com.tomirisnegmatova.Salomat")
+                keychain["UserID"] = user_id
                 print(self.userData, "ooommmgg")
             }catch let jsonError {
                 print("Failed to decode JSON", jsonError)
@@ -193,6 +199,10 @@ class PasswordViewController: UIViewController {
             
             if response.statusCode >= 200 && response.statusCode <= 299 {
                 DispatchQueue.main.async {
+                    let user_id = self.userData?.data?[0].user_id ?? ""
+                   // save data in Keychain
+                    let keychain = Keychain(service: "com.tomirisnegmatova.Salomat")
+                    keychain["UserID"] = user_id
                     let vc = ProfileInfoViewController()
                     vc.title = "Профиль"
                     vc.userID = self.userData?.data?[0].user_id ?? ""
@@ -205,7 +215,6 @@ class PasswordViewController: UIViewController {
 //                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
 //                    let tabBar = storyboard.instantiateViewController(withIdentifier: "TabBarController")
 //                    let reg = RegisterTabBarViewController()
-//                    reg.profile.userID = self.userData?.data?[0].user_id ?? ""
 //                    let appDelegate = UIApplication.shared.delegate
 //                    appDelegate?.window??.rootViewController = reg
                     

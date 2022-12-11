@@ -126,6 +126,7 @@
 		97947912291E595000C3BC77 /* InstructionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97947911291E595000C3BC77 /* InstructionCollectionViewCell.swift */; };
 		979479142920850900C3BC77 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979479132920850900C3BC77 /* File.swift */; };
 		97947916292087B200C3BC77 /* token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97947915292087B100C3BC77 /* token.swift */; };
+		97951DE72946238000177ED3 /* ReceiptHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97951DE62946238000177ED3 /* ReceiptHeaderCollectionReusableView.swift */; };
 		9796F253292BE8FF006DCB55 /* SubCategoryCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796F252292BE8FF006DCB55 /* SubCategoryCollectionView.swift */; };
 		9796F255292BE982006DCB55 /* SubCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796F254292BE982006DCB55 /* SubCategoryViewController.swift */; };
 		9796F257292BF974006DCB55 /* NewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796F256292BF974006DCB55 /* NewViewController.swift */; };
@@ -282,6 +283,7 @@
 		97947911291E595000C3BC77 /* InstructionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionCollectionViewCell.swift; sourceTree = "<group>"; };
 		979479132920850900C3BC77 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		97947915292087B100C3BC77 /* token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = token.swift; sourceTree = "<group>"; };
+		97951DE62946238000177ED3 /* ReceiptHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		9796F252292BE8FF006DCB55 /* SubCategoryCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubCategoryCollectionView.swift; sourceTree = "<group>"; };
 		9796F254292BE982006DCB55 /* SubCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubCategoryViewController.swift; sourceTree = "<group>"; };
 		9796F256292BF974006DCB55 /* NewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewViewController.swift; sourceTree = "<group>"; };
@@ -488,6 +490,7 @@
 				9796F268292F68DA006DCB55 /* ReviewCollectionView.swift */,
 				9796F26A292F69E6006DCB55 /* ReviewCollectionReusableView.swift */,
 				9747484829339B8900903A7A /* ChoosePhotoCollectionReusableView.swift */,
+				97951DE62946238000177ED3 /* ReceiptHeaderCollectionReusableView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -763,6 +766,7 @@
 				978973CD28C096AA00C395C8 /* FavoritesViewController.swift in Sources */,
 				9749494A28ED9B4F00793966 /* SafetyViewController.swift in Sources */,
 				979C04A6290AA0B20020E203 /* PhotoCollectionViewCell.swift in Sources */,
+				97951DE72946238000177ED3 /* ReceiptHeaderCollectionReusableView.swift in Sources */,
 				979479142920850900C3BC77 /* File.swift in Sources */,
 				9788484528E2F7D600926727 /* RecoveryPasswordStepTwoViewController.swift in Sources */,
 				970B070728F963C400C57763 /* GoodsCollectionViewCell.swift in Sources */,

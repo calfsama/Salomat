@@ -9,6 +9,11 @@ import UIKit
 
 class InfoAboutDeliveryTwoViewController: UIViewController {
     
+    struct OrderProducts {
+        var product_id: Int
+        var product_count: Int
+    }
+    
     lazy var uiView: UIView = {
         let uiView = UIView()
         uiView.backgroundColor = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
@@ -136,6 +141,7 @@ class InfoAboutDeliveryTwoViewController: UIViewController {
         button.backgroundColor = UIColor(red: 0.118, green: 0.745, blue: 0.745, alpha: 1)
         button.setTitleColor(.white, for: .normal)
         button.setTitle("Продолжить", for: .normal)
+        button.addTarget(self, action: #selector(order), for: .touchUpInside)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         button.layer.cornerRadius = 4
         button.layer.masksToBounds = true
@@ -153,6 +159,62 @@ class InfoAboutDeliveryTwoViewController: UIViewController {
         view.backgroundColor = .white
         goodsCollectionView.set(cells: Medical.items())
         configureConstraints()
+    }
+    
+    @objc func order() {
+        let url = URL(string: "http://slomat2.colibri.tj/orders")!
+        var request = URLRequest(url: url)
+        request.setValue("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjExMiIsImxvZ2luIjoiOTg3MzA1OTU5IiwidGltZSI6MTY2OTU1MzMyN30.TZKePf9Wza_mXTrs3pVK6Pt3P9ftp8ZuaxnXfNYQ2yY", forHTTPHeaderField: "Authorization")
+        request.setValue("text/html", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.httpMethod = "POST"
+        let parameters: [String: Any] = [
+            "total_price": "233",
+            "user_id": "112",
+            "phone_number": "987305959",
+            "phone_number2": "987330321",
+            "name": "tom",
+            "product_total_count": 1,
+            "address": "kfnknf",
+            "comment": "knfk",
+            "delivery_id": 1,
+            "products":  [OrderProducts(product_id: 3, product_count: 1)]
+        ]
+        request.httpBody = parameters.percentEncoded()
+
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard
+                let data = data,
+                let response = response as? HTTPURLResponse,
+                error == nil
+            else {                                                               // check for fundamental networking error
+                print("error", error ?? URLError(.badServerResponse))
+                return
+            }
+            
+            guard (200 ... 299) ~= response.statusCode else {                    // check for http errors
+                print("statusCode should be 2xx, but is \(response.statusCode)")
+                print("response = \(response)")
+                return
+            }
+            
+            // do whatever you want with the `data`, e.g.:
+            
+            do {
+                let responseObject = try JSONDecoder().decode(CheckPhone.self, from: data)
+                print(responseObject)
+            } catch {
+                print(error) // parsing error
+                
+                if let responseString = String(data: data, encoding: .utf8) {
+                    print("responseString = \(responseString)")
+                } else {
+                    print("unable to parse response as string")
+                }
+            }
+        }
+
+        task.resume()
     }
     
     func configureConstraints() {

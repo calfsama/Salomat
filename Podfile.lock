@@ -1,6 +1,7 @@
 PODS:
   - AvailableHapticFeedback (1.0.2)
   - Cosmos (23.0.0)
+  - KeychainAccess (4.2.2)
   - Locksmith (4.0.0)
   - MultiSlider (1.13.1):
     - AvailableHapticFeedback
@@ -13,6 +14,7 @@ PODS:
 
 DEPENDENCIES:
   - Cosmos
+  - KeychainAccess
   - Locksmith
   - MultiSlider
   - SkeletonView
@@ -23,6 +25,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Cosmos
+    - KeychainAccess
     - Locksmith
     - SwiftKeychainWrapper
     - TinyConstraints
@@ -36,6 +39,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   AvailableHapticFeedback: 9b21b9f6d3e4566015988b5de35b40abefe6c09a
   Cosmos: b5c6a9a637e28a061b54c8f8b1d8529d7d4db73f
+  KeychainAccess: c0c4f7f38f6fc7bbe58f5702e25f7bd2f65abf51
   Locksmith: e9bebbaaa4cee3c511bc358a44f843c3fe00e21f
   MultiSlider: 0be12939497499d0e7b9f94f4429e9084e406b0b
   SkeletonView: 915a80ecc2b6421ab7ac0f0212321c0cc1406472
@@ -44,6 +48,6 @@ SPEC CHECKSUMS:
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
   TinyConstraints: 7b7ccc0c485bb3bb47082138ff28bc33cd49897f
 
-PODFILE CHECKSUM: 65dbaadf3c22cc9eb1a21fa0c52e3bf846b16575
+PODFILE CHECKSUM: 78c07eb40e1801a6e1298be80c5f25051188d700
 
 COCOAPODS: 1.11.3

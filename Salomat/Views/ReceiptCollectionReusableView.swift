@@ -66,6 +66,7 @@ class ReceiptCollectionReusableView: UICollectionReusableView {
         textField.placeholder = "Телефон"
         textField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         textField.returnKeyType = .next
+        textField.keyboardType = .phonePad
         textField.leftViewMode = .always
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
