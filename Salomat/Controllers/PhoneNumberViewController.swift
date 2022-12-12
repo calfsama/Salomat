@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import KeychainAccess
 
 class PhoneNumberViewController: UIViewController {
     var phoneNumber: String = ""
@@ -14,6 +15,7 @@ class PhoneNumberViewController: UIViewController {
     var login: LoginData?
     var token: String = ""
     var alert: UIAlertController!
+    var keychain = Keychain(service: "com.tomirisnegmatova.Salomat")
     
     lazy var phone: UILabel = {
         let label = UILabel()
@@ -84,9 +86,9 @@ class PhoneNumberViewController: UIViewController {
         ])
     }
     func userShow() {
-        guard let url = URL(string: "http://slomat2.colibri.tj/users/show/\(userID)") else { return }
+        guard let url = URL(string: "http://slomat2.colibri.tj/users/show/\(keychain["UserID"] ?? "")") else { return }
         var request = URLRequest(url: url)
-        request.setValue(token, forHTTPHeaderField: "Authorization")
+        request.setValue(keychain["Token"] ?? "", forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"
         
         URLSession.shared.dataTask(with: request) { data, response, error in
@@ -134,7 +136,7 @@ class PhoneNumberViewController: UIViewController {
     }
     
     @objc func updatePhone() {
-        guard let url = URL(string: "http://slomat2.colibri.tj/users/update_user/\(userID)") else { return }
+        guard let url = URL(string: "http://slomat2.colibri.tj/users/update_user/\(keychain["UserID"] ?? "")") else { return }
         var request = URLRequest(url: url)
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"

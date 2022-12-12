@@ -7,6 +7,7 @@
 
 import UIKit
 import SwiftKeychainWrapper
+import KeychainAccess
 
 class MainTabBarViewController: UITabBarController, UITabBarControllerDelegate {
     
@@ -46,7 +47,19 @@ class MainTabBarViewController: UITabBarController, UITabBarControllerDelegate {
         let profileItem = UITabBarItem(title: "Профиль", image: UIImage(named: ""), selectedImage: UIImage(named: ""))
         profileNavigation.tabBarItem = profileItem
         
-        viewControllers = [homeNavigation, favoriteNavigation, receiptNavigation, cartNavigation, profileNavigation]
+        let profilePage = ProfileInfoViewController()
+        let profilePageNavigation = UINavigationController(rootViewController: profilePage)
+        let profilePageItem = UITabBarItem(title: "Профиль", image: UIImage(named: ""), selectedImage: UIImage(named: ""))
+        profilePageNavigation.tabBarItem = profilePageItem
+        
+        let token = KeychainWrapper.standard.string(forKey: "ttoken")
+        if token != nil {
+            viewControllers = [homeNavigation, favoriteNavigation, receiptNavigation, cartNavigation, profilePageNavigation]
+            //selectedIndex = 4
+        }
+        else if token == nil {
+            viewControllers = [homeNavigation, favoriteNavigation, receiptNavigation, cartNavigation, profileNavigation]
+        }
     }
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {

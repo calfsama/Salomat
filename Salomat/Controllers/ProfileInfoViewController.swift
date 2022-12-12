@@ -49,6 +49,7 @@ class ProfileInfoViewController: UIViewController {
         super.viewDidLoad()
 //        let keychain = Keychain(service: "com.tomirisnegmatova.Salomat")
 //        print("hahaahh", keychain["UserID"] ?? "")
+        navigationItem.title = "Профиль"
         view.addSubview(uiscrollView)
         navigationItem.backBarButtonItem?.target = nil
         navigationItem.backBarButtonItem?.action = #selector(exitFromProfile)
@@ -104,7 +105,7 @@ class ProfileInfoViewController: UIViewController {
     func userShow() {
         guard let url = URL(string: "http://slomat2.colibri.tj/users/show/\(keychain["UserID"] ?? "")") else { return }
         var request = URLRequest(url: url)
-        request.setValue(token, forHTTPHeaderField: "Authorization")
+        request.setValue(keychain["Token"] ?? "", forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"
         
         URLSession.shared.dataTask(with: request) { data, response, error in

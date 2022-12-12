@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import KeychainAccess
 
 class PersonalInfoViewController: UIViewController {
     
@@ -18,6 +19,7 @@ class PersonalInfoViewController: UIViewController {
     var token: String = ""
     var profile = ProfileInfoViewController()
     var alert: UIAlertController!
+    let keychain = Keychain(service: "com.tomirisnegmatova.Salomat")
    
     
     lazy var name: UILabel = {
@@ -262,7 +264,7 @@ class PersonalInfoViewController: UIViewController {
     }
     
     func usersShow(){
-        let urlString = "http://slomat2.colibri.tj/users/show/\(userID)"
+        let urlString = "http://slomat2.colibri.tj/users/show/\(keychain["UserID"] ?? "")"
         self.network.login(urlString: urlString) { [weak self] (result) in
             guard let self = self else {return}
             switch result {
@@ -275,9 +277,9 @@ class PersonalInfoViewController: UIViewController {
     }
     
     func userShow() {
-        guard let url = URL(string: "http://slomat2.colibri.tj/users/show/\(userID)") else { return }
+        guard let url = URL(string: "http://slomat2.colibri.tj/users/show/\(keychain["UserID"] ?? "")") else { return }
         var request = URLRequest(url: url)
-        request.setValue(token, forHTTPHeaderField: "Authorization")
+        request.setValue(keychain["Token"] ?? "", forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"
         
         URLSession.shared.dataTask(with: request) { data, response, error in
@@ -346,7 +348,7 @@ class PersonalInfoViewController: UIViewController {
     }
     
     @objc func updateUserInfo() {
-        guard let url = URL(string: "http://slomat2.colibri.tj/users/update_user/\(userID)") else { return }
+        guard let url = URL(string: "http://slomat2.colibri.tj/users/update_user/\(keychain["UserID"] ?? "")") else { return }
         var request = URLRequest(url: url)
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"

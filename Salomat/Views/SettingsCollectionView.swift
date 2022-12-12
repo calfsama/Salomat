@@ -23,6 +23,7 @@ extension String {
 }
 
 import UIKit
+import SwiftKeychainWrapper
 
 class SettingsCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
     var navigationController: UINavigationController
@@ -103,8 +104,10 @@ extension SettingsCollectionView: UICollectionViewDelegate, UICollectionViewData
             self.navigationController.pushViewController(vc, animated: true)
         }
         else if indexPath.row == 6 {
-            let vc = ProfileViewController()
-            self.navigationController.pushViewController(vc, animated: true)
+            let token = KeychainWrapper.standard.removeObject(forKey: "ttoken")
+            let reg = MainTabBarViewController()
+            let appDelegate = UIApplication.shared.delegate
+            appDelegate?.window??.rootViewController = reg
         }
     }
 }

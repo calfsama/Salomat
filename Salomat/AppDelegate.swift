@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let tabBar = storyboard.instantiateViewController(withIdentifier: "TabBarController")
             let tab = MainTabBarViewController()
-            self.window?.rootViewController = tabBar
+            self.window?.rootViewController = tab
             self.window?.makeKeyAndVisible()
           
         return true

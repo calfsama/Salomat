@@ -186,9 +186,11 @@ class PasswordViewController: UIViewController {
                 print(urlData, "yyeeeeh")
                 self.userData = urlData
                 let user_id = self.userData?.data?[0].user_id ?? ""
+                let token = self.userData?.data?[0].token ?? ""
                // save data in Keychain
                 let keychain = Keychain(service: "com.tomirisnegmatova.Salomat")
                 keychain["UserID"] = user_id
+                keychain["Token"] = token
                 print(self.userData, "ooommmgg")
             }catch let jsonError {
                 print("Failed to decode JSON", jsonError)
@@ -209,14 +211,19 @@ class PasswordViewController: UIViewController {
                     vc.token = self.userData?.data?[0].token ?? ""
                     vc.phone = self.phone
                     let saveSuccessful: Bool = KeychainWrapper.standard.set(self.userData?.data?[0].token ?? "", forKey: "Authorization")
+                    let saveToken: Bool = KeychainWrapper.standard.set(self.userData?.data?[0].token ?? "", forKey: "Token")
+                    let saveAccessToken: Bool = KeychainWrapper.standard.set(self.userData?.data?[0].token ?? "", forKey: "AccessToken")
+                    let saveAcToken: Bool = KeychainWrapper.standard.set(self.userData?.data?[0].token ?? "", forKey: "token")
+                    let saveAccToken: Bool = KeychainWrapper.standard.set(self.userData?.data?[0].token ?? "", forKey: "ttoken")
                     print("Access Token \(saveSuccessful)")
                    // self.appDelegate.token = self.userData?.data?[0].token ?? ""
-                    self.navigationController?.pushViewController(vc, animated: true)
+                    //self.navigationController?.pushViewController(vc, animated: true)
 //                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
 //                    let tabBar = storyboard.instantiateViewController(withIdentifier: "TabBarController")
-//                    let reg = RegisterTabBarViewController()
-//                    let appDelegate = UIApplication.shared.delegate
-//                    appDelegate?.window??.rootViewController = reg
+                    let reg = MainTabBarViewController()
+                    reg.selectedIndex = 4
+                    let appDelegate = UIApplication.shared.delegate
+                    appDelegate?.window??.rootViewController = reg
                     
                 }
             }
