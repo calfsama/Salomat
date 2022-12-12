@@ -57,7 +57,8 @@ class ReceiptViewController: UIViewController, UICollectionViewDelegateFlowLayou
             receiptCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
-
+    
+    // Open gallery
     @objc func gallery() {
         self.imagePickerController.sourceType = .photoLibrary
         self.imagePickerController.allowsEditing = true
@@ -66,6 +67,7 @@ class ReceiptViewController: UIViewController, UICollectionViewDelegateFlowLayou
     }
     private var myTargetView: UIView?
     
+    // Create custom alert
     func showAlert(with title: String, message: String, on viewController: UIViewController) {
         guard let targetView = viewController.view else { return }
         myTargetView = targetView
@@ -73,22 +75,28 @@ class ReceiptViewController: UIViewController, UICollectionViewDelegateFlowLayou
         targetView.addSubview(backgroundView)
         targetView.addSubview(alertView)
         
-        alertView.frame = CGRect(x: 40, y: -300, width: targetView.frame.size.width - 80, height: 300)
+        alertView.frame = CGRect(x: 40, y: -300, width: targetView.frame.size.width - 120, height: 300)
         
-        let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: alertView.frame.size.width, height: 80))
+        let titleLabel = UILabel()
         titleLabel.text = title
         titleLabel.textAlignment = .center
+        titleLabel.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         alertView.addSubview(titleLabel)
         
-        let messageLabel = UILabel(frame: CGRect(x: 0, y: 80, width: alertView.frame.size.width, height: 170))
-        messageLabel.numberOfLines = 0
-        messageLabel.text = message
-        messageLabel.textAlignment = .center
-        alertView.addSubview(messageLabel)
+        let image = UIImageView()
+        image.image = UIImage(named: "done")
+        image.translatesAutoresizingMaskIntoConstraints = false
+        alertView.addSubview(image)
         
-        let button = UIButton(frame: CGRect(x: 0, y: alertView.frame.size.width - 80, width: alertView.frame.size.width, height: 50))
-        button.setTitle("Done", for: .normal)
-        button.setTitleColor(.green, for: .normal)
+        let button = UIButton()
+        button.setTitle("Готово", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        button.layer.cornerRadius = 4
+        button.layer.masksToBounds = true
+        button.backgroundColor = UIColor(red: 0.118, green: 0.745, blue: 0.745, alpha: 1)
+        button.setTitleColor(.white, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(dismissAlert), for: .touchUpInside)
         alertView.addSubview(button)
         UIView.animate(withDuration: 0.25, animations: {
@@ -101,6 +109,17 @@ class ReceiptViewController: UIViewController, UICollectionViewDelegateFlowLayou
             }
                 
         })
+        
+        // Constraints
+        image.topAnchor.constraint(equalTo: alertView.topAnchor, constant: 30).isActive = true
+        image.centerXAnchor.constraint(equalTo: alertView.centerXAnchor).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 20).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: alertView.leadingAnchor, constant: 16).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: alertView.trailingAnchor, constant: -16).isActive = true
+        button.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30).isActive = true
+        button.leadingAnchor.constraint(equalTo: alertView.leadingAnchor, constant: 60).isActive = true
+        button.trailingAnchor.constraint(equalTo: alertView.trailingAnchor, constant: -60).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 45).isActive = true
     }
     
     @objc func dismissAlert() {
@@ -124,7 +143,7 @@ class ReceiptViewController: UIViewController, UICollectionViewDelegateFlowLayou
     
     @objc func didTapButton() {
         print("pressed")
-        showAlert(with: "Рецепт отправлен", message: "лтлат латлат аоктатт каттал аотат", on: self)
+        showAlert(with: "Рецепт отправлен", message: "", on: self)
     }
 
 //    func checkPermissions() {
@@ -220,6 +239,48 @@ extension ReceiptViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     @objc func empty() {
         
+    }
+    
+    // Upload image to server
+    @objc func uploadImage(paramName: String, fileName: String, image: UIImage) {
+        let url = URL(string: "http://slomat2.colibri.tj/recipes/store")
+        
+        // generate boundary string using a unique per-app string
+        let boundary = UUID().uuidString
+        
+        let session = URLSession.shared
+        
+        // Set the URLRequest to POST and to the specified URL
+        var urlRequest = URLRequest(url: url!)
+        urlRequest.httpMethod = "POST"
+        
+        // Set Content-Type Header to multipart/form-data, this is equivalent to submitting form data with file upload in a web browser
+        // And the boundary is also set here
+        urlRequest.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        
+        var data = Data()
+        //image = imagesArray
+        // Add the image data to the raw http request data
+        data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+        data.append("Content-Disposition: form-data; name=\"\(paramName)\"; filename=\"\(fileName)\"\r\n".data(using: .utf8)!)
+        data.append("Content-Type: image/png\r\n\r\n".data(using: .utf8)!)
+        for var i in 1...imagesArray.count {
+            data.append(imagesArray[i].pngData()!)
+            i += 1
+        }
+        data.append(image.pngData()!)
+        
+        data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
+        
+        // Send a POST request to the URL, with the data we created earlier
+        session.uploadTask(with: urlRequest, from: data, completionHandler: { responseData, response, error in
+            if error == nil {
+                let jsonData = try? JSONSerialization.jsonObject(with: responseData!, options: .allowFragments)
+                if let json = jsonData as? [String: Any] {
+                    print(json)
+                }
+            }
+        }).resume()
     }
 
     
