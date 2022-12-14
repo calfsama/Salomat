@@ -36,6 +36,11 @@ class ReceiptViewController: UIViewController, UICollectionViewDelegateFlowLayou
     override func viewDidLoad() {
         super.viewDidLoad()
         //checkPermissions()
+        for var i in 0...imagesArray.count - 1 {
+            print("qwerty", imagesArray[i])
+            i += 1
+        }
+        
         hideKeyboardWhenTappedAround()
         view.backgroundColor = .white
         receiptCollectionView.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: PhotoCollectionViewCell.identifier)
@@ -291,6 +296,10 @@ extension ReceiptViewController: UICollectionViewDelegate, UICollectionViewDataS
 //            }
             imagesArray += [pickedimage]//Will store three selected images in your array
             print("hello", pickedimage.pngData())
+            for var i in 0...imagesArray.count - 1 {
+                print("qwerty", imagesArray[i])
+                i += 1
+            }
             receiptCollectionView.reloadData()
         }
         else {

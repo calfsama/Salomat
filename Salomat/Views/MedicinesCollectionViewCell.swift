@@ -60,7 +60,7 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
         let button = UIButton()
         button.frame = CGRect(x: 140, y: 20, width: 23, height: 21)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "iconHeart"), for: .normal)
+        button.setImage(UIImage(named: "favorite"), for: .normal)
         button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         return button
     }()
@@ -163,10 +163,10 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
             for i in data {
                 if i.id == id {
                     //print("\(i.title) and \(title)")
-                    button.setImage(UIImage(named: "heart"), for: .normal)
+                    button.setImage(UIImage(named: "favorite 1"), for: .normal)
                 }
                 else if i.id == nil{
-                    button.setImage(UIImage(named: "iconHeart"), for: .normal)
+                    button.setImage(UIImage(named: "favorite"), for: .normal)
                 }
             }
         }
@@ -226,13 +226,13 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
             let data = try context.fetch(fetchRequest).first
             if  data?.id != id {
                 print("\(data?.id) and \(id)")
-                button.setImage(UIImage(named: "heart"), for: .normal)
+                button.setImage(UIImage(named: "favorite 1"), for: .normal)
                 print("save")
                 addFavorites()
                 saveMedicine()
             }
             else if data?.id == id{
-                button.setImage(UIImage(named: "iconHeart"), for: .normal)
+                button.setImage(UIImage(named: "favorite"), for: .normal)
                 print("delete")
                 deleteFavorites()
                 deleteMedicine()

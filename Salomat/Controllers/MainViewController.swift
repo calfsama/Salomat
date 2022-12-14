@@ -11,7 +11,6 @@ import SkeletonView
 class MainViewController: UIViewController {
     var text: String = ""
     var url: String = ""
-    var searchController = UISearchController(searchResultsController: SearchViewController())
     var medicinesCell = MedicinesCollectionViewCell()
     
     
@@ -32,6 +31,7 @@ class MainViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+
     
     var categoryCollectionView: CategoryCollectionView!
     var bannersCollectionView = BannerCollectionView()
@@ -123,7 +123,63 @@ class MainViewController: UIViewController {
         return title
     }()
     
-    lazy var searchBar:UISearchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 20))
+    lazy var allArticles: UIButton = {
+        let button = UIButton()
+        button.setTitleColor(UIColor(red: 0.478, green: 0.463, blue: 0.617, alpha: 1), for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+        button.setTitle("Все статьи>", for: .normal)
+        button.addTarget(self, action: #selector(btnAction), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    lazy var link: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "Group"), for: .normal)
+        button.addTarget(self, action: #selector(openLink), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    lazy var instagram: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "Instagram"), for: .normal)
+        button.addTarget(self, action: #selector(openInstagram), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    lazy var facebook: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "facebook"), for: .normal)
+        button.addTarget(self, action: #selector(openFacebook), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    lazy var telegram: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "telegram"), for: .normal)
+        button.addTarget(self, action: #selector(openTelegram), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    lazy var filter: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "Filter Horizontal"), for: .normal)
+        button.addTarget(self, action: #selector(showCategories), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    lazy var filterForVitamin: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "Filter Horizontal"), for: .normal)
+        button.addTarget(self, action: #selector(showCategories), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -142,28 +198,14 @@ class MainViewController: UIViewController {
         badsCollectionView = BADCollectionView(nav: self.navigationController!)
         configureConstraints()
         categoryCollectionView.set(cells: Categories.items())
-        searchController.searchBar.setImage(UIImage(named: "log out"), for: .bookmark, state: .normal)
-        //bannersCollectionView.set(cells: Banners.items())
-        let logo = UIImage(named: "logo")
+        let logo = UIImage(named: "logo 2")
         let imageView = UIImageView(image:logo)
         self.navigationItem.titleView = imageView
-        //searchController.searchBar.delegate = self
         self.navigationController?.navigationBar.tintColor = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
 
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "menu"), style: .plain, target: self, action: #selector(showCategories))
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Search"), style: .plain, target: self, action: #selector(searchContr))
-    }
-    
-    @objc func openSearchController() {
-        let vc = NotificationsViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    @objc func openSearch() {
-        searchController.searchBar.placeholder = ""
-        searchBar.setImage(UIImage(named: "camera"), for: .bookmark, state: .normal)
-        present(searchController, animated: true, completion: nil)
     }
     
     @objc func btnAction() {
@@ -200,6 +242,13 @@ class MainViewController: UIViewController {
         uiscrollView.addSubview(label5)
         uiscrollView.addSubview(vitaminCollectionView)
         uiscrollView.addSubview(badsCollectionView)
+        uiscrollView.addSubview(allArticles)
+        uiscrollView.addSubview(link)
+        uiscrollView.addSubview(instagram)
+        uiscrollView.addSubview(facebook)
+        uiscrollView.addSubview(telegram)
+        uiscrollView.addSubview(filter)
+        uiscrollView.addSubview(filterForVitamin)
         
         NSLayoutConstraint.activate([
             categoryCollectionView.topAnchor.constraint(equalTo: uiscrollView.topAnchor),
@@ -228,6 +277,9 @@ class MainViewController: UIViewController {
             label2.topAnchor.constraint(equalTo: header2.topAnchor),
             label2.leadingAnchor.constraint(equalTo: uiscrollView.leadingAnchor, constant: 16),
             
+            filter.centerYAnchor.constraint(equalTo: label2.centerYAnchor),
+            filter.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            
             bannerMedicineCollectionView.topAnchor.constraint(equalTo: header2.bottomAnchor),
             bannerMedicineCollectionView.widthAnchor.constraint(equalTo: uiscrollView.widthAnchor),
             bannerMedicineCollectionView.heightAnchor.constraint(equalToConstant: 200),
@@ -240,8 +292,14 @@ class MainViewController: UIViewController {
             header3.widthAnchor.constraint(equalToConstant: uiscrollView.frame.size.width),
             header3.heightAnchor.constraint(equalToConstant: 30),
             
-            label3.topAnchor.constraint(equalTo: header3.topAnchor),
+            label3.centerYAnchor.constraint(equalTo: header3.centerYAnchor),
             label3.leadingAnchor.constraint(equalTo: uiscrollView.leadingAnchor, constant: 16),
+            
+            allArticles.topAnchor.constraint(equalTo: header3.topAnchor),
+            allArticles.bottomAnchor.constraint(equalTo: header3.bottomAnchor),
+            //allArticles.leadingAnchor.constraint(equalTo: label3.trailingAnchor, constant: 200),
+            allArticles.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            allArticles.widthAnchor.constraint(equalToConstant: 100),
             
             blogCollectionView.topAnchor.constraint(equalTo: header3.bottomAnchor, constant: 20),
             blogCollectionView.leadingAnchor.constraint(equalTo: uiscrollView.leadingAnchor),
@@ -255,6 +313,22 @@ class MainViewController: UIViewController {
             button.bottomAnchor.constraint(equalTo: header4.bottomAnchor),
             button.leadingAnchor.constraint(equalTo: uiscrollView.leadingAnchor, constant: 16),
             button.widthAnchor.constraint(equalToConstant: 120),
+            
+            link.topAnchor.constraint(equalTo: header4.topAnchor),
+            link.bottomAnchor.constraint(equalTo: header4.bottomAnchor),
+            link.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            
+            instagram.topAnchor.constraint(equalTo: header4.topAnchor),
+            instagram.bottomAnchor.constraint(equalTo: header4.bottomAnchor),
+            instagram.trailingAnchor.constraint(equalTo: link.leadingAnchor, constant: -8),
+            
+            facebook.topAnchor.constraint(equalTo: header4.topAnchor),
+            facebook.bottomAnchor.constraint(equalTo: header4.bottomAnchor),
+            facebook.trailingAnchor.constraint(equalTo: instagram.leadingAnchor, constant: -8),
+            
+            telegram.topAnchor.constraint(equalTo: header4.topAnchor),
+            telegram.bottomAnchor.constraint(equalTo: header4.bottomAnchor),
+            telegram.trailingAnchor.constraint(equalTo: facebook.leadingAnchor, constant: -8),
 
             label4.centerXAnchor.constraint(equalTo: button.centerXAnchor),
             label4.centerYAnchor.constraint(equalTo: button.centerYAnchor),
@@ -266,6 +340,9 @@ class MainViewController: UIViewController {
             label5.topAnchor.constraint(equalTo: header5.topAnchor),
             label5.leadingAnchor.constraint(equalTo: uiscrollView.leadingAnchor, constant: 16),
             
+            filterForVitamin.centerYAnchor.constraint(equalTo: label5.centerYAnchor),
+            filterForVitamin.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            
             vitaminCollectionView.topAnchor.constraint(equalTo: header5.bottomAnchor),
             vitaminCollectionView.widthAnchor.constraint(equalToConstant: uiscrollView.frame.size.width),
             vitaminCollectionView.heightAnchor.constraint(equalToConstant: 200),
@@ -274,6 +351,52 @@ class MainViewController: UIViewController {
             badsCollectionView.widthAnchor.constraint(equalToConstant: uiscrollView.frame.size.width),
             badsCollectionView.heightAnchor.constraint(equalToConstant: 285)
         ])
+    }
+    
+    @objc func openTelegram() {
+        let telegram = "https://t.me/salomattj"
+        let telegramURL = URL(string: telegram)!
+        if UIApplication.shared.canOpenURL(telegramURL) {
+            UIApplication.shared.open(telegramURL)
+        }
+        else {
+            UIApplication.shared.open(URL(string: "https://apps.apple.com/us/app/telegram-messenger/id686449807")!)
+        }
+    }
+    
+    @objc func openFacebook() {
+        let telegram = "https://facebook.com/salomat.tj"
+        let telegramURL = URL(string: telegram)!
+        if UIApplication.shared.canOpenURL(telegramURL) {
+            UIApplication.shared.open(telegramURL)
+        }
+        else {
+            UIApplication.shared.open(URL(string: "https://apps.apple.com/ru/app/facebook/id284882215")!)
+        }
+    }
+    
+    @objc func openInstagram() {
+        let telegram = "http://instagram.com/salomat.tj"
+        let telegramURL = URL(string: telegram)!
+        if UIApplication.shared.canOpenURL(telegramURL) {
+            UIApplication.shared.open(telegramURL)
+        }
+        else {
+            UIApplication.shared.open(URL(string: "https://apps.apple.com/us/app/instagram/id389801252")!)
+            print("dnfkjsn")
+        }
+    }
+    
+    @objc func openLink() {
+        let telegram = "http://slomat2.colibri.tj"
+        let telegramURL = URL(string: telegram)!
+        if UIApplication.shared.canOpenURL(telegramURL) {
+            UIApplication.shared.open(telegramURL)
+        }
+        else {
+            UIApplication.shared.open(URL(string: "https://apps.apple.com/us/app/instagram/id389801252")!)
+            print("dnfkjsn")
+        }
     }
     
     @objc func showCategories() {
@@ -393,16 +516,5 @@ class MainViewController: UIViewController {
         present(vc, animated: true, completion: nil)
     }
 
-}
-extension MainViewController: UISearchBarDelegate {
-
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        let vc = SearchViewController()
-        vc.searchText = searchBar.text!
-       // vc.searchData?.data?.srch_inp = searchBar.text!
-        print(searchBar.text!)
-        vc.title = "\(searchBar.text!)"
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
 }
 

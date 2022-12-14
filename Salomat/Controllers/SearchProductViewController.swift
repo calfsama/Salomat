@@ -38,7 +38,7 @@ class SearchProductViewController: UIViewController, UISearchResultsUpdating {
         view.backgroundColor = .white
         configureConstraints()
         setup()
-        let logo = UIImage(named: "logo")
+        let logo = UIImage(named: "logo 2")
         let imageView = UIImageView(image:logo)
         self.navigationItem.titleView = imageView
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "filtt"), style: .plain, target: self, action: #selector(filter))

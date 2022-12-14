@@ -51,8 +51,8 @@ extension BlogListCollectionView: UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = BlogViewController()
-        vc.title = "Blog"
+        let vc = BlogShowViewController()
+        vc.title = "Блог"
         vc.id = blogs?.content?.blogs?[indexPath.row].id ?? ""
         self.navigationController.pushViewController(vc, animated: true)
     }

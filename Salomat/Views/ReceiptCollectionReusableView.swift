@@ -181,6 +181,56 @@ class ReceiptCollectionReusableView: UICollectionReusableView {
         ])
     }
     
+    
+    @objc func postRequestButton() {
+        let url = URL(string: "http://slomat2.colibri.tj/users/check_phone")!
+        var request = URLRequest(url: url)
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.httpMethod = "POST"
+        let parameters: [String: Any] = [
+            "recipe_phone": "\(phoneTextField.text)",
+            "recipe_name": "\(nameTextField.text)",
+            "recipe_comment": "\(commentTextField.text)",
+            "recipe_pics": ""
+        ]
+        request.httpBody = parameters.percentEncoded()
+
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard
+                let data = data,
+                let response = response as? HTTPURLResponse,
+                error == nil
+            else {                                                               // check for fundamental networking error
+                print("error", error ?? URLError(.badServerResponse))
+                return
+            }
+            
+            guard (200 ... 299) ~= response.statusCode else {                    // check for http errors
+                print("statusCode should be 2xx, but is \(response.statusCode)")
+                print("response = \(response)")
+                return
+            }
+            
+            // do whatever you want with the `data`, e.g.:
+            
+            do {
+                let responseObject = try JSONDecoder().decode(CheckPhone.self, from: data)
+                print(responseObject)
+            } catch {
+                print(error) // parsing error
+                
+                if let responseString = String(data: data, encoding: .utf8) {
+                    print("responseString = \(responseString)")
+                } else {
+                    print("unable to parse response as string")
+                }
+            }
+        }
+
+        task.resume()
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

@@ -17,6 +17,14 @@ class PhoneNumberViewController: UIViewController {
     var alert: UIAlertController!
     var keychain = Keychain(service: "com.tomirisnegmatova.Salomat")
     
+    lazy var  prefix: UILabel = {
+        let label = UILabel()
+        label.text = "  +992 "
+        label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        label.sizeToFit()
+        return label
+    }()
+    
     lazy var phone: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
@@ -28,14 +36,14 @@ class PhoneNumberViewController: UIViewController {
     
     lazy var textField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "+992 932 55 44 55"
-        textField.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+        textField.placeholder = "932 55 44 55"
+        textField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         textField.returnKeyType = .next
         textField.keyboardType = .phonePad
         textField.leftViewMode = .always
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
-        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
+        textField.leftView = prefix
         textField.layer.cornerRadius = 4
         textField.layer.borderWidth = 1
         textField.layer.masksToBounds = true

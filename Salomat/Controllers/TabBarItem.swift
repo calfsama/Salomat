@@ -11,7 +11,14 @@ class TabBarItem: UITabBarItem {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        setup()
+        
+        if let image = image {
+            self.image = image.withRenderingMode(.alwaysOriginal)
+        }
+        if let image = selectedImage {
+            selectedImage = image.withRenderingMode(.alwaysOriginal)
+        }
+       // setup()
     }
     
     

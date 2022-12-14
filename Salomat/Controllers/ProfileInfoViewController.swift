@@ -18,7 +18,7 @@ class ProfileInfoViewController: UIViewController {
     lazy var uiscrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.frame = view.bounds
-        scrollView.contentSize = CGSize(width: view.frame.size.width, height: 700)
+        scrollView.contentSize = CGSize(width: view.frame.size.width, height: 720)
         scrollView.backgroundColor = .white
         scrollView.showsVerticalScrollIndicator = false
         return scrollView
@@ -57,6 +57,7 @@ class ProfileInfoViewController: UIViewController {
         infoCollectionView = InfoCollectionView(nav: self.navigationController!)
         settingsCollectionView = SettingsCollectionView(nav: self.navigationController!)
         configureConstraints()
+        self.navigationController?.navigationBar.tintColor = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
         settingsCollectionView.layer.cornerRadius = 30
         settingsCollectionView.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.05).cgColor
         settingsCollectionView.layer.borderWidth = 1

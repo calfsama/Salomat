@@ -54,7 +54,7 @@ struct Settings {
     
     static func items() -> [Settings] {
         let empty = Settings(image: "", title: "")
-        let first = Settings(image: "Profile mob-1", title: "Личная информация")
+        let first = Settings(image: "Profile mob", title: "Личная информация")
         let second = Settings(image: "notification", title: "Уведомления и новости")
         let third = Settings(image: "cart", title: "Мои заказы")
         let fourth = Settings(image: "phone", title: "Номер телефона")
@@ -87,7 +87,7 @@ struct Messenger {
     
     static func items() -> [Messenger] {
         let first = Messenger(image: UIImage(named: "viber")!)
-        let second = Messenger(image: UIImage(named: "telegram")!)
+        let second = Messenger(image: UIImage(named: "telegram 1")!)
         let third = Messenger(image: UIImage(named: "imo")!)
         
         return [first, second, third]

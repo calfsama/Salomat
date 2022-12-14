@@ -87,7 +87,8 @@ class BlogsShowCollectionViewCell: UICollectionViewCell {
 
             subtitle.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 20),
             subtitle.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            subtitle.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16)
+            subtitle.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
+            subtitle.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
         ])
     }
     

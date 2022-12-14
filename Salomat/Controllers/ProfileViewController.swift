@@ -14,6 +14,15 @@ class ProfileViewController: UIViewController {
     
     var isLoggedIn: Bool = false
     
+    lazy var  prefix: UILabel = {
+        let label = UILabel()
+        label.text = "  +992 "
+        label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        label.sizeToFit()
+        return label
+    }()
+   
+    
     lazy var phone: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(red: 0.478, green: 0.463, blue: 0.617, alpha: 1)
@@ -25,16 +34,17 @@ class ProfileViewController: UIViewController {
     
     lazy var textField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Введите свой номер"
+        textField.placeholder = "987654321"
         textField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         textField.returnKeyType = .next
         textField.textColor = .black
         textField.backgroundColor = .white
         textField.leftViewMode = .always
         textField.keyboardType = .phonePad
+        textField.leftView = prefix
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
-        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
+        //textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
         textField.layer.cornerRadius = 4
         textField.layer.borderWidth = 1
         textField.layer.masksToBounds = true
@@ -99,6 +109,7 @@ class ProfileViewController: UIViewController {
             continueButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
         ])
     }
+    
     @objc func postRequestButton() {
         let url = URL(string: "http://slomat2.colibri.tj/users/check_phone")!
         var request = URLRequest(url: url)

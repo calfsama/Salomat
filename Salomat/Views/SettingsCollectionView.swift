@@ -7,13 +7,14 @@
 
 extension String {
     var html2Attributed: NSAttributedString? {
+        let options = [NSAttributedString.DocumentReadingOptionKey.documentType:
+                NSAttributedString.DocumentType.html]
         do {
-            guard let data = data(using: String.Encoding.utf8) else {
+            guard let data = data(using: String.Encoding.unicode) else {
                 return nil
             }
-            return try NSAttributedString(data: data,
-                                          options: [.documentType: NSAttributedString.DocumentType.html,
-                                                    .characterEncoding: String.Encoding.utf8.rawValue],
+            return try NSMutableAttributedString(data: data ?? Data(),
+                                          options: options,
                                           documentAttributes: nil)
         } catch {
             print("error: ", error)

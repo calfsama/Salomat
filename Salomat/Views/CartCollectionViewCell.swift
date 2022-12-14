@@ -167,10 +167,41 @@ class CartCollectionViewCell: UICollectionViewCell {
         updatePrice()
     }
     
+     func calculate() -> Double{
+        var total = 0.0
+        if self.dataModel.count > 0 {
+            for index in 0...self.dataModel.count - 1 {
+                total += (Double(dataModel[index].price!)  ?? 0 * Double(stepperValue.text!)!)
+                
+            }
+        }
+        return total + 5
+    }
+    
     func updatePrice() {
         if self.stepper.value >= 1 {
             let productPrice = Double(self.prices)
             price.text = String(productPrice! * Double(stepperValue.text!)!)
+            
+            let object: NSFetchRequest <DataModel> = DataModel.fetchRequest()
+            commitPredicate = NSPredicate(format: "id == %@", id)
+            object.predicate = commitPredicate
+            do {
+                let object = try context.fetch(object)
+                for i in object {
+                    if i.id == id {
+                        i.price = String(productPrice! * Double(stepperValue.text!)!)
+                    }
+                    do {
+                        try context.save()
+                    }catch {
+                        print("Error1 \(error)")
+                    }
+                }
+            }
+            catch {
+                print("Error2 \(error)")
+            }
         }
         else {
             

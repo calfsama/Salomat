@@ -32,7 +32,7 @@ class NotificationsViewController: UIViewController {
     lazy var notificationScroll: UIScrollView = {
         let scroll = UIScrollView()
         scroll.frame = view.bounds
-        scroll.contentSize = CGSize(width: view.frame.size.width, height: 1500)
+        scroll.contentSize = CGSize(width: view.frame.size.width, height: view.frame.size.height)
         scroll.backgroundColor = .white
         scroll.showsVerticalScrollIndicator = true
         return scroll
@@ -52,7 +52,7 @@ class NotificationsViewController: UIViewController {
     lazy var newsScroll: UIScrollView = {
         let scroll = UIScrollView()
         scroll.frame = view.bounds
-        scroll.contentSize = CGSize(width: view.frame.size.width, height: 2350)
+        scroll.contentSize = CGSize(width: view.frame.size.width, height: 1000)
         scroll.backgroundColor = .white
         scroll.showsVerticalScrollIndicator = true
         return scroll
@@ -110,7 +110,7 @@ class NotificationsViewController: UIViewController {
             notificationButton.topAnchor.constraint(equalTo: notificationScroll.topAnchor, constant: 20),
             notificationButton.leadingAnchor.constraint(equalTo: notificationScroll.leadingAnchor, constant: 16),
             notificationButton.heightAnchor.constraint(equalToConstant: 20),
-            notificationButton.widthAnchor.constraint(equalToConstant: 100),
+            notificationButton.widthAnchor.constraint(equalToConstant: 130),
             
             newsButton.topAnchor.constraint(equalTo: notificationScroll.topAnchor,constant: 20),
             newsButton.leadingAnchor.constraint(equalTo: notificationButton.trailingAnchor, constant: 5),
@@ -120,7 +120,7 @@ class NotificationsViewController: UIViewController {
             uiView.topAnchor.constraint(equalTo: notificationButton.bottomAnchor, constant: 10),
             uiView.leadingAnchor.constraint(equalTo: notificationButton.leadingAnchor),
             uiView.heightAnchor.constraint(equalToConstant: 3),
-            uiView.widthAnchor.constraint(equalToConstant: 100),
+            uiView.widthAnchor.constraint(equalToConstant: 130),
             
             notificationCollectionView.topAnchor.constraint(equalTo: newsButton.bottomAnchor, constant: 20),
             notificationCollectionView.leadingAnchor.constraint(equalTo: notificationScroll.leadingAnchor),
@@ -142,7 +142,7 @@ class NotificationsViewController: UIViewController {
             notificationButton.topAnchor.constraint(equalTo: newsScroll.topAnchor, constant: 20),
             notificationButton.leadingAnchor.constraint(equalTo: newsScroll.leadingAnchor, constant: 16),
             notificationButton.heightAnchor.constraint(equalToConstant: 20),
-            notificationButton.widthAnchor.constraint(equalToConstant: 100),
+            notificationButton.widthAnchor.constraint(equalToConstant: 130),
             
             newsButton.topAnchor.constraint(equalTo: newsScroll.topAnchor,constant: 20),
             newsButton.leadingAnchor.constraint(equalTo: notificationButton.trailingAnchor, constant: 5),
