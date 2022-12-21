@@ -64,7 +64,7 @@ class NotificationsViewController: UIViewController {
         header.translatesAutoresizingMaskIntoConstraints = false
         return header
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -78,7 +78,7 @@ class NotificationsViewController: UIViewController {
         notificationScroll.addSubview(notificationCollectionView)
         
         NSLayoutConstraint.activate([
-     
+            
             notificationButton.topAnchor.constraint(equalTo: notificationScroll.topAnchor, constant: 20),
             notificationButton.leadingAnchor.constraint(equalTo: notificationScroll.leadingAnchor, constant: 16),
             notificationButton.heightAnchor.constraint(equalToConstant: 20),
@@ -93,6 +93,7 @@ class NotificationsViewController: UIViewController {
             notificationCollectionView.leadingAnchor.constraint(equalTo: notificationScroll.leadingAnchor),
             notificationCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             notificationCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            
         ])
     }
     
@@ -106,7 +107,7 @@ class NotificationsViewController: UIViewController {
         notificationButton.setTitleColor(UIColor(red: 0.22, green: 0.208, blue: 0.325, alpha: 1), for: .normal)
         
         NSLayoutConstraint.activate([
-    
+            
             notificationButton.topAnchor.constraint(equalTo: notificationScroll.topAnchor, constant: 20),
             notificationButton.leadingAnchor.constraint(equalTo: notificationScroll.leadingAnchor, constant: 16),
             notificationButton.heightAnchor.constraint(equalToConstant: 20),
@@ -128,6 +129,7 @@ class NotificationsViewController: UIViewController {
             notificationCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
+    
     
     func congifureScroll() {
         view.addSubview(newsScroll)
@@ -153,6 +155,7 @@ class NotificationsViewController: UIViewController {
             uiView.leadingAnchor.constraint(equalTo: newsButton.leadingAnchor),
             uiView.trailingAnchor.constraint(equalTo: newsButton.trailingAnchor),
             uiView.heightAnchor.constraint(equalToConstant: 3)
+            
         ])
     }
     
@@ -163,4 +166,7 @@ class NotificationsViewController: UIViewController {
     @objc func changeScroll2() {
         configure()
     }
+    
+    // upload image in API
+    
 }

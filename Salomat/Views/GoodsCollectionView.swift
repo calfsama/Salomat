@@ -8,7 +8,7 @@
 import UIKit
 
 class GoodsCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
-    
+    var data = [Basket]()
     var cell = [Medical]()
 
     init() {
@@ -33,14 +33,14 @@ class GoodsCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout 
 }
 extension GoodsCollectionView: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return cell.count
+        return data.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = dequeueReusableCell(withReuseIdentifier: GoodsCollectionViewCell.identifier, for: indexPath) as! GoodsCollectionViewCell
-        cell.medical.text = self.cell[indexPath.row].name + " сомон"
+        cell.medical.text = data[indexPath.row].title ?? "" + " сомон"
         cell.amount.text = "1шт"
-        cell.price.text = self.cell[indexPath.row].price + " сомон"
+        cell.price.text = (self.data[indexPath.row].price ?? "") + " сомон"
         return cell
     }
     

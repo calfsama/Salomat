@@ -11,6 +11,7 @@ import Photos
 class ReceiptViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     var receiptCollectionView = ReceiptCollectionView()
     var imagePickerController = UIImagePickerController()
+    var alert: UIAlertController!
     var imagesArray: [UIImage] = [
     UIImage(named: "image 6")!]
     
@@ -31,6 +32,12 @@ class ReceiptViewController: UIViewController, UICollectionViewDelegateFlowLayou
         alert.layer.cornerRadius = 12
         alert.layer.masksToBounds = true
         return alert
+    }()
+    
+    lazy var image: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(named: "image 6")
+        return image
     }()
     
     override func viewDidLoad() {
@@ -62,6 +69,33 @@ class ReceiptViewController: UIViewController, UICollectionViewDelegateFlowLayou
             receiptCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
+    
+     func uploadImage() {
+        //let imageData: Data = image.image!.pngData()!
+        //let imageStr: String = imageData.base64EncodedString()
+         let boundary = UUID().uuidString
+         let imageData = image.image!.pngData()
+         //let urlString: String = "imageStr=" + imageData
+         let url = URL(string: "http://slomat2.colibri.tj/recipes/store")
+         var request = URLRequest(url: url!)
+         //request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+         request.setValue("multipart/form-data", forHTTPHeaderField: "Content-Type")
+         request.httpMethod = "POST"
+         let parameters: [String: Any] = [
+            "recipe_phone": "987305959",
+            "recipe_name": "tom",
+            "recipe_comment": "blah blah blah",
+            "recipe_pics": "\(imageData?.base64EncodedString())"
+         ]
+         
+         request.httpBody = parameters.percentEncoded()
+         NSURLConnection.sendAsynchronousRequest(request, queue: .main, completionHandler: {(request, data, error) in
+             guard let data = data else { return }
+             let responseString: String = String(data: data, encoding: .utf8)!
+             print("my_log" + responseString)
+         })
+    }
+    
     
     // Open gallery
     @objc func gallery() {
@@ -149,6 +183,24 @@ class ReceiptViewController: UIViewController, UICollectionViewDelegateFlowLayou
     @objc func didTapButton() {
         print("pressed")
         showAlert(with: "Рецепт отправлен", message: "", on: self)
+        let footer = ReceiptCollectionReusableView()
+        if footer.phoneTextField.text == "" && footer.nameTextField.text == "" && footer.commentTextField.text == "" {
+            footer.phoneTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
+            footer.nameTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
+            footer.commentTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
+        }
+        uploadImage()
+    }
+    
+    func showAlert() {
+        self.alert = UIAlertController(title: "", message: "Заполните поля", preferredStyle: UIAlertController.Style.alert)
+        self.present(self.alert, animated: true, completion: nil)
+        Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(dismissAlert), userInfo: nil, repeats: false)
+    }
+
+    @objc func dismissAlertController(){
+        // Dismiss the alert from here
+        self.alert.dismiss(animated: true, completion: nil)
     }
 
 //    func checkPermissions() {
@@ -210,7 +262,9 @@ extension ReceiptViewController: UICollectionViewDelegate, UICollectionViewDataS
             
         case UICollectionView.elementKindSectionFooter:
             let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: ReceiptCollectionReusableView.identifier, for: indexPath) as! ReceiptCollectionReusableView
-            footer.button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
+            if footer.phoneTextField.text != "" && footer.nameTextField.text != "" && footer.commentTextField.text != ""{
+                footer.button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
+            }
             return footer
             
         default:

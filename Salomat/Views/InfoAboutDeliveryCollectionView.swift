@@ -8,6 +8,7 @@
 import UIKit
 
 class InfoAboutDeliveryCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
+    var price: String = ""
 
     init() {
         let layout = UICollectionViewFlowLayout()
@@ -33,7 +34,8 @@ extension InfoAboutDeliveryCollectionView: UICollectionViewDelegate, UICollectio
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = dequeueReusableCell(withReuseIdentifier: InfoAboutDeliveryCollectionViewCell.identifier, for: indexPath) as! InfoAboutDeliveryCollectionViewCell
         cell.total.text = "Промежуточный итог"
-        cell.totalCount.text = "104 сомон"
+        //cell.totalCount.text = "\(price) сомон"
+        print(price, "ksnck")
         return cell
     }
     

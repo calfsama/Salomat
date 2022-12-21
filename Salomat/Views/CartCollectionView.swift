@@ -27,6 +27,10 @@ class CartCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
         showsVerticalScrollIndicator = false
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .white
+        let vc = InfoAboutDeliveryCollectionView()
+        vc.price = String(format: "%.2f", calculateCartTotalWithDelivery())
+        print(vc.price , "tom")
+        
     }
     
     

@@ -208,6 +208,12 @@ class MainViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Search"), style: .plain, target: self, action: #selector(searchContr))
     }
     
+    @objc func expandTable() {
+        let vc = ExpandingViewController()
+        vc.title = "Expand"
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     @objc func btnAction() {
         let vc = BlogListViewController()
         vc.title = "Блог"

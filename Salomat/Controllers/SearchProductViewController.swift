@@ -48,6 +48,7 @@ class SearchProductViewController: UIViewController, UISearchResultsUpdating {
     func setup() {
         navigationItem.searchController = searchController
         searchController.searchBar.placeholder = "Поиск"
+        searchController.searchBar.keyboardType = .default
         searchController.searchResultsUpdater = self
     }
     

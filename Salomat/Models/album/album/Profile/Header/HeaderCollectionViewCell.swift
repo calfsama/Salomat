@@ -75,7 +75,7 @@ class HeaderCollectionViewCell: UICollectionViewCell {
         
         
         NSLayoutConstraint.activate([
-            picture.
+            
         
         
         

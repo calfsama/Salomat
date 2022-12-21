@@ -65,6 +65,7 @@ class CartViewController: UIViewController {
         //basketCollectionView.layer.borderWidth = 1
         tabBarItem.badgeColor = .blue
         tabBarItem.badgeValue = "2"
+        self.navigationController?.navigationBar.tintColor = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
         //tabBarItem.setBadgeTextAttributes([NSAttributedString.Key.foregroundColor.rawValue: UIColor.red], for: .normal)
         //self.tabBar.items?[2].badgeValue = "12"
             

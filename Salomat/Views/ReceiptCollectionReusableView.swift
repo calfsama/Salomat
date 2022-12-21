@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import MobileCoreServices
+import UniformTypeIdentifiers
 
 class ReceiptCollectionReusableView: UICollectionReusableView {
     static let identifier = "ReceiptCollectionReusableView"
@@ -118,7 +120,7 @@ class ReceiptCollectionReusableView: UICollectionReusableView {
         messangerButton.set(cell: Messenger.items())
         configureConstraints()
     }
-    
+  
     func configureConstraints() {
         
         addSubview(phoneTextField)
@@ -234,4 +236,102 @@ class ReceiptCollectionReusableView: UICollectionReusableView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func createRequest(userid: String, password: String, email: String) throws -> URLRequest {
+        
+        
+        let parameters = [
+            "recipe_phone"  : userid,
+            "recipe_name"    : email,
+            "recipe_comment" : password]  // build your dictionary however appropriate
+        
+        let boundary = generateBoundaryString()
+        
+        let url = URL(string: "http://slomat2.colibri.tj/recipes/store")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        
+        let fileURL = Bundle.main.url(forResource: "image1", withExtension: "png")!
+        request.httpBody = try createBody(with: parameters, filePathKey: "file", urls: [fileURL], boundary: boundary)
+        
+        return request
+    }
+
+    /// Create body of the `multipart/form-data` request
+    ///
+    /// - parameter parameters:   The optional dictionary containing keys and values to be passed to web service.
+    /// - parameter filePathKey:  The optional field name to be used when uploading files. If you supply paths, you must supply filePathKey, too.
+    /// - parameter urls:         The optional array of file URLs of the files to be uploaded.
+    /// - parameter boundary:     The `multipart/form-data` boundary.
+    ///
+    /// - returns:                The `Data` of the body of the request.
+
+    private func createBody(with parameters: [String: String]? = nil, filePathKey: String, urls: [URL], boundary: String) throws -> Data {
+        var body = Data()
+        
+        parameters?.forEach { (key, value) in
+            body.append("--\(boundary)\r\n")
+            body.append("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n")
+            body.append("\(value)\r\n")
+        }
+        
+        for url in urls {
+            let filename = url.lastPathComponent
+            let data = try Data(contentsOf: url)
+            
+            body.append("--\(boundary)\r\n")
+            body.append("Content-Disposition: form-data; name=\"\(filePathKey)\"; filename=\"\(filename)\"\r\n")
+            body.append("Content-Type: \(url.mimeType)\r\n\r\n")
+            body.append(data)
+            body.append("\r\n")
+        }
+        
+        body.append("--\(boundary)--\r\n")
+        return body
+    }
+
+    /// Create boundary string for multipart/form-data request
+    ///
+    /// - returns:            The boundary string that consists of "Boundary-" followed by a UUID string.
+
+    private func generateBoundaryString() -> String {
+        return "Boundary-\(UUID().uuidString)"
+    }
 }
+extension URL {
+    /// Mime type for the URL
+    ///
+    /// Requires `import UniformTypeIdentifiers` for iOS 14 solution.
+    /// Requires `import MobileCoreServices` for pre-iOS 14 solution
+
+    var mimeType: String {
+        if #available(iOS 14.0, *) {
+            return UTType(filenameExtension: pathExtension)?.preferredMIMEType ?? "application/octet-stream"
+        } else {
+            guard
+                let identifier = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, pathExtension as CFString, nil)?.takeRetainedValue(),
+                let mimeType = UTTypeCopyPreferredTagWithClass(identifier, kUTTagClassMIMEType)?.takeRetainedValue() as String?
+            else {
+                return "application/octet-stream"
+            }
+            return mimeType
+        }
+    }
+}
+
+extension Data {
+    
+    /// Append string to Data
+    ///
+    /// Rather than littering my code with calls to `data(using: .utf8)` to convert `String` values to `Data`, this wraps it in a nice convenient little extension to Data. This defaults to converting using UTF-8.
+    ///
+    /// - parameter string:       The string to be added to the `Data`.
+    
+    mutating func append(_ string: String, using encoding: String.Encoding = .utf8) {
+        if let data = string.data(using: encoding) {
+            append(data)
+        }
+    }
+}
+

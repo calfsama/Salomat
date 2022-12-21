@@ -33,11 +33,51 @@ class InfoAboutDeliveryViewController: UIViewController {
         return uiView
     }()
     
+    lazy var star: UILabel = {
+        let label = UILabel()
+        label.text = "*"
+        label.textColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    lazy var star2: UILabel = {
+        let label = UILabel()
+        label.text = "*"
+        label.textColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    lazy var star3: UILabel = {
+        let label = UILabel()
+        label.text = "*"
+        label.textColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    lazy var star4: UILabel = {
+        let label = UILabel()
+        label.text = "*"
+        label.textColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     lazy var name: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 10, weight: .regular)
         label.textColor = UIColor(red: 0.22, green: 0.208, blue: 0.325, alpha: 1)
         label.text = "Имя Фамилия"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    lazy var reqiered: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 10, weight: .regular)
+        label.textColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -74,6 +114,7 @@ class InfoAboutDeliveryViewController: UIViewController {
         textField.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
         textField.returnKeyType = .next
         textField.leftViewMode = .always
+        textField.keyboardType = .phonePad
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
@@ -102,6 +143,7 @@ class InfoAboutDeliveryViewController: UIViewController {
         textField.leftViewMode = .always
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
+        textField.keyboardType = .phonePad
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
         textField.layer.cornerRadius = 4
         textField.layer.borderWidth = 1
@@ -230,7 +272,7 @@ class InfoAboutDeliveryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
+        hideKeyboardWhenTappedAround()
         configureConstraints()
         
     }
@@ -254,6 +296,11 @@ class InfoAboutDeliveryViewController: UIViewController {
         view.addSubview(comments)
         view.addSubview(commentsTextField)
         view.addSubview(button)
+        view.addSubview(star)
+        view.addSubview(star2)
+        view.addSubview(star3)
+        view.addSubview(star4)
+        view.addSubview(reqiered)
         
         
         NSLayoutConstraint.activate([
@@ -276,6 +323,9 @@ class InfoAboutDeliveryViewController: UIViewController {
             name.topAnchor.constraint(equalTo: uiView.bottomAnchor, constant: 20),
             name.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             
+            star.topAnchor.constraint(equalTo: name.topAnchor, constant: -3),
+            star.leadingAnchor.constraint(equalTo: name.trailingAnchor),
+            
             nameTextField.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 10),
             nameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             nameTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
@@ -283,6 +333,9 @@ class InfoAboutDeliveryViewController: UIViewController {
             
             phone.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 15),
             phone.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            
+            star2.topAnchor.constraint(equalTo: phone.topAnchor, constant: -3),
+            star2.leadingAnchor.constraint(equalTo: phone.trailingAnchor),
             
             phoneTextField.topAnchor.constraint(equalTo: phone.bottomAnchor, constant: 10),
             phoneTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
@@ -300,6 +353,9 @@ class InfoAboutDeliveryViewController: UIViewController {
             street.topAnchor.constraint(equalTo: additionalPTextField.bottomAnchor, constant: 15),
             street.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             
+            star3.topAnchor.constraint(equalTo: street.topAnchor, constant: -3),
+            star3.leadingAnchor.constraint(equalTo: street.trailingAnchor),
+            
             streetTextField.topAnchor.constraint(equalTo: street.bottomAnchor, constant: 10),
             streetTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             streetTextField.trailingAnchor.constraint(equalTo: houseTextField.leadingAnchor, constant: -10),
@@ -307,6 +363,9 @@ class InfoAboutDeliveryViewController: UIViewController {
             
             house.topAnchor.constraint(equalTo: additionalPTextField.bottomAnchor, constant: 15),
             house.leadingAnchor.constraint(equalTo: streetTextField.trailingAnchor, constant: 10),
+            
+            star4.topAnchor.constraint(equalTo: house.topAnchor, constant: -3),
+            star4.leadingAnchor.constraint(equalTo: house.trailingAnchor),
             
             houseTextField.topAnchor.constraint(equalTo: house.bottomAnchor, constant: 10),
             houseTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
@@ -329,6 +388,9 @@ class InfoAboutDeliveryViewController: UIViewController {
             commentsTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             commentsTextField.heightAnchor.constraint(equalToConstant: 65),
             
+            reqiered.topAnchor.constraint(equalTo: commentsTextField.bottomAnchor, constant: 5),
+            reqiered.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            
             button.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20),
             button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
@@ -339,8 +401,20 @@ class InfoAboutDeliveryViewController: UIViewController {
     }
     
     @objc func buttonAction() {
-        let vc = InfoAboutDeliveryTwoViewController()
-        vc.title = "Информация о доставке"
-        self.navigationController?.pushViewController(vc, animated: true)
+       
+        if phoneTextField.text == "" || nameTextField.text == "" || streetTextField.text == "" || houseTextField.text == "" {
+            reqiered.text = "Заполните обязательные поля"
+        }
+        
+        else if nameTextField.text != "" && phoneTextField.text != "" && streetTextField.text != "" && houseTextField.text != "" {
+            let vc = InfoAboutDeliveryTwoViewController()
+            vc.title = "Информация о доставке"
+            vc.name = nameTextField.text!
+            vc.phone_number = phoneTextField.text!
+            vc.phone_number2 = additionalPTextField.text!
+            vc.address = streetTextField.text! + " " + houseTextField.text! + " " + referencePointTextField.text!
+            vc.comment = commentsTextField.text!
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }

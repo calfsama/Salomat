@@ -6,9 +6,12 @@
 //
 
 import UIKit
+import CoreData
 
 class SummaCollectionViewCell: UICollectionViewCell {
     static let identifier = "SummaCollectionViewCell"
+    var data = [Basket]()
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     lazy var total: UILabel = {
         let label = UILabel()
@@ -29,7 +32,29 @@ class SummaCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureConstraints()
+        loadArticles()
     }
+    
+    func loadArticles() {
+        let request: NSFetchRequest <Basket> = Basket.fetchRequest()
+        do {
+            data = try context.fetch(request)
+            totalCount.text = String(format: "%.2f", calculateCartTotalWithDelivery())
+        }catch {
+            print("Error fetching data from context \(error)")
+        }
+    }
+    
+    func calculateCartTotalWithDelivery() -> Double{
+        var total = 0.0
+        if self.data.count > 0 {
+            for index in 0...self.data.count - 1 {
+                total += (Double(data[index].price!) ?? 0)
+            }
+        }
+        return total + 5
+    }
+    
     
     func configureConstraints() {
         contentView.addSubview(total)
