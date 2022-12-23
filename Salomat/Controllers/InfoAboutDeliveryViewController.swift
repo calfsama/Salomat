@@ -65,6 +65,7 @@ class InfoAboutDeliveryViewController: UIViewController {
         return label
     }()
     
+    
     lazy var name: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 10, weight: .regular)
@@ -75,6 +76,14 @@ class InfoAboutDeliveryViewController: UIViewController {
     }()
     
     lazy var reqiered: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 10, weight: .regular)
+        label.textColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    lazy var reqiered2: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 10, weight: .regular)
         label.textColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1)
@@ -301,7 +310,7 @@ class InfoAboutDeliveryViewController: UIViewController {
         view.addSubview(star3)
         view.addSubview(star4)
         view.addSubview(reqiered)
-        
+        view.addSubview(reqiered2)
         
         NSLayoutConstraint.activate([
             
@@ -341,6 +350,9 @@ class InfoAboutDeliveryViewController: UIViewController {
             phoneTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             phoneTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             phoneTextField.heightAnchor.constraint(equalToConstant: 45),
+            
+            reqiered2.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 15),
+            reqiered2.leadingAnchor.constraint(equalTo: star2.trailingAnchor, constant: 5),
             
             additionalPhone.topAnchor.constraint(equalTo: phoneTextField.bottomAnchor, constant: 15),
             additionalPhone.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
@@ -407,14 +419,19 @@ class InfoAboutDeliveryViewController: UIViewController {
         }
         
         else if nameTextField.text != "" && phoneTextField.text != "" && streetTextField.text != "" && houseTextField.text != "" {
-            let vc = InfoAboutDeliveryTwoViewController()
-            vc.title = "Информация о доставке"
-            vc.name = nameTextField.text!
-            vc.phone_number = phoneTextField.text!
-            vc.phone_number2 = additionalPTextField.text!
-            vc.address = streetTextField.text! + " " + houseTextField.text! + " " + referencePointTextField.text!
-            vc.comment = commentsTextField.text!
-            self.navigationController?.pushViewController(vc, animated: true)
+            if phoneTextField.text?.count ?? 0 < 9 {
+                reqiered2.text = "Телефон должен состоять из 9 чисел"
+            }
+            else if phoneTextField.text?.count == 9 {
+                let vc = InfoAboutDeliveryTwoViewController()
+                vc.title = "Информация о доставке"
+                vc.name = nameTextField.text!
+                vc.phone_number = phoneTextField.text!
+                vc.phone_number2 = additionalPTextField.text!
+                vc.address = streetTextField.text! + " " + houseTextField.text! + " " + referencePointTextField.text!
+                vc.comment = commentsTextField.text!
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
         }
     }
 }

@@ -344,16 +344,13 @@ class InfoAboutDeliveryTwoViewController: UIViewController {
     @objc func request() {
         
         var dict: [String: Any] =
-        ["total_price": total_price, "user_id" :"112", "phone_number" :phone_number,"phone_number2": phone_number2, "name" : name,"product_total_count": "1","address" : address, "comment" :comment, "delivery_id": "1", "products": [["product_id": 3, "product_count": 1]]]
-        
-        var dict2: [String: Any] =
         ["total_price": total_price, "user_id" :"112", "phone_number" :phone_number,"phone_number2": phone_number2, "name" : name,"product_total_count": "1","address" : address, "comment" :comment, "delivery_id": "1", "products": qwert ?? []
         ]
 
         var  jsonData = NSData()
         
         do {
-            jsonData = try JSONSerialization.data(withJSONObject: dict2, options: .prettyPrinted) as NSData
+            jsonData = try JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted) as NSData
             // you can now cast it with the right type
         } catch {
             print(error.localizedDescription)

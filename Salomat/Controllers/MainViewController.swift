@@ -205,12 +205,12 @@ class MainViewController: UIViewController {
 
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "menu"), style: .plain, target: self, action: #selector(showCategories))
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Search"), style: .plain, target: self, action: #selector(searchContr))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Search"), style: .plain, target: self, action: #selector(expandTable))
     }
     
     @objc func expandTable() {
-        let vc = ExpandingViewController()
-        vc.title = "Expand"
+        let vc = Expanding()
+        vc.title = "Мои заказы"
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
