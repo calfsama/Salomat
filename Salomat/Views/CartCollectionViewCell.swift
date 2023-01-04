@@ -164,7 +164,9 @@ class CartCollectionViewCell: UICollectionViewCell {
 //        }
 //        price.text = "\(Int(price.text ?? "") ?? 0 + (Int(price.text ?? "") ?? 0))"
 //        print(stepper.value)
+        //buttonAction()
         updatePrice()
+        //ar()
     }
     
      func calculate() -> Double{
@@ -178,20 +180,54 @@ class CartCollectionViewCell: UICollectionViewCell {
         return total + 5
     }
     
+     func buttonAction() {
+        let fetchRequest: NSFetchRequest <Basket> = Basket.fetchRequest()
+        commitPredicate = NSPredicate(format: "id == %@", id)
+        fetchRequest.predicate = commitPredicate
+        do{
+            let data = try context.fetch(fetchRequest).first
+                print("save")
+                saveMedicineInBasket()
+        }
+        catch {
+            print("Error1\(error)")
+        }
+    }
+    
+    func saveMedicineInBasket() {
+        let data = Basket(context: self.context)
+        data.amount = String(stepper.value)
+        self.dataModel.append(data)
+        print("ischecked")
+       do {
+           try context.save()
+       }catch {
+           print("Error saving context \(error)")
+       }
+    }
+    
+    func ar() {
+        let productPrice = Double(self.prices)
+        price.text = String(productPrice! * Double(stepperValue.text!)!)
+    }
+    
     func updatePrice() {
         if self.stepper.value >= 1 {
             let productPrice = Double(self.prices)
             price.text = String(productPrice! * Double(stepperValue.text!)!)
             
-            let object: NSFetchRequest <DataModel> = DataModel.fetchRequest()
+            let object: NSFetchRequest <Basket> = Basket.fetchRequest()
             commitPredicate = NSPredicate(format: "id == %@", id)
             object.predicate = commitPredicate
             do {
-                let object = try context.fetch(object)
-                for i in object {
-                    if i.id == id {
-                        i.price = String(productPrice! * Double(stepperValue.text!)!)
-                    }
+                let i = try context.fetch(object).first
+                i?.amount = String(stepper.value)
+                i?.price = String(productPrice! * Double(stepperValue.text!)!)
+                print(i?.amount, "amount")
+                do {
+                    try context.save()
+                }catch {
+                    print("Error saving context \(error)")
                     do {
                         try context.save()
                     }catch {
@@ -204,7 +240,7 @@ class CartCollectionViewCell: UICollectionViewCell {
             }
         }
         else {
-            
+            print("errrror")
         }
     }
     

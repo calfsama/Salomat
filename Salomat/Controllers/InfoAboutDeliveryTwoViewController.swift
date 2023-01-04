@@ -210,21 +210,28 @@ class InfoAboutDeliveryTwoViewController: UIViewController {
            button.setImage(UIImage(named: "Radiobutton2"), for: .normal)
             button2.setImage(UIImage(named: "Radiobutton1"), for: .normal)
         }
+        total_price = String(format: "%.2f", calculateCartTotalWithDelivery())
+        collection.price = total_price
+        collection.reloadData()
     }
     
     @objc func conditionButton2() {
         if deliveryCondition == true {
-           deliveryCondition = true
-           condition = false
-           button.setImage(UIImage(named: "Radiobutton1"), for: .normal)
-           button2.setImage(UIImage(named: "Radiobutton2"), for: .normal)
-           print("Find popular")
+            deliveryCondition = true
+            condition = false
+            button.setImage(UIImage(named: "Radiobutton1"), for: .normal)
+            button2.setImage(UIImage(named: "Radiobutton2"), for: .normal)
+            print("Find popular")
         }
         else if deliveryCondition == false {
-           deliveryCondition = true
-           button2.setImage(UIImage(named: "Radiobutton2"), for: .normal)
+            deliveryCondition = true
+            button2.setImage(UIImage(named: "Radiobutton2"), for: .normal)
             button.setImage(UIImage(named: "Radiobutton1"), for: .normal)
         }
+        total_price = String(format: "%.2f", delivery20tjs())
+        collection.price = total_price
+        collection.reloadData()
+       // delivery20tjs()
     }
     
     var goodsCollectionView = GoodsCollectionView()
@@ -237,6 +244,7 @@ class InfoAboutDeliveryTwoViewController: UIViewController {
         //goodsCollectionView.set(cells: Medical.items())
         loadArticles()
         collectionView.price = price
+        collection.price = String(format: "%.2f", calculateCartTotalWithDelivery())
         print(price, "dknkwd")
         configureConstraints()
         allOrders()
@@ -340,6 +348,20 @@ class InfoAboutDeliveryTwoViewController: UIViewController {
         }
         print(data)
     }
+    
+    func delivery20tjs() -> Double {
+        var total = 0.0
+        if self.data.count > 0 {
+            for index in 0...self.data.count - 1 {
+                total += (Double(data[index].price!) ?? 0)
+            }
+        }
+        return total + 20
+    }
+    
+//    @objc func cancelAction() {
+//        print(total_price)
+//    }
     
     @objc func request() {
         
@@ -489,6 +511,7 @@ class InfoAboutDeliveryTwoViewController: UIViewController {
         reg.selectedIndex = 4
         let appDelegate = UIApplication.shared.delegate
         appDelegate?.window??.rootViewController = reg
+        print(total_price)
     }
     
     @objc func dismissAlert() {

@@ -249,6 +249,7 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
         data.title = titleMedicine
         data.price = prices
         data.image = images
+        data.amount = "1"
         print(images)
         print(title)
         self.dataBasket.append(data)

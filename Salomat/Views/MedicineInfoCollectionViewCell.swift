@@ -9,8 +9,9 @@ import UIKit
 
 class MedicineInfoCollectionViewCell: UICollectionViewCell {
     static let identifier = "MedicineInfoCollectionViewCell"
-   // var cell = SearchCollectionView()
+    var similar_products = SimilarProductsCollectionView()
     var reviewCell = ReviewCollectionView()
+    var medicineView = MedicineViewController()
     var id: String = ""
     
     lazy var uiView: UIView = {
@@ -25,7 +26,8 @@ class MedicineInfoCollectionViewCell: UICollectionViewCell {
     lazy var instructionScroll: UIScrollView = {
         let scroll = UIScrollView()
         scroll.frame = contentView.bounds
-        scroll.contentSize = CGSize(width: contentView.frame.size.width, height: 1200)
+        scroll.showsVerticalScrollIndicator = false
+        scroll.contentSize = CGSize(width: contentView.frame.size.width, height: 3200)
         scroll.backgroundColor = .white
         return scroll
     }()
@@ -33,6 +35,7 @@ class MedicineInfoCollectionViewCell: UICollectionViewCell {
     lazy var analogScroll: UIScrollView = {
         let scroll = UIScrollView()
         scroll.frame = contentView.bounds
+        scroll.showsVerticalScrollIndicator = false
        // scroll.contentSize = CGSize(width: contentView.frame.size.width, height: 1200)
         scroll.backgroundColor = .white
         return scroll
@@ -43,15 +46,17 @@ class MedicineInfoCollectionViewCell: UICollectionViewCell {
     lazy var feedbackScroll: UIScrollView = {
         let scroll = UIScrollView()
         scroll.frame = contentView.bounds
-        scroll.contentSize = CGSize(width: contentView.frame.size.width, height: 1200)
+        scroll.showsVerticalScrollIndicator = false
+        scroll.contentSize = CGSize(width: contentView.frame.size.width, height: 800)
         scroll.backgroundColor = .white
         return scroll
     }()
     
     lazy var instruction: UIButton = {
         let button = UIButton()
-        button.setTitle("Instruction", for: .normal)
+        button.setTitle("Инструкция", for: .normal)
         button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         button.addTarget(self, action: #selector(configureInstruction), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -59,8 +64,9 @@ class MedicineInfoCollectionViewCell: UICollectionViewCell {
     
     lazy var analog: UIButton = {
         let button = UIButton()
-        button.setTitle("Analog", for: .normal)
+        button.setTitle("Аналог", for: .normal)
         button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         button.addTarget(self, action: #selector(configureAnalog), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -68,7 +74,8 @@ class MedicineInfoCollectionViewCell: UICollectionViewCell {
     
     lazy var feedback: UIButton = {
         let button = UIButton()
-        button.setTitle("FeedBack", for: .normal)
+        button.setTitle("Отзывы", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         button.setTitleColor(.black, for: .normal)
         button.addTarget(self, action: #selector(configurefeedback), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -89,8 +96,10 @@ class MedicineInfoCollectionViewCell: UICollectionViewCell {
         label.textColor = UIColor(red: 0.478, green: 0.463, blue: 0.617, alpha: 1)
         label.text = "Антацидный препарат, представляющий собой сбалансированную комбинацию алгелдрата (алюминия гидроксида) и магния гидроксида..."
         label.numberOfLines = 0
-        label.setNeedsDisplay()
-        label.font = UIFont.systemFont(ofSize: 20, weight: .regular)
+//        label.setNeedsDisplay()
+        label.alpha = 0.9
+        label.lineBreakMode = .byWordWrapping
+       // label.font = UIFont.systemFont(ofSize: 20, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -150,6 +159,7 @@ class MedicineInfoCollectionViewCell: UICollectionViewCell {
         let contentRect: CGRect = self.analogScroll.subviews.reduce(into: .zero) { rect, view in
             rect = rect.union(contentView.frame)
         }
+//        similar_products = SimilarProductsCollectionView(nav: self.navigationController)
         configureInstruction()
         analogScroll.contentSize = contentRect.size
     }
@@ -191,7 +201,7 @@ class MedicineInfoCollectionViewCell: UICollectionViewCell {
             productDescription.topAnchor.constraint(equalTo: instruction.bottomAnchor, constant: 20),
             productDescription.leadingAnchor.constraint(equalTo: instructionScroll.leadingAnchor, constant: 16),
             productDescription.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            productDescription.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+            productDescription.bottomAnchor.constraint(equalTo: instructionScroll.bottomAnchor, constant: -10),
             
 //            moreButton.topAnchor.constraint(equalTo: productDescription.bottomAnchor, constant: 10),
 //            moreButton.leadingAnchor.constraint(equalTo: instructionScroll.leadingAnchor, constant: 10),
@@ -207,7 +217,7 @@ class MedicineInfoCollectionViewCell: UICollectionViewCell {
         analogScroll.addSubview(analog)
         analogScroll.addSubview(feedback)
         analogScroll.addSubview(uiView)
-       // analogScroll.addSubview(cell)
+        analogScroll.addSubview(similar_products)
         analog.setTitleColor(UIColor(red: 0.22, green: 0.208, blue: 0.325, alpha: 1), for: .normal)
         instruction.setTitleColor(UIColor(red: 0.478, green: 0.463, blue: 0.617, alpha: 1), for: .normal)
         feedback.setTitleColor(UIColor(red: 0.478, green: 0.463, blue: 0.617, alpha: 1), for: .normal)
@@ -233,10 +243,10 @@ class MedicineInfoCollectionViewCell: UICollectionViewCell {
             uiView.trailingAnchor.constraint(equalTo: analog.trailingAnchor),
             uiView.heightAnchor.constraint(equalToConstant: 3),
             
-//            cell.topAnchor.constraint(equalTo: instruction.bottomAnchor, constant: 30),
-//            cell.leadingAnchor.constraint(equalTo: analogScroll.leadingAnchor),
-//            cell.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-//            cell.heightAnchor.constraint(equalToConstant: 300)
+            similar_products.topAnchor.constraint(equalTo: instruction.bottomAnchor, constant: 30),
+            similar_products.leadingAnchor.constraint(equalTo: analogScroll.leadingAnchor),
+            similar_products.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            similar_products.heightAnchor.constraint(equalToConstant: 300)
         ])
     }
     

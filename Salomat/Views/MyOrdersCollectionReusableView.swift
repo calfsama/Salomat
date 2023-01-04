@@ -42,6 +42,14 @@ class MyOrdersCollectionReusableView: UICollectionReusableView {
         return label
     }()
     
+    lazy var totalCount: UILabel = {
+        let label = UILabel()
+        label.text = "Итого:"
+        label.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     lazy var total: UILabel = {
         let label = UILabel()
         label.text = "225 сом"
@@ -69,6 +77,7 @@ class MyOrdersCollectionReusableView: UICollectionReusableView {
         addSubview(delivery)
         addSubview(total)
         addSubview(button)
+        addSubview(totalCount)
         
         NSLayoutConstraint.activate([
             priceOfGoods.topAnchor.constraint(equalTo: topAnchor, constant: 20),
@@ -85,6 +94,9 @@ class MyOrdersCollectionReusableView: UICollectionReusableView {
             
             total.topAnchor.constraint(equalTo: price.bottomAnchor, constant: 15),
             total.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            
+            totalCount.topAnchor.constraint(equalTo: price.bottomAnchor, constant: 15),
+            totalCount.trailingAnchor.constraint(equalTo: total.leadingAnchor, constant: -10),
         
             button.topAnchor.constraint(equalTo: priceOfDelivery.bottomAnchor, constant: 20),
             button.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),

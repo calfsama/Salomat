@@ -113,6 +113,8 @@ extension ItemsCollectionView: UICollectionViewDelegate, SkeletonCollectionViewD
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = TestTwoViewController()
         let view = ReviewCollectionReusableView()
+        let similar = SimilarProductsCollectionView()
+        similar.id = product?.prods_of_the_day?[indexPath.row].id ?? ""
         view.idi = product?.prods_of_the_day?[indexPath.row].id ?? ""
         vc.title = product?.prods_of_the_day?[indexPath.row].product_name ?? ""
         vc.id = product?.prods_of_the_day?[indexPath.row].id ?? ""

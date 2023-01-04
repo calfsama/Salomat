@@ -25,7 +25,7 @@ class BlackViewController: UIViewController {
         view.addSubview(categoriesForMainPage)
         
         NSLayoutConstraint.activate([
-            categoriesForMainPage.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 20),
+            categoriesForMainPage.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
             categoriesForMainPage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             categoriesForMainPage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             categoriesForMainPage.bottomAnchor.constraint(equalTo: view.bottomAnchor)

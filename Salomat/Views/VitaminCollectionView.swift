@@ -32,8 +32,7 @@ class VitaminCollectionView: UICollectionView, UICollectionViewDelegateFlowLayou
 }
 extension VitaminCollectionView: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
-        //return banner?.categories_for_main_page?[1].categ_slider?.count ?? 0
+        return banner?.categories_for_main_page?[1].categ_slider?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

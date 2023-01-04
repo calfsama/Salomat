@@ -20,6 +20,7 @@ class TestTwoViewController: UIViewController {
     var price: String = ""
     var image: String = ""
     var id: String = ""
+    var cell = SimilarProductsCollectionView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +46,7 @@ class TestTwoViewController: UIViewController {
                 self.review.productShow = response
                 self.collection.reloadData()
                 self.collection.id = self.id
+                self.cell.id = self.id
                 self.collection.text = "Внешний вид товара может отличаться от изображённого на фотографии"
                 self.collection.inCart = "В корзину"
                 self.collection.color = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)

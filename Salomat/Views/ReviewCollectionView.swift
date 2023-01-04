@@ -31,7 +31,7 @@ class ReviewCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout
 }
 extension ReviewCollectionView: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

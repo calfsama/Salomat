@@ -34,8 +34,7 @@ class BannerCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout
 }
 extension BannerCollectionView: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
-        //return banners?.main_slider?.count ?? 0
+        return banners?.main_slider?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

@@ -12,6 +12,7 @@ class MedicineViewController: UIViewController, UIScrollViewDelegate {
     var medicineCollectionView = MedicineCollectionView()
     var medicineCollectionViewCell = MedicineCollectionViewCell()
     var review = ReviewCollectionReusableView()
+    var similar_products = SimilarProductsCollectionView()
     var commitPredicate: NSPredicate?
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var network = NetworkService()
@@ -51,6 +52,7 @@ class MedicineViewController: UIViewController, UIScrollViewDelegate {
             case .success(let response):
                 self.medicineCollectionView.productShow = response
 //                print(result)
+                self.similar_products.id = self.id
                 self.review.productShow = response
                 self.medicineCollectionView.reloadData()
                 self.medicineCollectionView.imageName = "123"

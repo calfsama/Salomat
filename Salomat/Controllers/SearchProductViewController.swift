@@ -11,6 +11,7 @@ class SearchProductViewController: UIViewController, UISearchResultsUpdating {
     var collectionView = SearchCollectionView()
     var network = NetworkService()
     var searchController = UISearchController()
+    var searchProduct: String = ""
     
     lazy var label: UILabel = {
         let label = UILabel()
@@ -48,8 +49,9 @@ class SearchProductViewController: UIViewController, UISearchResultsUpdating {
     func setup() {
         navigationItem.searchController = searchController
         searchController.searchBar.placeholder = "Поиск"
-        searchController.searchBar.keyboardType = .default
         searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        definesPresentationContext = true
     }
     
     func configureConstraints() {
@@ -73,44 +75,24 @@ class SearchProductViewController: UIViewController, UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
         guard let searchText = searchController.searchBar.text else { return }
-        
         let urlString = "http://slomat2.colibri.tj/search/?srch_pr_inp=\(searchText)"
-        self.network.search(urlString: urlString) { [weak self] (result) in
+        let host = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        self.network.search(urlString: host) { [weak self] (result) in
             guard let self = self else {return}
             switch result {
             case .success(let response):
-                //self.collectionView.search?.data?.srch_inp = searchText
                 self.collectionView.search = response
-                print(urlString)
-                print(searchText)
                 print(result)
                 self.collectionView.reloadData()
             case .failure(let error):
                 print("error", error)
             }
         }
-        print(searchText)
     }
-    
-//    func search() {
-//        //let urlString = "http://salomat.colibri.tj/search/?srch_pr_inp=\(searchText)"
-//        self.network.searchText(searchText: self.searchText) { [weak self] (result) in
-//            guard let self = self else {return}
-//            switch result {
-//            case .success(let response):
-//                self.collectionView.search?.data?.srch_inp = self.searchText
-//                self.collectionView.search = response
-//                //print(urlString)
-//                print(result)
-//                self.collectionView.reloadData()
-//            case .failure(let error):
-//                print("error", error)
-//            }
-//        }
-//    }
     
     @objc func filter() {
         let vc =  SliderViewController()
+        vc.searchProduct = collectionView.search?.data?.srch_inp ?? ""
         vc.modalPresentationStyle = .pageSheet
         if #available(iOS 15.0, *) {
 
@@ -122,20 +104,37 @@ class SearchProductViewController: UIViewController, UISearchResultsUpdating {
             // Fallback on earlier versions
         }
     }
+    @objc func searchByFilter() {
+        let vc =  SliderViewController()
+        vc.searchProduct = collectionView.search?.data?.srch_inp ?? ""
+        let urlString = "http://slomat2.colibri.tj/search/with_price?srch_pr_inp=туба&min_price=\(vc.slider.values.minimum)&max_price=\(vc.slider.values.maximum)"
+        print(searchProduct)
+        print(vc.slider.values.minimum)
+        print(vc.slider.values.maximum)
+        let host = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        self.network.search(urlString: host) { [weak self] (result) in
+            guard let self = self else {return}
+            switch result {
+            case .success(let response):
+               self.collectionView.search = response
+                print(result)
+               self.collectionView.reloadData()
+            case .failure(let error):
+                print("error", error)
+            }
+        }
+        vc.dismiss(animated: true, completion: nil)
+    }
 }
-//extension SearchViewController: UISearchBarDelegate {
-//
-//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        let urlString = "http://salomat.colibri.tj/search/?srch_pr_inp=\(searchText)"
-//        self.network.search(urlString: urlString) { [weak self] (result) in
+//extension SearchProductViewController: UISearchBarDelegate {
+//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+//        let urlString = "http://slomat2.colibri.tj/search/?srch_pr_inp=\(searchBar.text!)"
+//        let host = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+//        self.network.search(urlString: host) { [weak self] (result) in
 //            guard let self = self else {return}
 //            switch result {
 //            case .success(let response):
-//                self.collectionView.search?.data?.srch_inp = searchText
 //                self.collectionView.search = response
-//                print(urlString)
-//                print(searchText)
-//                print(result)
 //                self.collectionView.reloadData()
 //            case .failure(let error):
 //                print("error", error)

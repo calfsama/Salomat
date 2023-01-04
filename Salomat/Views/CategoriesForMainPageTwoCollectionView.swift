@@ -9,7 +9,9 @@ import UIKit
 
 class CategoriesForMainPageTwoCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
     var category: Category?
+    var subCategories: CategoriesProducts?
     var index: IndexPath?
+    var id: String = ""
 
     init() {
         let layout = UICollectionViewFlowLayout()
@@ -29,13 +31,12 @@ class CategoriesForMainPageTwoCollectionView: UICollectionView, UICollectionView
 }
 extension CategoriesForMainPageTwoCollectionView: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return subCategories?.category?.sub_cat.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = dequeueReusableCell(withReuseIdentifier: CategoriesForMainPageCollectionViewCell.identifier, for: indexPath) as! CategoriesForMainPageCollectionViewCell
-        cell.category.text = category?.categories?[indexPath.row].sub_cat?[indexPath.row].category_name ?? ""
-        cell.button.setImage(UIImage(named: "arrow-right"), for: .normal)
+        cell.category.text = subCategories?.category?.sub_cat[indexPath.row].category_name ?? ""
         return cell
     }
     

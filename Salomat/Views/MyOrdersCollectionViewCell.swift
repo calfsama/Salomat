@@ -65,8 +65,7 @@ class MyOrdersCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureConstraints()
-        contentView.layer.borderColor = UIColor(red: 0.929, green: 0.93, blue: 1, alpha: 1).cgColor
-        contentView.layer.borderWidth = 1
+        
     }
     
     required init?(coder: NSCoder) {

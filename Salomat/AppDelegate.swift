@@ -8,6 +8,7 @@
 import UIKit
 import CoreData
 import SwiftKeychainWrapper
+import FirebaseCore
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let tab = MainTabBarViewController()
             self.window?.rootViewController = tab
             self.window?.makeKeyAndVisible()
-          
+        FirebaseApp.configure()
         return true
     }
     

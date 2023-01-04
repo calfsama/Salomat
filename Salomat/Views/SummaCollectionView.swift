@@ -8,7 +8,8 @@
 import UIKit
 
 class SummaCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
-
+    var price: String = ""
+    
     init() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -33,7 +34,7 @@ extension SummaCollectionView: UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = dequeueReusableCell(withReuseIdentifier: SummaCollectionViewCell.identifier, for: indexPath) as! SummaCollectionViewCell
         cell.total.text = "Общая сумма"
-        cell.totalCount.text = "109 сомон"
+        cell.totalCount.text = price + " сомон"
         return cell
     }
     

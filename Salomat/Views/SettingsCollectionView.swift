@@ -87,7 +87,7 @@ extension SettingsCollectionView: UICollectionViewDelegate, UICollectionViewData
             self.navigationController.pushViewController(vc, animated: true)
         }
         else if indexPath.row == 3 {
-            let vc = MyOrdersViewController()
+            let vc = Expanding()
             vc.title = "Мои заказы"
             self.navigationController.pushViewController(vc, animated: true)
         }

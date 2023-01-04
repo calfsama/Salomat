@@ -76,7 +76,7 @@ extension MedicineCollectionView: UICollectionViewDelegate, UICollectionViewData
         cell.id = productShow?.product?.id ?? ""
         let url = "http://slomat2.colibri.tj/upload_product/"
         let completeURL = url + (productShow?.product?.product_pic ?? "")
-        //cell.image.downloaded(from: completeURL)
+        cell.image.downloaded(from: completeURL)
         
         if productShow?.product?.is_favorite == true {
             cell.favorite.setImage(UIImage(named: "heart"), for: .normal)

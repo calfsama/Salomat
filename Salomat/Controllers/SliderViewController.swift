@@ -9,7 +9,11 @@ import UIKit
 
 class SliderViewController: UIViewController {
    var popularCondition: Bool = false
+   var collectionView = SearchCollectionView()
    var notPopularCondition: Bool = false
+   var searchProduct: String = ""
+   var network = NetworkService()
+   var controller = SearchProductViewController()
    
    
    lazy var uiview: UIView = {
@@ -75,7 +79,7 @@ class SliderViewController: UIViewController {
       button.setTitleColor(.white, for: .normal)
       button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .medium)
       button.layer.cornerRadius = 4
-      button.addTarget(self, action: #selector(hideView), for: .touchUpInside)
+      button.addTarget(self, action: #selector(search), for: .touchUpInside)
       button.translatesAutoresizingMaskIntoConstraints = false
       return button
    }()
@@ -143,7 +147,27 @@ class SliderViewController: UIViewController {
       ])
    }
    
-   @objc func hideView() {
+   @objc func search() {
+      let urlString = "http://slomat2.colibri.tj/search/with_price?srch_pr_inp=туба&min_price=\(self.slider.values.minimum)&max_price=\(self.slider.values.maximum)"
+      print(searchProduct)
+      print(self.slider.values.minimum)
+      print(self.slider.values.maximum)
+      let host = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+      self.network.search(urlString: host) { [weak self] (result) in
+          guard let self = self else {return}
+          switch result {
+          case .success(let response):
+             self.collectionView.search = response
+              print(result)
+             self.collectionView.reloadData()
+          case .failure(let error):
+              print("error", error)
+          }
+      }
+      hideView()
+   }
+   
+    func hideView() {
       print("Hide")
       self.dismiss(animated: true, completion: nil)
    }

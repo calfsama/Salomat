@@ -10,11 +10,13 @@ import UIKit
 class CategoriesForMainPageViewController: UIViewController {
     var network = NetworkService()
     var collectionView = CategoriesForMainPageTwoCollectionView()
+    var id: String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         fetchData()
+        collectionView.id = id
         configureConstraints()
     }
     

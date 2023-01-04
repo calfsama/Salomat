@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import KeychainAccess
 
 class Expanding: UIViewController {
     var expand = ExpandingCollectionView()
     var network = NetworkService()
+    let keychain = Keychain(service: "com.tomirisnegmatova.Salomat")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +32,7 @@ class Expanding: UIViewController {
     }
     
     func order(){
-        let urlString = "http://slomat2.colibri.tj/products/user_orders/112"
+        let urlString = "http://slomat2.colibri.tj/products/user_orders/\(keychain["UserID"] ?? "")"
         self.network.order(urlString: urlString) { [weak self] (result) in
             guard let self = self else {return}
             switch result {

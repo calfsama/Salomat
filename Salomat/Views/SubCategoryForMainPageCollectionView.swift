@@ -34,7 +34,7 @@ extension SubCategoryForMainPageCollectionView: UICollectionViewDelegate, UIColl
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = dequeueReusableCell(withReuseIdentifier: CategoriesForMainPageCollectionViewCell.identifier, for: indexPath) as! CategoriesForMainPageCollectionViewCell
         cell.category.text = category?.categories?[indexPath.row].sub_cat?[indexPath.row].category_name ?? ""
-        cell.button.setImage(UIImage(named: "arrow-right"), for: .normal)
+        cell.button.setImage(UIImage(named: "arrow"), for: .normal)
         return cell
     }
     
