@@ -16,6 +16,7 @@ class PasswordViewController: UIViewController {
     var userData: Token?
     var token: String = ""
     var userID: String = ""
+    var fcmToken: String = ""
     var appDelegate = AppDelegate()
     var condition: Bool = false
     
@@ -161,9 +162,11 @@ class PasswordViewController: UIViewController {
         var request = URLRequest(url: url)
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
+        let keychain = Keychain(service: "tj.info.Salomat")
         let parameters: [String: Any] = [
             "phone": "\(phone)",
-            "password": textField.text!
+            "password": textField.text!,
+            "oneSignalId": keychain["fcmToken"] ?? ""
         ]
         request.httpBody = parameters.percentEncoded()
         

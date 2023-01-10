@@ -202,18 +202,10 @@ class MainViewController: UIViewController {
         let imageView = UIImageView(image:logo)
         self.navigationItem.titleView = imageView
         self.navigationController?.navigationBar.tintColor = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
-
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "menu"), style: .plain, target: self, action: #selector(showCategories))
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Search"), style: .plain, target: self, action: #selector(searchContr))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Search"), style: .plain, target: self, action: #selector(searchContr))
     }
-    
-    @objc func expandTable() {
-        let vc = Expanding()
-        vc.title = "Мои заказы"
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
-    
+
     @objc func btnAction() {
         let vc = BlogListViewController()
         vc.title = "Блог"
@@ -434,8 +426,8 @@ class MainViewController: UIViewController {
             guard let self = self else {return}
             switch result {
             case .success(let response):
-                self.itemsCollectionView.isSkeletonable = true
-                self.itemsCollectionView.startSkeletonAnimation()
+                //self.itemsCollectionView.isSkeletonable = true
+                //self.itemsCollectionView.startSkeletonAnimation()
                 self.itemsCollectionView.product = response
 //                print(result)
                 self.itemsCollectionView.reloadData()

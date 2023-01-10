@@ -34,8 +34,6 @@
 		9725797228E7F96500712EEC /* ProfileInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9725797128E7F96500712EEC /* ProfileInfoViewController.swift */; };
 		972E34B1293FA4750010B2AE /* SubCategoryForMainPageCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972E34B0293FA4750010B2AE /* SubCategoryForMainPageCollectionView.swift */; };
 		972E34B32942010A0010B2AE /* TermsOfUseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972E34B22942010A0010B2AE /* TermsOfUseViewController.swift */; };
-		9735C37B295ACC59001F7695 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 9735C37A295ACC59001F7695 /* FirebaseMessaging */; };
-		9735C37D295ACE43001F7695 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9735C37C295ACE43001F7695 /* GoogleService-Info.plist */; };
 		973A0AC028C21F780068CF56 /* ItemsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973A0ABF28C21F780068CF56 /* ItemsCollectionView.swift */; };
 		973A0AE228D35D270068CF56 /* BannerMedicineCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973A0AE128D35D270068CF56 /* BannerMedicineCollectionView.swift */; };
 		973A0AE428D35D3F0068CF56 /* BannerMedicineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973A0AE328D35D3F0068CF56 /* BannerMedicineCollectionViewCell.swift */; };
@@ -67,6 +65,11 @@
 		9749495028EEFA5900793966 /* CategoriesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9749494F28EEFA5900793966 /* CategoriesCollectionView.swift */; };
 		97499270295C3C4700DC1CC0 /* SimilarProductsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9749926F295C3C4700DC1CC0 /* SimilarProductsCollectionView.swift */; };
 		97499272295DA54700DC1CC0 /* CategoriesProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97499271295DA54700DC1CC0 /* CategoriesProducts.swift */; };
+		9749927729682EAB00DC1CC0 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 9749927629682EAB00DC1CC0 /* FirebaseAnalytics */; };
+		9749927929682EAB00DC1CC0 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 9749927829682EAB00DC1CC0 /* FirebaseMessaging */; };
+		9749927B29682F0400DC1CC0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9749927A29682F0400DC1CC0 /* GoogleService-Info.plist */; };
+		9749928E296D5E1400DC1CC0 /* MainCategoriesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9749928D296D5E1400DC1CC0 /* MainCategoriesCollectionView.swift */; };
+		97499290296D609F00DC1CC0 /* MainCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9749928F296D609F00DC1CC0 /* MainCategoriesViewController.swift */; };
 		974C1E3728E4519B00A6D4BE /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974C1E3628E4519B00A6D4BE /* NetworkService.swift */; };
 		974C1E3B28E4676400A6D4BE /* ProdsOfTheDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974C1E3A28E4676400A6D4BE /* ProdsOfTheDay.swift */; };
 		974C1E4028E5A4F200A6D4BE /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974C1E3F28E5A4F200A6D4BE /* Categories.swift */; };
@@ -147,7 +150,6 @@
 		979C04A8290AA1D10020E203 /* ReceiptCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979C04A7290AA1D10020E203 /* ReceiptCollectionView.swift */; };
 		97BE27052907908B0071D143 /* Saerch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BE27042907908B0071D143 /* Saerch.swift */; };
 		97BE2707290791AF0071D143 /* SearchCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BE2706290791AF0071D143 /* SearchCollectionView.swift */; };
-		97C34F732915112F002F6F15 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C34F722915112F002F6F15 /* FilterViewController.swift */; };
 		97CC55C6290A7FAF001A2F70 /* MessangerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CC55C5290A7FAF001A2F70 /* MessangerCollectionViewCell.swift */; };
 		97CC55C8290A7FD8001A2F70 /* MessangerCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CC55C7290A7FD8001A2F70 /* MessangerCollectionView.swift */; };
 		97CC55CA290A98B1001A2F70 /* ChoosePhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CC55C9290A98B1001A2F70 /* ChoosePhotoCollectionViewCell.swift */; };
@@ -164,6 +166,19 @@
 		97FC0F4F2907B15D00C9418E /* Sales.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FC0F4E2907B15D00C9418E /* Sales.swift */; };
 		FCA6BE654F5C4BF385F9D315 /* Pods_Salomat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48418B0A105D2730593C0D6D /* Pods_Salomat.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		9749928C296D404100DC1CC0 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		15FAA929102E9B261396D18D /* Pods-Salomat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Salomat.release.xcconfig"; path = "Target Support Files/Pods-Salomat/Pods-Salomat.release.xcconfig"; sourceTree = "<group>"; };
@@ -195,7 +210,6 @@
 		9725797128E7F96500712EEC /* ProfileInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoViewController.swift; sourceTree = "<group>"; };
 		972E34B0293FA4750010B2AE /* SubCategoryForMainPageCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubCategoryForMainPageCollectionView.swift; sourceTree = "<group>"; };
 		972E34B22942010A0010B2AE /* TermsOfUseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfUseViewController.swift; sourceTree = "<group>"; };
-		9735C37C295ACE43001F7695 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		973A0ABF28C21F780068CF56 /* ItemsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsCollectionView.swift; sourceTree = "<group>"; };
 		973A0AE128D35D270068CF56 /* BannerMedicineCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerMedicineCollectionView.swift; sourceTree = "<group>"; };
 		973A0AE328D35D3F0068CF56 /* BannerMedicineCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerMedicineCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -227,6 +241,12 @@
 		9749494F28EEFA5900793966 /* CategoriesCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionView.swift; sourceTree = "<group>"; };
 		9749926F295C3C4700DC1CC0 /* SimilarProductsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarProductsCollectionView.swift; sourceTree = "<group>"; };
 		97499271295DA54700DC1CC0 /* CategoriesProducts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesProducts.swift; sourceTree = "<group>"; };
+		9749927A29682F0400DC1CC0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9749927C2968308200DC1CC0 /* Salomat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Salomat.entitlements; sourceTree = "<group>"; };
+		97499283296D404100DC1CC0 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		97499285296D404100DC1CC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9749928D296D5E1400DC1CC0 /* MainCategoriesCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCategoriesCollectionView.swift; sourceTree = "<group>"; };
+		9749928F296D609F00DC1CC0 /* MainCategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCategoriesViewController.swift; sourceTree = "<group>"; };
 		974C1E3628E4519B00A6D4BE /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		974C1E3A28E4676400A6D4BE /* ProdsOfTheDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProdsOfTheDay.swift; sourceTree = "<group>"; };
 		974C1E3F28E5A4F200A6D4BE /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
@@ -309,7 +329,6 @@
 		979C04A7290AA1D10020E203 /* ReceiptCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptCollectionView.swift; sourceTree = "<group>"; };
 		97BE27042907908B0071D143 /* Saerch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Saerch.swift; sourceTree = "<group>"; };
 		97BE2706290791AF0071D143 /* SearchCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCollectionView.swift; sourceTree = "<group>"; };
-		97C34F722915112F002F6F15 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		97CC55C5290A7FAF001A2F70 /* MessangerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessangerCollectionViewCell.swift; sourceTree = "<group>"; };
 		97CC55C7290A7FD8001A2F70 /* MessangerCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessangerCollectionView.swift; sourceTree = "<group>"; };
 		97CC55C9290A98B1001A2F70 /* ChoosePhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosePhotoCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -332,7 +351,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9735C37B295ACC59001F7695 /* FirebaseMessaging in Frameworks */,
+				9749927929682EAB00DC1CC0 /* FirebaseMessaging in Frameworks */,
+				9749927729682EAB00DC1CC0 /* FirebaseAnalytics in Frameworks */,
 				FCA6BE654F5C4BF385F9D315 /* Pods_Salomat.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -340,10 +360,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		97499282296D404100DC1CC0 /* OneSignalNotificationServiceExtension */ = {
+			isa = PBXGroup;
+			children = (
+				97499283296D404100DC1CC0 /* NotificationService.swift */,
+				97499285296D404100DC1CC0 /* Info.plist */,
+			);
+			path = OneSignalNotificationServiceExtension;
+			sourceTree = "<group>";
+		};
 		978973A928C0905200C395C8 = {
 			isa = PBXGroup;
 			children = (
 				978973B428C0905200C395C8 /* Salomat */,
+				97499282296D404100DC1CC0 /* OneSignalNotificationServiceExtension */,
 				978973B328C0905200C395C8 /* Products */,
 				C30B373F97F896496F886C30 /* Pods */,
 				D572D38967AA37957A718183 /* Frameworks */,
@@ -361,6 +391,7 @@
 		978973B428C0905200C395C8 /* Salomat */ = {
 			isa = PBXGroup;
 			children = (
+				9749927C2968308200DC1CC0 /* Salomat.entitlements */,
 				978973D528C0974500C395C8 /* Models */,
 				978973D428C0973B00C395C8 /* Views */,
 				978973C928C0966400C395C8 /* Controllers */,
@@ -370,7 +401,7 @@
 				978973BE28C0905400C395C8 /* Assets.xcassets */,
 				978973C028C0905400C395C8 /* LaunchScreen.storyboard */,
 				978973C328C0905400C395C8 /* Info.plist */,
-				9735C37C295ACE43001F7695 /* GoogleService-Info.plist */,
+				9749927A29682F0400DC1CC0 /* GoogleService-Info.plist */,
 				97604F4C28FC231100B44A5C /* Favorites.xcdatamodeld */,
 				978B0C652915174900F88B0F /* ViewProgrammatically.swift */,
 			);
@@ -380,6 +411,7 @@
 		978973C928C0966400C395C8 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				9749928F296D609F00DC1CC0 /* MainCategoriesViewController.swift */,
 				9749494B28EEFA1300793966 /* CategoriesViewController.swift */,
 				978973CA28C0968C00C395C8 /* MainViewController.swift */,
 				978973CC28C096AA00C395C8 /* FavoritesViewController.swift */,
@@ -408,7 +440,6 @@
 				970B06FE28F9190900C57763 /* InfoAboutDeliveryTwoViewController.swift */,
 				9723BCAC2903A41C00B65237 /* BlackViewController.swift */,
 				974EFCBB29070B64006FBE49 /* CategoriesForMainPageViewController.swift */,
-				97C34F722915112F002F6F15 /* FilterViewController.swift */,
 				978B0C672915197700F88B0F /* SliderViewController.swift */,
 				9796F254292BE982006DCB55 /* SubCategoryViewController.swift */,
 				9796F256292BF974006DCB55 /* NewViewController.swift */,
@@ -505,6 +536,7 @@
 				97E9586B2954521500A90D98 /* ExpandingCollectionView.swift */,
 				97E9586D2954532B00A90D98 /* ExpandingCollectionViewCell.swift */,
 				9749926F295C3C4700DC1CC0 /* SimilarProductsCollectionView.swift */,
+				9749928D296D5E1400DC1CC0 /* MainCategoriesCollectionView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -573,6 +605,7 @@
 				978973AF28C0905200C395C8 /* Frameworks */,
 				978973B028C0905200C395C8 /* Resources */,
 				0D1830032E137407E33ECCB4 /* [CP] Embed Pods Frameworks */,
+				9749928C296D404100DC1CC0 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -580,7 +613,8 @@
 			);
 			name = Salomat;
 			packageProductDependencies = (
-				9735C37A295ACC59001F7695 /* FirebaseMessaging */,
+				9749927629682EAB00DC1CC0 /* FirebaseAnalytics */,
+				9749927829682EAB00DC1CC0 /* FirebaseMessaging */,
 			);
 			productName = Salomat;
 			productReference = 978973B228C0905200C395C8 /* Salomat.app */;
@@ -593,7 +627,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1340;
+				LastSwiftUpdateCheck = 1420;
 				LastUpgradeCheck = 1340;
 				TargetAttributes = {
 					978973B128C0905200C395C8 = {
@@ -611,7 +645,7 @@
 			);
 			mainGroup = 978973A928C0905200C395C8;
 			packageReferences = (
-				9735C379295ACC59001F7695 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				9749927529682EAB00DC1CC0 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 978973B328C0905200C395C8 /* Products */;
 			projectDirPath = "";
@@ -628,7 +662,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				978973C228C0905400C395C8 /* LaunchScreen.storyboard in Resources */,
-				9735C37D295ACE43001F7695 /* GoogleService-Info.plist in Resources */,
+				9749927B29682F0400DC1CC0 /* GoogleService-Info.plist in Resources */,
 				978973BF28C0905400C395C8 /* Assets.xcassets in Resources */,
 				978973BD28C0905200C395C8 /* Main.storyboard in Resources */,
 			);
@@ -699,6 +733,7 @@
 				9794790C291CB92D00C3BC77 /* ApiService.swift in Sources */,
 				979C04A8290AA1D10020E203 /* ReceiptCollectionView.swift in Sources */,
 				978B0C662915174900F88B0F /* ViewProgrammatically.swift in Sources */,
+				97499290296D609F00DC1CC0 /* MainCategoriesViewController.swift in Sources */,
 				9796F25B292CD268006DCB55 /* NotificationCollectionViewCell.swift in Sources */,
 				9749493728E8037100793966 /* InfoCollectionView.swift in Sources */,
 				970053262913DCF0001C40FE /* CheckPhone.swift in Sources */,
@@ -770,6 +805,7 @@
 				975EE18D29506904002ECA9C /* Order.swift in Sources */,
 				9796F263292CF6E8006DCB55 /* TestTwoViewController.swift in Sources */,
 				970B070928F96FA300C57763 /* SummaCollectionViewCell.swift in Sources */,
+				9749928E296D5E1400DC1CC0 /* MainCategoriesCollectionView.swift in Sources */,
 				978B0C6A29151BFA00F88B0F /* DoubledSlider.swift in Sources */,
 				9747484929339B8900903A7A /* ChoosePhotoCollectionReusableView.swift in Sources */,
 				97604F5A28FD546000B44A5C /* DataModel+CoreDataProperties.swift in Sources */,
@@ -824,7 +860,6 @@
 				9723BCAF2906ED0100B65237 /* CategoriesForMainPageCollectionViewCell.swift in Sources */,
 				970B065C28F023F200C57763 /* ProductsShow.swift in Sources */,
 				974EFCBA290709A8006FBE49 /* CategoriesForMainPageTwoCollectionView.swift in Sources */,
-				97C34F732915112F002F6F15 /* FilterViewController.swift in Sources */,
 				974748472933925400903A7A /* TestReceiptViewController.swift in Sources */,
 				974C1E3728E4519B00A6D4BE /* NetworkService.swift in Sources */,
 				978973D328C096FB00C395C8 /* ProfileViewController.swift in Sources */,
@@ -978,11 +1013,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EB21A7B50542FD6E6A5FDC10 /* Pods-Salomat.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Salomat/Salomat.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = WT8XRJ7QG4;
+				DEVELOPMENT_TEAM = 438XJUTS37;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Salomat/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -990,14 +1028,16 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tomirisnegmatova.Salomat;
+				PRODUCT_BUNDLE_IDENTIFIER = tj.info.Salomat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1008,11 +1048,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 15FAA929102E9B261396D18D /* Pods-Salomat.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Salomat/Salomat.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = WT8XRJ7QG4;
+				DEVELOPMENT_TEAM = 438XJUTS37;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Salomat/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1020,14 +1063,16 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tomirisnegmatova.Salomat;
+				PRODUCT_BUNDLE_IDENTIFIER = tj.info.Salomat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1058,7 +1103,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		9735C379295ACC59001F7695 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		9749927529682EAB00DC1CC0 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
 			requirement = {
@@ -1069,9 +1114,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		9735C37A295ACC59001F7695 /* FirebaseMessaging */ = {
+		9749927629682EAB00DC1CC0 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 9735C379295ACC59001F7695 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 9749927529682EAB00DC1CC0 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		9749927829682EAB00DC1CC0 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9749927529682EAB00DC1CC0 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
 		};
 /* End XCSwiftPackageProductDependency section */

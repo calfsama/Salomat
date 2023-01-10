@@ -73,13 +73,6 @@ extension CategoriesForMainPageCollectionView: UICollectionViewDelegate, UIColle
             let url = "http://slomat2.colibri.tj/img/icons/"
             let completeURL = url + (category?.categories?[indexPath.row].icon ?? "pills.svg")
             cell.icon.downloaded(from: completeURL)
-            
-//            if condition == true {
-//                cell.arrowButton.setImage(UIImage(named: "Vector"), for: .normal)
-//            }
-//            else if condition == false {
-//                cell.arrowButton.setImage(UIImage(named: "arrow-right"), for: .normal)
-//            }
         }
         else if indexPath.row > 0{
             //cell.id.text = order?[indexPath.section].products[indexPath.row - 1].id ?? ""
@@ -121,7 +114,11 @@ extension CategoriesForMainPageCollectionView: UICollectionViewDelegate, UIColle
             
         }
         else {
-            print("error")
+            print("error", category?.categories?[indexPath.section].sub_cat?[indexPath.row - 1].id ?? "")
+            let vc = MainCategoriesViewController()
+            vc.id = category?.categories?[indexPath.section].sub_cat?[indexPath.row - 1].id ?? ""
+            vc.title = category?.categories?[indexPath.section].sub_cat?[indexPath.row - 1].category_name ?? ""
+            self.navigationController.pushViewController(vc, animated: true)
         }
     }
 }

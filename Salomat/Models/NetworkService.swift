@@ -362,4 +362,30 @@ class NetworkService {
             }
         }.resume()
     }
+    
+    func mainCategories(urlString: String, completion: @escaping(Result<CategoriesProducts, Error>) -> Void) {
+    
+        
+        guard let url = URL(string: urlString) else {return}
+        var request = URLRequest(url: url)
+        URLSession.shared.dataTask(with: request) {(data, response, error) in
+            print(url)
+            DispatchQueue.main.async {
+                if let error = error {
+                    print("Some error")
+                    completion(.failure(error))
+                    return
+                }
+                guard let data = data else {return}
+                do {
+                    let urlData = try JSONDecoder().decode(CategoriesProducts.self, from: data)
+                    //print(urlData)
+                    completion(.success(urlData))
+                }catch let jsonError {
+                    print("Failed to decode JSON", jsonError)
+                    completion(.failure(jsonError))
+                }
+            }
+        }.resume()
+    }
 }

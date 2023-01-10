@@ -31,7 +31,20 @@ class SearchCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout
 }
 extension SearchCollectionView: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return search?.products?.count ?? 0
+        var emptyLabel = UILabel(frame: CGRect(x: 0, y: 0, width: collectionView.bounds.size.width, height: collectionView.bounds.size.height))
+        if search?.products?.count == 0 {
+            emptyLabel.text = "Ничего не найдено"
+            emptyLabel.textColor = .gray
+            emptyLabel.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+            emptyLabel.textAlignment = NSTextAlignment.center
+            collectionView.backgroundView = emptyLabel
+            //collectionView.separatorStyle = .none
+            return 0
+        }
+        else {
+            emptyLabel.text = ""
+            return search?.products?.count ?? 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

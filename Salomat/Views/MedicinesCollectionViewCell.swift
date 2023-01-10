@@ -98,6 +98,9 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
         contentView.layer.borderWidth = 1
         contentView.layer.cornerRadius = 10
         contentView.isSkeletonable = true
+        //self.isSkeletonable = true
+        image.isSkeletonable = true
+        title.isSkeletonable = true
         contentView.startSkeletonAnimation()
     }
     

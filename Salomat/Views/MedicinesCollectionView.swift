@@ -26,6 +26,8 @@ class MedicinesCollectionView: UICollectionView, UICollectionViewDelegateFlowLay
         contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         showsHorizontalScrollIndicator = false
         backgroundColor = .white
+//        isSkeletonable = true
+//        self.startSkeletonAnimation()
     }
     
     required init?(coder: NSCoder) {

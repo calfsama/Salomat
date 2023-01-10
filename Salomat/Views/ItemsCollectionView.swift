@@ -48,8 +48,6 @@ class ItemsCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout 
         contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         showsHorizontalScrollIndicator = false
         backgroundColor = .white
-        self.isSkeletonable = true
-        self.startSkeletonAnimation()
     }
     
     required init?(coder: NSCoder) {
@@ -103,6 +101,7 @@ extension ItemsCollectionView: UICollectionViewDelegate, SkeletonCollectionViewD
         cell.price.text = (data?.product_price)! + " сом."
         cell.is_favorite = ((data?.is_favorite) != nil)
         cell.id = data?.id ?? ""
+        cell.hideSkeleton()
         return cell
     }
     

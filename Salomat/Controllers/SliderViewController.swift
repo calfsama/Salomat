@@ -15,6 +15,7 @@ class SliderViewController: UIViewController {
    var network = NetworkService()
    var controller = SearchProductViewController()
    
+   // Создание объектов
    
    lazy var uiview: UIView = {
       let uiview = UIView()
@@ -96,6 +97,7 @@ class SliderViewController: UIViewController {
        slider.translatesAutoresizingMaskIntoConstraints = false
     }
    
+   // Констрейнты
    func configureConstraints() {
       view.addSubview(uiview)
       view.addSubview(price)
@@ -147,6 +149,7 @@ class SliderViewController: UIViewController {
       ])
    }
    
+   // Запрос по поиску препаратов по цене
    @objc func search() {
       let urlString = "http://slomat2.colibri.tj/search/with_price?srch_pr_inp=туба&min_price=\(self.slider.values.minimum)&max_price=\(self.slider.values.maximum)"
       print(searchProduct)
@@ -177,6 +180,7 @@ class SliderViewController: UIViewController {
         print(self.slider.values.maximum)
     }
    
+   //Выбор препаратов по рейнтигу
    @objc func actionForPopularButton() {
       if popularCondition == false {
          popularCondition = true
