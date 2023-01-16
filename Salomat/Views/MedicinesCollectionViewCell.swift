@@ -97,11 +97,6 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
         contentView.layer.borderColor = UIColor(red: 0.929, green: 0.93, blue: 1, alpha: 1).cgColor
         contentView.layer.borderWidth = 1
         contentView.layer.cornerRadius = 10
-        contentView.isSkeletonable = true
-        //self.isSkeletonable = true
-        image.isSkeletonable = true
-        title.isSkeletonable = true
-        contentView.startSkeletonAnimation()
     }
     
     func configureConstraints() {

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class MedicinalProductsCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
     var navigationController: UINavigationController
@@ -43,8 +44,9 @@ extension MedicinalProductsCollectionView: UICollectionViewDelegate, UICollectio
         cell.price.text = (categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].product_price)! + " сом."
         let url = "http://slomat2.colibri.tj/upload_product/"
         let completeURL = url + (categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].product_pic ?? "")
-        cell.image.downloaded(from: completeURL)
-        cell.image.image = UIImage(named: "123")
+        
+        cell.image.kf.indicatorType = .activity
+        cell.image.kf.setImage(with: URL(string: completeURL))
         if favorites?[indexPath.row].id == categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].id {
             cell.button.setImage(UIImage(named: "heart"), for: .normal)
         }
@@ -56,8 +58,6 @@ extension MedicinalProductsCollectionView: UICollectionViewDelegate, UICollectio
         cell.images = categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].product_pic ?? ""
         cell.is_favorite = ((categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].is_favorite) != nil)
         cell.id = categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].id ?? ""
-        cell.hideSkeleton()
-        cell.stopSkeletonAnimation()
         return cell
     }
     

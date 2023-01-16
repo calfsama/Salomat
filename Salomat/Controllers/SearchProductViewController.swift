@@ -47,7 +47,12 @@ class SearchProductViewController: UIViewController {
         setup()
         setuoLogo()
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "filtt"), style: .plain, target: self, action: #selector(filter))
+        NotificationCenter.default.addObserver(self, selector: #selector(loadList), name:NSNotification.Name(rawValue: "load"), object: nil)
      
+    }
+    
+    @objc func loadList(notification: NSNotification){
+        self.collectionView.reloadData()
     }
     
     // Вставка логотипа

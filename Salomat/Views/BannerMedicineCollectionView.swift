@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class BannerMedicineCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
     var navigationController: UINavigationController
@@ -40,8 +41,8 @@ extension BannerMedicineCollectionView: UICollectionViewDelegate, UICollectionVi
         if ((banner?.categories_for_main_page?[1]) != nil) {
             let url = "http://slomat2.colibri.tj/upload_banner/"
             let completeURL = url + (banner?.categories_for_main_page?[0].categ_slider?[indexPath.row].slider_pic ?? "")
-            cell.image.downloaded(from: completeURL)
-            cell.image.image = UIImage(named: "1")
+            cell.image.kf.indicatorType = .activity
+            cell.image.kf.setImage(with: URL(string: completeURL))
         }
         return cell
     }

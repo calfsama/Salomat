@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class BADCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
     var navigationController: UINavigationController
@@ -43,8 +44,8 @@ extension BADCollectionView: UICollectionViewDelegate, UICollectionViewDataSourc
         cell.price.text = (vitamin?.categories_for_main_page?[1].categ_prods?[indexPath.row].product_price)! + " сом."
         let url = "http://slomat2.colibri.tj/upload_product/"
         let completeURL = url + (vitamin?.categories_for_main_page?[1].categ_prods?[indexPath.row].product_pic ?? "")
-        cell.image.downloaded(from: completeURL)
-        cell.image.image = UIImage(named: "123")
+        cell.image.kf.indicatorType = .activity
+        cell.image.kf.setImage(with: URL(string: completeURL))
         if vitamin?.categories_for_main_page?[1].categ_prods?[indexPath.row].is_favorite == false {
             cell.button.setImage(UIImage(named: "favorite"), for: .normal)
             }

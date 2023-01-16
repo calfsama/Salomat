@@ -12,6 +12,10 @@ class MainViewController: UIViewController {
     var text: String = ""
     var url: String = ""
     var medicinesCell = MedicinesCollectionViewCell()
+    var timer = Timer()
+    var banners: MainSliders?
+    var counter = 0
+    var banner = [Banners]()
     
     
     lazy var uiscrollView: UIScrollView = {
@@ -184,11 +188,6 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        fetchFromApi()
-        fetchData()
-        fetchBlogData()
-        fetchVitemin()
-        fetchBanner()
         categoryCollectionView = CategoryCollectionView(nav: self.navigationController!)
         blogCollectionView = BlogCollectionView(nav: self.navigationController!)
         itemsCollectionView = ItemsCollectionView(nav: self.navigationController!)
@@ -196,14 +195,43 @@ class MainViewController: UIViewController {
         medicinalProductsCollectionView = MedicinalProductsCollectionView(nav: self.navigationController!)
         vitaminCollectionView = VitaminCollectionView(nav: self.navigationController!)
         badsCollectionView = BADCollectionView(nav: self.navigationController!)
-        configureConstraints()
         categoryCollectionView.set(cells: Categories.items())
+        bannersCollectionView.set(cells: Banners.items())
+        configureConstraints()
+        fetchFromApi()
+        fetchData()
+        fetchBlogData()
+        fetchVitemin()
+        fetchBanner()
+        DispatchQueue.main.async {
+            self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.changeImage), userInfo: nil, repeats: true)
+        }
+       
+    
         let logo = UIImage(named: "logo 2")
         let imageView = UIImageView(image:logo)
         self.navigationItem.titleView = imageView
         self.navigationController?.navigationBar.tintColor = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "menu"), style: .plain, target: self, action: #selector(showCategories))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Search"), style: .plain, target: self, action: #selector(searchContr))
+    }
+    
+    @objc func changeImage() {
+        
+        if counter < banner.count {
+            let index = IndexPath.init(item: counter, section: 0)
+            self.bannersCollectionView.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
+            counter += 1
+            print("changed")
+        }
+        else {
+            counter = 0
+            let index = IndexPath.init(item: counter, section: 0)
+            self.bannersCollectionView.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
+            counter = 1
+            print("didn't change")
+        }
+     
     }
 
     @objc func btnAction() {
@@ -426,8 +454,8 @@ class MainViewController: UIViewController {
             guard let self = self else {return}
             switch result {
             case .success(let response):
-                //self.itemsCollectionView.isSkeletonable = true
-                //self.itemsCollectionView.startSkeletonAnimation()
+                self.itemsCollectionView.isSkeletonable = true
+                self.itemsCollectionView.startSkeletonAnimation()
                 self.itemsCollectionView.product = response
 //                print(result)
                 self.itemsCollectionView.reloadData()
@@ -495,7 +523,9 @@ class MainViewController: UIViewController {
             case .success(let response):
                 self.bannersCollectionView.banners = response
 //                print(result)
+                self.banners = response
                 self.bannersCollectionView.reloadData()
+           
             case .failure(let error):
                 print("error", error)
             }

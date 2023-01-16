@@ -7,6 +7,7 @@
 
 import UIKit
 import SkeletonView
+import Kingfisher
 
 extension UIImageView {
     func downloaded(from url: URL, contentMode mode: ContentMode = .scaleToFill) {
@@ -57,7 +58,7 @@ class ItemsCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout 
 extension ItemsCollectionView: UICollectionViewDelegate, SkeletonCollectionViewDataSource {
     
     func collectionSkeletonView(_ skeletonView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return product?.prods_of_the_day?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -80,8 +81,10 @@ extension ItemsCollectionView: UICollectionViewDelegate, SkeletonCollectionViewD
         cell.title.text = data?.product_name ?? ""
         let url = "http://slomat2.colibri.tj/upload_product/"
         let completeURL = url + (data?.product_pic ?? "")
-        cell.image.downloaded(from: completeURL)
-        cell.image.image = UIImage(named: "123")
+       // cell.image.downloaded(from: completeURL)
+        cell.image.kf.indicatorType = .activity
+        cell.image.kf.setImage(with: URL(string: completeURL))
+        //cell.image.image = UIImage(named: "123")
         if data?.is_favorite == true {
             cell.button.setImage(UIImage(named: "heart"), for: .normal)
         }

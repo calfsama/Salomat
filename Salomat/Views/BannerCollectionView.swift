@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import Kingfisher
 
 class BannerCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
-   // var banners = [Banners]()
+    var banner = [Banners]()
     var banners: MainSliders?
     
     init() {
@@ -20,13 +21,15 @@ class BannerCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout
         dataSource = self
         showsHorizontalScrollIndicator = false
         translatesAutoresizingMaskIntoConstraints = false
-        layout.minimumLineSpacing = 16
+        //layout.minimumLineSpacing = 16
         backgroundColor = .white
         contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        isPagingEnabled = true
+        
     }
-//    func set(cells: [Banners]) {
-//        self.banners = cells
-//    }
+    func set(cells: [Banners]) {
+        self.banner = cells
+    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -34,7 +37,7 @@ class BannerCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout
 }
 extension BannerCollectionView: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return banners?.main_slider?.count ?? 0
+        return banner.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -42,13 +45,14 @@ extension BannerCollectionView: UICollectionViewDelegate, UICollectionViewDataSo
         let url = "http://slomat2.colibri.tj/upload_banner/"
         let completeURL = url + (banners?.main_slider?[indexPath.row].slider_pic ?? "")
         //cell.image.downloaded(from: completeURL)
-        cell.image.image = UIImage(named: "1")
-        UIView.transition(with: cell.image,
-                          duration: 0.3,
-                          options: .transitionCrossDissolve,
-                          animations: { cell.image.downloaded(from: completeURL) },
-                          completion: nil)
-        //cell.image.image = banners[indexPath.row].image
+//        cell.image.kf.indicatorType = .activity
+//        cell.image.kf.setImage(with: URL(string: completeURL))
+//        UIView.transition(with: cell.image,
+//                          duration: 0.3,
+//                          options: .transitionCrossDissolve,
+//                          animations: { cell.image.downloaded(from: completeURL) },
+//                          completion: nil)
+        cell.image.image = banner[indexPath.row].image
         return cell
     }
     

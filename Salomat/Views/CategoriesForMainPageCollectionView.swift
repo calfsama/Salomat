@@ -6,12 +6,15 @@
 //
 
 import UIKit
+import Kingfisher
+
 
 class CategoriesForMainPageCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
     var selectedIndex: IndexPath?
     var navigationController: UINavigationController
     var category: Category?
     var condition: Bool = false
+    var isExpanded = [Bool]()
     
     init(nav: UIViewController) {
         let layout = UICollectionViewFlowLayout()
@@ -23,6 +26,7 @@ class CategoriesForMainPageCollectionView: UICollectionView, UICollectionViewDel
         dataSource = self
         showsVerticalScrollIndicator = false
         translatesAutoresizingMaskIntoConstraints = false
+        isExpanded = Array(repeating: false, count: category?.categories?.count ?? 0)
         backgroundColor = .white
     }
     
@@ -71,14 +75,30 @@ extension CategoriesForMainPageCollectionView: UICollectionViewDelegate, UIColle
             cell.category.font = UIFont.systemFont(ofSize: 16, weight: .bold)
             cell.category.text = category?.categories?[indexPath.section].category_name ?? ""
             let url = "http://slomat2.colibri.tj/img/icons/"
-            let completeURL = url + (category?.categories?[indexPath.row].icon ?? "pills.svg")
-            cell.icon.downloaded(from: completeURL)
+            let completeURL = url + (category?.categories?[indexPath.row].icon ?? "")
+            //cell.icon.downloaded(from: completeURL)
+            let svgUrl = URL(string: "http://slomat2.colibri.tj/img/icons/\(category?.categories?[indexPath.row].icon ?? "")")!
+                   let processor = SVGProcessor(size: CGSize(width: 240, height: 43))
+            cell.icon.kf.setImage(with: URL(string: completeURL), options: [.processor(processor)])
+                //imageView.kf.setImage(with: imURL, options: [.processor(SVGImgProcessor())])
+//                   KingfisherManager.shared.retrieveImage(with: svgUrl, options: [.processor(processor), .forceRefresh]) {  result in
+//                           switch (result){
+//                               case .success(let value):
+//                                   cell.icon.image = value.image
+//                               case .failure(let error):
+//                                   print("error", error.localizedDescription)
+//                           }
+//                   }
+
+           // cell.icon.kf.setImage(with: URL(string: completeURL ))
+            
         }
         else if indexPath.row > 0{
             //cell.id.text = order?[indexPath.section].products[indexPath.row - 1].id ?? ""
             cell.category.textColor = UIColor(red: 0.22, green: 0.208, blue: 0.325, alpha: 1)
             cell.category.font = UIFont.systemFont(ofSize: 14, weight: .regular)
             cell.category.text = category?.categories?[indexPath.section].sub_cat?[indexPath.row - 1].category_name ?? ""
+            cell.icon.image = UIImage(named: "")
         }
         return cell
     }

@@ -80,7 +80,7 @@ class SliderViewController: UIViewController {
       button.setTitleColor(.white, for: .normal)
       button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .medium)
       button.layer.cornerRadius = 4
-      button.addTarget(self, action: #selector(search), for: .touchUpInside)
+    
       button.translatesAutoresizingMaskIntoConstraints = false
       return button
    }()
@@ -96,6 +96,11 @@ class SliderViewController: UIViewController {
        slider.addTarget(self, action: #selector(self.didChangeSliderValue), for: .valueChanged)
        slider.translatesAutoresizingMaskIntoConstraints = false
     }
+   
+   override func viewWillAppear(_ animated: Bool) {
+      super.viewWillAppear(animated)
+      showButton.addTarget(self, action: #selector(search), for: .touchUpInside)
+   }
    
    // Констрейнты
    func configureConstraints() {
@@ -160,9 +165,13 @@ class SliderViewController: UIViewController {
           guard let self = self else {return}
           switch result {
           case .success(let response):
-             self.collectionView.search = response
-              print(result)
-             self.collectionView.reloadData()
+            // self.collectionView.search = response
+             self.controller.collectionView.search = response
+             //print(self.collectionView.search ?? "cooontroller")
+              //print(result)
+             self.controller.collectionView.reloadData()
+             //self.collectionView.reloadData()
+             print(self.controller.collectionView.search ?? "controller collection view", "kfnek")
           case .failure(let error):
               print("error", error)
           }

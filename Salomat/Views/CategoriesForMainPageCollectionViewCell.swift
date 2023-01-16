@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol ExpandedCellDelegate:NSObjectProtocol{
+    func topButtonTouched(indexPath:IndexPath)
+}
+
 class CategoriesForMainPageCollectionViewCell: UICollectionViewCell {
     static let identifier = "CategoriesForMainPageCollectionViewCell"
     

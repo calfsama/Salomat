@@ -3,10 +3,11 @@
 
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '11.0'
-use_frameworks!
 
 target 'Salomat' do
+use_frameworks!
   # Comment the next line if you don't want to use dynamic frameworks
+
 
 pod 'SkeletonView'
 pod 'MultiSlider'
@@ -17,6 +18,7 @@ pod 'Locksmith'
 pod 'SwiftKeychainWrapper'
 pod 'KeychainAccess'
 pod 'Alamofire'
+pod 'Kingfisher'
 end
 
 deployment_target = '11.0'

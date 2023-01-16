@@ -11,7 +11,12 @@ class RegisterViewController: UIViewController {
     
     var phone: String = ""
     var smsCode: String = ""
-
+    var startDate = Date()
+    var workoutState = false
+    var timer2 = Timer()
+    var minutes = 1
+    var seconds = 60
+    
     lazy var code: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(red: 0.478, green: 0.463, blue: 0.617, alpha: 1)
@@ -23,7 +28,7 @@ class RegisterViewController: UIViewController {
     
     lazy var textField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "_ _ _ _ "
+        textField.placeholder = "_ _ _ _"
         textField.font = UIFont.systemFont(ofSize: 25, weight: .semibold)
         textField.returnKeyType = .next
         textField.leftViewMode = .always
@@ -53,7 +58,7 @@ class RegisterViewController: UIViewController {
     
     lazy var timer: UILabel = {
         let label = UILabel()
-        label.text = "2:56"
+        label.text = "01:00"
         label.font = UIFont.systemFont(ofSize: 24, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -107,12 +112,28 @@ class RegisterViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
+    @objc func updateTime() {
+        if seconds > 0 {
+            seconds -= 1
+            var minutes = 0
+           // timer.text = "00:\(seconds)"
+            timer.text = String(format:"%02i:%02i", minutes, seconds)
+        }
+        else {
+            timer2.invalidate()
+            timer.text = "00:00"
+        }
+        
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         apiService()
         //sendCode()
+        //updateTime()
+        startTimer()
         configureConstraints()
         self.navigationController?.navigationBar.tintColor = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
         self.hideKeyboardWhenTappedAround()
@@ -123,7 +144,32 @@ class RegisterViewController: UIViewController {
         let navigationController = UINavigationController(rootViewController: vc)
         self.present(navigationController, animated: true)
     }
+    func updateTimerLabel() {
+        let interval = -Int(startDate.timeIntervalSinceNow)
+        let hours = interval / 3600
+        let minutes = interval / 60 % 60
+        let seconds = interval % 60
+
+        timer.text = String(format:"%02i:%02i:%02i", hours, minutes, seconds)
+
+    }
     
+    func startTimer() {
+        workoutState = true
+        _foregroundTimer(repeated: true)
+    }
+    
+    func _foregroundTimer(repeated: Bool) -> Void {
+         NSLog("_foregroundTimer invoked.");
+
+         //Define a Timer
+         self.timer2 = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true);
+         print("Starting timer")
+
+     }
+    @objc func timerAction(_ timer: Timer) {
+        updateTimerLabel()
+    }
     func configureConstraints() {
         view.addSubview(code)
         view.addSubview(textField)
