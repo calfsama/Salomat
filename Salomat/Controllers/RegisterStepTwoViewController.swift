@@ -66,7 +66,6 @@ class RegisterStepTwoViewController: UIViewController {
         return textField
     }()
     
-    
     lazy var cancel: UIButton = {
         let button = UIButton()
         button.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .medium)
@@ -170,7 +169,6 @@ class RegisterStepTwoViewController: UIViewController {
             repeatPasswordTextField.isSecureTextEntry = true
         }
     }
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -297,7 +295,7 @@ class RegisterStepTwoViewController: UIViewController {
                 let response = response as? HTTPURLResponse,
                 error == nil
                     
-            else {                                                                //check for fundamental networking error
+            else { //check for fundamental networking error
                 print("error", error ?? URLError(.badServerResponse))
                 return
             }
@@ -328,7 +326,7 @@ class RegisterStepTwoViewController: UIViewController {
             }
          
         
-            guard (200 ... 299) ~= response.statusCode else {                     //check for http errors
+            guard (200 ... 299) ~= response.statusCode else { //check for http errors
                 print("statusCode should be 2xx, but is \(response.statusCode)")
                 print("response = \(response)")
                 return

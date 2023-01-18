@@ -8,7 +8,6 @@
 import UIKit
 
 class TestTwoViewController: UIViewController {
-    
     var collection = MedicineInfoCollectionView()
     var reviewCollectionView = ReviewCollectionView()
     var review = ReviewCollectionReusableView()
@@ -31,7 +30,6 @@ class TestTwoViewController: UIViewController {
         collection.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 30).isActive = true
         collection.widthAnchor.constraint(equalToConstant: view.frame.size.width).isActive = true
         collection.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-       
     }
     
     func fetchBanner(){

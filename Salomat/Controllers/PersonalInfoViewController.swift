@@ -9,7 +9,6 @@ import UIKit
 import KeychainAccess
 
 class PersonalInfoViewController: UIViewController {
-    
     let dataArray = ["Женский", "Мужской"]
     let picker = UIPickerView()
     var datePicker = UIDatePicker()
@@ -20,7 +19,6 @@ class PersonalInfoViewController: UIViewController {
     var profile = ProfileInfoViewController()
     var alert: UIAlertController!
     let keychain = Keychain(service: "com.tomirisnegmatova.Salomat")
-   
     
     lazy var name: UILabel = {
         let label = UILabel()
@@ -191,7 +189,6 @@ class PersonalInfoViewController: UIViewController {
         userShow()
         configureConstraints()
         createDatePicker()
-       
     }
     
     func configureConstraints() {
@@ -326,7 +323,6 @@ class PersonalInfoViewController: UIViewController {
     func createDatePicker() {
         let toolBar = UIToolbar()
         toolBar.sizeToFit()
-        
         //bar button
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(donePressed))
         doneButton.tintColor = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
@@ -367,7 +363,6 @@ class PersonalInfoViewController: UIViewController {
             self.nameMatch.text = "Введите Ваше имя"
             self.addressMatch.text = "Введите Ваш адрес"
         }
-     
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let response = response {
@@ -378,7 +373,7 @@ class PersonalInfoViewController: UIViewController {
                 let response = response as? HTTPURLResponse,
                 error == nil
                     
-            else {                                                                //check for fundamental networking error
+            else { //check for fundamental networking error
                 print("error", error ?? URLError(.badServerResponse))
                 return
             }
@@ -406,6 +401,7 @@ class PersonalInfoViewController: UIViewController {
         }
         task.resume()
     }
+    
     func showAlert() {
         self.alert = UIAlertController(title: "", message: "Изменения сохранены", preferredStyle: UIAlertController.Style.alert)
         self.present(self.alert, animated: true, completion: nil)
@@ -421,7 +417,6 @@ class PersonalInfoViewController: UIViewController {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         formatter.timeStyle = .none
-        
         birthDateTextField.text = formatter.string(from: datePicker.date)
         self.view.endEditing(true)
     }
@@ -431,9 +426,11 @@ extension PersonalInfoViewController: UIPickerViewDelegate, UIPickerViewDataSour
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
        return 1
     }
+    
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
        return dataArray.count
     }
+    
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
        let row = dataArray[row]
        return row

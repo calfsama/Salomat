@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rCA-Zr-OI8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rCA-Zr-OI8">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -214,6 +214,42 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XKD-Ku-LVo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="156.92307692307691" y="1145.9715639810427"/>
+        </scene>
+        <!--Search Product View Controller-->
+        <scene sceneID="git-8Q-elU">
+            <objects>
+                <viewController id="fNh-nV-zwk" customClass="SearchProductViewController" customModule="Salomat" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7Vr-tR-xkm">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r1q-Xg-bKn">
+                                <rect key="frame" x="0.0" y="810" width="390" height="0.0"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" id="8yj-IS-S38"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="eya-Vw-Kxq"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="eya-Vw-Kxq" firstAttribute="bottom" secondItem="r1q-Xg-bKn" secondAttribute="bottom" id="NJy-vW-AH9"/>
+                            <constraint firstItem="eya-Vw-Kxq" firstAttribute="trailing" secondItem="r1q-Xg-bKn" secondAttribute="trailing" id="Ulh-EW-0vO"/>
+                            <constraint firstItem="r1q-Xg-bKn" firstAttribute="leading" secondItem="eya-Vw-Kxq" secondAttribute="leading" id="the-J3-JVD"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="bottomConstraint" destination="the-J3-JVD" id="liJ-uD-ZoV"/>
+                        <outlet property="bottomView" destination="r1q-Xg-bKn" id="3xB-Ez-SV8"/>
+                        <outlet property="heightConstraints" destination="8yj-IS-S38" id="0AY-Fa-bcq"/>
+                        <outlet property="leadingConstraints" destination="the-J3-JVD" id="yzn-fm-hZ5"/>
+                        <outlet property="traillingConstraints" destination="Ulh-EW-0vO" id="ehx-Sa-xAd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rxG-nk-Xfz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1235" y="1187"/>
         </scene>
         <!--Favorites View Controller-->
         <scene sceneID="gf1-fB-g2V">

@@ -8,7 +8,6 @@
 import UIKit
 
 class RegisterViewController: UIViewController {
-    
     var phone: String = ""
     var smsCode: String = ""
     var startDate = Date()
@@ -124,7 +123,6 @@ class RegisterViewController: UIViewController {
             timer2.invalidate()
             timer.text = "00:00"
         }
-        
     }
 
     override func viewDidLoad() {
@@ -144,12 +142,12 @@ class RegisterViewController: UIViewController {
         let navigationController = UINavigationController(rootViewController: vc)
         self.present(navigationController, animated: true)
     }
+    
     func updateTimerLabel() {
         let interval = -Int(startDate.timeIntervalSinceNow)
         let hours = interval / 3600
         let minutes = interval / 60 % 60
         let seconds = interval % 60
-
         timer.text = String(format:"%02i:%02i:%02i", hours, minutes, seconds)
 
     }
@@ -161,15 +159,16 @@ class RegisterViewController: UIViewController {
     
     func _foregroundTimer(repeated: Bool) -> Void {
          NSLog("_foregroundTimer invoked.");
-
          //Define a Timer
          self.timer2 = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true);
          print("Starting timer")
 
      }
+    
     @objc func timerAction(_ timer: Timer) {
         updateTimerLabel()
     }
+    
     func configureConstraints() {
         view.addSubview(code)
         view.addSubview(textField)
@@ -242,7 +241,7 @@ class RegisterViewController: UIViewController {
                 let response = response as? HTTPURLResponse,
                 error == nil
                     
-            else {                                                                //check for fundamental networking error
+            else {  //check for fundamental networking error
                 print("error", error ?? URLError(.badServerResponse))
                 return
             }
@@ -285,7 +284,7 @@ class RegisterViewController: UIViewController {
                 let response = response as? HTTPURLResponse,
                 error == nil
                     
-            else {                                                                //check for fundamental networking error
+            else { //check for fundamental networking error
                 print("error", error ?? URLError(.badServerResponse))
                 return
             }
@@ -313,7 +312,7 @@ class RegisterViewController: UIViewController {
             }
          
         
-            guard (200 ... 299) ~= response.statusCode else {                     //check for http errors
+            guard (200 ... 299) ~= response.statusCode else { //check for http errors
                 print("statusCode should be 2xx, but is \(response.statusCode)")
                 print("response = \(response)")
                 return
@@ -330,18 +329,14 @@ class RegisterViewController: UIViewController {
         ApiService.callPost(url: url, params: parameters, finish: finishPost)
     }
     
-    func finishPost (message:String, data:Data?) -> Void
-    {
-        do
-        {
-            if let jsonData = data
-            {
+    func finishPost (message:String, data:Data?) -> Void {
+        do {
+            if let jsonData = data {
                 let parsedData = try JSONDecoder().decode(Login.self, from: jsonData)
                 print(parsedData)
             }
         }
-        catch
-        {
+        catch {
             print("Parse Error: \(error)")
         }
     }

@@ -130,7 +130,6 @@ class NotificationsViewController: UIViewController {
         ])
     }
     
-    
     func congifureScroll() {
         view.addSubview(newsScroll)
         newsScroll.addSubview(notificationButton)
@@ -166,7 +165,5 @@ class NotificationsViewController: UIViewController {
     @objc func changeScroll2() {
         configure()
     }
-    
     // upload image in API
-    
 }

@@ -29,8 +29,8 @@ class MedicineViewController: UIViewController, UIScrollViewDelegate {
         configureConstraints()
         self.navigationController?.navigationBar.tintColor = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
         if let flowLayout = medicineCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-             flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-           }
+            flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        }
     }
     
     func configureConstraints() {
@@ -44,6 +44,7 @@ class MedicineViewController: UIViewController, UIScrollViewDelegate {
 
         ])
     }
+    
     func fetchBanner(){
         let urlString = "http://slomat2.colibri.tj/products/show?product_id=\(id)"
         self.network.productShow(urlString: urlString) { [weak self] (result) in
@@ -51,7 +52,6 @@ class MedicineViewController: UIViewController, UIScrollViewDelegate {
             switch result {
             case .success(let response):
                 self.medicineCollectionView.productShow = response
-//                print(result)
                 self.similar_products.id = self.id
                 self.review.productShow = response
                 self.medicineCollectionView.reloadData()

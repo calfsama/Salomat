@@ -109,7 +109,6 @@ class SafetyViewController: UIViewController {
         configureConstraints()
     }
     
-    
     func configureConstraints() {
         view.addSubview(password)
         view.addSubview(passwordTextField)
@@ -230,7 +229,7 @@ class SafetyViewController: UIViewController {
                 let response = response as? HTTPURLResponse,
                 error == nil
                     
-            else {                                                                //check for fundamental networking error
+            else { //check for fundamental networking error
                 print("error", error ?? URLError(.badServerResponse))
                 return
             }

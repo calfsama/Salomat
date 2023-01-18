@@ -11,10 +11,6 @@ import CoreData
 class FavoritesViewController: UIViewController {
     var network = NetworkService()
     var favoriteCollectionView: FavoriteCollectionView!
-    var cell = MedicineCollectionViewCell()
-    var data = [DataModel]()
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +22,6 @@ class FavoritesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         favorites()
-        //loadArticles()
     }
     
     func configureConstraints() {
@@ -38,17 +33,6 @@ class FavoritesViewController: UIViewController {
         ])
     }
     
-    func loadArticles() {
-        let request: NSFetchRequest <DataModel> = DataModel.fetchRequest()
-        do {
-            data = try context.fetch(request)
-            favoriteCollectionView.data = data
-            favoriteCollectionView.reloadData()
-        }catch {
-            print("Error fetching data from context \(error)")
-        }
-    }
-    
     func favorites(){
         let urlString = "http://slomat2.colibri.tj/favorites?user_id=15"
         self.network.favorites(urlString: urlString) { [weak self] (result) in
@@ -56,7 +40,6 @@ class FavoritesViewController: UIViewController {
             switch result {
             case .success(let response):
                 self.favoriteCollectionView.favorites = response
-//                print(result)
                 self.favoriteCollectionView.reloadData()
                 self.favoriteCollectionView.indicator.stopAnimating()
             case .failure(let error):
@@ -64,5 +47,4 @@ class FavoritesViewController: UIViewController {
             }
         }
     }
-    
 }

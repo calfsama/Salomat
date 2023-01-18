@@ -66,7 +66,6 @@ class RecoveryPasswordStepThreeViewController: UIViewController {
         return textField
     }()
     
-    
     lazy var cancel: UIButton = {
         let button = UIButton()
         button.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .medium)

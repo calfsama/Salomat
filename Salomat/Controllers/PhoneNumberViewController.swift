@@ -93,6 +93,7 @@ class PhoneNumberViewController: UIViewController {
             button.heightAnchor.constraint(equalToConstant: 45)
         ])
     }
+    
     func userShow() {
         guard let url = URL(string: "http://slomat2.colibri.tj/users/show/\(keychain["UserID"] ?? "")") else { return }
         var request = URLRequest(url: url)
@@ -163,7 +164,7 @@ class PhoneNumberViewController: UIViewController {
                 let response = response as? HTTPURLResponse,
                 error == nil
                     
-            else {                                                                //check for fundamental networking error
+            else { //check for fundamental networking error
                 print("error", error ?? URLError(.badServerResponse))
                 return
             }

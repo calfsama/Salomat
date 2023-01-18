@@ -8,7 +8,6 @@
 import UIKit
 
 class MyOrdersViewController: UIViewController {
-    
     var collectionView = MyOrdersCollectionView()
 
     override func viewDidLoad() {

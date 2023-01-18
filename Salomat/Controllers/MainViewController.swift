@@ -17,7 +17,6 @@ class MainViewController: UIViewController {
     var counter = 0
     var banner = [Banners]()
     
-    
     lazy var uiscrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.frame = view.bounds
@@ -36,7 +35,6 @@ class MainViewController: UIViewController {
         return button
     }()
 
-    
     var categoryCollectionView: CategoryCollectionView!
     var bannersCollectionView = BannerCollectionView()
     var itemsCollectionView: ItemsCollectionView!
@@ -54,6 +52,7 @@ class MainViewController: UIViewController {
         header.translatesAutoresizingMaskIntoConstraints = false
         return header
     }()
+    
     lazy var header2: UIView = {
         let header = UIView()
         header.backgroundColor = .white
@@ -207,7 +206,6 @@ class MainViewController: UIViewController {
             self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.changeImage), userInfo: nil, repeats: true)
         }
        
-    
         let logo = UIImage(named: "logo 2")
         let imageView = UIImageView(image:logo)
         self.navigationItem.titleView = imageView
@@ -217,7 +215,6 @@ class MainViewController: UIViewController {
     }
     
     @objc func changeImage() {
-        
         if counter < banner.count {
             let index = IndexPath.init(item: counter, section: 0)
             self.bannersCollectionView.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
@@ -231,7 +228,6 @@ class MainViewController: UIViewController {
             counter = 1
             print("didn't change")
         }
-     
     }
 
     @objc func btnAction() {
@@ -245,7 +241,6 @@ class MainViewController: UIViewController {
         vc.title = "Блог"
         self.navigationController?.pushViewController(vc, animated: true)
     }
-    
     
     func configureConstraints() {
         view.addSubview(uiscrollView)
@@ -440,7 +435,6 @@ class MainViewController: UIViewController {
         } else {
             // Fallback on earlier versions
         }
-        
     }
     
     @objc func searchContr() {
@@ -499,7 +493,6 @@ class MainViewController: UIViewController {
         }
     }
     
-    
     func fetchVitemin(){
         let urlString = "http://slomat2.colibri.tj/products/categories_for_main_page?id=8"
         self.network.fetchFromApi(urlString: urlString) { [weak self] (result) in
@@ -543,6 +536,5 @@ class MainViewController: UIViewController {
         }
         present(vc, animated: true, completion: nil)
     }
-
 }
 

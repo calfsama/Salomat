@@ -9,6 +9,8 @@ import UIKit
 
 class SearchCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
     var search: Search?
+    var searchWithFilter: SearchWithFilter?
+    var data: [Any] = []
 
     init() {
         let layout = UICollectionViewFlowLayout()
@@ -32,7 +34,7 @@ class SearchCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout
 extension SearchCollectionView: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         var emptyLabel = UILabel(frame: CGRect(x: 0, y: 0, width: collectionView.bounds.size.width, height: collectionView.bounds.size.height))
-        if search?.products?.count == 0 {
+        if search?.productsd?.count == 0 {
             emptyLabel.text = "Ничего не найдено"
             emptyLabel.textColor = .gray
             emptyLabel.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
@@ -43,22 +45,22 @@ extension SearchCollectionView: UICollectionViewDelegate, UICollectionViewDataSo
         }
         else {
             emptyLabel.text = ""
-            return search?.products?.count ?? 0
+            return search?.productsd?.count ?? 0
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = dequeueReusableCell(withReuseIdentifier: MedicinesCollectionViewCell.identifier, for: indexPath) as! MedicinesCollectionViewCell
         let url = "http://slomat2.colibri.tj/upload_product/"
-        let completeURL = url + (search?.products?[indexPath.row].product_pic ?? "")
+        let completeURL = url + (search?.productsd?[indexPath.row].product_pic ?? "")
         cell.image.downloaded(from: completeURL)
         //cell.title.text = search?.products?[indexPath.row].product_name ?? ""
         cell.title.text = "kekghg"
-        cell.title.text = search?.products?[indexPath.row].product_name ?? ""
-        cell.price.text = search?.products?[indexPath.row].product_price ?? ""
-        cell.prices = search?.products?[indexPath.row].product_price ?? ""
-        cell.titleMedicine = search?.products?[indexPath.row].product_name ?? ""
-        cell.images = search?.products?[indexPath.row].product_pic ?? ""
+        cell.title.text = search?.productsd?[indexPath.row].product_name ?? ""
+        cell.price.text = search?.productsd?[indexPath.row].product_price ?? ""
+        cell.prices = search?.productsd?[indexPath.row].product_price ?? ""
+        cell.titleMedicine = search?.productsd?[indexPath.row].product_name ?? ""
+        cell.images = search?.productsd?[indexPath.row].product_pic ?? ""
         cell.button.setImage(UIImage(named: "favorite"), for: .normal)
         return cell
     }

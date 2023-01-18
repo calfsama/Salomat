@@ -228,11 +228,6 @@ class CartCollectionViewCell: UICollectionViewCell {
                     try context.save()
                 }catch {
                     print("Error saving context \(error)")
-                    do {
-                        try context.save()
-                    }catch {
-                        print("Error1 \(error)")
-                    }
                 }
             }
             catch {

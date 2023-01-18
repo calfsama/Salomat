@@ -11,7 +11,6 @@ class BlackViewController: UIViewController {
     var network = NetworkService()
     var categoriesForMainPage: CategoriesForMainPageCollectionView!
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white

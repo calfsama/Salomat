@@ -11,7 +11,6 @@ class ProfileViewController: UIViewController {
     var login: LoginData?
     var network = NetworkService()
     var alert: UIAlertController!
-    
     var isLoggedIn: Bool = false
     
     lazy var  prefix: UILabel = {
@@ -22,7 +21,6 @@ class ProfileViewController: UIViewController {
         return label
     }()
    
-    
     lazy var phone: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(red: 0.478, green: 0.463, blue: 0.617, alpha: 1)
@@ -44,7 +42,6 @@ class ProfileViewController: UIViewController {
         textField.leftView = prefix
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
-        //textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
         textField.layer.cornerRadius = 4
         textField.layer.borderWidth = 1
         textField.layer.masksToBounds = true
@@ -73,7 +70,6 @@ class ProfileViewController: UIViewController {
         return label
     }()
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -126,12 +122,12 @@ class ProfileViewController: UIViewController {
                 let data = data,
                 let response = response as? HTTPURLResponse,
                 error == nil
-            else {                                                               // check for fundamental networking error
+            else { // check for fundamental networking error
                 print("error", error ?? URLError(.badServerResponse))
                 return
             }
             
-            guard (200 ... 299) ~= response.statusCode else {                    // check for http errors
+            guard (200 ... 299) ~= response.statusCode else { // check for http errors
                 print("statusCode should be 2xx, but is \(response.statusCode)")
                 print("response = \(response)")
                 return
@@ -152,7 +148,6 @@ class ProfileViewController: UIViewController {
                 }
             }
         }
-
         task.resume()
     }
     
@@ -194,7 +189,7 @@ class ProfileViewController: UIViewController {
                 let response = response as? HTTPURLResponse,
                 error == nil
                     
-            else {                                                                //check for fundamental networking error
+            else {  //check for fundamental networking error
                 print("error", error ?? URLError(.badServerResponse))
                 return
             }
@@ -215,10 +210,8 @@ class ProfileViewController: UIViewController {
                         self.navigationController?.pushViewController(vc, animated: true)
                     }
                 }
-
                 print("user doesn't exist")
             }
-            
             do {
                 let json = try JSONSerialization.jsonObject(with: data)
                 print(json, "first")

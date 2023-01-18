@@ -238,7 +238,6 @@ class PasswordViewController: UIViewController {
                 print("user doesn't exist")
             }
             
-            
             do {
                 let json = try JSONSerialization.jsonObject(with: data)
                 print(json)
@@ -253,30 +252,6 @@ class PasswordViewController: UIViewController {
                 print("response = \(response)")
                 return
             }
-            
-  
-            
-//            URLSession.shared.dataTask(with: request) {(data, response, error) in
-//                print(url)
-//                DispatchQueue.main.async {
-//                    if let error = error {
-//                        print("Some error")
-//                        return
-//                    }
-//                    guard let data = data else {return}
-//                    do {
-//                        let urlData = try JSONDecoder().decode(Token.self, from: data)
-//                        print(urlData, "yyeeeeh")
-//                    }catch let jsonError {
-//                        print("Failed to decode JSON", jsonError)
-//                        if let responseString = String(data: data, encoding: .utf8) {
-//                            print("responseString = \(responseString)")
-//                        }
-//                    }
-//                }
-//
-//            }
-            
         }
         task.resume()
     }

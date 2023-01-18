@@ -19,7 +19,6 @@ class BlogListViewController: UIViewController {
         blogListCollectionView = BlogListCollectionView(nav: self.navigationController!)
         configureConstraints()
         self.navigationController?.navigationBar.tintColor = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
-       
     }
     
     func configureConstraints() {
@@ -39,7 +38,6 @@ class BlogListViewController: UIViewController {
             switch result {
             case .success(let response):
                 self.blogListCollectionView.blogs = response
-//                print(result)
                 self.blogListCollectionView.reloadData()
             case .failure(let error):
                 print("error", error)

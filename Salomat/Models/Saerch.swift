@@ -9,13 +9,28 @@ import Foundation
 
 struct Search: Codable {
     var data: DataSearch?
-    var products: [SearchProducts]?
+    var productsd: [SearchProducts]?
     
 }
+
+struct SearchWithFilter: Codable {
+    //var data: DataSearch?
+    var products: [SearchProducts]?
+}
+
 
 struct DataSearch: Codable {
     var srch_inp: String?
     var srch_prod_max_price: String?
+}
+
+struct Productsd: Codable {
+    var the0: SearchProducts?
+    
+    enum CodingKeys: String, CodingKey {
+           case the0 = "0"
+       }
+    
 }
 
 struct SearchProducts: Codable {

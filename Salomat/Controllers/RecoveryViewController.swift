@@ -78,6 +78,7 @@ class RecoveryViewController: UIViewController {
             continueButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
+    
     @objc func buttonAction() {
         let vc = RecoveryPasswordStepTwoViewController()
         vc.title = "Восстановление пароля"
@@ -104,7 +105,7 @@ class RecoveryViewController: UIViewController {
                 let response = response as? HTTPURLResponse,
                 error == nil
                     
-            else {                                                                //check for fundamental networking error
+            else { //check for fundamental networking error
                 print("errorrr", error ?? URLError(.badServerResponse))
                 return
             }
@@ -131,8 +132,7 @@ class RecoveryViewController: UIViewController {
             catch {
                 print(error)
             }
-        
-            
+
             guard (200 ... 299) ~= response.statusCode else {                     //check for http errors
                 print("statusCode should be 2xx, but is \(response.statusCode)")
                 print("response = \(response)")

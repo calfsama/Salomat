@@ -421,14 +421,11 @@ class InfoAboutDeliveryViewController: UIViewController {
             button.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20),
             button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            button.heightAnchor.constraint(equalToConstant: 45),
-            
-        
+            button.heightAnchor.constraint(equalToConstant: 45)
         ])
     }
     
     @objc func buttonAction() {
-       
         if phoneTextField.text == "" || nameTextField.text == "" || streetTextField.text == "" || houseTextField.text == "" {
             reqiered.text = "Заполните обязательные поля"
         }

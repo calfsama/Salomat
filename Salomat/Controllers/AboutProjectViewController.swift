@@ -200,7 +200,6 @@ class AboutProjectViewController: UIViewController {
         return image
     }()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(uiscrollView)

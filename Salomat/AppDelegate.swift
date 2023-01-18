@@ -67,9 +67,6 @@ extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         print("DEBUG / PUSH NOTIFICATION / Firebase registration token: \(fcmToken)")
         
-        let vc = PasswordViewController()
-        vc.fcmToken = fcmToken ?? ""
-        
         let keychain = Keychain(service: "tj.info.Salomat")
         keychain["fcmToken"] = fcmToken
         print(keychain["fcmToken"] ?? "empty")
@@ -77,10 +74,8 @@ extension AppDelegate: MessagingDelegate {
     
     private func configureFirebase(for application: UIApplication) {
         FirebaseApp.configure()
-        
         UNUserNotificationCenter.current().delegate = self
         Messaging.messaging().delegate = self
-        
         let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
         UNUserNotificationCenter.current().requestAuthorization(options: authOptions, completionHandler: {_, _ in})
         application.registerForRemoteNotifications()

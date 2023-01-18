@@ -11,7 +11,6 @@ class BlogShowViewController: UIViewController {
     var network = NetworkService()
     var show: Show?
     var id: String = ""
-    
     var indicator = UIActivityIndicatorView()
     
     lazy var scrollView: UIScrollView = {
