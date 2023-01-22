@@ -41,8 +41,6 @@ class MedicineInfoCollectionViewCell: UICollectionViewCell {
         return scroll
     }()
     
-   
-    
     lazy var feedbackScroll: UIScrollView = {
         let scroll = UIScrollView()
         scroll.frame = contentView.bounds

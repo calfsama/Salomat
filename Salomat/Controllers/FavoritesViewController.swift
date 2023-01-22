@@ -7,10 +7,12 @@
 
 import UIKit
 import CoreData
+import KeychainAccess
 
 class FavoritesViewController: UIViewController {
     var network = NetworkService()
     var favoriteCollectionView: FavoriteCollectionView!
+    let keychain = Keychain(service: "tj.info.Salomat")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +24,7 @@ class FavoritesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         favorites()
+        print(keychain["UserID"])
     }
     
     func configureConstraints() {
@@ -34,7 +37,7 @@ class FavoritesViewController: UIViewController {
     }
     
     func favorites(){
-        let urlString = "http://slomat2.colibri.tj/favorites?user_id=15"
+        let urlString = "http://slomat2.colibri.tj/favorites?user_id=\(keychain["UserID"] ?? "")"
         self.network.favorites(urlString: urlString) { [weak self] (result) in
             guard let self = self else {return}
             switch result {

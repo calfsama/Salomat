@@ -329,7 +329,7 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
         let parameters: [String: Any] = [
-            "user_id": "15",
+            "user_id": "112",
             "product_id": id
         ]
             request.httpBody = parameters.percentEncoded()
@@ -374,7 +374,7 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
         let parameters: [String: Any] = [
-            "user_id": "15",
+            "user_id": "112",
             "product_id": id
         ]
             request.httpBody = parameters.percentEncoded()

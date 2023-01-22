@@ -191,7 +191,7 @@ class PasswordViewController: UIViewController {
                 let user_id = self.userData?.data?[0].user_id ?? ""
                 let token = self.userData?.data?[0].token ?? ""
                // save data in Keychain
-                let keychain = Keychain(service: "com.tomirisnegmatova.Salomat")
+                let keychain = Keychain(service: "tj.info.Salomat")
                 keychain["UserID"] = user_id
                 keychain["Token"] = token
                 print(self.userData, "ooommmgg")
@@ -206,7 +206,7 @@ class PasswordViewController: UIViewController {
                 DispatchQueue.main.async {
                     let user_id = self.userData?.data?[0].user_id ?? ""
                    // save data in Keychain
-                    let keychain = Keychain(service: "com.tomirisnegmatova.Salomat")
+                    let keychain = Keychain(service: "tj.info.Salomat")
                     keychain["UserID"] = user_id
                     let vc = ProfileInfoViewController()
                     vc.title = "Профиль"

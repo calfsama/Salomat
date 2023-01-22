@@ -9,10 +9,12 @@ import UIKit
 
 class MainCategoriesCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
     var categories: CategoriesProducts?
+    var navigationController: UINavigationController
 
-    init() {
+    init(nav: UIViewController) {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
+        self.navigationController = nav as! UINavigationController
         super.init(frame: .zero, collectionViewLayout: layout)
         register(MedicinesCollectionViewCell.self, forCellWithReuseIdentifier: MedicinesCollectionViewCell.identifier)
         delegate = self
@@ -51,5 +53,10 @@ extension MainCategoriesCollectionView: UICollectionViewDelegate, UICollectionVi
         return CGSize(width: collectionView.frame.size.width / 2.3, height: 270)
     }
     
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = TestTwoViewController()
+        vc.title = categories?.category_products?.products[indexPath.row].product_name ?? ""
+        vc.id = categories?.category_products?.products[indexPath.row].id ?? ""
+        self.navigationController.pushViewController(vc, animated: true)
+    }
 }

@@ -65,7 +65,6 @@
 		9749495028EEFA5900793966 /* CategoriesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9749494F28EEFA5900793966 /* CategoriesCollectionView.swift */; };
 		97499270295C3C4700DC1CC0 /* SimilarProductsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9749926F295C3C4700DC1CC0 /* SimilarProductsCollectionView.swift */; };
 		97499272295DA54700DC1CC0 /* CategoriesProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97499271295DA54700DC1CC0 /* CategoriesProducts.swift */; };
-		9749927B29682F0400DC1CC0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9749927A29682F0400DC1CC0 /* GoogleService-Info.plist */; };
 		9749928E296D5E1400DC1CC0 /* MainCategoriesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9749928D296D5E1400DC1CC0 /* MainCategoriesCollectionView.swift */; };
 		97499290296D609F00DC1CC0 /* MainCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9749928F296D609F00DC1CC0 /* MainCategoriesViewController.swift */; };
 		97499293296D86FF00DC1CC0 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 97499292296D86FF00DC1CC0 /* FirebaseAnalytics */; };
@@ -73,6 +72,11 @@
 		97499298296EAB1800DC1CC0 /* PocketSVG in Frameworks */ = {isa = PBXBuildFile; productRef = 97499297296EAB1800DC1CC0 /* PocketSVG */; };
 		9749929A296EAB8800DC1CC0 /* PocketSVG.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97499299296EAB8800DC1CC0 /* PocketSVG.swift */; };
 		9749929C2977F98D00DC1CC0 /* ProductInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9749929B2977F98D00DC1CC0 /* ProductInformationViewController.swift */; };
+		9749929E29791BA300DC1CC0 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9749929D29791BA300DC1CC0 /* Notifications.swift */; };
+		974992A029794AE000DC1CC0 /* NotificationNewsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9749929F29794AE000DC1CC0 /* NotificationNewsCollectionView.swift */; };
+		974992A2297950D600DC1CC0 /* AboutProjectWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974992A1297950D600DC1CC0 /* AboutProjectWebViewController.swift */; };
+		974992A4297A4DEA00DC1CC0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 974992A3297A4DEA00DC1CC0 /* GoogleService-Info.plist */; };
+		974992AA297A7B0900DC1CC0 /* AboutProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974992A9297A7B0900DC1CC0 /* AboutProductViewController.swift */; };
 		974C1E3728E4519B00A6D4BE /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974C1E3628E4519B00A6D4BE /* NetworkService.swift */; };
 		974C1E3B28E4676400A6D4BE /* ProdsOfTheDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974C1E3A28E4676400A6D4BE /* ProdsOfTheDay.swift */; };
 		974C1E4028E5A4F200A6D4BE /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974C1E3F28E5A4F200A6D4BE /* Categories.swift */; };
@@ -244,7 +248,6 @@
 		9749494F28EEFA5900793966 /* CategoriesCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionView.swift; sourceTree = "<group>"; };
 		9749926F295C3C4700DC1CC0 /* SimilarProductsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarProductsCollectionView.swift; sourceTree = "<group>"; };
 		97499271295DA54700DC1CC0 /* CategoriesProducts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesProducts.swift; sourceTree = "<group>"; };
-		9749927A29682F0400DC1CC0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9749927C2968308200DC1CC0 /* Salomat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Salomat.entitlements; sourceTree = "<group>"; };
 		97499283296D404100DC1CC0 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		97499285296D404100DC1CC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -252,6 +255,11 @@
 		9749928F296D609F00DC1CC0 /* MainCategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCategoriesViewController.swift; sourceTree = "<group>"; };
 		97499299296EAB8800DC1CC0 /* PocketSVG.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketSVG.swift; sourceTree = "<group>"; };
 		9749929B2977F98D00DC1CC0 /* ProductInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductInformationViewController.swift; sourceTree = "<group>"; };
+		9749929D29791BA300DC1CC0 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
+		9749929F29794AE000DC1CC0 /* NotificationNewsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNewsCollectionView.swift; sourceTree = "<group>"; };
+		974992A1297950D600DC1CC0 /* AboutProjectWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutProjectWebViewController.swift; sourceTree = "<group>"; };
+		974992A3297A4DEA00DC1CC0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		974992A9297A7B0900DC1CC0 /* AboutProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutProductViewController.swift; sourceTree = "<group>"; };
 		974C1E3628E4519B00A6D4BE /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		974C1E3A28E4676400A6D4BE /* ProdsOfTheDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProdsOfTheDay.swift; sourceTree = "<group>"; };
 		974C1E3F28E5A4F200A6D4BE /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
@@ -407,7 +415,7 @@
 				978973BE28C0905400C395C8 /* Assets.xcassets */,
 				978973C028C0905400C395C8 /* LaunchScreen.storyboard */,
 				978973C328C0905400C395C8 /* Info.plist */,
-				9749927A29682F0400DC1CC0 /* GoogleService-Info.plist */,
+				974992A3297A4DEA00DC1CC0 /* GoogleService-Info.plist */,
 				97604F4C28FC231100B44A5C /* Favorites.xcdatamodeld */,
 				978B0C652915174900F88B0F /* ViewProgrammatically.swift */,
 			);
@@ -462,6 +470,7 @@
 				97E958672951B41D00A90D98 /* ExpandingViewController.swift */,
 				97E9586F29545B1B00A90D98 /* Expanding.swift */,
 				9749929B2977F98D00DC1CC0 /* ProductInformationViewController.swift */,
+				974992A1297950D600DC1CC0 /* AboutProjectWebViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -532,6 +541,7 @@
 				9796F252292BE8FF006DCB55 /* SubCategoryCollectionView.swift */,
 				9796F25A292CD268006DCB55 /* NotificationCollectionViewCell.swift */,
 				9796F25C292CD4B9006DCB55 /* NotificationCollectionView.swift */,
+				9749929F29794AE000DC1CC0 /* NotificationNewsCollectionView.swift */,
 				9796F25E292CF264006DCB55 /* MedicineInfoCollectionViewCell.swift */,
 				9796F260292CF28A006DCB55 /* MedicineInfoCollectionView.swift */,
 				9796F264292E2FC6006DCB55 /* HeaderMedicineCollectionReusableView.swift */,
@@ -544,6 +554,7 @@
 				97E9586D2954532B00A90D98 /* ExpandingCollectionViewCell.swift */,
 				9749926F295C3C4700DC1CC0 /* SimilarProductsCollectionView.swift */,
 				9749928D296D5E1400DC1CC0 /* MainCategoriesCollectionView.swift */,
+				974992A9297A7B0900DC1CC0 /* AboutProductViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -580,6 +591,7 @@
 				97E9586929532A4700A90D98 /* OrderModel.swift */,
 				97499271295DA54700DC1CC0 /* CategoriesProducts.swift */,
 				97499299296EAB8800DC1CC0 /* PocketSVG.swift */,
+				9749929D29791BA300DC1CC0 /* Notifications.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -672,7 +684,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				978973C228C0905400C395C8 /* LaunchScreen.storyboard in Resources */,
-				9749927B29682F0400DC1CC0 /* GoogleService-Info.plist in Resources */,
+				974992A4297A4DEA00DC1CC0 /* GoogleService-Info.plist in Resources */,
 				978973BF28C0905400C395C8 /* Assets.xcassets in Resources */,
 				978973BD28C0905200C395C8 /* Main.storyboard in Resources */,
 			);
@@ -800,6 +812,7 @@
 				9749494228ED78C800793966 /* BlogsShowCollectionViewCell.swift in Sources */,
 				97BE2707290791AF0071D143 /* SearchCollectionView.swift in Sources */,
 				974C1E4028E5A4F200A6D4BE /* Categories.swift in Sources */,
+				974992A2297950D600DC1CC0 /* AboutProjectWebViewController.swift in Sources */,
 				9749494C28EEFA1300793966 /* CategoriesViewController.swift in Sources */,
 				974748532938845C00903A7A /* TabBarItem.swift in Sources */,
 				974748512936143000903A7A /* CartHeaderCollectionReusableView.swift in Sources */,
@@ -834,6 +847,7 @@
 				97CC55CA290A98B1001A2F70 /* ChoosePhotoCollectionViewCell.swift in Sources */,
 				97604F4928F9902400B44A5C /* MyOrdersCollectionView.swift in Sources */,
 				970B070B28F96FB600C57763 /* SummaCollectionView.swift in Sources */,
+				974992A029794AE000DC1CC0 /* NotificationNewsCollectionView.swift in Sources */,
 				978973CD28C096AA00C395C8 /* FavoritesViewController.swift in Sources */,
 				9749494A28ED9B4F00793966 /* SafetyViewController.swift in Sources */,
 				979C04A6290AA0B20020E203 /* PhotoCollectionViewCell.swift in Sources */,
@@ -846,6 +860,7 @@
 				9749495028EEFA5900793966 /* CategoriesCollectionView.swift in Sources */,
 				9749494628ED7BC900793966 /* BlogViewController.swift in Sources */,
 				976E327528DB0DA600C3E3E7 /* AboutProjectViewController.swift in Sources */,
+				974992AA297A7B0900DC1CC0 /* AboutProductViewController.swift in Sources */,
 				978973DB28C0A97F00C395C8 /* Model.swift in Sources */,
 				974EFCBC29070B64006FBE49 /* CategoriesForMainPageViewController.swift in Sources */,
 				9796F257292BF974006DCB55 /* NewViewController.swift in Sources */,
@@ -861,6 +876,7 @@
 				97604F5E28FD5E4700B44A5C /* FavoriteCollectionView.swift in Sources */,
 				973A0AC028C21F780068CF56 /* ItemsCollectionView.swift in Sources */,
 				970B066628F4394200C57763 /* CartCollectionViewCell.swift in Sources */,
+				9749929E29791BA300DC1CC0 /* Notifications.swift in Sources */,
 				973A0AEC28D84A280068CF56 /* BlogListCollectionViewCell.swift in Sources */,
 				97604F5928FD546000B44A5C /* DataModel+CoreDataClass.swift in Sources */,
 				972E34B1293FA4750010B2AE /* SubCategoryForMainPageCollectionView.swift in Sources */,

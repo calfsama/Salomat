@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreMIDI
+import Kingfisher
 
 class BlogsShowCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
     var blogs: Blog?
@@ -46,11 +47,12 @@ extension BlogsShowCollectionView: UICollectionViewDelegate, UICollectionViewDat
         cell.title.text = show?.blog?.blog_title ?? ""
         let url = "http://slomat2.colibri.tj/upload_blog/"
         let completeURL = url + (show?.blog?.blog_pics?[indexPath.row].blog_pic ?? "")
-        cell.image.downloaded(from: completeURL)
         cell.image.image = UIImage(named: "image 1")
         cell.date.text = show?.blog?.blog_created_at ?? ""
         cell.subtitle.text = show?.blog?.blog_about ?? ""
         cell.subtitle.attributedText = show?.blog?.blog_about?.html2Attributed
+        cell.image.kf.indicatorType = .activity
+        cell.image.kf.setImage(with: URL(string: completeURL))
         return cell
     }
     

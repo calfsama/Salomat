@@ -210,8 +210,9 @@ class NetworkService {
         }.resume()
     }
     
-    func searchFilter(urlString: String, completion: @escaping(Result<SearchWithFilter, Error>) -> Void) {
     
+    func notif(urlString: String, completion: @escaping(Result<NotificationData, Error>) -> Void) {
+        
         
         guard let url = URL(string: urlString) else {return}
         URLSession.shared.dataTask(with: url) {(data, response, error) in
@@ -224,7 +225,7 @@ class NetworkService {
                 }
                 guard let data = data else {return}
                 do {
-                    let urlData = try JSONDecoder().decode(SearchWithFilter.self, from: data)
+                    let urlData = try JSONDecoder().decode(NotificationData.self, from: data)
                     print(urlData)
                     completion(.success(urlData))
                 }catch let jsonError {
@@ -234,7 +235,6 @@ class NetworkService {
             }
         }.resume()
     }
-    
     
     func sales(urlString: String, completion: @escaping(Result<Sales, Error>) -> Void) {
     

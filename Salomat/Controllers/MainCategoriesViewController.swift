@@ -10,12 +10,13 @@ import UIKit
 class MainCategoriesViewController: UIViewController {
     var network = NetworkService()
     var id: String = ""
-    var medicinesCollectionView = MainCategoriesCollectionView()
+    var medicinesCollectionView: MainCategoriesCollectionView!
     var spinner = UIActivityIndicatorView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        medicinesCollectionView = MainCategoriesCollectionView(nav: self.navigationController!)
         self.navigationController?.navigationBar.tintColor = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
         spinner.color = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
         spinner.frame = CGRect(x: 165, y: 280, width: 40, height: 40)

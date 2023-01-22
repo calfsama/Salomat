@@ -20,6 +20,7 @@ class TestTwoViewController: UIViewController {
     var image: String = ""
     var id: String = ""
     var cell = SimilarProductsCollectionView()
+    var spinner = UIActivityIndicatorView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +31,11 @@ class TestTwoViewController: UIViewController {
         collection.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 30).isActive = true
         collection.widthAnchor.constraint(equalToConstant: view.frame.size.width).isActive = true
         collection.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        collection.addSubview(spinner)
+        spinner.frame = CGRect(x: 170, y: 300, width: 40, height: 40)
+        spinner.color = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
+        spinner.startAnimating()
+        hideKeyboardWhenTappedAround()
     }
     
     func fetchBanner(){
@@ -53,7 +59,7 @@ class TestTwoViewController: UIViewController {
                 self.collection.substance = "Действующее вещество (МНН):"
                 self.collection.production = "Производитель:"
                 self.collection.category = "Категория:"
-                self.collection.indicator.stopAnimating()
+                self.spinner.stopAnimating()
             case .failure(let error):
                 print("error", error)
             }

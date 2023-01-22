@@ -211,10 +211,22 @@ class CartCollectionViewCell: UICollectionViewCell {
         price.text = String(productPrice! * Double(stepperValue.text!)!)
     }
     
+    func calculateCartTotalWithDelivery1() -> Double{
+        var total = 0.0
+        if self.dataModel.count > 0 {
+            for index in 0...self.dataModel.count - 1 {
+                total += (Double(dataModel[index].price ?? "") ?? 0) * (Double(dataModel[index].amount!) ?? 0)
+                
+            }
+        }
+        return total + 5
+    }
+
+    
     func updatePrice() {
         if self.stepper.value >= 1 {
             let productPrice = Double(self.prices)
-            price.text = String(productPrice! * Double(stepperValue.text!)!)
+            price.text = String(productPrice! * Double(stepperValue.text!)!) + " сом"
             
             let object: NSFetchRequest <Basket> = Basket.fetchRequest()
             commitPredicate = NSPredicate(format: "id == %@", id)
@@ -223,9 +235,9 @@ class CartCollectionViewCell: UICollectionViewCell {
                 let i = try context.fetch(object).first
                 i?.amount = String(stepper.value)
                 i?.price = String(productPrice! * Double(stepperValue.text!)!)
-                print(i?.amount, "amount")
                 do {
                     try context.save()
+                    print(i?.amount, "amount")
                 }catch {
                     print("Error saving context \(error)")
                 }
@@ -256,12 +268,13 @@ class CartCollectionViewCell: UICollectionViewCell {
 //    }
 
     
-    func calculateCartTotalWithDelivery() -> Double{
+     func calculateCartTotalWithDelivery() -> Double{
         var total = 0.0
         if self.dataModel.count > 0 {
             for index in 0...self.dataModel.count - 1 {
-                total += (Double(dataModel[index].price!) ?? 0)
+                total += ((Double(dataModel[index].price!) ?? 0) * stepper.value)
                 //total = total + 10
+                print(total)
             }
         }
         return total + 10

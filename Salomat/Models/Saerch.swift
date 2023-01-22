@@ -9,18 +9,18 @@ import Foundation
 
 struct Search: Codable {
     var data: DataSearch?
-    var productsd: [SearchProducts]?
+    var products: [SearchProducts]?
     
 }
 
-struct SearchWithFilter: Codable {
-    //var data: DataSearch?
-    var products: [SearchProducts]?
-}
+//struct SearchWithFilter: Codable {
+//    //var data: DataSearch?
+//    var products: [SearchProducts]?
+//}
 
 
 struct DataSearch: Codable {
-    var srch_inp: String?
+//    var srch_inp: String?
     var srch_prod_max_price: String?
 }
 

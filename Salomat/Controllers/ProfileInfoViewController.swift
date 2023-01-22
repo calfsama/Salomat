@@ -13,7 +13,7 @@ class ProfileInfoViewController: UIViewController {
     var userID: String = ""
     var phone: String = ""
     var login: LoginData?
-    let keychain = Keychain(service: "com.tomirisnegmatova.Salomat")
+    let keychain = Keychain(service: "tj.info.Salomat")
     
     lazy var uiscrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -75,7 +75,7 @@ class ProfileInfoViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let keychain = Keychain(service: "com.tomirisnegmatova.Salomat")
+        let keychain = Keychain(service: "tj.info.Salomat")
         print("hahaahh", keychain["UserID"] ?? "")
         userShow()
     }

@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import KeychainAccess
 
 class MedicineViewController: UIViewController, UIScrollViewDelegate {
     var medicineCollectionView = MedicineCollectionView()
@@ -15,6 +16,7 @@ class MedicineViewController: UIViewController, UIScrollViewDelegate {
     var similar_products = SimilarProductsCollectionView()
     var commitPredicate: NSPredicate?
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    let keychain = Keychain(service: "com.tomirisnegmatova.Salomat")
     var network = NetworkService()
     var dataModel = [DataModel]()
     var titleMedicine: String = ""
@@ -22,9 +24,11 @@ class MedicineViewController: UIViewController, UIScrollViewDelegate {
     var image: String = ""
     var id: String = ""
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        
         fetchBanner()
         configureConstraints()
         self.navigationController?.navigationBar.tintColor = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
@@ -46,7 +50,7 @@ class MedicineViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func fetchBanner(){
-        let urlString = "http://slomat2.colibri.tj/products/show?product_id=\(id)"
+        let urlString = "http://slomat2.colibri.tj/products/show?product_id=\(id)&user=id=\(keychain["UserID"] ?? "")"
         self.network.productShow(urlString: urlString) { [weak self] (result) in
             guard let self = self else {return}
             switch result {

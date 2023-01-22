@@ -15,7 +15,7 @@ class PhoneNumberViewController: UIViewController {
     var login: LoginData?
     var token: String = ""
     var alert: UIAlertController!
-    var keychain = Keychain(service: "com.tomirisnegmatova.Salomat")
+    var keychain = Keychain(service: "tj.info.Salomat")
     
     lazy var  prefix: UILabel = {
         let label = UILabel()

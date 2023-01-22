@@ -9,7 +9,7 @@ import UIKit
 import SwiftUI
 
 class SearchProductViewController: UIViewController {
-    var collectionView = SearchCollectionView()
+    var collectionView: SearchCollectionView!
     var network = NetworkService()
     var searchController = UISearchController()
     var searchProduct: String = ""
@@ -58,9 +58,18 @@ class SearchProductViewController: UIViewController {
     lazy var popularButton: UIButton = {
        let button =  UIButton()
        button.setImage(UIImage(named: "Radiobutton 1"), for: .normal)
-       button.addTarget(self, action: #selector(actionForPopularButton), for: .touchUpInside)
+       //button.addTarget(self, action: #selector(actionForPopularButton), for: .touchUpInside)
        button.translatesAutoresizingMaskIntoConstraints = false
        return button
+    }()
+    
+    lazy var filterbutton: UIButton = {
+        let button =  UIButton()
+        button.setImage(UIImage(named: "Filter Horizontal"), for: .normal)
+        button.addTarget(self, action: #selector(showBottomSheet), for: .touchUpInside)
+        button.tintColor = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
     
     lazy var bottomSheet: UIView = {
@@ -94,6 +103,7 @@ class SearchProductViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        collectionView = SearchCollectionView(nav: self.navigationController!)
         slider.minimumValue = 1
         slider.maximumValue = 200
         spinner.color = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
@@ -101,7 +111,7 @@ class SearchProductViewController: UIViewController {
         configureConstraints()
         setup()
         setuoLogo()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "filtt"), style: .plain, target: self, action: #selector(filter))
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "filtt"), style: .plain, target: self, action: #selector(filter))
         NotificationCenter.default.addObserver(self, selector: #selector(loadList), name:NSNotification.Name(rawValue: "load"), object: nil)
         
         ratingButton.addTarget(self, action: #selector(showBottomSheet), for: .touchUpInside)
@@ -233,6 +243,7 @@ class SearchProductViewController: UIViewController {
         bottomSheet.addSubview(minPrice)
         bottomSheet.addSubview(maxPrice)
         
+        
         NSLayoutConstraint.activate([
            uiview.topAnchor.constraint(equalTo: bottomSheet.topAnchor, constant: 5),
            uiview.centerXAnchor.constraint(equalTo: bottomSheet.centerXAnchor),
@@ -304,7 +315,7 @@ class SearchProductViewController: UIViewController {
     }
     
     @objc func search() {
-        let urlString = "http://slomat2.colibri.tj/search/with_price?srch_pr_inp=линкас&min_price=\(slider.values.minimum)&max_price=\(slider.values.maximum)"
+        let urlString = "http://slomat2.colibri.tj/search/with_price?srch_pr_inp=\(searchProduct)&min_price=\(slider.values.minimum)&max_price=\(slider.values.maximum)"
        print(searchProduct)
        let host = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
        self.network.search(urlString: host) { [weak self] (result) in
@@ -352,14 +363,22 @@ class SearchProductViewController: UIViewController {
         view.addSubview(ratingButton)
         view.addSubview(label)
         view.addSubview(collectionView)
+        view.addSubview(filterbutton)
         
         NSLayoutConstraint.activate([
             ratingButton.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
             ratingButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             ratingButton.widthAnchor.constraint(equalToConstant: 120),
             ratingButton.heightAnchor.constraint(equalToConstant: 35),
+            
+            filterbutton.centerYAnchor.constraint(equalTo: label.centerYAnchor),
+            filterbutton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            filterbutton.heightAnchor.constraint(equalToConstant: 30),
+            filterbutton.widthAnchor.constraint(equalToConstant: 30),
+            
             label.topAnchor.constraint(equalTo: ratingButton.bottomAnchor, constant: 20),
             label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            
             collectionView.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 20),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -413,11 +432,12 @@ extension SearchProductViewController: UISearchBarDelegate {
         spinner.startAnimating()
         let urlString = "http://slomat2.colibri.tj/search/?srch_pr_inp=\(searchBar.text!)"
         let host = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        self.network.searchFilter(urlString: host) { [weak self] (result) in
+        self.network.search(urlString: host) { [weak self] (result) in
             guard let self = self else {return}
             switch result {
             case .success(let response):
-                //self.collectionView.search = response
+                self.searchProduct = searchBar.text!
+                self.collectionView.search = response
                 self.collectionView.reloadData()
                 self.spinner.stopAnimating()
                 self.searchProduct = searchBar.text!

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class MedicinesCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
     var navigationController: UINavigationController
@@ -50,7 +51,8 @@ extension MedicinesCollectionView: UICollectionViewDelegate, UICollectionViewDat
         cell.price.text = sales?.total_products?.total_prods?[indexPath.row].product_price ?? ""
         let url = "http://slomat2.colibri.tj/upload_product/"
         let completeURL = url + (sales?.total_products?.total_prods?[indexPath.row].product_pic ?? "")
-        cell.image.downloaded(from: completeURL)
+        cell.image.kf.indicatorType = .activity
+        cell.image.kf.setImage(with: URL(string: completeURL))
         //cell.button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         return cell
     }

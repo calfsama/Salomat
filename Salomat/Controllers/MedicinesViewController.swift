@@ -11,6 +11,7 @@ class MedicinesViewController: UIViewController {
     var medicinesCollectionView: MedicinesCollectionView!
     var network = NetworkService()
     var id: String = ""
+    var spinner = UIActivityIndicatorView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +19,10 @@ class MedicinesViewController: UIViewController {
         fetchVitemin()
         medicinesCollectionView = MedicinesCollectionView(nav: self.navigationController!)
         configureConstraints()
+        medicinesCollectionView.addSubview(spinner)
+        spinner.frame = CGRect(x: 157, y: 340, width: 40, height: 40)
+        spinner.color = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
+        spinner.startAnimating()
     }
     
     func configureConstraints() {
@@ -40,6 +45,7 @@ class MedicinesViewController: UIViewController {
                 self.medicinesCollectionView.sales = response
 //                print(result)
                 self.medicinesCollectionView.reloadData()
+                self.spinner.stopAnimating()
             case .failure(let error):
                 print("error", error)
             }

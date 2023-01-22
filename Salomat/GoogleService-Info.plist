@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>169264885743-s0pptkoeehcf397edesrp9ambn6alqsm.apps.googleusercontent.com</string>
+	<string>169264885743-c0dqikbkblpu35h0fcvpobsv7cpm9693.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.169264885743-s0pptkoeehcf397edesrp9ambn6alqsm</string>
+	<string>com.googleusercontent.apps.169264885743-c0dqikbkblpu35h0fcvpobsv7cpm9693</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>169264885743-t9pok6fh0bi1in9hlq85uep52tglr9kn.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.tomirisnegmatova.Salomat</string>
+	<string>tj.info.Salomat</string>
 	<key>PROJECT_ID</key>
 	<string>salomat-notification</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:169264885743:ios:99c5ebc93058ae6d94501a</string>
+	<string>1:169264885743:ios:833a719b2723b35794501a</string>
 </dict>
 </plist>

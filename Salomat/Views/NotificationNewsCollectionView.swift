@@ -1,14 +1,13 @@
 //
-//  NotificationCollectionView.swift
+//  NotificationNewsCollectionView.swift
 //  Salomat
 //
-//  Created by Tomiris Negmatova on 22/11/22.
+//  Created by Tomiris Negmatova on 19/01/23.
 //
 
 import UIKit
-import Kingfisher
 
-class NotificationCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
+class NotificationNewsCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
     var notification: NotificationData?
     
     init() {
@@ -27,7 +26,7 @@ class NotificationCollectionView: UICollectionView, UICollectionViewDelegateFlow
         fatalError("init(coder:) has not been implemented")
     }
 }
-extension NotificationCollectionView: UICollectionViewDelegate, UICollectionViewDataSource {
+extension NotificationNewsCollectionView: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return notification?.count ?? 0
     }
@@ -45,3 +44,4 @@ extension NotificationCollectionView: UICollectionViewDelegate, UICollectionView
         return CGSize(width: collectionView.frame.size.width, height: 400)
     }
 }
+

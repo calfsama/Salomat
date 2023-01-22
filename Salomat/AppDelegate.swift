@@ -14,7 +14,7 @@ import KeychainAccess
 import UserNotifications
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -22,17 +22,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let BarButtonItemAppearance = UIBarButtonItem.appearance()
         BarButtonItemAppearance.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.clear], for: .normal)
         
-  
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let tabBar = storyboard.instantiateViewController(withIdentifier: "TabBarController")
-            let tab = MainTabBarViewController()
-            self.window?.rootViewController = tab
-            self.window?.makeKeyAndVisible()
-        //FirebaseApp.configure()
-        configureFirebase(for: application)
+        let tab = MainTabBarViewController()
+        self.window?.rootViewController = tab
+        self.window?.makeKeyAndVisible()
+        
+        FirebaseApp.configure()
+        
+        UNUserNotificationCenter.current().delegate = self
+        Messaging.messaging().delegate = self
+        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+        UNUserNotificationCenter.current().requestAuthorization(options: authOptions) { success, _ in
+            guard success else { return }
+            print("Success in APNS registry")
+        }
+        application.registerForRemoteNotifications()
         return true
     }
     
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        print("DEBUG / PUSH NOTIFICATION / Firebase registration token: \(fcmToken ?? "")")
+
+        let keychain = Keychain(service: "tj.info.Salomat")
+        keychain["fcmToken"] = fcmToken
+        print(keychain["fcmToken"] ?? "empty")
+        
+//        messaging.token { token, _ in
+//            guard let token = token else { return }
+//                    let keychain = Keychain(service: "tj.info.Salomat")
+//                    keychain["fcmToken"] = token
+//            print(keychain["fcmToken"] ?? "empty")
+//            print("Token \(token)")
+//        }
+    }
     
     func applicationWillTerminate(_ application: UIApplication) {
         
@@ -62,23 +83,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
 }
-extension AppDelegate: MessagingDelegate {
-    
-    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-        print("DEBUG / PUSH NOTIFICATION / Firebase registration token: \(fcmToken)")
-        
-        let keychain = Keychain(service: "tj.info.Salomat")
-        keychain["fcmToken"] = fcmToken
-        print(keychain["fcmToken"] ?? "empty")
-    }
-    
-    private func configureFirebase(for application: UIApplication) {
-        FirebaseApp.configure()
-        UNUserNotificationCenter.current().delegate = self
-        Messaging.messaging().delegate = self
-        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-        UNUserNotificationCenter.current().requestAuthorization(options: authOptions, completionHandler: {_, _ in})
-        application.registerForRemoteNotifications()
-    }
-}
+//extension AppDelegate: MessagingDelegate {
+//
+//    private func configureFirebase(for application: UIApplication) {
+//        FirebaseApp.configure()
+//        UNUserNotificationCenter.current().delegate = self
+//        Messaging.messaging().delegate = self
+//        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+//        UNUserNotificationCenter.current().requestAuthorization(options: authOptions, completionHandler: {_, _ in})
+//        application.registerForRemoteNotifications()
+//    }
+//}
 

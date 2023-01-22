@@ -9,6 +9,8 @@ import UIKit
 
 class NotificationsViewController: UIViewController {
     var notificationCollectionView = NotificationCollectionView()
+    var news = NotificationNewsCollectionView()
+    var network = NetworkService()
     
     lazy var notificationButton: UIButton = {
         var button = UIButton()
@@ -32,7 +34,7 @@ class NotificationsViewController: UIViewController {
     lazy var notificationScroll: UIScrollView = {
         let scroll = UIScrollView()
         scroll.frame = view.bounds
-        scroll.contentSize = CGSize(width: view.frame.size.width, height: view.frame.size.height)
+        scroll.contentSize = CGSize(width: view.frame.size.width, height: view.frame.size.height - 100)
         scroll.backgroundColor = .white
         scroll.showsVerticalScrollIndicator = true
         return scroll
@@ -68,6 +70,7 @@ class NotificationsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        fetchNotifications()
         configure()
     }
     
@@ -92,7 +95,7 @@ class NotificationsViewController: UIViewController {
             notificationCollectionView.topAnchor.constraint(equalTo: newsButton.bottomAnchor, constant: 20),
             notificationCollectionView.leadingAnchor.constraint(equalTo: notificationScroll.leadingAnchor),
             notificationCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            notificationCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            notificationCollectionView.bottomAnchor.constraint(equalTo: notificationScroll.bottomAnchor)
             
         ])
     }
@@ -130,6 +133,23 @@ class NotificationsViewController: UIViewController {
         ])
     }
     
+    func fetchNotifications(){
+        let urlString = "http://slomat2.colibri.tj/PushNotification"
+        let host = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        self.network.notif(urlString: host) { [weak self] (result) in
+            guard let self = self else {return}
+            switch result {
+            case .success(let response):
+                self.notificationCollectionView.notification = response
+                print(result)
+                self.notificationCollectionView.reloadData()
+            case .failure(let error):
+                print("error", error)
+            }
+        }
+    }
+
+    
     func congifureScroll() {
         view.addSubview(newsScroll)
         newsScroll.addSubview(notificationButton)
@@ -153,8 +173,12 @@ class NotificationsViewController: UIViewController {
             uiView.topAnchor.constraint(equalTo: newsButton.bottomAnchor, constant: 10),
             uiView.leadingAnchor.constraint(equalTo: newsButton.leadingAnchor),
             uiView.trailingAnchor.constraint(equalTo: newsButton.trailingAnchor),
-            uiView.heightAnchor.constraint(equalToConstant: 3)
+            uiView.heightAnchor.constraint(equalToConstant: 3),
             
+            news.topAnchor.constraint(equalTo: newsButton.bottomAnchor, constant: 20),
+            news.leadingAnchor.constraint(equalTo: newsScroll.leadingAnchor),
+            news.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            news.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     

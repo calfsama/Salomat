@@ -18,7 +18,7 @@ class PersonalInfoViewController: UIViewController {
     var token: String = ""
     var profile = ProfileInfoViewController()
     var alert: UIAlertController!
-    let keychain = Keychain(service: "com.tomirisnegmatova.Salomat")
+    let keychain = Keychain(service: "tj.info.Salomat")
     
     lazy var name: UILabel = {
         let label = UILabel()

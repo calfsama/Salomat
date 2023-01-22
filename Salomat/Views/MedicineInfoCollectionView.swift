@@ -91,6 +91,7 @@ extension MedicineInfoCollectionView: UICollectionViewDelegate, UICollectionView
         else {
             header.favorite.setImage(UIImage(named: "favorite"), for: .normal)
         }
+        header.configureConstraints()
         return header
         //}
 //        else if kind == UICollectionView.elementKindSectionFooter {

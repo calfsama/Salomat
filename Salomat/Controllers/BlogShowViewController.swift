@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class BlogShowViewController: UIViewController {
     var network = NetworkService()
@@ -121,7 +122,8 @@ class BlogShowViewController: UIViewController {
                 self.blogTitle.text = self.show?.blog?.blog_title ?? ""
                 let url = "http://slomat2.colibri.tj/upload_blog/"
                 let completeURL = url + (self.show?.blog?.blog_pics?[0].blog_pic ?? "")
-                self.image.downloaded(from: completeURL)
+                self.image.kf.indicatorType = .activity
+                self.image.kf.setImage(with: URL(string: completeURL))
                 self.date.text = self.show?.blog?.blog_date ?? ""
                 self.subtitle.attributedText = self.show?.blog?.blog_about?.html2Attributed
                 self.share.text = "Поделиться"

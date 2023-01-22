@@ -170,7 +170,7 @@ class HeaderMedicineCollectionReusableView: UICollectionReusableView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configureConstraints()
+        //configureConstraints()
     }
     
     required init?(coder: NSCoder) {

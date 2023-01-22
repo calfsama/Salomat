@@ -157,6 +157,10 @@ class ReviewCollectionReusableView: UICollectionReusableView {
             if response.statusCode == 200 {
                 DispatchQueue.main.async {
                     print("Отзыв Добавлен!")
+                    self.nameTextField.text = ""
+                    self.commentTextField.text = ""
+                    self.cosmosView.rating = 0
+                    
                 }
             }
             else if response.statusCode == 400 {

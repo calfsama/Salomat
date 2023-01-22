@@ -16,6 +16,7 @@ class MainViewController: UIViewController {
     var banners: MainSliders?
     var counter = 0
     var banner = [Banners]()
+    var initialScrollDone: Bool = true
     
     lazy var uiscrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -196,16 +197,13 @@ class MainViewController: UIViewController {
         badsCollectionView = BADCollectionView(nav: self.navigationController!)
         categoryCollectionView.set(cells: Categories.items())
         bannersCollectionView.set(cells: Banners.items())
+        bannersCollectionView.layoutIfNeeded()
         configureConstraints()
         fetchFromApi()
         fetchData()
         fetchBlogData()
         fetchVitemin()
         fetchBanner()
-        DispatchQueue.main.async {
-            self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.changeImage), userInfo: nil, repeats: true)
-        }
-       
         let logo = UIImage(named: "logo 2")
         let imageView = UIImageView(image:logo)
         self.navigationItem.titleView = imageView
@@ -214,19 +212,28 @@ class MainViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Search"), style: .plain, target: self, action: #selector(searchContr))
     }
     
+    func startTimer(){
+    timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+    }
+    
+    @objc func timerAction(){
+    let desiredScrollPosition = (counter < banner.count - 1) ?
+    counter + 1 : 0
+        bannersCollectionView.scrollToItem(at: IndexPath(item: desiredScrollPosition, section: 0), at: .centeredHorizontally, animated: true)
+    }
+    
     @objc func changeImage() {
-        if counter < banner.count {
-            let index = IndexPath.init(item: counter, section: 0)
+        counter = 0
+        if counter < banner.count - 1 {
+            let index = IndexPath.init(item: banner.count - 1, section: 0)
             self.bannersCollectionView.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
             counter += 1
-            print("changed")
         }
-        else {
+        else if counter >= banner.count - 1{
             counter = 0
-            let index = IndexPath.init(item: counter, section: 0)
+            let index = IndexPath.init(item: banner.count - 1, section: 0)
             self.bannersCollectionView.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
-            counter = 1
-            print("didn't change")
+            counter += 1
         }
     }
 
@@ -238,8 +245,23 @@ class MainViewController: UIViewController {
     
     @objc func btnCollection() {
         let vc = TestTwoViewController()
+        let v = AboutProductViewController()
         vc.title = "Блог"
-        self.navigationController?.pushViewController(vc, animated: true)
+        self.navigationController?.pushViewController(v, animated: true)
+    }
+    
+    override func viewWillLayoutSubviews() {
+
+        super.viewWillLayoutSubviews()
+        
+        if !self.initialScrollDone {
+            
+            self.initialScrollDone = true
+            let index = IndexPath.init(item: counter, section: 0)
+            self.bannersCollectionView.scrollToItem(at:index, at: .centeredHorizontally, animated: true)
+            counter += 1
+        }
+
     }
     
     func configureConstraints() {
@@ -278,7 +300,7 @@ class MainViewController: UIViewController {
             
             bannersCollectionView.topAnchor.constraint(equalTo: categoryCollectionView.bottomAnchor, constant: 16),
             bannersCollectionView.heightAnchor.constraint(equalToConstant: 200),
-            bannersCollectionView.widthAnchor.constraint(equalTo: uiscrollView.widthAnchor),
+            bannersCollectionView.widthAnchor.constraint(equalToConstant: uiscrollView.frame.size.width),
             
             header.heightAnchor.constraint(equalToConstant: 30),
             header.widthAnchor.constraint(equalToConstant: uiscrollView.frame.size.width),

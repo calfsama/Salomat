@@ -50,8 +50,9 @@ extension InfoCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.row == 0 {
             let vc = AboutProjectViewController()
-            vc.title = "О проекте"
-            self.navigationController.pushViewController(vc, animated: true)
+            let v = AboutProjectWebViewController()
+            v.title = "О проекте"
+            self.navigationController.pushViewController(v, animated: true)
         }
         else if indexPath.row == 1 {
             let vc = HowToMakeAnOrderViewController()

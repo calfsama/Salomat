@@ -78,6 +78,7 @@ class NotificationCollectionViewCell: UICollectionViewCell {
             subtitle.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 10),
             subtitle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             subtitle.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            subtitle.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
         
         ])
     }

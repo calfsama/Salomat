@@ -13,7 +13,7 @@ struct OrderModel: Codable {
     var delivery: [OrderDelivery]
     var products: [OrderProduct]
     
-    enum CodingKeys: Codable, CodingKey {
+    enum CodingKeys: String, CodingKey {
         case order, status, delivery, products
     }
 }
