@@ -11,7 +11,6 @@ import SkeletonView
 class MainViewController: UIViewController {
     var text: String = ""
     var url: String = ""
-    var medicinesCell = MedicinesCollectionViewCell()
     var timer = Timer()
     var banners: MainSliders?
     var counter = 0
@@ -197,19 +196,19 @@ class MainViewController: UIViewController {
         badsCollectionView = BADCollectionView(nav: self.navigationController!)
         categoryCollectionView.set(cells: Categories.items())
         bannersCollectionView.set(cells: Banners.items())
-        bannersCollectionView.layoutIfNeeded()
         configureConstraints()
         fetchFromApi()
         fetchData()
         fetchBlogData()
         fetchVitemin()
         fetchBanner()
+        addTimer()
         let logo = UIImage(named: "logo 2")
         let imageView = UIImageView(image:logo)
         self.navigationItem.titleView = imageView
         self.navigationController?.navigationBar.tintColor = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "menu"), style: .plain, target: self, action: #selector(showCategories))
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Search"), style: .plain, target: self, action: #selector(searchContr))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Search"), style: .plain, target: self, action: #selector(btnCollection))
     }
     
     func startTimer(){
@@ -244,9 +243,7 @@ class MainViewController: UIViewController {
     }
     
     @objc func btnCollection() {
-        let vc = TestTwoViewController()
-        let v = AboutProductViewController()
-        vc.title = "Блог"
+        let v = SearchProductViewController()
         self.navigationController?.pushViewController(v, animated: true)
     }
     
@@ -394,6 +391,62 @@ class MainViewController: UIViewController {
             badsCollectionView.widthAnchor.constraint(equalToConstant: uiscrollView.frame.size.width),
             badsCollectionView.heightAnchor.constraint(equalToConstant: 285)
         ])
+    }
+    
+    func addTimer() {
+        let timer1 = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(nextPage), userInfo: nil, repeats: true)
+        RunLoop.main.add(timer1, forMode: RunLoop.Mode.common)
+        self.timer = timer1
+    }
+
+
+    func resetIndexPath() -> IndexPath {
+        let currentIndexPath = self.bannersCollectionView.indexPathsForVisibleItems.last
+        let currentIndexPathReset = IndexPath(item: (currentIndexPath?.item)!, section: 0)
+        self.bannersCollectionView.scrollToItem(at: currentIndexPathReset, at: UICollectionView.ScrollPosition.left, animated: true)
+        return currentIndexPath!
+    }
+
+//    func removeTimer() {
+//        if self.timer != nil {
+//            self.timer.invalidate()
+//        }
+////        self.timer = nil
+//    }
+
+    @objc func nextPage() {
+        let currentIndexPathReset:IndexPath = self.resetIndexPath()
+        var nextItem = currentIndexPathReset.item + 1
+        let nextSection = currentIndexPathReset.section
+        if nextItem == banners?.main_slider?.count{
+            nextItem = 0
+            nextItem += 1
+        }
+        var nextIndexPath = IndexPath(item: nextItem, section: 0)
+        if nextItem == 0 {
+            self.bannersCollectionView.scrollToItem(at: nextIndexPath, at: UICollectionView.ScrollPosition.left, animated: false)
+            nextItem += 1
+        }
+        self.bannersCollectionView.scrollToItem(at: nextIndexPath, at: UICollectionView.ScrollPosition.left, animated: true)
+        nextItem += 1
+    }
+
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        self.addTimer()
+
+    }
+
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        //self.removeTimer()
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        var visibleRect = CGRect()
+        visibleRect.origin = bannersCollectionView.contentOffset
+        visibleRect.size = bannersCollectionView.bounds.size
+        let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
+        let visibleIndexPath: IndexPath? = bannersCollectionView.indexPathForItem(at: visiblePoint)
+        //pageControlView.currentPage = (visibleIndexPath?.row)!
     }
     
     @objc func openTelegram() {

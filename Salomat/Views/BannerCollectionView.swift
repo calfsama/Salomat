@@ -45,11 +45,6 @@ extension BannerCollectionView: UICollectionViewDelegate, UICollectionViewDataSo
         cell.image.downloaded(from: completeURL)
         cell.image.kf.indicatorType = .activity
         cell.image.kf.setImage(with: URL(string: completeURL))
-        UIView.transition(with: cell.image,
-                          duration: 0.3,
-                          options: .transitionCrossDissolve,
-                          animations: { cell.image.downloaded(from: completeURL) },
-                          completion: nil)
         return cell
     }
     

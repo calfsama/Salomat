@@ -13,18 +13,42 @@ class FavoritesViewController: UIViewController {
     var network = NetworkService()
     var favoriteCollectionView: FavoriteCollectionView!
     let keychain = Keychain(service: "tj.info.Salomat")
+    
+    lazy var image: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(named: "fav")
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Избранное"
         favoriteCollectionView = FavoriteCollectionView(nav: self.navigationController!)
-        configureConstraints()
+        view.backgroundColor = .white
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         favorites()
         print(keychain["UserID"])
+        
+        if keychain["UserID"] ?? "" == "" {
+            
+        }
+    }
+    
+    func configure() {
+        view.addSubview(image)
+        
+        NSLayoutConstraint.activate([
+        
+            image.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+            image.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            image.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            image.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor)
+        
+        ])
     }
     
     func configureConstraints() {
@@ -44,9 +68,10 @@ class FavoritesViewController: UIViewController {
             case .success(let response):
                 self.favoriteCollectionView.favorites = response
                 self.favoriteCollectionView.reloadData()
-                self.favoriteCollectionView.indicator.stopAnimating()
+                self.configureConstraints()
             case .failure(let error):
                 print("error", error)
+                self.configure()
             }
         }
     }

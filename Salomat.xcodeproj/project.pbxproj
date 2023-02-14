@@ -83,6 +83,9 @@
 		974C1E4228E5B23400A6D4BE /* MainSliders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974C1E4128E5B23400A6D4BE /* MainSliders.swift */; };
 		974C1E4428E5C41200A6D4BE /* CategoriesForMainPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974C1E4328E5C41200A6D4BE /* CategoriesForMainPage.swift */; };
 		974C1E4628E5F73900A6D4BE /* Blog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974C1E4528E5F73900A6D4BE /* Blog.swift */; };
+		974C71D229892B4B0049E72D /* ProductDescriptionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974C71D129892B4B0049E72D /* ProductDescriptionCollectionViewCell.swift */; };
+		974C71D429892C510049E72D /* ProductDescriptionCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974C71D329892C510049E72D /* ProductDescriptionCollectionView.swift */; };
+		974C71D62989348D0049E72D /* ProductDescriptionCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974C71D52989348D0049E72D /* ProductDescriptionCollectionReusableView.swift */; };
 		974E41C0290FA8E300E287DB /* PostRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974E41BF290FA8E300E287DB /* PostRequest.swift */; };
 		974E42102911325900E287DB /* GroupCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974E420F2911325900E287DB /* GroupCollectionViewCell.swift */; };
 		974E42122911341100E287DB /* GroupCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974E42112911341100E287DB /* GroupCollectionView.swift */; };
@@ -155,6 +158,8 @@
 		9796F26B292F69E6006DCB55 /* ReviewCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9796F26A292F69E6006DCB55 /* ReviewCollectionReusableView.swift */; };
 		979C04A6290AA0B20020E203 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979C04A5290AA0B20020E203 /* PhotoCollectionViewCell.swift */; };
 		979C04A8290AA1D10020E203 /* ReceiptCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979C04A7290AA1D10020E203 /* ReceiptCollectionView.swift */; };
+		97A1E85C299A674100EA03ED /* SubtotalCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A1E85B299A674100EA03ED /* SubtotalCollectionReusableView.swift */; };
+		97A1E85E299A7B0900EA03ED /* GoodsHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A1E85D299A7B0900EA03ED /* GoodsHeaderCollectionReusableView.swift */; };
 		97BE27052907908B0071D143 /* Saerch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BE27042907908B0071D143 /* Saerch.swift */; };
 		97BE2707290791AF0071D143 /* SearchCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BE2706290791AF0071D143 /* SearchCollectionView.swift */; };
 		97CC55C6290A7FAF001A2F70 /* MessangerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CC55C5290A7FAF001A2F70 /* MessangerCollectionViewCell.swift */; };
@@ -266,6 +271,9 @@
 		974C1E4128E5B23400A6D4BE /* MainSliders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSliders.swift; sourceTree = "<group>"; };
 		974C1E4328E5C41200A6D4BE /* CategoriesForMainPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesForMainPage.swift; sourceTree = "<group>"; };
 		974C1E4528E5F73900A6D4BE /* Blog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blog.swift; sourceTree = "<group>"; };
+		974C71D129892B4B0049E72D /* ProductDescriptionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDescriptionCollectionViewCell.swift; sourceTree = "<group>"; };
+		974C71D329892C510049E72D /* ProductDescriptionCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDescriptionCollectionView.swift; sourceTree = "<group>"; };
+		974C71D52989348D0049E72D /* ProductDescriptionCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDescriptionCollectionReusableView.swift; sourceTree = "<group>"; };
 		974E41BF290FA8E300E287DB /* PostRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRequest.swift; sourceTree = "<group>"; };
 		974E420F2911325900E287DB /* GroupCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCollectionViewCell.swift; sourceTree = "<group>"; };
 		974E42112911341100E287DB /* GroupCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCollectionView.swift; sourceTree = "<group>"; };
@@ -340,6 +348,8 @@
 		9796F26A292F69E6006DCB55 /* ReviewCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCollectionReusableView.swift; sourceTree = "<group>"; };
 		979C04A5290AA0B20020E203 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		979C04A7290AA1D10020E203 /* ReceiptCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptCollectionView.swift; sourceTree = "<group>"; };
+		97A1E85B299A674100EA03ED /* SubtotalCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtotalCollectionReusableView.swift; sourceTree = "<group>"; };
+		97A1E85D299A7B0900EA03ED /* GoodsHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		97BE27042907908B0071D143 /* Saerch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Saerch.swift; sourceTree = "<group>"; };
 		97BE2706290791AF0071D143 /* SearchCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCollectionView.swift; sourceTree = "<group>"; };
 		97CC55C5290A7FAF001A2F70 /* MessangerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessangerCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -439,8 +449,8 @@
 				976E327628DB29E900C3E3E7 /* ShippingAndPaymentViewController.swift */,
 				976E327828DDBCE900C3E3E7 /* HowToMakeAnOrderViewController.swift */,
 				9788484028E1C40000926727 /* PasswordViewController.swift */,
-				9788484228E1CA9900926727 /* RecoveryViewController.swift */,
 				9788484428E2F7D600926727 /* RecoveryPasswordStepTwoViewController.swift */,
+				9788484228E1CA9900926727 /* RecoveryViewController.swift */,
 				9725796B28E7F24900712EEC /* RecoveryPasswordStepThreeViewController.swift */,
 				9725796D28E7F5CE00712EEC /* RegisterViewController.swift */,
 				9725796F28E7F62900712EEC /* RegisterStepTwoViewController.swift */,
@@ -505,6 +515,7 @@
 				9749494328ED7A8600793966 /* BlogsShowCollectionView.swift */,
 				970B065F28F02C9900C57763 /* MedicineCollectionViewCell.swift */,
 				970B065D28F02C7C00C57763 /* MedicineCollectionView.swift */,
+				9723BCAE2906ED0100B65237 /* CategoriesForMainPageCollectionViewCell.swift */,
 				970B066528F4394200C57763 /* CartCollectionViewCell.swift */,
 				974748502936143000903A7A /* CartHeaderCollectionReusableView.swift */,
 				970B066728F4396100C57763 /* CartCollectionView.swift */,
@@ -522,7 +533,6 @@
 				97604F5D28FD5E4700B44A5C /* FavoriteCollectionView.swift */,
 				97DEFFD82902A38700E6FCD5 /* MyOrdersHeaderCollectionReusableView.swift */,
 				978B30F92902B57400163532 /* MedicineFooterCollectionReusableView.swift */,
-				9723BCAE2906ED0100B65237 /* CategoriesForMainPageCollectionViewCell.swift */,
 				9723BCB02906ED1C00B65237 /* CategoriesForMainPageCollectionView.swift */,
 				974EFCB9290709A8006FBE49 /* CategoriesForMainPageTwoCollectionView.swift */,
 				972E34B0293FA4750010B2AE /* SubCategoryForMainPageCollectionView.swift */,
@@ -555,6 +565,11 @@
 				9749926F295C3C4700DC1CC0 /* SimilarProductsCollectionView.swift */,
 				9749928D296D5E1400DC1CC0 /* MainCategoriesCollectionView.swift */,
 				974992A9297A7B0900DC1CC0 /* AboutProductViewController.swift */,
+				974C71D129892B4B0049E72D /* ProductDescriptionCollectionViewCell.swift */,
+				974C71D329892C510049E72D /* ProductDescriptionCollectionView.swift */,
+				974C71D52989348D0049E72D /* ProductDescriptionCollectionReusableView.swift */,
+				97A1E85B299A674100EA03ED /* SubtotalCollectionReusableView.swift */,
+				97A1E85D299A7B0900EA03ED /* GoodsHeaderCollectionReusableView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -779,6 +794,7 @@
 				97947916292087B200C3BC77 /* token.swift in Sources */,
 				9788484328E1CA9900926727 /* RecoveryViewController.swift in Sources */,
 				973A0AEE28D84A410068CF56 /* BlogListCollectionView.swift in Sources */,
+				974C71D62989348D0049E72D /* ProductDescriptionCollectionReusableView.swift in Sources */,
 				97CC55C8290A7FD8001A2F70 /* MessangerCollectionView.swift in Sources */,
 				9749493528E8018F00793966 /* InfoCollectionViewCell.swift in Sources */,
 				9780B3912907EA9400AA84EE /* BasketFooterCollectionReusableView.swift in Sources */,
@@ -824,6 +840,7 @@
 				973A0AE628D470DC0068CF56 /* MedicinalProductsCollectionView.swift in Sources */,
 				97947912291E595000C3BC77 /* InstructionCollectionViewCell.swift in Sources */,
 				976E326F28D8D61100C3E3E7 /* MedicineViewController.swift in Sources */,
+				974C71D229892B4B0049E72D /* ProductDescriptionCollectionViewCell.swift in Sources */,
 				974C1E4228E5B23400A6D4BE /* MainSliders.swift in Sources */,
 				9780B38F2907DE3B00AA84EE /* Basket+CoreDataProperties.swift in Sources */,
 				973A0AEA28D47AA80068CF56 /* BlogCollectionViewCell.swift in Sources */,
@@ -837,6 +854,7 @@
 				978973D728C09DBA00C395C8 /* CategoryCollectionViewCell.swift in Sources */,
 				970B065E28F02C7C00C57763 /* MedicineCollectionView.swift in Sources */,
 				978973CF28C096BF00C395C8 /* ReceiptViewController.swift in Sources */,
+				974C71D429892C510049E72D /* ProductDescriptionCollectionView.swift in Sources */,
 				9796F25F292CF264006DCB55 /* MedicineInfoCollectionViewCell.swift in Sources */,
 				970B06F728F7CAB300C57763 /* MyOrdersViewController.swift in Sources */,
 				978B0C682915197700F88B0F /* SliderViewController.swift in Sources */,
@@ -879,6 +897,7 @@
 				9749929E29791BA300DC1CC0 /* Notifications.swift in Sources */,
 				973A0AEC28D84A280068CF56 /* BlogListCollectionViewCell.swift in Sources */,
 				97604F5928FD546000B44A5C /* DataModel+CoreDataClass.swift in Sources */,
+				97A1E85E299A7B0900EA03ED /* GoodsHeaderCollectionReusableView.swift in Sources */,
 				972E34B1293FA4750010B2AE /* SubCategoryForMainPageCollectionView.swift in Sources */,
 				973A0AE228D35D270068CF56 /* BannerMedicineCollectionView.swift in Sources */,
 				9796F26B292F69E6006DCB55 /* ReviewCollectionReusableView.swift in Sources */,
@@ -894,6 +913,7 @@
 				978973CB28C0968C00C395C8 /* MainViewController.swift in Sources */,
 				97DEFFD92902A38700E6FCD5 /* MyOrdersHeaderCollectionReusableView.swift in Sources */,
 				9796F255292BE982006DCB55 /* SubCategoryViewController.swift in Sources */,
+				97A1E85C299A674100EA03ED /* SubtotalCollectionReusableView.swift in Sources */,
 				976E327728DB29E900C3E3E7 /* ShippingAndPaymentViewController.swift in Sources */,
 				97E958642951AE1400A90D98 /* ExpandingTableViewController.swift in Sources */,
 			);
@@ -1044,6 +1064,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CODE_SIGN_ENTITLEMENTS = Salomat/Salomat.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -1079,6 +1100,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CODE_SIGN_ENTITLEMENTS = Salomat/Salomat.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;

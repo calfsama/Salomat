@@ -49,6 +49,7 @@ class ItemsCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout 
         contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         showsHorizontalScrollIndicator = false
         backgroundColor = .white
+    
     }
     
     required init?(coder: NSCoder) {
@@ -58,30 +59,46 @@ class ItemsCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout 
 extension ItemsCollectionView: UICollectionViewDelegate, SkeletonCollectionViewDataSource {
     
     func collectionSkeletonView(_ skeletonView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return product?.prods_of_the_day?.count ?? 0
+        return 10
+    }
+    
+    func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        return MedicinesCollectionViewCell.identifier
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return product?.prods_of_the_day?.count ?? 0
     }
-   
-    
-    func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> SkeletonView.ReusableCellIdentifier {
-        return MedicinesCollectionViewCell.identifier
-    }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = dequeueReusableCell(withReuseIdentifier: MedicinesCollectionViewCell.identifier, for: indexPath) as! MedicinesCollectionViewCell
-        var data = product?.prods_of_the_day?[indexPath.row]
+        let data = product?.prods_of_the_day?[indexPath.row]
+        cell.image.image = UIImage(named: "Image")
+        cell.title.text = "okfojfjojf"
+//        cell.contentView.isSkeletonable = true
+//        cell.contentView.showAnimatedGradientSkeleton()
         cell.id = data?.id ?? ""
         cell.is_favorite = ((data?.is_favorite) != nil)
         cell.titleMedicine = data?.product_name ?? ""
         cell.images = data?.product_pic ?? ""
         cell.prices = data?.product_price ?? ""
         cell.title.text = data?.product_name ?? ""
+        cell.totalCount.text = data?.total_count_in_store ?? ""
         let url = "http://slomat2.colibri.tj/upload_product/"
         let completeURL = url + (data?.product_pic ?? "")
        // cell.image.downloaded(from: completeURL)
+//        if Int(data?.total_count_in_store ?? "")! <= 0 {
+//            cell.cartButton.backgroundColor = .white
+//            cell.cartButton.setTitle("Нет в наличии", for: .normal)
+//            cell.cartButton.setTitleColor(UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1), for: .normal)
+//            cell.cartButton.addTarget(self, action: #selector(empty), for: .touchUpInside)
+//        }
+//        else if Int(data?.total_count_in_store ?? "")! > 0 {
+//            cell.cartButton.backgroundColor = UIColor(red: 0.118, green: 0.745, blue: 0.745, alpha: 1)
+//            cell.cartButton.setTitle("В корзину", for: .normal)
+//            cell.cartButton.setTitleColor(UIColor(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+//        }
+        cell.configureConstraints()
         cell.image.kf.indicatorType = .activity
         cell.image.kf.setImage(with: URL(string: completeURL))
         //cell.image.image = UIImage(named: "123")
@@ -101,11 +118,15 @@ extension ItemsCollectionView: UICollectionViewDelegate, SkeletonCollectionViewD
         cell.titleMedicine = data?.product_name ?? ""
         cell.prices = data?.product_price ?? ""
         cell.images = data?.product_pic ?? ""
-        cell.price.text = (data?.product_price)! + " сом."
+        cell.price.text = (data?.product_price) ?? "" + " сом."
         cell.is_favorite = ((data?.is_favorite) != nil)
         cell.id = data?.id ?? ""
-        cell.hideSkeleton()
+        //cell.contentView.hideSkeleton()
         return cell
+    }
+    
+    @objc func empty() {
+        print("don't work")
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -113,11 +134,7 @@ extension ItemsCollectionView: UICollectionViewDelegate, SkeletonCollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = TestTwoViewController()
-        let view = ReviewCollectionReusableView()
-        let similar = SimilarProductsCollectionView()
-        similar.id = product?.prods_of_the_day?[indexPath.row].id ?? ""
-        view.idi = product?.prods_of_the_day?[indexPath.row].id ?? ""
+        let vc = AboutProductViewController()
         vc.title = product?.prods_of_the_day?[indexPath.row].product_name ?? ""
         vc.id = product?.prods_of_the_day?[indexPath.row].id ?? ""
         self.navigationController.pushViewController(vc, animated: true)

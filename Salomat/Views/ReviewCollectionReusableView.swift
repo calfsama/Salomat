@@ -14,6 +14,26 @@ class ReviewCollectionReusableView: UICollectionReusableView {
     var productShow: ProductsShow?
     var id: String = ""
     var idi: String = ""
+    var alert: UIAlertController!
+    var controller = AboutProductViewController()
+    
+    lazy var uiView2: UIView = {
+        let uiView = UIView()
+        uiView.backgroundColor = .white
+        uiView.layer.borderColor = UIColor(red: 0.118, green: 0.745, blue: 0.745, alpha: 1).cgColor
+        uiView.layer.borderWidth = 0.5
+        uiView.translatesAutoresizingMaskIntoConstraints = false
+        return uiView
+    }()
+    
+    lazy var sentReview: UILabel = {
+        let label = UILabel()
+        label.text = "Отзыв отправлен"
+        label.textColor = UIColor(red: 0.22, green: 0.208, blue: 0.325, alpha: 1)
+        label.font = UIFont.systemFont(ofSize: 10, weight: .semibold)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
     lazy var leaveReview: UILabel = {
         let label = UILabel()
@@ -88,6 +108,14 @@ class ReviewCollectionReusableView: UICollectionReusableView {
         return button
     }()
     
+    lazy var delivery: UIImageView = {
+        let image = UIImageView()
+        image.contentMode = .scaleToFill
+        image.image = UIImage(named: "Important info")
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
+    }()
+    
     public func configure() {
         backgroundColor = .white
         print("tommy\(id)")
@@ -97,6 +125,7 @@ class ReviewCollectionReusableView: UICollectionReusableView {
         addSubview(commentTextField)
         addSubview(nameTextField)
         addSubview(share)
+        addSubview(delivery)
         
         NSLayoutConstraint.activate([
             leaveReview.topAnchor.constraint(equalTo: topAnchor, constant: 10),
@@ -121,9 +150,37 @@ class ReviewCollectionReusableView: UICollectionReusableView {
             share.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 15),
             share.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             share.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            share.heightAnchor.constraint(equalToConstant: 45)
+            share.heightAnchor.constraint(equalToConstant: 45),
+            
+            delivery.topAnchor.constraint(equalTo: share.bottomAnchor, constant: 20),
+            delivery.leadingAnchor.constraint(equalTo: leadingAnchor),
+            delivery.trailingAnchor.constraint(equalTo: trailingAnchor),
+            delivery.heightAnchor.constraint(equalToConstant: 230)
         
         ])
+    }
+    
+    func showAlert() {
+        addSubview(uiView2)
+        uiView2.addSubview(sentReview)
+        uiView2.layer.cornerRadius = 5
+        
+        NSLayoutConstraint.activate([
+            uiView2.centerYAnchor.constraint(equalTo: centerYAnchor),
+            uiView2.centerXAnchor.constraint(equalTo: centerXAnchor),
+            uiView2.heightAnchor.constraint(equalToConstant: 30),
+            uiView2.widthAnchor.constraint(equalToConstant: 100),
+            
+            sentReview.centerXAnchor.constraint(equalTo: uiView2.centerXAnchor),
+            sentReview.centerYAnchor.constraint(equalTo: uiView2.centerYAnchor)
+        
+        ])
+        Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(dismissAlert), userInfo: nil, repeats: false)
+    }
+
+    @objc func dismissAlert(){
+        // Dismiss the alert from here
+        self.uiView2.removeFromSuperview()
     }
     
     @objc func shareReview() {
@@ -160,6 +217,7 @@ class ReviewCollectionReusableView: UICollectionReusableView {
                     self.nameTextField.text = ""
                     self.commentTextField.text = ""
                     self.cosmosView.rating = 0
+                    self.showAlert()
                     
                 }
             }

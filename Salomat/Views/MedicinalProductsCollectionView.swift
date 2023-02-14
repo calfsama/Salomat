@@ -44,7 +44,7 @@ extension MedicinalProductsCollectionView: UICollectionViewDelegate, UICollectio
         cell.price.text = (categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].product_price)! + " сом."
         let url = "http://slomat2.colibri.tj/upload_product/"
         let completeURL = url + (categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].product_pic ?? "")
-        
+        cell.totalCount.text = categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].total_count_in_store ?? ""
         cell.image.kf.indicatorType = .activity
         cell.image.kf.setImage(with: URL(string: completeURL))
         if favorites?[indexPath.row].id == categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].id {
@@ -58,6 +58,7 @@ extension MedicinalProductsCollectionView: UICollectionViewDelegate, UICollectio
         cell.images = categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].product_pic ?? ""
         cell.is_favorite = ((categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].is_favorite) != nil)
         cell.id = categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].id ?? ""
+        cell.configureConstraints()
         return cell
     }
     
@@ -66,9 +67,11 @@ extension MedicinalProductsCollectionView: UICollectionViewDelegate, UICollectio
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = TestTwoViewController()
+        let vc = AboutProductViewController()
+        vc.title = categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].product_name ?? ""
         vc.id = categories?.categories_for_main_page?[0].categ_prods?[indexPath.row].id ?? ""
         self.navigationController.pushViewController(vc, animated: true)
+
     }
 }
 

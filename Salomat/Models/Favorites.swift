@@ -18,7 +18,7 @@ struct IsFavorites: Codable {
 //    var product_old_price: String?
     var product_price: String?
     var product_pic: String?
-//    var total_count_in_store: String?
+    var total_count_in_store: String?
 //    var product_articule: String?
 //    var product_of_the_day: String?
 //    var product_suggestions: String?
@@ -32,7 +32,7 @@ struct IsFavorites: Codable {
     enum CodingKeys: String, CodingKey {
         case id, product_name, product_about
         case product_type, product_form, product_brand
-        case product_pic, product_price, is_favorite
+        case product_pic, product_price, is_favorite, total_count_in_store
 
     }
 }

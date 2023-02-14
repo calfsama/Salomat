@@ -9,6 +9,8 @@ import Foundation
 
 struct ProductsShow: Codable {
     var product: ProductsShowInfo?
+    var similar_products: [SimilarProducts]?
+//    var prods_suggestions: [ProdsSuggestions]?
 }
 
 struct ProductsShowInfo: Codable {
@@ -22,7 +24,7 @@ struct ProductsShowInfo: Codable {
     var product_old_price: String?
     var product_price: String?
     var product_pic: String?
-//    var total_count_in_store: String?
+    var total_count_in_store: String?
 //    var product_articule: String?
 //    var product_of_the_day: String?
 //    var product_suggestions: String?
@@ -38,12 +40,11 @@ struct ProductsShowInfo: Codable {
 //    var product_avatar: String?
 //    var meta_social_image: String?
 //    var commets: [Comments]?
-    var similar_products: SimilarProducts?
-//    var prods_suggestions: [ProdsSuggestions]?
+   
     
     enum CodingKeys: String, CodingKey {
         case id, product_name, product_about, product_type, product_form, product_price
-        case product_brand, product_country, product_old_price, product_pic, categories, is_favorite, similar_products
+        case product_brand, product_country, product_old_price, product_pic, categories, is_favorite, total_count_in_store
     }
     
 }
@@ -110,9 +111,9 @@ struct SimilarProducts: Codable {
     var product_name: String?
     var product_about: String?
     var product_type: String?
-    var product_form: ProductForm?
-    var product_brand: ProductBrand?
-    var product_country: String?
+//    var product_form: ProductForm?
+//    var product_brand: ProductBrand?
+   // var product_country: String?
     var product_old_price: String?
     var product_price: String?
     var product_pic: String?

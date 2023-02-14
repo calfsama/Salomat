@@ -46,20 +46,20 @@ class CartHeaderCollectionReusableView: UICollectionReusableView {
         
         NSLayoutConstraint.activate([
             uiView.topAnchor.constraint(equalTo: topAnchor, constant: 20),
-            uiView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            uiView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             uiView.heightAnchor.constraint(equalToConstant: 3),
-            uiView.widthAnchor.constraint(equalToConstant: frame.size.width / 3.3),
+            uiView.widthAnchor.constraint(equalToConstant: frame.size.width / 3.4),
             
             uiView2.topAnchor.constraint(equalTo: topAnchor, constant: 20),
             //uiView2.leadingAnchor.constraint(equalTo: uiView.trailingAnchor, constant: 11),
             uiView2.centerXAnchor.constraint(equalTo: centerXAnchor),
             uiView2.heightAnchor.constraint(equalToConstant: 3),
-            uiView2.widthAnchor.constraint(equalToConstant: frame.size.width / 3.3),
+            uiView2.widthAnchor.constraint(equalToConstant: frame.size.width / 3.4),
             
             uiView3.topAnchor.constraint(equalTo: topAnchor, constant: 20),
-            uiView3.trailingAnchor.constraint(equalTo: trailingAnchor),
+            uiView3.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             uiView3.heightAnchor.constraint(equalToConstant: 3),
-            uiView3.widthAnchor.constraint(equalToConstant: frame.size.width / 3.3),
+            uiView3.widthAnchor.constraint(equalToConstant: frame.size.width / 3.4),
         ])
     }
     

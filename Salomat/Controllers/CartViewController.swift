@@ -68,6 +68,16 @@ class CartViewController: UIViewController {
         self.navigationController?.navigationBar.tintColor = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
         //tabBarItem.setBadgeTextAttributes([NSAttributedString.Key.foregroundColor.rawValue: UIColor.red], for: .normal)
         //self.tabBar.items?[2].badgeValue = "12"
+        
+        
+        loadArticles()
+        if data.count == 0 {
+            configure()
+            button.removeFromSuperview()
+        }
+        else if data.count != 0{
+            configureConstraints()
+        }
             
     }
     
@@ -76,6 +86,7 @@ class CartViewController: UIViewController {
         loadArticles()
         if data.count == 0 {
             configure()
+            button.removeFromSuperview()
         }
         else if data.count != 0{
             configureConstraints()
@@ -109,7 +120,7 @@ class CartViewController: UIViewController {
             basketCollectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
             basketCollectionView.heightAnchor.constraint(equalToConstant: view.frame.size.height),
             basketCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            basketCollectionView.widthAnchor.constraint(equalToConstant: view.frame.size.width - 32),
+            basketCollectionView.widthAnchor.constraint(equalToConstant: view.frame.size.width),
             
 //            promocode.topAnchor.constraint(equalTo: basketCollectionView.bottomAnchor, constant: 15),
 //            promocode.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),

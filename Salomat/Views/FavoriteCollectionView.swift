@@ -55,6 +55,11 @@ extension FavoriteCollectionView: UICollectionViewDelegate, UICollectionViewData
         let url = "http://slomat2.colibri.tj/upload_product/"
         let completeURL = url + (favorites?[indexPath.row].product_pic ?? "")
         cell.id = favorites?[indexPath.row].id ?? ""
+        cell.is_favorite = ((favorites?[indexPath.row].is_favorite) != nil)
+        cell.titleMedicine = favorites?[indexPath.row].product_name ?? ""
+        cell.images = favorites?[indexPath.row].product_pic ?? ""
+        cell.prices = favorites?[indexPath.row].product_price ?? ""
+        cell.totalCount.text = favorites?[indexPath.row].total_count_in_store ?? ""
         cell.image.downloaded(from: completeURL)
         cell.price.text = favorites?[indexPath.row].product_price ?? ""
         cell.title.text = favorites?[indexPath.row].product_name ?? ""
@@ -64,6 +69,7 @@ extension FavoriteCollectionView: UICollectionViewDelegate, UICollectionViewData
         else {
             cell.button.setImage(UIImage(named: "heart"), for: .normal)
         }
+        cell.configureConstraints()
         return cell
     }
     

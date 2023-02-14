@@ -20,8 +20,11 @@ class SimilarProductsCollectionView: UICollectionView, UICollectionViewDelegateF
         fetchBanner()
         delegate = self
         dataSource = self
+        layout.minimumLineSpacing = 16
+        contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         print(id, "similar")
         translatesAutoresizingMaskIntoConstraints = false
+        showsHorizontalScrollIndicator = false
     }
     
     required init?(coder: NSCoder) {
@@ -30,33 +33,43 @@ class SimilarProductsCollectionView: UICollectionView, UICollectionViewDelegateF
 }
 extension SimilarProductsCollectionView: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return products?.product?.similar_products?.id?.count ?? 0
+        if products?.similar_products?.count == 0 {
+            var emptyLabel = UILabel(frame: CGRect(x: 0, y: 0, width: collectionView.bounds.size.width, height: collectionView.bounds.size.height))
+            emptyLabel.text = "Список пуст"
+            emptyLabel.textColor = .gray
+            emptyLabel.font = UIFont.systemFont(ofSize: 22, weight: .semibold)
+            emptyLabel.textAlignment = NSTextAlignment.center
+            collectionView.backgroundView = emptyLabel
+            //collectionView.separatorStyle = .none
+            return 0
+        }
+        return products?.similar_products?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = dequeueReusableCell(withReuseIdentifier: MedicinesCollectionViewCell.identifier, for: indexPath) as! MedicinesCollectionViewCell
-        cell.id = products?.product?.similar_products?.id ?? ""
-        cell.is_favorite = ((products?.product?.similar_products?.is_favorite) != nil)
-        cell.titleMedicine = products?.product?.similar_products?.product_name ?? ""
-        cell.images = products?.product?.similar_products?.product_pic ?? ""
-        cell.prices = products?.product?.similar_products?.product_price ?? ""
-        cell.title.text = products?.product?.similar_products?.product_name ?? ""
+        cell.id = products?.similar_products?[indexPath.row].id ?? ""
+        cell.is_favorite = ((products?.similar_products?[indexPath.row].is_favorite) != nil)
+        cell.titleMedicine = products?.similar_products?[indexPath.row].product_name ?? ""
+        cell.images = products?.similar_products?[indexPath.row].product_pic ?? ""
+        cell.prices = products?.similar_products?[indexPath.row].product_price ?? ""
+        cell.title.text = products?.similar_products?[indexPath.row].product_name ?? ""
         let url = "http://slomat2.colibri.tj/upload_product/"
-        let completeURL = url + (products?.product?.similar_products?.product_pic ?? "")
+        let completeURL = url + (products?.similar_products?[indexPath.row].product_pic ?? "")
         cell.image.downloaded(from: completeURL)
         cell.image.image = UIImage(named: "123")
-        if products?.product?.similar_products?.is_favorite == true {
+        if products?.similar_products?[indexPath.row].is_favorite == true {
             cell.button.setImage(UIImage(named: "heart"), for: .normal)
         }
         else  {
             cell.button.setImage(UIImage(named: "favorite"), for: .normal)
         }
-        cell.titleMedicine = products?.product?.similar_products?.product_name ?? ""
-        cell.prices = products?.product?.similar_products?.product_price ?? ""
-        cell.images = products?.product?.similar_products?.product_pic ?? ""
-        cell.price.text = (products?.product?.similar_products?.product_price)! + " сом."
-        cell.is_favorite = ((products?.product?.similar_products?.is_favorite) != nil)
-        cell.id = products?.product?.similar_products?.id ?? ""
+        cell.titleMedicine = products?.similar_products?[indexPath.row].product_name ?? ""
+        cell.prices = products?.similar_products?[indexPath.row].product_price ?? ""
+        cell.images = products?.similar_products?[indexPath.row].product_pic ?? ""
+        cell.price.text = (products?.similar_products?[indexPath.row].product_price)! + " сом."
+        cell.is_favorite = ((products?.similar_products?[indexPath.row].is_favorite) != nil)
+        cell.id = products?.similar_products?[indexPath.row].id ?? ""
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

@@ -25,6 +25,7 @@ extension String {
 
 import UIKit
 import SwiftKeychainWrapper
+import KeychainAccess
 
 class SettingsCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
     var navigationController: UINavigationController
@@ -32,6 +33,7 @@ class SettingsCollectionView: UICollectionView, UICollectionViewDelegateFlowLayo
     var userID: String = ""
     var token: String = ""
     var phone: String = ""
+    let keychain = Keychain(service: "tj.info.Salomat")
 
     init(nav: UIViewController) {
         let layout = UICollectionViewFlowLayout()
@@ -106,6 +108,7 @@ extension SettingsCollectionView: UICollectionViewDelegate, UICollectionViewData
         }
         else if indexPath.row == 6 {
             let token = KeychainWrapper.standard.removeObject(forKey: "ttoken")
+            keychain["UserID"] = ""
             let reg = MainTabBarViewController()
             let appDelegate = UIApplication.shared.delegate
             appDelegate?.window??.rootViewController = reg

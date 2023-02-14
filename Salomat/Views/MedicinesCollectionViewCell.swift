@@ -10,8 +10,10 @@ import CoreData
 import SkeletonView
 import Cosmos
 import TinyConstraints
+import KeychainAccess
 
 class MedicinesCollectionViewCell: UICollectionViewCell {
+    var count = ""
     var index: IndexPath!
     var indexPath: Int = 0
     var favoritesModel: FavoritesData?
@@ -26,6 +28,7 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
     var commitPredicate: NSPredicate?
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var alert: UIAlertController!
+    let keychain = Keychain(service: "tj.info.Salomat")
     
     static let identifier = "MedicinesCollectionViewCell"
     
@@ -56,6 +59,15 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
         return title
     }()
     
+    lazy var totalCount: UILabel = {
+        let title = UILabel()
+        title.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+        title.textColor = .white
+        title.numberOfLines = 2
+        title.translatesAutoresizingMaskIntoConstraints = false
+        return title
+    }()
+    
     lazy var button: UIButton = {
         let button = UIButton()
         button.frame = CGRect(x: 140, y: 20, width: 23, height: 21)
@@ -75,31 +87,76 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
     
     lazy var cartButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor(red: 0.118, green: 0.745, blue: 0.745, alpha: 1)
-        button.setTitle("в корзину", for: .normal)
-        button.setTitleColor(UIColor(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 10, weight: .semibold)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
         button.layer.cornerRadius = 4
         button.layer.masksToBounds = true
-        button.addTarget(self, action: #selector(saveInBasket), for: .touchUpInside)
+       // button.addTarget(self, action: #selector(saveInBasket), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        self.image.image = nil
-    }
+    lazy var uiView: UIView = {
+        let uiView = UIView()
+        uiView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+        uiView.layer.borderColor = UIColor(red: 0.738, green: 0.741, blue: 1, alpha: 1).cgColor
+        uiView.layer.borderWidth = 1
+        uiView.layer.cornerRadius = 4
+        uiView.translatesAutoresizingMaskIntoConstraints = false
+        return uiView
+    }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        configureConstraints()
+    lazy var uiViewTitle: UILabel = {
+        let title = UILabel()
+        title.text = "Авторизуйтесь"
+        title.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+        title.translatesAutoresizingMaskIntoConstraints = false
+        return title
+    }()
+    
+//    override init(frame: CGRect) {
+//        super.init(frame: frame)
+//
+//        contentView.layer.borderColor = UIColor(red: 0.929, green: 0.93, blue: 1, alpha: 1).cgColor
+//        contentView.layer.borderWidth = 1
+//        contentView.layer.cornerRadius = 10
+//        print(count, "ummmkaaa")
+//
+//
+//    }
+    
+    func configureConstraints() {
+        
+        if Double(totalCount.text ?? "") ?? 0 <= 0 {
+            cartButton.backgroundColor = .white
+            cartButton.setTitle("Нет в наличии", for: .normal)
+            cartButton.setTitleColor(UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1), for: .normal)
+            
+        }
+        else if Double(totalCount.text ?? "") ?? 0 > 0 {
+            cartButton.backgroundColor = UIColor(red: 0.118, green: 0.745, blue: 0.745, alpha: 1)
+            cartButton.setTitle("В корзину", for: .normal)
+            cartButton.setTitleColor(UIColor(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+            cartButton.addTarget(self, action: #selector(saveInBasket), for: .touchUpInside)
+        }
+        
         contentView.layer.borderColor = UIColor(red: 0.929, green: 0.93, blue: 1, alpha: 1).cgColor
         contentView.layer.borderWidth = 1
         contentView.layer.cornerRadius = 10
-    }
-    
-    func configureConstraints() {
+
+        print(count, "total count")
+        print(prices, "prices")
+//        if count <= 0 {
+//            cartButton.backgroundColor = .white
+//            cartButton.setTitle("Нет в наличии", for: .normal)
+//            cartButton.setTitleColor(UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1), for: .normal)
+//        }
+//        else if count > 0 {
+//            cartButton.backgroundColor = UIColor(red: 0.118, green: 0.745, blue: 0.745, alpha: 1)
+//            cartButton.setTitle("В корзину", for: .normal)
+//            cartButton.setTitleColor(UIColor(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+//            cartButton.addTarget(self, action: #selector(saveInBasket), for: .touchUpInside)
+//        }
+        contentView.addSubview(totalCount)
         contentView.addSubview(image)
         contentView.addSubview(title)
         contentView.addSubview(cosmosView)
@@ -130,10 +187,6 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
             cartButton.heightAnchor.constraint(equalToConstant: 28),
             cartButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
         ])
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     func saveMedicine() {
@@ -217,27 +270,31 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
     }
 
     @objc func buttonAction() {
-        let fetchRequest: NSFetchRequest <DataModel> = DataModel.fetchRequest()
-        commitPredicate = NSPredicate(format: "id == %@", id)
-        fetchRequest.predicate = commitPredicate
-        do{
-            let data = try context.fetch(fetchRequest).first
-            if  data?.id != id {
-                print("\(data?.id) and \(id)")
-                button.setImage(UIImage(named: "favorite 1"), for: .normal)
-                print("save")
-                addFavorites()
-                saveMedicine()
+        if keychain["UserID"] ?? "" == "" {
+            showAlert()
+        } else {
+            let fetchRequest: NSFetchRequest <DataModel> = DataModel.fetchRequest()
+            commitPredicate = NSPredicate(format: "id == %@", id)
+            fetchRequest.predicate = commitPredicate
+            do{
+                let data = try context.fetch(fetchRequest).first
+                if  data?.id != id {
+                    print("\(data?.id) and \(id)")
+                    button.setImage(UIImage(named: "favorite 1"), for: .normal)
+                    print("save")
+                    addFavorites()
+                    saveMedicine()
+                }
+                else if data?.id == id{
+                    button.setImage(UIImage(named: "favorite"), for: .normal)
+                    print("delete")
+                    deleteFavorites()
+                    deleteMedicine()
+                }
             }
-            else if data?.id == id{
-                button.setImage(UIImage(named: "favorite"), for: .normal)
-                print("delete")
-                deleteFavorites()
-                deleteMedicine()
+            catch {
+                print("Error1\(error)")
             }
-        }
-        catch {
-            print("Error1\(error)")
         }
     }
     
@@ -250,6 +307,7 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
         data.amount = "1"
         print(images)
         print(title)
+        print(data.amount)
         self.dataBasket.append(data)
         print("ischecked")
        do {
@@ -261,8 +319,8 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
 
     func deleteMedicineInBasket() {
         let object: NSFetchRequest <Basket> = Basket.fetchRequest()
-        object.predicate = commitPredicate
         commitPredicate = NSPredicate(format: "id == %@", id)
+        object.predicate = commitPredicate
         do {
             let object = try context.fetch(object)
             for i in object {
@@ -281,47 +339,60 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    @objc func saveInBasket() {
-        let fetchRequest: NSFetchRequest <Basket> = Basket.fetchRequest()
-        fetchRequest.predicate = commitPredicate
-        commitPredicate = NSPredicate(format: "title == %@", titleMedicine)
-        do{
-            let data = try context.fetch(fetchRequest).first
-            if data == nil && data?.title != titleMedicine {
-                cartButton.backgroundColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1)
-                cartButton.setTitle("Убрать из корзины", for: .normal)
-                //contentView.layer.borderColor =
-                contentView.layer.borderColor = UIColor(red: 0.118, green: 0.745, blue: 0.745, alpha: 1).cgColor
-                print("\(data?.title) and \(titleMedicine)")
-                print("save")
-                saveMedicineInBasket()
-            }
-            else if data?.title == titleMedicine {
-                cartButton.backgroundColor = UIColor(red: 0.118, green: 0.745, blue: 0.745, alpha: 1)
-                contentView.layer.borderColor = UIColor(red: 0.929, green: 0.93, blue: 1, alpha: 1).cgColor
-                cartButton.setTitle("В корзину", for: .normal)
-                print("\(data?.title) and \(titleMedicine)")
-                print("delete")
-                deleteMedicineInBasket()
-            }
-        }
-        catch {
-            print("Error1\(error)")
-        }
-    }
-    
     func showAlert() {
-        self.alert = UIAlertController(title: "Alert", message: "Wait Please!", preferredStyle: UIAlertController.Style.alert)
-        let vc = MainViewController()
-        vc.present(self.alert, animated: true, completion: nil)
-        Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: Selector(("dismissAlert")), userInfo: nil, repeats: false)
-    }
-
-    func dismissAlert(){
-        // Dismiss the alert from here
-        self.alert.dismiss(animated: true, completion: nil)
+        contentView.addSubview(uiView)
+        uiView.addSubview(uiViewTitle)
+        
+        NSLayoutConstraint.activate([
+            uiView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            uiView.heightAnchor.constraint(equalToConstant: 30),
+            uiView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            uiView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            
+            uiViewTitle.centerXAnchor.constraint(equalTo: uiView.centerXAnchor),
+            uiViewTitle.centerYAnchor.constraint(equalTo: uiView.centerYAnchor)
+        ])
+        Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(hideAlert), userInfo: nil, repeats: false)
     }
     
+    @objc func hideAlert() {
+        self.uiView.removeFromSuperview()
+    }
+    
+    @objc func saveInBasket() {
+        if keychain["UserID"] ?? "" == "" {
+            showAlert()
+        }
+        else {
+            let fetchRequest: NSFetchRequest <Basket> = Basket.fetchRequest()
+            commitPredicate = NSPredicate(format: "title == %@", titleMedicine)
+            fetchRequest.predicate = commitPredicate
+            do{
+                let data = try context.fetch(fetchRequest).first
+                if data == nil && data?.title != titleMedicine {
+                    cartButton.backgroundColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1)
+                    cartButton.setTitle("Убрать из корзины", for: .normal)
+                    //contentView.layer.borderColor =
+                    contentView.layer.borderColor = UIColor(red: 0.118, green: 0.745, blue: 0.745, alpha: 1).cgColor
+                    print("\(data?.title) and \(titleMedicine)")
+                    print("save")
+                    saveMedicineInBasket()
+                }
+                else if data?.title == titleMedicine {
+                    cartButton.backgroundColor = UIColor(red: 0.118, green: 0.745, blue: 0.745, alpha: 1)
+                    contentView.layer.borderColor = UIColor(red: 0.929, green: 0.93, blue: 1, alpha: 1).cgColor
+                    cartButton.setTitleColor(UIColor(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+                    cartButton.setTitle("В корзину", for: .normal)
+                    print("\(data?.title) and \(titleMedicine)")
+                    print("delete")
+                    deleteMedicineInBasket()
+                }
+            }
+            catch {
+                print("Error1\(error)")
+            }
+        }
+    }
     
     func addFavorites() {
         guard let url = URL(string: "http://slomat2.colibri.tj/favorites") else { return }
@@ -329,7 +400,7 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
         let parameters: [String: Any] = [
-            "user_id": "112",
+            "user_id": keychain["UserID"] ?? "",
             "product_id": id
         ]
             request.httpBody = parameters.percentEncoded()
@@ -374,7 +445,7 @@ class MedicinesCollectionViewCell: UICollectionViewCell {
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
         let parameters: [String: Any] = [
-            "user_id": "112",
+            "user_id": keychain["UserID"] ?? "",
             "product_id": id
         ]
             request.httpBody = parameters.percentEncoded()

@@ -33,7 +33,6 @@ extension NotificationNewsCollectionView: UICollectionViewDelegate, UICollection
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = dequeueReusableCell(withReuseIdentifier: NotificationCollectionViewCell.identifier, for: indexPath) as! NotificationCollectionViewCell
-        cell.date.text = notification?[indexPath.row].created_at ?? ""
         cell.image.kf.setImage(with: URL(string: notification?[indexPath.row].image ?? ""))
         cell.title.text = notification?[indexPath.row].title ?? ""
         cell.subtitle.text = notification?[indexPath.row].body ?? ""

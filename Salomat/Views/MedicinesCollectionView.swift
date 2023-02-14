@@ -42,6 +42,7 @@ extension MedicinesCollectionView: UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = dequeueReusableCell(withReuseIdentifier: MedicinesCollectionViewCell.identifier, for: indexPath) as! MedicinesCollectionViewCell
+        cell.totalCount.text = sales?.total_products?.total_prods?[indexPath.row].total_count_in_store ?? ""
         cell.id = sales?.total_products?.total_prods?[indexPath.row].id ?? ""
         cell.is_favorite = ((sales?.total_products?.total_prods?[indexPath.row].is_favorite) != nil)
         cell.titleMedicine = sales?.total_products?.total_prods?[indexPath.row].product_name ?? ""
@@ -54,6 +55,7 @@ extension MedicinesCollectionView: UICollectionViewDelegate, UICollectionViewDat
         cell.image.kf.indicatorType = .activity
         cell.image.kf.setImage(with: URL(string: completeURL))
         //cell.button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        cell.configureConstraints()
         return cell
     }
     
@@ -62,7 +64,7 @@ extension MedicinesCollectionView: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = MedicineViewController()
+        let vc = AboutProductViewController()
         vc.id = sales?.total_products?.total_prods?[indexPath.row].id ?? ""
         self.navigationController.pushViewController(vc, animated: true)
         

@@ -52,6 +52,7 @@ extension BADCollectionView: UICollectionViewDelegate, UICollectionViewDataSourc
         else if vitamin?.categories_for_main_page?[1].categ_prods?[indexPath.row].is_favorite == true{
             cell.button.setImage(UIImage(named: "heart"), for: .normal)
             }
+        cell.totalCount.text = vitamin?.categories_for_main_page?[1].categ_prods?[indexPath.row].total_count_in_store ?? ""
         cell.titleMedicine = vitamin?.categories_for_main_page?[1].categ_prods?[indexPath.row].product_name ?? ""
         cell.prices = vitamin?.categories_for_main_page?[1].categ_prods?[indexPath.row].product_price ?? ""
         cell.images = vitamin?.categories_for_main_page?[1].categ_prods?[indexPath.row].product_pic ?? ""
@@ -63,6 +64,7 @@ extension BADCollectionView: UICollectionViewDelegate, UICollectionViewDataSourc
         else {
             cell.button.setImage(UIImage(named: "favorite"), for: .normal)
         }
+        cell.configureConstraints()
         cell.hideSkeleton()
         cell.startSkeletonAnimation()
         return cell
@@ -73,7 +75,7 @@ extension BADCollectionView: UICollectionViewDelegate, UICollectionViewDataSourc
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = TestTwoViewController()
+        let vc = AboutProductViewController()
         vc.id = vitamin?.categories_for_main_page?[1].categ_prods?[indexPath.row].id ?? ""
         self.navigationController.pushViewController(vc, animated: true)
     }

@@ -71,6 +71,7 @@ extension CategoriesForMainPageCollectionView: UICollectionViewDelegate, UIColle
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = dequeueReusableCell(withReuseIdentifier: CategoriesForMainPageCollectionViewCell.identifier, for: indexPath) as! CategoriesForMainPageCollectionViewCell
         if indexPath.row == 0 {
+            cell.button.setImage(UIImage(named: "arrow"), for: .normal)
             cell.category.textColor = UIColor(red: 0.22, green: 0.208, blue: 0.325, alpha: 1)
             cell.category.font = UIFont.systemFont(ofSize: 16, weight: .bold)
             cell.category.text = category?.categories?[indexPath.section].category_name ?? ""
@@ -135,7 +136,7 @@ extension CategoriesForMainPageCollectionView: UICollectionViewDelegate, UIColle
         }
         else {
             print("error", category?.categories?[indexPath.section].sub_cat?[indexPath.row - 1].id ?? "")
-            let vc = MainCategoriesViewController()
+            let vc = CategoriesForMainPageViewController()
             vc.id = category?.categories?[indexPath.section].sub_cat?[indexPath.row - 1].id ?? ""
             vc.title = category?.categories?[indexPath.section].sub_cat?[indexPath.row - 1].category_name ?? ""
             self.navigationController.pushViewController(vc, animated: true)

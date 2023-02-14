@@ -99,6 +99,15 @@ class SearchProductViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
+    lazy var empty: UILabel = {
+        let label = UILabel()
+        label.text = "Пусто"
+        label.textColor =  UIColor(red: 0.478, green: 0.463, blue: 0.617, alpha: 1)
+        label.font = UIFont.systemFont(ofSize: 20, weight: .regular)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -108,7 +117,7 @@ class SearchProductViewController: UIViewController {
         slider.maximumValue = 200
         spinner.color = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
         spinner.frame = CGRect(x: 165, y: 280, width: 40, height: 40)
-        configureConstraints()
+        configure()
         setup()
         setuoLogo()
 //        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "filtt"), style: .plain, target: self, action: #selector(filter))
@@ -143,6 +152,15 @@ class SearchProductViewController: UIViewController {
           notPopularCondition = false
           notPopularButton.setImage(UIImage(named: "Radiobutton 1"), for: .normal)
        }
+    }
+    
+    func configure() {
+        view.addSubview(empty)
+        
+        NSLayoutConstraint.activate([
+            empty.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            empty.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
     }
     
     @objc private func didChangeSliderValue() {
@@ -209,7 +227,7 @@ class SearchProductViewController: UIViewController {
            button.translatesAutoresizingMaskIntoConstraints = false
            return button
         }()
-        
+    
         // Constraints
         
         minPrice.text = "\(Int(slider.minimumValue))"
@@ -316,23 +334,23 @@ class SearchProductViewController: UIViewController {
     
     @objc func search() {
         let urlString = "http://slomat2.colibri.tj/search/with_price?srch_pr_inp=\(searchProduct)&min_price=\(slider.values.minimum)&max_price=\(slider.values.maximum)"
-       print(searchProduct)
-       let host = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-       self.network.search(urlString: host) { [weak self] (result) in
-           guard let self = self else {return}
-           switch result {
-           case .success(let response):
-             // self.collectionView.search = response
-              self.collectionView.search = response
-              //print(self.collectionView.search ?? "cooontroller")
-               //print(result)
-              self.collectionView.reloadData()
-              //self.collectionView.reloadData()
-              print(self.collectionView.search ?? "controller collection view", "kfnek")
-           case .failure(let error):
-               print("error", error)
-           }
-       }
+        print(searchProduct)
+        let host = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        self.network.search(urlString: host) { [weak self] (result) in
+            guard let self = self else {return}
+            switch result {
+            case .success(let response):
+                // self.collectionView.search = response
+                self.collectionView.search = response
+                //print(self.collectionView.search ?? "cooontroller")
+                //print(result)
+                self.collectionView.reloadData()
+                self.configureConstraints()
+                print(self.collectionView.search ?? "controller collection view", "kfnek")
+            case .failure(let error):
+                print("error", error)
+            }
+        }
         dismissBottomSheet()
     }
     
@@ -438,6 +456,7 @@ extension SearchProductViewController: UISearchBarDelegate {
             case .success(let response):
                 self.searchProduct = searchBar.text!
                 self.collectionView.search = response
+                self.configureConstraints()
                 self.collectionView.reloadData()
                 self.spinner.stopAnimating()
                 self.searchProduct = searchBar.text!

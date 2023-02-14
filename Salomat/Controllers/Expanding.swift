@@ -11,7 +11,7 @@ import KeychainAccess
 class Expanding: UIViewController {
     var expand = ExpandingCollectionView()
     var network = NetworkService()
-    let keychain = Keychain(service: "com.tomirisnegmatova.Salomat")
+    let keychain = Keychain(service: "tj.info.Salomat")
 
     override func viewDidLoad() {
         super.viewDidLoad()

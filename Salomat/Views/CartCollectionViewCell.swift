@@ -17,6 +17,8 @@ class CartCollectionViewCell: UICollectionViewCell {
     var titleMedicine: String = ""
     var images: String = ""
     var prices: String = ""
+    var index = Int()
+    var priceLabel = ""
     var commitPredicate: NSPredicate?
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
@@ -94,6 +96,7 @@ class CartCollectionViewCell: UICollectionViewCell {
         contentView.layer.borderWidth = 1
         contentView.layer.borderColor = UIColor(red: 0.929, green: 0.93, blue: 1, alpha: 1).cgColor
         configureConstraints()
+        print(priceLabel, "priceLabel")
     }
     
     func configureConstraints() {
@@ -109,12 +112,13 @@ class CartCollectionViewCell: UICollectionViewCell {
         
         NSLayoutConstraint.activate([
             image.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            image.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            image.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             image.heightAnchor.constraint(equalToConstant: 50),
             image.widthAnchor.constraint(equalToConstant: 50),
             
             title.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 18),
             title.leadingAnchor.constraint(equalTo: image.trailingAnchor, constant: 20),
+            title.trailingAnchor.constraint(equalTo: removeProductButton.trailingAnchor, constant: -20),
             
             ml.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 3),
             ml.leadingAnchor.constraint(equalTo: image.trailingAnchor, constant: 20),
@@ -132,7 +136,7 @@ class CartCollectionViewCell: UICollectionViewCell {
             price.trailingAnchor.constraint(equalTo: removeProductButton.leadingAnchor, constant: -20),
             
             removeProductButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            removeProductButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
+            removeProductButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20)
         ])
     }
     
@@ -165,7 +169,9 @@ class CartCollectionViewCell: UICollectionViewCell {
 //        price.text = "\(Int(price.text ?? "") ?? 0 + (Int(price.text ?? "") ?? 0))"
 //        print(stepper.value)
         //buttonAction()
-        updatePrice()
+        //updatePrice()
+        test()
+        
         //ar()
     }
     
@@ -213,14 +219,81 @@ class CartCollectionViewCell: UICollectionViewCell {
     
     func calculateCartTotalWithDelivery1() -> Double{
         var total = 0.0
+        let productPrice = Double(self.prices)
         if self.dataModel.count > 0 {
             for index in 0...self.dataModel.count - 1 {
-                total += (Double(dataModel[index].price ?? "") ?? 0) * (Double(dataModel[index].amount!) ?? 0)
+                total += (Double(dataModel[index].price ?? "") ?? 0) * (productPrice! * Double(stepperValue.text!)!)
                 
             }
         }
         return total + 5
     }
+    
+    func deleteMedicineInBasket() {
+        let object: NSFetchRequest <Basket> = Basket.fetchRequest()
+        commitPredicate = NSPredicate(format: "id == %@", id)
+        object.predicate = commitPredicate
+        do {
+            let object = try context.fetch(object)
+            for i in object {
+                if i.id == id {
+                    i.amount = stepperValue.text
+                    print(i.amount)
+                }
+                do {
+                    try context.save()
+                }catch {
+                    print("Error1 \(error)")
+                }
+            }
+        }
+        catch {
+            print("Error2 \(error)")
+        }
+    }
+    
+    func test() {
+        if self.stepper.value >= 1 {
+            let productPrice = Double(self.prices)
+            price.text = String(productPrice! * Double(stepperValue.text!)!) + " сом"
+            deleteMedicineInBasket()
+//            let data = Basket(context: self.context)
+//            data.setValue(stepperValue.text, forKey: "amount")
+//
+//            do {
+//                try context.save()
+//                print(data.amount, "kdfnkf")
+//            }
+//            catch {
+//                print("error rrr")
+//            }
+//            let object: NSFetchRequest <Basket> = Basket.fetchRequest()
+//            if object.value(forKey: "amount") as? String  != stepperValue.text {
+//                object.setValue(stepperValue.text, forKey: "amount")
+//                print(object.value(forKey: "amount") ?? "", "tommy hilfiger")
+//            }
+//            else {
+//                print("unable to fetch or create list")
+//            }
+        }
+    }
+    
+//    func saveLoginData(accessToken: String, userName: String) {
+//        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+//
+//        var fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Basket")
+//        fetchRequest.predicate = NSPredicate(format: "title = %@", titleMedicine)
+//
+//        if let fetchResults = try context.fetch(fetchRequest)  {
+//            if fetchResults.count != 0{
+//
+//                var managedObject = fetchResults[0]
+//                managedObject.setValue(accessToken, forKey: "accessToken")
+//
+//                context.save(nil)
+//            }
+//        }
+//    }
 
     
     func updatePrice() {

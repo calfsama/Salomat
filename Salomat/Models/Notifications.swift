@@ -13,11 +13,10 @@ struct Notif: Codable {
     var body: String?
     var image: String?
     var type: String?
-    var created_at: String?
     
     enum CodingKeys: String, CodingKey {
         case id, title, body
-        case image, type, created_at
+        case image, type
     }
 }
 

@@ -246,7 +246,8 @@ class InfoAboutDeliveryTwoViewController: UIViewController {
         collectionView.price = price
         collection.price = String(format: "%.2f", calculateCartTotalWithDelivery())
         print(price, "dknkwd")
-        configureConstraints()
+        //configureConstraints()
+        configure()
         allOrders()
         print(qwert ?? [], "???")
         //allOrder()
@@ -256,6 +257,7 @@ class InfoAboutDeliveryTwoViewController: UIViewController {
         if data.count != 0 {
             for i in 1...data.count {
                 print(data[i - 1].id ?? "" , "here")
+                print(data)
             }
         }
     }
@@ -269,7 +271,7 @@ class InfoAboutDeliveryTwoViewController: UIViewController {
         var total = 0.0
         if self.data.count > 0 {
             for index in 0...self.data.count - 1 {
-                total += (Double(data[index].price!) ?? 0)
+                total += (Double(data[index].price ?? "") ?? 0) * (Double(data[index].amount!) ?? 0)
             }
         }
         return total + 5
@@ -281,7 +283,7 @@ class InfoAboutDeliveryTwoViewController: UIViewController {
         for index in 0...data.count - 1 {
                 var dict1: [String: Any] = [
                     "product_id": data[index].id ?? "",
-                    "product_count": "1"
+                    "product_count": data[index].amount ?? ""
                 ]
                 var existingItems = dict["items"] as? [[String: Any]] ?? [[String: Any]]()
 
@@ -353,7 +355,7 @@ class InfoAboutDeliveryTwoViewController: UIViewController {
         var total = 0.0
         if self.data.count > 0 {
             for index in 0...self.data.count - 1 {
-                total += (Double(data[index].price!) ?? 0)
+                total += (Double(data[index].price ?? "") ?? 0) * (Double(data[index].amount!) ?? 0)
             }
         }
         return total + 20
@@ -602,24 +604,12 @@ class InfoAboutDeliveryTwoViewController: UIViewController {
             print("Error fetching data from context \(error)")
         }
     }
-  
-    func configureConstraints() {
+    
+    func configure() {
         view.addSubview(uiView)
         view.addSubview(uiView2)
         view.addSubview(uiView3)
-        view.addSubview(uiView4)
-        view.addSubview(goods)
-        view.addSubview(total)
-        view.addSubview(uiView5)
         view.addSubview(goodsCollectionView)
-        view.addSubview(collectionView)
-        view.addSubview(delivery)
-        view.addSubview(button)
-        view.addSubview(button2)
-        view.addSubview(label)
-        view.addSubview(label2)
-        view.addSubview(uiView6)
-        view.addSubview(collection)
         view.addSubview(cancel)
         view.addSubview(book)
         
@@ -638,62 +628,12 @@ class InfoAboutDeliveryTwoViewController: UIViewController {
             uiView3.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             uiView3.heightAnchor.constraint(equalToConstant: 3),
             uiView3.widthAnchor.constraint(equalToConstant: view.frame.size.width / 3.5),
+            
+            goodsCollectionView.topAnchor.constraint(equalTo: uiView.bottomAnchor, constant: 40),
+            goodsCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            goodsCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            goodsCollectionView.bottomAnchor.constraint(equalTo: cancel.topAnchor, constant: -3),
         
-            uiView4.topAnchor.constraint(equalTo: uiView.bottomAnchor, constant: 30),
-            uiView4.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            uiView4.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            uiView4.heightAnchor.constraint(equalToConstant: 390),
-            
-            goods.topAnchor.constraint(equalTo: uiView4.topAnchor, constant: 23),
-            goods.leadingAnchor.constraint(equalTo: uiView4.leadingAnchor, constant: 20),
-            
-            total.topAnchor.constraint(equalTo: uiView4.topAnchor, constant: 23),
-            total.trailingAnchor.constraint(equalTo: uiView4.trailingAnchor, constant: -20),
-            
-            uiView5.topAnchor.constraint(equalTo: goods.bottomAnchor, constant: 20),
-            uiView5.leadingAnchor.constraint(equalTo: uiView4.leadingAnchor, constant: 16),
-            uiView5.trailingAnchor.constraint(equalTo: uiView4.trailingAnchor, constant: -16),
-            uiView5.heightAnchor.constraint(equalToConstant: 1),
-            
-            goodsCollectionView.topAnchor.constraint(equalTo: uiView5.bottomAnchor, constant: 20),
-            goodsCollectionView.leadingAnchor.constraint(equalTo: uiView4.leadingAnchor, constant: 2),
-            goodsCollectionView.trailingAnchor.constraint(equalTo: uiView4.trailingAnchor, constant: -2),
-            goodsCollectionView.heightAnchor.constraint(equalToConstant: 50),
-            
-            collectionView.topAnchor.constraint(equalTo: goodsCollectionView.bottomAnchor, constant: 15),
-            collectionView.leadingAnchor.constraint(equalTo: uiView4.leadingAnchor, constant: 1),
-            collectionView.trailingAnchor.constraint(equalTo: uiView4.trailingAnchor, constant: -1),
-            collectionView.heightAnchor.constraint(equalToConstant: 50),
-            
-            delivery.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 20),
-            delivery.leadingAnchor.constraint(equalTo: uiView4.leadingAnchor, constant: 23),
-            
-            button.topAnchor.constraint(equalTo: delivery.bottomAnchor, constant: 15),
-            button.leadingAnchor.constraint(equalTo: uiView4.leadingAnchor, constant: 21),
-            button.heightAnchor.constraint(equalToConstant: 20),
-            button.widthAnchor.constraint(equalToConstant: 20),
-            
-            button2.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 10),
-            button2.leadingAnchor.constraint(equalTo: uiView4.leadingAnchor, constant: 21),
-            button2.heightAnchor.constraint(equalToConstant: 20),
-            button2.widthAnchor.constraint(equalToConstant: 20),
-            
-            label.topAnchor.constraint(equalTo: delivery.bottomAnchor, constant: 19),
-            label.leadingAnchor.constraint(equalTo: button.trailingAnchor, constant: 5),
-            
-            label2.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 14),
-            label2.leadingAnchor.constraint(equalTo: button2.trailingAnchor, constant: 5),
-            
-            uiView6.topAnchor.constraint(equalTo: button2.bottomAnchor, constant: 20),
-            uiView6.leadingAnchor.constraint(equalTo: uiView4.leadingAnchor, constant: 16),
-            uiView6.trailingAnchor.constraint(equalTo: uiView4.trailingAnchor, constant: -16),
-            uiView6.heightAnchor.constraint(equalToConstant: 1),
-            
-            collection.topAnchor.constraint(equalTo: uiView6.bottomAnchor, constant: 10),
-            collection.leadingAnchor.constraint(equalTo: uiView4.leadingAnchor, constant: 1),
-            collection.trailingAnchor.constraint(equalTo: uiView4.trailingAnchor, constant: -1),
-            collection.heightAnchor.constraint(equalToConstant: 50),
-            
             cancel.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20),
             cancel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             cancel.heightAnchor.constraint(equalToConstant: 45),
@@ -706,5 +646,4 @@ class InfoAboutDeliveryTwoViewController: UIViewController {
             book.widthAnchor.constraint(equalToConstant: 160)
         ])
     }
-    
 }

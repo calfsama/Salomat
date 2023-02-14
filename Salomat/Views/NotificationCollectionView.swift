@@ -14,6 +14,7 @@ class NotificationCollectionView: UICollectionView, UICollectionViewDelegateFlow
     init() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
+        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         super.init(frame: .zero, collectionViewLayout: layout)
         register(NotificationCollectionViewCell.self, forCellWithReuseIdentifier: NotificationCollectionViewCell.identifier)
         delegate = self
@@ -34,10 +35,12 @@ extension NotificationCollectionView: UICollectionViewDelegate, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = dequeueReusableCell(withReuseIdentifier: NotificationCollectionViewCell.identifier, for: indexPath) as! NotificationCollectionViewCell
-        cell.date.text = notification?[indexPath.row].created_at ?? ""
+        cell.contentView.layer.borderColor = UIColor(red: 0.118, green: 0.745, blue: 0.745, alpha: 1).cgColor
+        cell.contentView.layer.borderWidth = 1
         cell.image.kf.setImage(with: URL(string: notification?[indexPath.row].image ?? ""))
         cell.title.text = notification?[indexPath.row].title ?? ""
         cell.subtitle.text = notification?[indexPath.row].body ?? ""
+        //cell.mix()
         return cell
     }
     

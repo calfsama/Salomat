@@ -9,14 +9,14 @@ import UIKit
 
 class CategoriesForMainPageViewController: UIViewController {
     var network = NetworkService()
-    var collectionView = CategoriesForMainPageTwoCollectionView()
+    var collectionView: CategoriesForMainPageTwoCollectionView!
     var id: String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        collectionView = CategoriesForMainPageTwoCollectionView(nav: self.navigationController!)
         fetchData()
-        collectionView.id = id
         configureConstraints()
     }
     
@@ -32,8 +32,8 @@ class CategoriesForMainPageViewController: UIViewController {
     }
     
     func fetchData(){
-        let urlString = "http://slomat2.colibri.tj/products/categories"
-        self.network.category(urlString: urlString) { [weak self] (result) in
+        let urlString = "http://slomat2.colibri.tj/categories/products/\(id)?page=1"
+        self.network.mainCategories(urlString: urlString) { [weak self] (result) in
             guard let self = self else {return}
             switch result {
             case .success(let response):

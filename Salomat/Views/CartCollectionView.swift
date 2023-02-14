@@ -27,10 +27,6 @@ class CartCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
         showsVerticalScrollIndicator = false
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .white
-        let vc = InfoAboutDeliveryCollectionView()
-        vc.price = String(format: "%.2f", calculateCartTotalWithDelivery())
-        print(vc.price , "tom")
-        
     }
     
     
@@ -62,16 +58,20 @@ extension CartCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
         let completeURL = url + (data[indexPath.row].image ?? "")
         cell.image.downloaded(from: completeURL)
         cell.titleMedicine = data[indexPath.row].title ?? ""
+    
         cell.title.text = data[indexPath.row].title
-        cell.price.text = (data[indexPath.row].price ?? "") + " сом"
+        //cell.price.text = (data[indexPath.row].price ?? "") + " сом"
        // cell.price.text = String((cell.stepper.value) + Double(data[indexPath.row].price!)!)
+        cell.stepper.value = Double(data[indexPath.row].amount ?? "") ?? 0
         cell.prices = data[indexPath.row].price ?? ""
         //        cell.image.image = medical[indexPath.row].image
         //        cell.title.text = medical[indexPath.row].name"
         //        cell.price.text = medical[indexPath.row].price
-        cell.price.text = "\(cell.stepper.value * (Double(data[indexPath.row].price ?? "") ?? 0)) " + " сом"
+        cell.price.text = "\((Double(data[indexPath.row].amount ?? "") ?? 0) * (Double(data[indexPath.row].price ?? "") ?? 0))" + " сом"
         cell.ml.text = "50 мл"
         cell.art.text = "Арт. 10120"
+        cell.stepperValue.text = data[indexPath.row].amount ?? ""
+        cell.id = data[indexPath.row].id ?? ""
         cell.removeProductButton.layer.setValue(indexPath.row, forKey: "index")
         cell.removeProductButton.addTarget(self, action: #selector(deleteUser), for: .touchUpInside)
         return cell
@@ -91,7 +91,7 @@ extension CartCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
              
          case UICollectionView.elementKindSectionFooter:
             let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: BasketFooterCollectionReusableView.identifier, for: indexPath) as! BasketFooterCollectionReusableView
-            footer.cost.text = String(format: "%.2f", calculateCartTotal()) + " сом"
+            footer.cost.text = String(format: "%.2f", calculateCartTotalWithoutDelivery()) + " сом"
             footer.delivery.text = "5" + " сом"
             footer.totalCost.text = String(format: "%.2f", calculateCartTotalWithDelivery()) + " сом"
             footer.configure()
@@ -105,7 +105,7 @@ extension CartCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         if data.count != 0 {
-            return CGSize(width: collectionView.frame.size.width, height: 120)
+            return CGSize(width: collectionView.frame.size.width, height: collectionView.frame.size.height - 320)
         }
         return CGSize(width: 0, height: 0)
     }
@@ -121,7 +121,8 @@ extension CartCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
         var total = 0.0
         if self.data.count > 0 {
             for index in 0...self.data.count - 1 {
-                total += Double(data[index].price ?? "") ?? 0
+                total += Double(data[index].price ?? "") ?? 0 * (Double(data[index].amount!) ?? 0)
+                reloadData()
             }
         }
         return total
@@ -132,10 +133,19 @@ extension CartCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
         if self.data.count > 0 {
             for index in 0...self.data.count - 1 {
                 total += (Double(data[index].price ?? "") ?? 0) * (Double(data[index].amount!) ?? 0)
-                
             }
         }
         return total + 5
+    }
+    
+    func calculateCartTotalWithoutDelivery() -> Double{
+        var total = 0.0
+        if self.data.count > 0 {
+            for index in 0...self.data.count - 1 {
+                total += (Double(data[index].price ?? "") ?? 0) * (Double(data[index].amount!) ?? 0)
+            }
+        }
+        return total
     }
     
     func displayTotal() {
@@ -176,5 +186,4 @@ extension CartCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
            print("Error \(error)")
        }
    }
-
 }

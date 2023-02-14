@@ -61,10 +61,14 @@ extension SearchCollectionView: UICollectionViewDelegate, UICollectionViewDataSo
         cell.title.text = "kekghg"
         cell.title.text = search?.products?[indexPath.row].product_name ?? ""
         cell.price.text = search?.products?[indexPath.row].product_price ?? ""
+        cell.id = search?.products?[indexPath.row].id ?? ""
+        cell.is_favorite = ((search?.products?[indexPath.row].is_favorite) != nil)
         cell.prices = search?.products?[indexPath.row].product_price ?? ""
         cell.titleMedicine = search?.products?[indexPath.row].product_name ?? ""
         cell.images = search?.products?[indexPath.row].product_pic ?? ""
+        cell.totalCount.text = search?.products?[indexPath.row].total_count_in_store ?? ""
         cell.button.setImage(UIImage(named: "favorite"), for: .normal)
+        cell.configureConstraints()
         return cell
     }
     

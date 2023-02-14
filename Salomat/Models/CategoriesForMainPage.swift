@@ -77,7 +77,7 @@ struct Product: Codable {
 //    var product_old_price: String?
     var product_price: String?
     var product_pic: String?
-//    var total_count_in_store: String?
+    var total_count_in_store: String?
 //    var product_of_the_day: String?
 //    var product_suggestions: String?
 //    var product_in_category: String?

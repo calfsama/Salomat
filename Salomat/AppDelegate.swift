@@ -7,7 +7,6 @@
 
 import UIKit
 import CoreData
-import SwiftKeychainWrapper
 import FirebaseCore
 import FirebaseMessaging
 import KeychainAccess
@@ -26,16 +25,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         self.window?.rootViewController = tab
         self.window?.makeKeyAndVisible()
         
-        FirebaseApp.configure()
         
+        FirebaseApp.configure()
         UNUserNotificationCenter.current().delegate = self
-        Messaging.messaging().delegate = self
+       
         let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
         UNUserNotificationCenter.current().requestAuthorization(options: authOptions) { success, _ in
             guard success else { return }
             print("Success in APNS registry")
         }
         application.registerForRemoteNotifications()
+        Messaging.messaging().delegate = self
+        
+        
+//        if #available(iOS 10.0, *) {
+//            UNUserNotificationCenter.current().delegate = self
+//
+//            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+//            UNUserNotificationCenter.current().requestAuthorization(options: authOptions, completionHandler: { _, _ in })
+//        } else {
+//            let settings: UIUserNotificationSettings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+//            application.registerUserNotificationSettings(settings)
+//        }
+//        Messaging.messaging().delegate = self
+//        application.registerForRemoteNotifications()
         return true
     }
     
@@ -45,6 +58,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let keychain = Keychain(service: "tj.info.Salomat")
         keychain["fcmToken"] = fcmToken
         print(keychain["fcmToken"] ?? "empty")
+        
+//        let dataDict: [String: String] = ["token": fcmToken ?? ""]
+//        NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
         
 //        messaging.token { token, _ in
 //            guard let token = token else { return }
@@ -83,15 +99,81 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
 }
+//extension AppDelegate: UNUserNotificationCenterDelegate {
+////  // Receive displayed notifications for iOS 10 devices.
+////  func userNotificationCenter(_ center: UNUserNotificationCenter,
+////                              willPresent notification: UNNotification) async
+////    -> UNNotificationPresentationOptions {
+////    let userInfo = notification.request.content.userInfo
+////
+////    // With swizzling disabled you must let Messaging know about the message, for Analytics
+////    // Messaging.messaging().appDidReceiveMessage(userInfo)
+////
+////    // ...
+////
+////    // Print full message.
+////    print(userInfo)
+////
+////    // Change this to your preferred presentation option
+////    return [[.alert, .sound]]
+////  }
+////
+////  func userNotificationCenter(_ center: UNUserNotificationCenter,
+////                              didReceive response: UNNotificationResponse) async {
+////    let userInfo = response.notification.request.content.userInfo
+////
+////    // ...
+////
+////    // With swizzling disabled you must let Messaging know about the message, for Analytics
+////    // Messaging.messaging().appDidReceiveMessage(userInfo)
+////
+////    // Print full message.
+////    print(userInfo)
+////  }
+////
+////    func application(_ application: UIApplication,
+////                     didReceiveRemoteNotification userInfo: [AnyHashable: Any]) async
+////      -> UIBackgroundFetchResult {
+////      // If you are receiving a notification message while your app is in the background,
+////      // this callback will not be fired till the user taps on the notification launching the application.
+////      // TODO: Handle data of notification
+////
+////      // With swizzling disabled you must let Messaging know about the message, for Analytics
+////      // Messaging.messaging().appDidReceiveMessage(userInfo)
+////
+////      // Print message ID.
+////      if let messageID = userInfo[gcmMessageIDKey] {
+////        print("Message ID: \(messageID)")
+////      }
+////
+////      // Print full message.
+////      print(userInfo)
+////
+////      return UIBackgroundFetchResult.newData
+////    }
+//}
 //extension AppDelegate: MessagingDelegate {
 //
-//    private func configureFirebase(for application: UIApplication) {
-//        FirebaseApp.configure()
-//        UNUserNotificationCenter.current().delegate = self
-//        Messaging.messaging().delegate = self
-//        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-//        UNUserNotificationCenter.current().requestAuthorization(options: authOptions, completionHandler: {_, _ in})
-//        application.registerForRemoteNotifications()
+//    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+//        print("DEBUG / PUSH NOTIFICATION / Firebase registration token: \(fcmToken ?? "")")
+//
+//        let keychain = Keychain(service: "tj.info.Salomat")
+//        keychain["fcmToken"] = fcmToken
+//        print(keychain["fcmToken"] ?? "empty")
+//
+////        let dataDict: [String: String] = ["token": fcmToken ?? ""]
+////        NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
+//
+////        messaging.token { token, _ in
+////            guard let token = token else { return }
+////                    let keychain = Keychain(service: "tj.info.Salomat")
+////                    keychain["fcmToken"] = token
+////            print(keychain["fcmToken"] ?? "empty")
+////            print("Token \(token)")
+////        }
 //    }
+//
 //}
+
+
 

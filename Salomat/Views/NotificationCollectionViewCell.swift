@@ -10,6 +10,15 @@ import UIKit
 class NotificationCollectionViewCell: UICollectionViewCell {
     static let identifier = "NotificationCollectionViewCell"
     
+    lazy var uiscrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.frame = contentView.bounds
+        scrollView.contentSize = CGSize(width: contentView.frame.size.width, height: 2350)
+        scrollView.backgroundColor = .white
+        scrollView.showsVerticalScrollIndicator = false
+        return scrollView
+    }()
+    
     lazy var title: UILabel = {
         let title = UILabel()
         title.textColor = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
@@ -21,19 +30,10 @@ class NotificationCollectionViewCell: UICollectionViewCell {
         return title
     }()
     
-    lazy var date: UILabel = {
-        let date = UILabel()
-        date.textColor = UIColor(red: 0.478, green: 0.463, blue: 0.617, alpha: 1)
-        date.font = UIFont.systemFont(ofSize: 12, weight: .regular)
-        date.translatesAutoresizingMaskIntoConstraints = false
-        return date
-    }()
-    
     lazy var image: UIImageView = {
         let image = UIImageView()
-        image.contentMode = .scaleToFill
+        image.contentMode = .scaleAspectFill
         image.layer.cornerRadius = 10
-        image.image = UIImage(named: "image 5")
         image.layer.masksToBounds = true
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
@@ -45,8 +45,6 @@ class NotificationCollectionViewCell: UICollectionViewCell {
         subtitle.font = UIFont.systemFont(ofSize: 12, weight: .bold)
         subtitle.numberOfLines = 0
         subtitle.text = "Мы это молодая перспективная аптека, работающая на стыке сферы информационных технологий и фармацевтики. Наша интернет-аптека это большой выбор медикаментов (более 5000 видов), товаров для здоровья и красоты; это онлайн - сервис по предоставлению интересующей информации о препаратах; это возможность найти, сравнить цены и конечно же выгодно приобрести нужные вам лекарства не выходя из дома или офиса!"
-        subtitle.alpha = 0.9
-        subtitle.lineBreakMode = .byWordWrapping
         subtitle.translatesAutoresizingMaskIntoConstraints = false
         return subtitle
     }()
@@ -56,28 +54,71 @@ class NotificationCollectionViewCell: UICollectionViewCell {
         configureConstraints()
     }
     
+//    func mix(){
+//        if image.image == nil {
+//            configure()
+//        }
+//        else {
+//            configureConstraints()
+//        }
+//    }
+    
+    var isHeightCalculated: Bool = false
+
+    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+        //Exhibit A - We need to cache our calculation to prevent a crash.
+        if !isHeightCalculated {
+            setNeedsLayout()
+            layoutIfNeeded()
+            let size = contentView.systemLayoutSizeFitting(layoutAttributes.size)
+            var newFrame = layoutAttributes.frame
+            newFrame.size.width = CGFloat(ceilf(Float(size.width)))
+            layoutAttributes.frame = newFrame
+            isHeightCalculated = true
+        }
+        return layoutAttributes
+    }
+    
+    func configure() {
+       // contentView.addSubview(uiscrollView)
+        contentView.addSubview(title)
+        contentView.addSubview(subtitle)
+        image.removeFromSuperview()
+        
+        
+        NSLayoutConstraint.activate([
+            title.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            
+            subtitle.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 10),
+            subtitle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            subtitle.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            subtitle.bottomAnchor.constraint(equalTo: uiscrollView.bottomAnchor, constant: -10)
+        
+        ])
+    }
+
+    
     func configureConstraints() {
-        contentView.addSubview(date)
+        //contentView.addSubview(uiscrollView)
         contentView.addSubview(image)
         contentView.addSubview(title)
         contentView.addSubview(subtitle)
         
         
         NSLayoutConstraint.activate([
-            date.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            date.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            
-            image.topAnchor.constraint(equalTo: date.bottomAnchor, constant: 10),
-            image.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            image.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            image.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            image.widthAnchor.constraint(equalToConstant: contentView.frame.size.width - 32),
+            image.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             image.heightAnchor.constraint(equalToConstant: 250),
             
             title.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 10),
+            title.widthAnchor.constraint(equalToConstant: contentView.frame.size.width - 32),
             title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             
             subtitle.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 10),
-            subtitle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            subtitle.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            subtitle.widthAnchor.constraint(equalToConstant: contentView.frame.size.width - 32),
+            subtitle.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             subtitle.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
         
         ])
