@@ -27,6 +27,8 @@ class NotificationCollectionView: UICollectionView, UICollectionViewDelegateFlow
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
 }
 extension NotificationCollectionView: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -40,7 +42,6 @@ extension NotificationCollectionView: UICollectionViewDelegate, UICollectionView
         cell.image.kf.setImage(with: URL(string: notification?[indexPath.row].image ?? ""))
         cell.title.text = notification?[indexPath.row].title ?? ""
         cell.subtitle.text = notification?[indexPath.row].body ?? ""
-        //cell.mix()
         return cell
     }
     

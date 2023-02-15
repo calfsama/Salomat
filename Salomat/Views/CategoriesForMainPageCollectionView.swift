@@ -80,7 +80,7 @@ extension CategoriesForMainPageCollectionView: UICollectionViewDelegate, UIColle
             //cell.icon.downloaded(from: completeURL)
             let svgUrl = URL(string: "http://slomat2.colibri.tj/img/icons/\(category?.categories?[indexPath.row].icon ?? "")")!
                    let processor = SVGProcessor(size: CGSize(width: 240, height: 43))
-            cell.icon.kf.setImage(with: URL(string: completeURL), options: [.processor(processor)])
+            //cell.icon.kf.setImage(with: URL(string: completeURL), options: [.processor(processor)])
                 //imageView.kf.setImage(with: imURL, options: [.processor(SVGImgProcessor())])
 //                   KingfisherManager.shared.retrieveImage(with: svgUrl, options: [.processor(processor), .forceRefresh]) {  result in
 //                           switch (result){

@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import KeychainAccess
 
 class InfoAboutDeliveryTwoViewController: UIViewController {
     var price: String = ""
@@ -26,6 +27,7 @@ class InfoAboutDeliveryTwoViewController: UIViewController {
     var condition: Bool = true
     var deliveryCondition: Bool = false
     var qwert: Any?
+    let keychain = Keychain(service: "tj.info.Salomat")
         
     struct OrderProducts {
         var product_id: Int
@@ -221,6 +223,7 @@ class InfoAboutDeliveryTwoViewController: UIViewController {
             condition = false
             button.setImage(UIImage(named: "Radiobutton1"), for: .normal)
             button2.setImage(UIImage(named: "Radiobutton2"), for: .normal)
+            
             print("Find popular")
         }
         else if deliveryCondition == false {
@@ -360,15 +363,10 @@ class InfoAboutDeliveryTwoViewController: UIViewController {
         }
         return total + 20
     }
-    
-//    @objc func cancelAction() {
-//        print(total_price)
-//    }
-    
     @objc func request() {
         
         var dict: [String: Any] =
-        ["total_price": total_price, "user_id" :"112", "phone_number" :phone_number,"phone_number2": phone_number2, "name" : name,"product_total_count": "1","address" : address, "comment" :comment, "delivery_id": "1", "products": qwert ?? []
+        ["total_price": total_price, "user_id" : keychain["UserID"] ?? "", "phone_number" :phone_number,"phone_number2": phone_number2, "name" : name,"product_total_count": "1","address" : address, "comment" :comment, "delivery_id": "1", "products": qwert ?? []
         ]
 
         var  jsonData = NSData()
@@ -406,6 +404,13 @@ class InfoAboutDeliveryTwoViewController: UIViewController {
                 print(urlData, "yyeeeeh")
                 self.orderData = urlData
                 let user_id = self.orderData?.order_id ?? 0
+                // Delete multiple objects
+//
+//                for object in data {
+//                    context.delete(object)
+//                }
+//                // Save the deletions to the persistent store
+//                try context.save()
                 print(self.orderData, "ooommmgg")
             }catch let jsonError {
                 print("Failed to decode JSON", jsonError)
@@ -474,16 +479,8 @@ class InfoAboutDeliveryTwoViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(gotoMainScreen), for: .touchUpInside)
         alertView.addSubview(button)
-        UIView.animate(withDuration: 0.25, animations: {
-            self.backgroundView.alpha = Constants.backgroundAlphaTo
-        }, completion: { done in
-            if done {
-                UIView.animate(withDuration: 0.25, animations: {
-                    self.alertView.center = targetView.center
-                })
-            }
-                
-        })
+        self.backgroundView.alpha = Constants.backgroundAlphaTo
+        self.alertView.center = targetView.center
         
         // Constraints
         image.topAnchor.constraint(equalTo: alertView.topAnchor, constant: 30).isActive = true
@@ -517,22 +514,8 @@ class InfoAboutDeliveryTwoViewController: UIViewController {
     }
     
     @objc func dismissAlert() {
-        guard let targetView = myTargetView else { return }
-        UIView.animate(withDuration: 0.25, animations: {
-            self.alertView.frame = CGRect(x: 40, y: targetView.frame.size.height, width: targetView.frame.size.width - 80, height: 300)
-        }, completion: { done in
-            if done {
-                UIView.animate(withDuration: 0.25, animations: {
-                    self.backgroundView.alpha = 0
-                }, completion: { done in
-                    if done {
-                        self.alertView.removeFromSuperview()
-                        self.backgroundView.removeFromSuperview()
-                    }
-                })
-            }
-                
-        })
+        self.alertView.removeFromSuperview()
+        self.backgroundView.removeFromSuperview()
     }
         
     @objc func order() {
@@ -540,7 +523,7 @@ class InfoAboutDeliveryTwoViewController: UIViewController {
         var request = URLRequest(url: url)
         request.setValue("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjExMiIsImxvZ2luIjoiOTg3MzA1OTU5IiwidGltZSI6MTY2OTU1MzMyN30.TZKePf9Wza_mXTrs3pVK6Pt3P9ftp8ZuaxnXfNYQ2yY", forHTTPHeaderField: "Authorization")
         //request.addValue("text/html; charset=iso-8859-1", forHTTPHeaderField: "Content-Type")
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue("afpplication/json", forHTTPHeaderField: "Accept")
         request.httpMethod = "POST"
         let parameters: [String: Any] = [
             "total_price": "233",

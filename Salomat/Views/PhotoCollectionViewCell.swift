@@ -34,13 +34,15 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(cancelButton)
         
         NSLayoutConstraint.activate([
-            photo.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            photo.topAnchor.constraint(equalTo: contentView.topAnchor),
             photo.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            photo.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
+            photo.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             photo.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             
-            cancelButton.topAnchor.constraint(equalTo: photo.topAnchor, constant: -3),
-            cancelButton.trailingAnchor.constraint(equalTo: photo.trailingAnchor, constant: 5)
+            cancelButton.topAnchor.constraint(equalTo: photo.topAnchor, constant: -6),
+            cancelButton.trailingAnchor.constraint(equalTo: photo.trailingAnchor, constant: 5),
+            cancelButton.heightAnchor.constraint(equalToConstant: 20),
+            cancelButton.widthAnchor.constraint(equalToConstant: 20)
         ])
     }
     

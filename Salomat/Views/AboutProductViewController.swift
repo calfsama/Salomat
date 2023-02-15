@@ -66,6 +66,7 @@ class AboutProductViewController: UIViewController {
     
     lazy var uiView1: UIView = {
         let uiView = UIView()
+        uiView.layer.cornerRadius = 4
         uiView.backgroundColor = UIColor(red: 0.235, green: 0.902, blue: 0.51, alpha: 1)
         uiView.translatesAutoresizingMaskIntoConstraints = false
         return uiView
@@ -496,7 +497,7 @@ class AboutProductViewController: UIViewController {
             
             buttonSave.topAnchor.constraint(equalTo: cosmosView.bottomAnchor, constant: 11),
             buttonSave.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            buttonSave.widthAnchor.constraint(equalToConstant: 130),
+            buttonSave.widthAnchor.constraint(equalToConstant: 150),
             buttonSave.heightAnchor.constraint(equalToConstant: 45),
             
             inStock.topAnchor.constraint(equalTo: price.bottomAnchor, constant: 16),
@@ -859,7 +860,6 @@ class AboutProductViewController: UIViewController {
                     if data == nil && data?.title != productShow?.product?.product_name ?? "" {
                         buttonSave.backgroundColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1)
                         buttonSave.setTitle("Убрать из корзины", for: .normal)
-                        buttonSave.heightAnchor.constraint(equalToConstant: 150).isActive = true
                         print("\(data?.title) and \(productShow?.product?.product_name ?? "")")
                         print("save")
                         saveMedicineInBasket()
@@ -867,7 +867,6 @@ class AboutProductViewController: UIViewController {
                     else if data?.title == productShow?.product?.product_name ?? "" {
                         buttonSave.backgroundColor = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
                         buttonSave.setTitle("В корзину", for: .normal)
-                        buttonSave.heightAnchor.constraint(equalToConstant: 120).isActive = true
                         print("\(data?.title) and \(productShow?.product?.product_name ?? "")")
                         print("delete")
                         deleteMedicineInBasket()

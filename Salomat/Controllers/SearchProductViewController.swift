@@ -7,10 +7,12 @@
 
 import UIKit
 import SwiftUI
+import Kingfisher
 
-class SearchProductViewController: UIViewController {
+class SearchProductViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     var collectionView: SearchCollectionView!
     var network = NetworkService()
+    var search: Search?
     var searchController = UISearchController()
     var searchProduct: String = ""
     var popularCondition: Bool = false
@@ -63,15 +65,6 @@ class SearchProductViewController: UIViewController {
        return button
     }()
     
-    lazy var filterbutton: UIButton = {
-        let button =  UIButton()
-        button.setImage(UIImage(named: "Filter Horizontal"), for: .normal)
-        button.addTarget(self, action: #selector(showBottomSheet), for: .touchUpInside)
-        button.tintColor = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
     lazy var bottomSheet: UIView = {
         let myNewView = UIView(frame: CGRect(x: 0, y: 470, width: view.frame.size.width, height: view.frame.size.height))
         myNewView.backgroundColor = .white
@@ -82,22 +75,10 @@ class SearchProductViewController: UIViewController {
     lazy var label: UILabel = {
         let label = UILabel()
         label.text = "Результаты"
+        label.textColor = .white
         label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
-    }()
-    
-    lazy var ratingButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = .white
-        button.layer.cornerRadius = 20
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1).cgColor
-        button.setTitle("Популярное", for: .normal)
-        button.setTitleColor(UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1), for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .medium)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
     }()
     
     lazy var empty: UILabel = {
@@ -115,15 +96,18 @@ class SearchProductViewController: UIViewController {
         collectionView = SearchCollectionView(nav: self.navigationController!)
         slider.minimumValue = 1
         slider.maximumValue = 200
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(SearchCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SearchCollectionReusableView.identifier)
         spinner.color = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
-        spinner.frame = CGRect(x: 165, y: 280, width: 40, height: 40)
+        spinner.frame = CGRect(x: 160, y: 350, width: 40, height: 40)
         configure()
         setup()
         setuoLogo()
 //        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "filtt"), style: .plain, target: self, action: #selector(filter))
         NotificationCenter.default.addObserver(self, selector: #selector(loadList), name:NSNotification.Name(rawValue: "load"), object: nil)
         
-        ratingButton.addTarget(self, action: #selector(showBottomSheet), for: .touchUpInside)
+        //ratingButton.addTarget(self, action: #selector(showBottomSheet), for: .touchUpInside)
     }
     
     @objc func actionForPopularButton() {
@@ -237,7 +221,7 @@ class SearchProductViewController: UIViewController {
         //slider.addTarget(self, action: #selector(self.didChangeSliderValue), for: .valueChanged)
         slider.translatesAutoresizingMaskIntoConstraints = false
         slider.addTarget(self, action: #selector(didChangeSliderValue), for: .valueChanged)
-        showButton.addTarget(self, action: #selector(search), for: .touchUpInside)
+        showButton.addTarget(self, action: #selector(searchProducts), for: .touchUpInside)
         UIView.animate(withDuration: 0.25, animations: {
             self.backgroundView.alpha = Constants.backgroundAlphaTo
         }, completion: { done in
@@ -332,7 +316,7 @@ class SearchProductViewController: UIViewController {
         })
     }
     
-    @objc func search() {
+    @objc func searchProducts() {
         let urlString = "http://slomat2.colibri.tj/search/with_price?srch_pr_inp=\(searchProduct)&min_price=\(slider.values.minimum)&max_price=\(slider.values.maximum)"
         print(searchProduct)
         let host = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
@@ -341,12 +325,12 @@ class SearchProductViewController: UIViewController {
             switch result {
             case .success(let response):
                 // self.collectionView.search = response
-                self.collectionView.search = response
+                self.search = response
                 //print(self.collectionView.search ?? "cooontroller")
                 //print(result)
                 self.collectionView.reloadData()
                 self.configureConstraints()
-                print(self.collectionView.search ?? "controller collection view", "kfnek")
+                print(self.search ?? "controller collection view", "kfnek")
             case .failure(let error):
                 print("error", error)
             }
@@ -378,29 +362,17 @@ class SearchProductViewController: UIViewController {
     
     // Констрейнты
     func configureConstraints() {
-        view.addSubview(ratingButton)
-        view.addSubview(label)
+       // view.addSubview(label)
         view.addSubview(collectionView)
-        view.addSubview(filterbutton)
         
         NSLayoutConstraint.activate([
-            ratingButton.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
-            ratingButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            ratingButton.widthAnchor.constraint(equalToConstant: 120),
-            ratingButton.heightAnchor.constraint(equalToConstant: 35),
+//            label.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 5),
+//            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             
-            filterbutton.centerYAnchor.constraint(equalTo: label.centerYAnchor),
-            filterbutton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            filterbutton.heightAnchor.constraint(equalToConstant: 30),
-            filterbutton.widthAnchor.constraint(equalToConstant: 30),
-            
-            label.topAnchor.constraint(equalTo: ratingButton.bottomAnchor, constant: 20),
-            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            
-            collectionView.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 20),
+            collectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 5),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            collectionView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor)
         ])
     }
     
@@ -447,6 +419,7 @@ class SearchProductViewController: UIViewController {
 extension SearchProductViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.collectionView.addSubview(spinner)
+        self.configureConstraints()
         spinner.startAnimating()
         let urlString = "http://slomat2.colibri.tj/search/?srch_pr_inp=\(searchBar.text!)"
         let host = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
@@ -455,8 +428,7 @@ extension SearchProductViewController: UISearchBarDelegate {
             switch result {
             case .success(let response):
                 self.searchProduct = searchBar.text!
-                self.collectionView.search = response
-                self.configureConstraints()
+                self.search = response
                 self.collectionView.reloadData()
                 self.spinner.stopAnimating()
                 self.searchProduct = searchBar.text!
@@ -464,5 +436,63 @@ extension SearchProductViewController: UISearchBarDelegate {
                 print("error", error)
             }
         }
+    }
+}
+extension SearchProductViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        var emptyLabel = UILabel(frame: CGRect(x: 0, y: 0, width: collectionView.bounds.size.width, height: collectionView.bounds.size.height))
+        if search?.products?.count == 0 {
+            emptyLabel.text = "Ничего не найдено"
+            emptyLabel.textColor = .gray
+            emptyLabel.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+            emptyLabel.textAlignment = NSTextAlignment.center
+            collectionView.backgroundView = emptyLabel
+            //collectionView.separatorStyle = .none
+            return 0
+        }
+        else {
+            emptyLabel.text = ""
+            return search?.products?.count ?? 0
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MedicinesCollectionViewCell.identifier, for: indexPath) as! MedicinesCollectionViewCell
+        let url = "http://slomat2.colibri.tj/upload_product/"
+        let completeURL = url + (search?.products?[indexPath.row].product_pic ?? "")
+        cell.image.kf.indicatorType = .activity
+        cell.image.kf.setImage(with: URL(string: completeURL))
+        cell.title.text = search?.products?[indexPath.row].product_name ?? ""
+        cell.price.text = search?.products?[indexPath.row].product_price ?? ""
+        cell.id = search?.products?[indexPath.row].id ?? ""
+        cell.is_favorite = ((search?.products?[indexPath.row].is_favorite) != nil)
+        cell.prices = search?.products?[indexPath.row].product_price ?? ""
+        cell.titleMedicine = search?.products?[indexPath.row].product_name ?? ""
+        cell.images = search?.products?[indexPath.row].product_pic ?? ""
+        cell.totalCount.text = search?.products?[indexPath.row].total_count_in_store ?? ""
+        cell.button.setImage(UIImage(named: "favorite"), for: .normal)
+        cell.configureConstraints()
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: collectionView.frame.size.width, height: 100)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SearchCollectionReusableView.identifier, for: indexPath) as! SearchCollectionReusableView
+        header.filterbutton.addTarget(self, action: #selector(showBottomSheet), for: .touchUpInside)
+        header.configure()
+        return header
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.size.width / 2.3, height: 270)
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = AboutProductViewController()
+        vc.title = search?.products?[indexPath.row].product_name ?? ""
+        vc.id = search?.products?[indexPath.row].id ?? ""
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }

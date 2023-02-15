@@ -58,8 +58,6 @@ class CartCollectionViewCell: UICollectionViewCell {
         stepper.minimumValue = 1
         stepper.maximumValue = 100
         stepper.value = 1
-        //stepper.setDecrementImage(UIImage(named: "minus"), for: .normal)
-        //stepper.setIncrementImage(UIImage(named: "plus"), for: .normal)
         stepper.tintColor = UIColor(red: 0.738, green: 0.741, blue: 1, alpha: 1)
         stepper.tintColorDidChange()
         stepper.transform = stepper.transform.scaledBy(x: 0.8, y: 0.7)
@@ -96,7 +94,6 @@ class CartCollectionViewCell: UICollectionViewCell {
         contentView.layer.borderWidth = 1
         contentView.layer.borderColor = UIColor(red: 0.929, green: 0.93, blue: 1, alpha: 1).cgColor
         configureConstraints()
-        print(priceLabel, "priceLabel")
     }
     
     func configureConstraints() {
@@ -163,16 +160,7 @@ class CartCollectionViewCell: UICollectionViewCell {
     
     @objc func update() {
         stepperValue.text = "\(Int(stepper.value))"
-//        for index in 0...dataModel.count - 1 {
-//            price.text = "\(stepper.value * Double(dataModel[index].price ?? "")!) "
-//        }
-//        price.text = "\(Int(price.text ?? "") ?? 0 + (Int(price.text ?? "") ?? 0))"
-//        print(stepper.value)
-        //buttonAction()
-        //updatePrice()
         test()
-        
-        //ar()
     }
     
      func calculate() -> Double{
@@ -210,11 +198,6 @@ class CartCollectionViewCell: UICollectionViewCell {
        }catch {
            print("Error saving context \(error)")
        }
-    }
-    
-    func ar() {
-        let productPrice = Double(self.prices)
-        price.text = String(productPrice! * Double(stepperValue.text!)!)
     }
     
     func calculateCartTotalWithDelivery1() -> Double{
@@ -257,44 +240,8 @@ class CartCollectionViewCell: UICollectionViewCell {
             let productPrice = Double(self.prices)
             price.text = String(productPrice! * Double(stepperValue.text!)!) + " сом"
             deleteMedicineInBasket()
-//            let data = Basket(context: self.context)
-//            data.setValue(stepperValue.text, forKey: "amount")
-//
-//            do {
-//                try context.save()
-//                print(data.amount, "kdfnkf")
-//            }
-//            catch {
-//                print("error rrr")
-//            }
-//            let object: NSFetchRequest <Basket> = Basket.fetchRequest()
-//            if object.value(forKey: "amount") as? String  != stepperValue.text {
-//                object.setValue(stepperValue.text, forKey: "amount")
-//                print(object.value(forKey: "amount") ?? "", "tommy hilfiger")
-//            }
-//            else {
-//                print("unable to fetch or create list")
-//            }
         }
     }
-    
-//    func saveLoginData(accessToken: String, userName: String) {
-//        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-//
-//        var fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Basket")
-//        fetchRequest.predicate = NSPredicate(format: "title = %@", titleMedicine)
-//
-//        if let fetchResults = try context.fetch(fetchRequest)  {
-//            if fetchResults.count != 0{
-//
-//                var managedObject = fetchResults[0]
-//                managedObject.setValue(accessToken, forKey: "accessToken")
-//
-//                context.save(nil)
-//            }
-//        }
-//    }
-
     
     func updatePrice() {
         if self.stepper.value >= 1 {
@@ -324,23 +271,6 @@ class CartCollectionViewCell: UICollectionViewCell {
         }
     }
     
-//    func calculateCartTotal() -> Double{
-//        var total = 0.0
-//        if self.stepper.value >= 1 {
-//            let productPrice = Double(self.prices)
-//            price.text = String(poductPrice! * Double(stepperValue.text!)!)
-//            if self.dataModel.count > 0 {
-//                for var index in 0...self.dataModel.count - 1 {
-//
-//                    total += Double(price.text!) ?? 0
-//                    index += 1
-//                }
-//            }
-//        }
-//        return total
-//    }
-
-    
      func calculateCartTotalWithDelivery() -> Double{
         var total = 0.0
         if self.dataModel.count > 0 {
@@ -357,84 +287,4 @@ class CartCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-//    func saveMedicine() {
-//        let data = Basket(context: self.context)
-//        data.id = id
-//        data.title = titleMedicine
-//        data.price = prices
-//        data.image = images
-//        print(images)
-//        print(titleMedicine)
-//        self.dataModel.append(data)
-//        print("ischecked")
-//       do {
-//           try context.save()
-//       }catch {
-//           print("Error saving context \(error)")
-//       }
-//    }
-//
-////    func buttonState() {
-////        let fetchRequest: NSFetchRequest <Basket> = Basket.fetchRequest()
-////        fetchRequest.predicate = commitPredicate
-////        commitPredicate = NSPredicate(format: "id == %@", id)
-////        do {
-////            let data = try context.fetch(fetchRequest)
-////            for i in data {
-////                if i.id == id {
-////                    //print("\(i.title) and \(title)")
-////                    button.setImage(UIImage(named: "heart"), for: .normal)
-////                }
-////                else if i.id == nil{
-////                    button.setImage(UIImage(named: "iconHeart"), for: .normal)
-////                }
-////            }
-////        }
-////        catch {
-////            print("Error\(error)")
-////        }
-////    }
-//
-//    func deleteMedicine() {
-//        let object: NSFetchRequest <Basket> = Basket.fetchRequest()
-//        object.predicate = commitPredicate
-//        commitPredicate = NSPredicate(format: "id == %@", id)
-//        do {
-//            let object = try context.fetch(object)
-//            for i in object {
-//                if i.id == id {
-//                    context.delete(i)
-//                }
-//                do {
-//                    try context.save()
-//                }catch {
-//                    print("Error1 \(error)")
-//                }
-//            }
-//        }
-//        catch {
-//            print("Error2 \(error)")
-//        }
-//    }
-//
-//    @objc func buttonAction() {
-//        let fetchRequest: NSFetchRequest <Basket> = Basket.fetchRequest()
-//        fetchRequest.predicate = commitPredicate
-//        commitPredicate = NSPredicate(format: "id == %@", id)
-//        do{
-//            let data = try context.fetch(fetchRequest).first
-//            if data == nil && data?.id != id {
-//                print("\(data?.id) and \(id)")
-//                print("save")
-//                saveMedicine()
-//            }
-//            else if data?.id == id{
-//                print("delete")
-//                deleteMedicine()
-//            }
-//        }
-//        catch {
-//            print("Error1\(error)")
-//        }
-//    }
 }

@@ -87,7 +87,7 @@ class ReceiptViewController: UIViewController, UICollectionViewDelegateFlowLayou
             "recipe_comment": "blah blah blah",
             "recipe_pics": "\(imageData?.base64EncodedString())"
          ]
-         
+
          request.httpBody = parameters.percentEncoded()
          NSURLConnection.sendAsynchronousRequest(request, queue: .main, completionHandler: {(request, data, error) in
              guard let data = data else { return }
@@ -138,16 +138,8 @@ class ReceiptViewController: UIViewController, UICollectionViewDelegateFlowLayou
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(dismissAlert), for: .touchUpInside)
         alertView.addSubview(button)
-        UIView.animate(withDuration: 0.25, animations: {
-            self.backgroundView.alpha = Constants.backgroundAlphaTo
-        }, completion: { done in
-            if done {
-                UIView.animate(withDuration: 0.25, animations: {
-                    self.alertView.center = targetView.center
-                })
-            }
-                
-        })
+        self.backgroundView.alpha = Constants.backgroundAlphaTo
+        self.alertView.center = targetView.center
         
         // Constraints
         image.topAnchor.constraint(equalTo: alertView.topAnchor, constant: 30).isActive = true
@@ -163,32 +155,19 @@ class ReceiptViewController: UIViewController, UICollectionViewDelegateFlowLayou
     
     @objc func dismissAlert() {
         guard let targetView = myTargetView else { return }
-        UIView.animate(withDuration: 0.25, animations: {
-            self.alertView.frame = CGRect(x: 40, y: targetView.frame.size.height, width: targetView.frame.size.width - 80, height: 300)
-        }, completion: { done in
-            if done {
-                UIView.animate(withDuration: 0.25, animations: {
-                    self.backgroundView.alpha = 0
-                }, completion: { done in
-                    if done {
-                        self.alertView.removeFromSuperview()
-                        self.backgroundView.removeFromSuperview()
-                    }
-                })
-            }
-                
-        })
+        self.alertView.frame = CGRect(x: 40, y: targetView.frame.size.height, width: targetView.frame.size.width - 80, height: 300)
+        self.backgroundView.alpha = 0
+        self.alertView.removeFromSuperview()
+        self.backgroundView.removeFromSuperview()
     }
     
     @objc func didTapButton() {
         print("pressed")
         showAlert(with: "Рецепт отправлен", message: "", on: self)
-        let footer = ReceiptCollectionReusableView()
-        if footer.phoneTextField.text == "" && footer.nameTextField.text == "" && footer.commentTextField.text == "" {
-            footer.phoneTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
-            footer.nameTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
-            footer.commentTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
-        }
+        let reg = MainTabBarViewController()
+        reg.selectedIndex = 4
+        let appDelegate = UIApplication.shared.delegate
+        appDelegate?.window??.rootViewController = reg
         uploadImage()
     }
     
@@ -223,6 +202,52 @@ class ReceiptViewController: UIViewController, UICollectionViewDelegateFlowLayou
 //            print("We don't use access to your Photos")
 //        }
 //    }
+    
+//    func uploadImage(paramName: [String:String], fileName: String, image: UIImage) {
+//        let url = URL(string: "http://slomat2.colibri.tj/recipes/store")
+//        print(url)
+//
+//        // generate boundary string using a unique per-app string
+//        let boundary = UUID().uuidString
+//
+//        let session = URLSession.shared
+//
+//        // Set the URLRequest to POST and to the specified URL
+//        var urlRequest = URLRequest(url: url!)
+//        urlRequest.httpMethod = "POST"
+//
+//        // Set Content-Type Header to multipart/form-data, this is equivalent to submitting form data with file upload in a web browser
+//        // And the boundary is also set here
+//        urlRequest.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+//
+//        var data = Data()
+//        //image = imagesArray
+//        // Add the image data to the raw http request data
+//        data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+//        data.append("Content-Disposition: form-data; name=\"\(paramName)\"; filename=\"\(fileName)\"\r\n".data(using: .utf8)!)
+//        data.append("Content-Type: image/png\r\n\r\n".data(using: .utf8)!)
+////        for var i in 1...imagesArray.count {
+////            data.append(imagesArray[i].pngData()!)
+////            i += 1
+////        }
+//        data.append(image.pngData()!)
+//
+//        data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
+//
+//        // Send a POST request to the URL, with the data we created earlier
+//        session.uploadTask(with: urlRequest, from: data, completionHandler: { responseData, response, error in
+//            if error == nil {
+//                let jsonData = try? JSONSerialization.jsonObject(with: responseData!, options: .allowFragments)
+//                if let json = jsonData as? [String: Any] {
+//                    print(json)
+//                }
+//            }
+//            else {
+//                print(error)
+//            }
+//        }).resume()
+//    }
+
 //
 
 }
@@ -265,17 +290,18 @@ extension ReceiptViewController: UICollectionViewDelegate, UICollectionViewDataS
             if footer.phoneTextField.text != "" && footer.nameTextField.text != "" && footer.commentTextField.text != ""{
                 footer.button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
             }
+            footer.button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
             return footer
             
         default:
-            
             assert(false, "Unexpected element kind")
-            
         }
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: collectionView.frame.size.width, height: 55)
     }
+    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         return CGSize(width: collectionView.frame.size.width, height: collectionView.frame.size.height - 380)
     }
@@ -382,46 +408,6 @@ extension ReceiptViewController: UICollectionViewDelegate, UICollectionViewDataS
     // extension for impage uploading
     
     // Upload image to server
-    @objc func uploadImage(paramName: String, fileName: String, image: UIImage) {
-        let url = URL(string: "http://slomat2.colibri.tj/recipes/store")
-        
-        // generate boundary string using a unique per-app string
-        let boundary = UUID().uuidString
-        
-        let session = URLSession.shared
-        
-        // Set the URLRequest to POST and to the specified URL
-        var urlRequest = URLRequest(url: url!)
-        urlRequest.httpMethod = "POST"
-        
-        // Set Content-Type Header to multipart/form-data, this is equivalent to submitting form data with file upload in a web browser
-        // And the boundary is also set here
-        urlRequest.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-        
-        var data = Data()
-        //image = imagesArray
-        // Add the image data to the raw http request data
-        data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
-        data.append("Content-Disposition: form-data; name=\"\(paramName)\"; filename=\"\(fileName)\"\r\n".data(using: .utf8)!)
-        data.append("Content-Type: image/png\r\n\r\n".data(using: .utf8)!)
-        for var i in 1...imagesArray.count {
-            data.append(imagesArray[i].pngData()!)
-            i += 1
-        }
-        data.append(image.pngData()!)
-        
-        data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
-        
-        // Send a POST request to the URL, with the data we created earlier
-        session.uploadTask(with: urlRequest, from: data, completionHandler: { responseData, response, error in
-            if error == nil {
-                let jsonData = try? JSONSerialization.jsonObject(with: responseData!, options: .allowFragments)
-                if let json = jsonData as? [String: Any] {
-                    print(json)
-                }
-            }
-        }).resume()
-    }
     
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {

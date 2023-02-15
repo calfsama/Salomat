@@ -12,6 +12,7 @@ import KeychainAccess
 class FavoritesViewController: UIViewController {
     var network = NetworkService()
     var favoriteCollectionView: FavoriteCollectionView!
+    var collection = GoodsCollectionView()
     let keychain = Keychain(service: "tj.info.Salomat")
     
     lazy var image: UIImageView = {
@@ -32,6 +33,7 @@ class FavoritesViewController: UIViewController {
         super.viewWillAppear(animated)
         favorites()
         print(keychain["UserID"])
+        print(collection.test, "tomiris")
         
         if keychain["UserID"] ?? "" == "" {
             

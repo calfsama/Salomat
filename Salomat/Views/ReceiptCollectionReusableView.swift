@@ -12,6 +12,7 @@ import UniformTypeIdentifiers
 class ReceiptCollectionReusableView: UICollectionReusableView {
     static let identifier = "ReceiptCollectionReusableView"
     var messangerButton = MessangerCollectionView()
+    var imagesArray = [String]()
     
     lazy var button: UIButton = {
         let button = UIButton()
@@ -19,7 +20,7 @@ class ReceiptCollectionReusableView: UICollectionReusableView {
         button.setTitleColor(UIColor(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
         button.setTitle("Отправить рецепт", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .medium)
-        //button.addTarget(self, action: #selector(), for: .touchUpInside)
+       // button.addTarget(self, action: #selector(sendRequest), for: .touchUpInside)
         button.layer.cornerRadius = 4
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -97,7 +98,7 @@ class ReceiptCollectionReusableView: UICollectionReusableView {
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
-
+    
     lazy var commentTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Комментарий"
@@ -120,7 +121,7 @@ class ReceiptCollectionReusableView: UICollectionReusableView {
         messangerButton.set(cell: Messenger.items())
         configureConstraints()
     }
-  
+    
     func configureConstraints() {
         
         addSubview(phoneTextField)
@@ -150,39 +151,131 @@ class ReceiptCollectionReusableView: UICollectionReusableView {
             commentTextField.leadingAnchor.constraint(equalTo: leadingAnchor),
             commentTextField.trailingAnchor.constraint(equalTo: trailingAnchor),
             commentTextField.heightAnchor.constraint(equalToConstant: 80),
-        
+            
             button.topAnchor.constraint(equalTo: commentTextField.bottomAnchor, constant: 10),
             button.leadingAnchor.constraint(equalTo: leadingAnchor),
             button.trailingAnchor.constraint(equalTo: trailingAnchor),
             button.heightAnchor.constraint(equalToConstant: 45),
-
+            
             or.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 25),
             or.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             or.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-
+            
             uiView.centerYAnchor.constraint(equalTo: or.centerYAnchor),
             uiView.leadingAnchor.constraint(equalTo: leadingAnchor),
-//            uiView.trailingAnchor.constraint(equalTo: or.leadingAnchor, constant: -5),
+            //            uiView.trailingAnchor.constraint(equalTo: or.leadingAnchor, constant: -5),
             uiView.widthAnchor.constraint(equalToConstant: frame.size.width / 2 * 0.84),
             uiView.heightAnchor.constraint(equalToConstant: 0.7),
-
+            
             uiView2.centerYAnchor.constraint(equalTo: or.centerYAnchor),
             uiView2.trailingAnchor.constraint(equalTo: trailingAnchor),
-//            uiView2.leadingAnchor.constraint(equalTo: or.trailingAnchor, constant: 5),
+            //            uiView2.leadingAnchor.constraint(equalTo: or.trailingAnchor, constant: 5),
             uiView2.widthAnchor.constraint(equalToConstant: frame.size.width / 2 * 0.84),
             uiView2.heightAnchor.constraint(equalToConstant: 0.7),
-
+            
             messangerButton.topAnchor.constraint(equalTo: or.bottomAnchor, constant: 25),
             messangerButton.leadingAnchor.constraint(equalTo: leadingAnchor),
             messangerButton.trailingAnchor.constraint(equalTo: trailingAnchor),
             messangerButton.heightAnchor.constraint(equalToConstant: 70),
-
+            
             sendPhoto.topAnchor.constraint(equalTo: messangerButton.bottomAnchor, constant: 20),
             sendPhoto.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             sendPhoto.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
         ])
     }
     
+    // - MARK: POST REQUEST
+    
+    func createRequest(phone: String, name: String, comment: String) throws -> URLRequest {
+        let parameters = [
+            "recipe_phone"  : phone,
+            "recipe_name"    : name,
+            "recipe_comment" : comment]  // build your dictionary however appropriate
+        
+        let boundary = generateBoundaryString()
+        
+        let url = URL(string: "http://slomat2.colibri.tj/recipes/store")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        
+        let fileURL = Bundle.main.url(forResource: "image 3", withExtension: "png")!
+        request.httpBody = try createBody(with: parameters, filePathKey: "file", urls: [fileURL], boundary: boundary)
+        
+        return request
+    }
+    
+    @objc func sendRequest() {
+        let request: URLRequest
+
+        do {
+            request = try createRequest(phone: phoneTextField.text!, name: nameTextField.text!, comment: commentTextField.text!)
+        } catch {
+            print(error)
+            return
+        }
+
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {
+                // handle error here
+                print(error ?? "Unknown error")
+                return
+            }
+            
+            // parse `data` here, then parse it
+            
+            // note, if you want to update the UI, make sure to dispatch that to the main queue, e.g.:
+            //
+            // DispatchQueue.main.async {
+            //     // update your UI and model objects here
+            // }
+        }
+        task.resume()
+    }
+    
+    /// Create body of the `multipart/form-data` request
+    ///
+    /// - parameter parameters:   The optional dictionary containing keys and values to be passed to web service.
+    /// - parameter filePathKey:  The optional field name to be used when uploading files. If you supply paths, you must supply filePathKey, too.
+    /// - parameter urls:         The optional array of file URLs of the files to be uploaded.
+    /// - parameter boundary:     The `multipart/form-data` boundary.
+    ///
+    /// - returns:                The `Data` of the body of the request.
+    
+    private func createBody(with parameters: [String: String]? = nil, filePathKey: String, urls: [URL], boundary: String) throws -> Data {
+        var body = Data()
+        
+        parameters?.forEach { (key, value) in
+            body.append("--\(boundary)\r\n")
+            body.append("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n")
+            body.append("\(value)\r\n")
+        }
+        
+        for url in urls {
+            let filename = url.lastPathComponent
+            let data = try Data(contentsOf: url)
+            
+            body.append("--\(boundary)\r\n")
+            body.append("Content-Disposition: form-data; name=\"\(filePathKey)\"; filename=\"\(filename)\"\r\n")
+            body.append("Content-Type: \(url.mimeType)\r\n\r\n")
+            body.append(data)
+            body.append("\r\n")
+        }
+        
+        body.append("--\(boundary)--\r\n")
+        return body
+    }
+    
+    /// Create boundary string for multipart/form-data request
+    ///
+    /// - returns:            The boundary string that consists of "Boundary-" followed by a UUID string.
+    
+    private func generateBoundaryString() -> String {
+        return "Boundary-\(UUID().uuidString)"
+    }
+    
+    
+    // - MARK: OLD
     
     @objc func postRequestButton() {
         let url = URL(string: "http://slomat2.colibri.tj/users/check_phone")!
@@ -197,7 +290,7 @@ class ReceiptCollectionReusableView: UICollectionReusableView {
             "recipe_pics": ""
         ]
         request.httpBody = parameters.percentEncoded()
-
+        
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard
                 let data = data,
@@ -229,74 +322,12 @@ class ReceiptCollectionReusableView: UICollectionReusableView {
                 }
             }
         }
-
+        
         task.resume()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    func createRequest(userid: String, password: String, email: String) throws -> URLRequest {
-        
-        
-        let parameters = [
-            "recipe_phone"  : userid,
-            "recipe_name"    : email,
-            "recipe_comment" : password]  // build your dictionary however appropriate
-        
-        let boundary = generateBoundaryString()
-        
-        let url = URL(string: "http://slomat2.colibri.tj/recipes/store")!
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-        
-        let fileURL = Bundle.main.url(forResource: "image1", withExtension: "png")!
-        request.httpBody = try createBody(with: parameters, filePathKey: "file", urls: [fileURL], boundary: boundary)
-        
-        return request
-    }
-
-    /// Create body of the `multipart/form-data` request
-    ///
-    /// - parameter parameters:   The optional dictionary containing keys and values to be passed to web service.
-    /// - parameter filePathKey:  The optional field name to be used when uploading files. If you supply paths, you must supply filePathKey, too.
-    /// - parameter urls:         The optional array of file URLs of the files to be uploaded.
-    /// - parameter boundary:     The `multipart/form-data` boundary.
-    ///
-    /// - returns:                The `Data` of the body of the request.
-
-    private func createBody(with parameters: [String: String]? = nil, filePathKey: String, urls: [URL], boundary: String) throws -> Data {
-        var body = Data()
-        
-        parameters?.forEach { (key, value) in
-            body.append("--\(boundary)\r\n")
-            body.append("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n")
-            body.append("\(value)\r\n")
-        }
-        
-        for url in urls {
-            let filename = url.lastPathComponent
-            let data = try Data(contentsOf: url)
-            
-            body.append("--\(boundary)\r\n")
-            body.append("Content-Disposition: form-data; name=\"\(filePathKey)\"; filename=\"\(filename)\"\r\n")
-            body.append("Content-Type: \(url.mimeType)\r\n\r\n")
-            body.append(data)
-            body.append("\r\n")
-        }
-        
-        body.append("--\(boundary)--\r\n")
-        return body
-    }
-
-    /// Create boundary string for multipart/form-data request
-    ///
-    /// - returns:            The boundary string that consists of "Boundary-" followed by a UUID string.
-
-    private func generateBoundaryString() -> String {
-        return "Boundary-\(UUID().uuidString)"
     }
 }
 extension URL {
@@ -334,4 +365,6 @@ extension Data {
         }
     }
 }
+
+
 

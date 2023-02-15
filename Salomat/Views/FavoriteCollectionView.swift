@@ -62,6 +62,7 @@ extension FavoriteCollectionView: UICollectionViewDelegate, UICollectionViewData
         cell.totalCount.text = favorites?[indexPath.row].total_count_in_store ?? ""
         cell.image.downloaded(from: completeURL)
         cell.price.text = favorites?[indexPath.row].product_price ?? ""
+        cell.totalCount.text = favorites?[indexPath.row].total_count_in_store ?? ""
         cell.title.text = favorites?[indexPath.row].product_name ?? ""
         if favorites?[indexPath.row].is_favorite == false {
             cell.button.setImage(UIImage(named: "favorite"), for: .normal)

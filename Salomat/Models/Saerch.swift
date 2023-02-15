@@ -56,7 +56,7 @@ struct SearchProducts: Codable {
     
     enum CodingKeys: String, CodingKey {
         case id, product_name, product_pic, product_price
-        case is_favorite
+        case is_favorite, total_count_in_store
     }
 }
 

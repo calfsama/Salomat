@@ -36,45 +36,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
         application.registerForRemoteNotifications()
         Messaging.messaging().delegate = self
-        
-        
-//        if #available(iOS 10.0, *) {
-//            UNUserNotificationCenter.current().delegate = self
-//
-//            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-//            UNUserNotificationCenter.current().requestAuthorization(options: authOptions, completionHandler: { _, _ in })
-//        } else {
-//            let settings: UIUserNotificationSettings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
-//            application.registerUserNotificationSettings(settings)
-//        }
-//        Messaging.messaging().delegate = self
-//        application.registerForRemoteNotifications()
         return true
     }
     
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         print("DEBUG / PUSH NOTIFICATION / Firebase registration token: \(fcmToken ?? "")")
-
         let keychain = Keychain(service: "tj.info.Salomat")
         keychain["fcmToken"] = fcmToken
-        print(keychain["fcmToken"] ?? "empty")
-        
-//        let dataDict: [String: String] = ["token": fcmToken ?? ""]
-//        NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
-        
-//        messaging.token { token, _ in
-//            guard let token = token else { return }
-//                    let keychain = Keychain(service: "tj.info.Salomat")
-//                    keychain["fcmToken"] = token
-//            print(keychain["fcmToken"] ?? "empty")
-//            print("Token \(token)")
-//        }
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
         
         self.saveContext()
     }
+    
     
     lazy var persistentContainer: NSPersistentContainer = {
         
@@ -99,6 +74,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
 }
+
 //extension AppDelegate: UNUserNotificationCenterDelegate {
 ////  // Receive displayed notifications for iOS 10 devices.
 ////  func userNotificationCenter(_ center: UNUserNotificationCenter,

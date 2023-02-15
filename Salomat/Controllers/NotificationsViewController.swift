@@ -45,7 +45,7 @@ class NotificationsViewController: UIViewController {
         button.setTitle("Новости", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .white
-        button.addTarget(self, action: #selector(changeScroll), for: .touchUpInside)
+        //button.addTarget(self, action: #selector(changeScroll), for: .touchUpInside)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button

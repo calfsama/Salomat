@@ -156,13 +156,13 @@ class SubtotalCollectionReusableView: UICollectionReusableView {
            condition = true
            deliveryCondition = false
            button.setImage(UIImage(named: "Radiobutton2"), for: .normal)
-           button2.setImage(UIImage(named: "Radiobutton1"), for: .normal)
+           button2.setImage(UIImage(named: "Radiobutton"), for: .normal)
            print("Find popular")
         }
         else if condition == false {
            condition = true
            button.setImage(UIImage(named: "Radiobutton2"), for: .normal)
-            button2.setImage(UIImage(named: "Radiobutton1"), for: .normal)
+            button2.setImage(UIImage(named: "Radiobutton"), for: .normal)
         }
         totalCount.text = String(format: "%.2f", calculateCartTotalWithDelivery()) + " сомони"
     }
@@ -171,14 +171,14 @@ class SubtotalCollectionReusableView: UICollectionReusableView {
         if deliveryCondition == true {
             deliveryCondition = true
             condition = false
-            button.setImage(UIImage(named: "Radiobutton1"), for: .normal)
+            button.setImage(UIImage(named: "Radiobutton"), for: .normal)
             button2.setImage(UIImage(named: "Radiobutton2"), for: .normal)
             print("Find popular")
         }
         else if deliveryCondition == false {
             deliveryCondition = true
             button2.setImage(UIImage(named: "Radiobutton2"), for: .normal)
-            button.setImage(UIImage(named: "Radiobutton1"), for: .normal)
+            button.setImage(UIImage(named: "Radiobutton"), for: .normal)
         }
         totalCount.text = String(format: "%.2f", delivery20tjs()) + " сомони"
     }

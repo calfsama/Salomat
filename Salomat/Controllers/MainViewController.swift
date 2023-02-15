@@ -202,7 +202,7 @@ class MainViewController: UIViewController {
         fetchBlogData()
         fetchVitemin()
         fetchBanner()
-        addTimer()
+//        addTimer()
         let logo = UIImage(named: "logo 2")
         let imageView = UIImageView(image:logo)
         self.navigationItem.titleView = imageView
@@ -337,7 +337,6 @@ class MainViewController: UIViewController {
             
             allArticles.topAnchor.constraint(equalTo: header3.topAnchor),
             allArticles.bottomAnchor.constraint(equalTo: header3.bottomAnchor),
-            //allArticles.leadingAnchor.constraint(equalTo: label3.trailingAnchor, constant: 200),
             allArticles.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             allArticles.widthAnchor.constraint(equalToConstant: 100),
             
@@ -393,19 +392,19 @@ class MainViewController: UIViewController {
         ])
     }
     
-    func addTimer() {
-        let timer1 = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(nextPage), userInfo: nil, repeats: true)
-        RunLoop.main.add(timer1, forMode: RunLoop.Mode.common)
-        self.timer = timer1
-    }
+//    func addTimer() {
+//        let timer1 = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(nextPage), userInfo: nil, repeats: true)
+//        RunLoop.main.add(timer1, forMode: RunLoop.Mode.common)
+//        self.timer = timer1
+//    }
 
 
-    func resetIndexPath() -> IndexPath {
-        let currentIndexPath = self.bannersCollectionView.indexPathsForVisibleItems.last
-        let currentIndexPathReset = IndexPath(item: (currentIndexPath?.item)!, section: 0)
-        self.bannersCollectionView.scrollToItem(at: currentIndexPathReset, at: UICollectionView.ScrollPosition.left, animated: true)
-        return currentIndexPath!
-    }
+//    func resetIndexPath() -> IndexPath {
+//        let currentIndexPath = self.bannersCollectionView.indexPathsForVisibleItems.last
+//        let currentIndexPathReset = IndexPath(item: (currentIndexPath?.item)!, section: 0)
+//        self.bannersCollectionView.scrollToItem(at: currentIndexPathReset, at: UICollectionView.ScrollPosition.left, animated: true)
+//        return currentIndexPath!
+//    }
 
 //    func removeTimer() {
 //        if self.timer != nil {
@@ -414,26 +413,25 @@ class MainViewController: UIViewController {
 ////        self.timer = nil
 //    }
 
-    @objc func nextPage() {
-        let currentIndexPathReset:IndexPath = self.resetIndexPath()
-        var nextItem = currentIndexPathReset.item + 1
-        let nextSection = currentIndexPathReset.section
-        if nextItem == banners?.main_slider?.count{
-            nextItem = 0
-            nextItem += 1
-        }
-        var nextIndexPath = IndexPath(item: nextItem, section: 0)
-        if nextItem == 0 {
-            self.bannersCollectionView.scrollToItem(at: nextIndexPath, at: UICollectionView.ScrollPosition.left, animated: false)
-            nextItem += 1
-        }
-        self.bannersCollectionView.scrollToItem(at: nextIndexPath, at: UICollectionView.ScrollPosition.left, animated: true)
-        nextItem += 1
-    }
+//    @objc func nextPage() {
+////        let currentIndexPathReset:IndexPath = self.resetIndexPath()
+//        //var nextItem = currentIndexPathReset.item + 1
+////        let nextSection = currentIndexPathReset.section
+//        if nextItem == banners?.main_slider?.count{
+//            nextItem = 0
+//            nextItem += 1
+//        }
+//        var nextIndexPath = IndexPath(item: 0, section: 0)
+//        if nextItem == 0 {
+//            self.bannersCollectionView.scrollToItem(at: nextIndexPath, at: UICollectionView.ScrollPosition.left, animated: false)
+//            nextItem += 1
+//        }
+//        self.bannersCollectionView.scrollToItem(at: nextIndexPath, at: UICollectionView.ScrollPosition.left, animated: true)
+//        nextItem += 1
+//    }
 
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        self.addTimer()
-
+        //self.addTimer()
     }
 
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
@@ -518,6 +516,8 @@ class MainViewController: UIViewController {
     }
     
     func fetchFromApi(){
+       // itemsCollectionView.isSkeletonable = true
+       // itemsCollectionView.showAnimatedGradientSkeleton()
         let urlString = "http://slomat2.colibri.tj/products/prods_of_the_day?"
         self.network.fetchData(urlString: urlString) { [weak self] (result) in
             guard let self = self else {return}

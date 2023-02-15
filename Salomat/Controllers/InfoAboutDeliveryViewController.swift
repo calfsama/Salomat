@@ -285,21 +285,95 @@ class InfoAboutDeliveryViewController: UIViewController {
         configureConstraints()
 //        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
 //        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide1), name: UIResponder.keyboardWillHideNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow1), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
     }
 
-//    @objc func keyboardWillShow(notification: NSNotification) {
-//        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-//            if self.view.frame.origin.y == 0 {
-//                self.view.frame.origin.y -= keyboardSize.height
-//            }
-//        }
-//    }
-//
-//    @objc func keyboardWillHide(notification: NSNotification) {
-//        if self.view.frame.origin.y != 0 {
-//            self.view.frame.origin.y = 0
-//        }
-//    }
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
+    }
+    
+    @objc func keyboardWillShow1(notification: NSNotification) {
+
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+           if view.frame.origin.y == 0{
+               let height = keyboardSize.height
+               self.button.frame.origin.y += height
+           }
+       }
+   }
+
+    @objc func keyboardWillHide1(notification: NSNotification) {
+       if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+           if view.frame.origin.y != 0 {
+               let height = keyboardSize.height
+               self.button.frame.origin.y -= height
+           }
+       }
+   }
+    
+    func validate() {
+        if streetTextField.text == "" && nameTextField.text == "" && houseTextField.text == "" && phoneTextField.text == ""{
+            streetTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
+            nameTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
+            houseTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
+            phoneTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
+        }
+        else if nameTextField.text == "" && phoneTextField.text == "" && houseTextField.text == ""{
+            nameTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
+            phoneTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
+            houseTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
+        }
+        else if streetTextField.text == "" && phoneTextField.text == "" && houseTextField.text == ""{
+            streetTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
+            phoneTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
+            houseTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
+        }
+        else if streetTextField.text == "" && nameTextField.text == "" && houseTextField.text == ""{
+            streetTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
+            nameTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
+            houseTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
+        }
+        else if phoneTextField.text == "" && nameTextField.text == "" {
+            nameTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
+            phoneTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
+        }
+        else if phoneTextField.text == "" && houseTextField.text == "" {
+            nameTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
+            houseTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
+        }
+        else if houseTextField.text == "" && streetTextField.text == "" {
+            houseTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
+            streetTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
+        }
+        else if nameTextField.text == "" && streetTextField.text == "" {
+            nameTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
+            streetTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
+        }
+        else if nameTextField.text == "" {
+            nameTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
+        }
+        else if phoneTextField.text == "" {
+            phoneTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
+        }
+        else if houseTextField.text == "" {
+            houseTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
+        }
+        else if streetTextField.text == "" {
+            streetTextField.layer.borderColor = UIColor(red: 0.937, green: 0.365, blue: 0.439, alpha: 1).cgColor
+        }
+    }
     
     func configureConstraints() {
         view.addSubview(uiView)
@@ -428,6 +502,7 @@ class InfoAboutDeliveryViewController: UIViewController {
     @objc func buttonAction() {
         if phoneTextField.text == "" || nameTextField.text == "" || streetTextField.text == "" || houseTextField.text == "" {
             reqiered.text = "Заполните обязательные поля"
+            validate()
         }
         
         else if nameTextField.text != "" && phoneTextField.text != "" && streetTextField.text != "" && houseTextField.text != "" {

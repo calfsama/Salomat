@@ -49,7 +49,7 @@ class ItemsCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout 
         contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         showsHorizontalScrollIndicator = false
         backgroundColor = .white
-    
+       
     }
     
     required init?(coder: NSCoder) {
@@ -75,8 +75,6 @@ extension ItemsCollectionView: UICollectionViewDelegate, SkeletonCollectionViewD
         let data = product?.prods_of_the_day?[indexPath.row]
         cell.image.image = UIImage(named: "Image")
         cell.title.text = "okfojfjojf"
-//        cell.contentView.isSkeletonable = true
-//        cell.contentView.showAnimatedGradientSkeleton()
         cell.id = data?.id ?? ""
         cell.is_favorite = ((data?.is_favorite) != nil)
         cell.titleMedicine = data?.product_name ?? ""
@@ -108,7 +106,7 @@ extension ItemsCollectionView: UICollectionViewDelegate, SkeletonCollectionViewD
         else  {
             cell.button.setImage(UIImage(named: "favorite"), for: .normal)
         }
-            
+
 //        if data?.is_favorite == false {
 //            cell.button.setImage(UIImage(named: "favorite"), for: .normal)
 //        }

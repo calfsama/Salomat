@@ -10,6 +10,7 @@ import UIKit
 class GoodsCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
     var data = [Basket]()
     var cell = [Medical]()
+    var test = ""
 
     init() {
         let layout = UICollectionViewFlowLayout()
@@ -61,6 +62,7 @@ extension GoodsCollectionView: UICollectionViewDelegate, UICollectionViewDataSou
             footer.layer.cornerRadius = 4
             footer.layer.borderWidth = 1
             footer.layer.borderColor = UIColor(red: 0.738, green: 0.741, blue: 1, alpha: 1).cgColor
+            test = footer.totalCount.text ?? ""
             footer.configureConstraints()
             return footer
              

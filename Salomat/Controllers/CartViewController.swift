@@ -14,6 +14,7 @@ class CartViewController: UIViewController {
     var totalCollectionView = TotalCollectionView()
     var network = NetworkService()
     var data = [Basket]()
+    var collection = GoodsCollectionView()
     
     lazy var promocode: UITextField = {
         let textField = UITextField()
@@ -61,24 +62,9 @@ class CartViewController: UIViewController {
         super.viewDidLoad()
         title = "Корзина"
         view.backgroundColor = .white
-        basketCollectionView.layer.borderColor = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1).cgColor
-        //basketCollectionView.layer.borderWidth = 1
-        tabBarItem.badgeColor = .blue
-        tabBarItem.badgeValue = "2"
         self.navigationController?.navigationBar.tintColor = UIColor(red: 0.282, green: 0.224, blue: 0.765, alpha: 1)
-        //tabBarItem.setBadgeTextAttributes([NSAttributedString.Key.foregroundColor.rawValue: UIColor.red], for: .normal)
-        //self.tabBar.items?[2].badgeValue = "12"
-        
-        
-        loadArticles()
-        if data.count == 0 {
-            configure()
-            button.removeFromSuperview()
-        }
-        else if data.count != 0{
-            configureConstraints()
-        }
-            
+        hideKeyboardWhenTappedAround()
+       
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -91,7 +77,6 @@ class CartViewController: UIViewController {
         else if data.count != 0{
             configureConstraints()
         }
-       // basketCollectionView.displayTotal()
     }
     
     func configure() {
@@ -110,8 +95,6 @@ class CartViewController: UIViewController {
     
     func configureConstraints() {
         view.addSubview(basketCollectionView)
-//        view.addSubview(promocode)
-//        view.addSubview(promocodeButton)
         view.addSubview(button)
         button.backgroundColor = UIColor(red: 0.118, green: 0.745, blue: 0.745, alpha: 1)
         
@@ -121,17 +104,7 @@ class CartViewController: UIViewController {
             basketCollectionView.heightAnchor.constraint(equalToConstant: view.frame.size.height),
             basketCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             basketCollectionView.widthAnchor.constraint(equalToConstant: view.frame.size.width),
-            
-//            promocode.topAnchor.constraint(equalTo: basketCollectionView.bottomAnchor, constant: 15),
-//            promocode.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-//            promocode.trailingAnchor.constraint(equalTo: promocodeButton.leadingAnchor, constant: -10),
-//            promocode.heightAnchor.constraint(equalToConstant: 45),
-//
-//            promocodeButton.topAnchor.constraint(equalTo: basketCollectionView.bottomAnchor, constant: 15),
-//            promocodeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-//            promocodeButton.heightAnchor.constraint(equalToConstant: 45),
-//            promocodeButton.widthAnchor.constraint(equalToConstant: 45),
-            
+
             button.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20),
             button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
@@ -155,20 +128,4 @@ class CartViewController: UIViewController {
             print("Error fetching data from context \(error)")
         }
     }
-
-    
-//    func fetchBlogData(){
-//        let urlString = "http://salomat.colibri.tj/blogs/blog_popular?page=1"
-//        self.network.fetchBlogsData(urlString: urlString) { [weak self] (result) in
-//            guard let self = self else {return}
-//            switch result {
-//            case .success(let response):
-//                self.basketCollectionView.blogs = response
-//                print(result)
-//                self.basketCollectionView.reloadData()
-//            case .failure(let error):
-//                print("error", error)
-//            }
-//        }
-//    }
 }

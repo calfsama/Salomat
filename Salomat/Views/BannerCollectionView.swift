@@ -7,6 +7,7 @@
 
 import UIKit
 import Kingfisher
+import SkeletonView
 
 class BannerCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout {
     var banner = [Banners]()
@@ -24,6 +25,7 @@ class BannerCollectionView: UICollectionView, UICollectionViewDelegateFlowLayout
         layout.minimumLineSpacing = 16
         backgroundColor = .white
         contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        
     }
     func set(cells: [Banners]) {
         self.banner = cells

@@ -54,6 +54,7 @@ extension SimilarProductsCollectionView: UICollectionViewDelegate, UICollectionV
         cell.images = products?.similar_products?[indexPath.row].product_pic ?? ""
         cell.prices = products?.similar_products?[indexPath.row].product_price ?? ""
         cell.title.text = products?.similar_products?[indexPath.row].product_name ?? ""
+        cell.totalCount.text = products?.similar_products?[indexPath.row].total_count_in_store ?? ""
         let url = "http://slomat2.colibri.tj/upload_product/"
         let completeURL = url + (products?.similar_products?[indexPath.row].product_pic ?? "")
         cell.image.downloaded(from: completeURL)
@@ -70,6 +71,7 @@ extension SimilarProductsCollectionView: UICollectionViewDelegate, UICollectionV
         cell.price.text = (products?.similar_products?[indexPath.row].product_price)! + " сом."
         cell.is_favorite = ((products?.similar_products?[indexPath.row].is_favorite) != nil)
         cell.id = products?.similar_products?[indexPath.row].id ?? ""
+        cell.configureConstraints()
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
